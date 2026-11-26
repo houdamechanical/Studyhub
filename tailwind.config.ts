@@ -69,6 +69,11 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
       },
+      transitionTimingFunction: {
+        // Strong curves (Emil Kowalski): ease-out for UI, ease-in-out for things moving on screen.
+        out: "cubic-bezier(0.23, 1, 0.32, 1)",
+        "in-out": "cubic-bezier(0.77, 0, 0.175, 1)",
+      },
       keyframes: {
         float: {
           "0%, 100%": { transform: "translateY(0) rotate(0deg)" },

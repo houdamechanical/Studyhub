@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Geist, Noto_Sans_Arabic } from "next/font/google";
+import { Geist, Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { I18nProvider, LOCALE_BOOT_SCRIPT } from "@/lib/i18n/client";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
@@ -36,8 +36,8 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-// Headings: bold, rounded, a bit playful.
-const display = Bricolage_Grotesque({
+// Headings: clean geometric sans, set heavy with tight tracking.
+const display = Plus_Jakarta_Sans({
   variable: "--font-display",
   display: "swap",
   subsets: ["latin"],

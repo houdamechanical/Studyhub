@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BackPill } from "@/components/page-hero";
+import { GlassIcon, SUBJECT_ICONS, SubjectIcon } from "@/components/subject-icon";
 import { getContentForSubject, type ContentItem, type ContentKind } from "@/lib/content";
 import { useLoad } from "@/lib/data";
 import type { Exam } from "@/lib/exams";
@@ -30,6 +31,7 @@ import {
 } from "@/lib/loaders";
 import { PRACTICE_SEMESTER, semesterHref, splitSemester } from "@/lib/school";
 import { SUBJECTS, subjectGradient, type SubjectId } from "@/lib/subjects";
+import { useCountUp, useMounted } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 const KIND_ICON: Record<ContentKind, LucideIcon> = {
@@ -89,16 +91,15 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
 
       {/* Hero */}
       <section
-        className="relative isolate mt-4 overflow-hidden rounded-[2.5rem] p-6 text-white shadow-xl sm:p-10 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-500"
+        className="enter relative isolate mt-4 overflow-hidden rounded-[2.5rem] p-6 text-white shadow-xl shadow-black/10 sm:p-10"
         style={{ backgroundImage: subjectGradient(subject) }}
       >
-        <span className="tile-dots absolute inset-0 -z-10 opacity-60" aria-hidden />
-        <span
-          className="pointer-events-none absolute -bottom-10 -end-6 -z-10 select-none text-[11rem] leading-none opacity-25 motion-safe:animate-float sm:-bottom-14 sm:text-[16rem]"
-          aria-hidden
-        >
-          {info.emoji}
-        </span>
+        <span className="grain-layer absolute inset-0 -z-10" aria-hidden />
+        <SubjectIcon
+          subject={subject}
+          strokeWidth={1.1}
+          className="pointer-events-none absolute -bottom-12 -end-8 -z-10 size-56 rotate-[-12deg] text-white/[0.17] sm:-bottom-16 sm:size-80"
+        />
         <span
           className="absolute -start-20 -top-24 -z-10 size-72 rounded-full bg-white/20 blur-3xl"
           aria-hidden
@@ -106,27 +107,31 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
         <p className="glass inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider">
           {fill(dict.school.grade, { grade })} · {halfLabel}
         </p>
-        <h1 className="mt-4 flex items-center gap-3 font-display text-5xl font-extrabold leading-none tracking-tight drop-shadow-sm sm:text-7xl">
-          <span className="glass flex size-14 shrink-0 items-center justify-center rounded-2xl text-3xl sm:size-20 sm:text-5xl">
-            {info.emoji}
-          </span>
+        <h1 className="mt-4 flex items-center gap-3 font-display text-5xl font-extrabold leading-none drop-shadow-sm sm:gap-4 sm:text-7xl">
+          <GlassIcon icon={SUBJECT_ICONS[subject]} className="size-14 sm:size-20 sm:rounded-3xl" />
           {info.label[locale]}
         </h1>
         <div className="mt-6 flex flex-wrap gap-2 text-sm font-semibold">
           <HeroStat>{formatPageCount(pages.length, dict)}</HeroStat>
           {withPractice && data && (
             <>
-              <HeroStat>
+              {minis.length + mocks.length > 0 && <HeroStat>
                 {minis.length + mocks.length === 1
                   ? dict.school.oneTest
                   : fill(dict.school.tests, { n: minis.length + mocks.length })}
-              </HeroStat>
-              {totalDue > 0 && <HeroStat>🃏 {fill(dict.practice.due, { n: totalDue })}</HeroStat>}
+              </HeroStat>}
+              {totalDue > 0 && (
+                <HeroStat>
+                  <Layers size={14} className="me-1.5 inline -mt-0.5" />
+                  {fill(dict.practice.due, { n: totalDue })}
+                </HeroStat>
+              )}
             </>
           )}
           {exams[0] && (
             <HeroStat>
-              📅 {dict.home.nextExam}: {whenLabel(exams[0].exam_date, dict)}
+              <CalendarClock size={14} className="me-1.5 inline -mt-0.5" />
+              {dict.home.nextExam}: {whenLabel(exams[0].exam_date, dict)}
             </HeroStat>
           )}
         </div>
@@ -153,7 +158,7 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
       </nav>
 
       <div className="mt-6 flex flex-col gap-12">
-        <Section id="pages" icon={FileText} title={t.studyPages} count={pages.length} empty={t.emptyPages} emoji="📄">
+        <Section id="pages" icon={FileText} title={t.studyPages} count={pages.length} empty={t.emptyPages}>
           {pages.map((item, i) => (
             <StudyPageCard key={item.id} item={item} index={i} />
           ))}
@@ -165,7 +170,6 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
           title={t.miniTests}
           count={minis.length}
           empty={t.emptyTests}
-          emoji="✅"
           loading={state.loading}
         >
           {minis.map((q, i) => (
@@ -179,7 +183,6 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
           title={t.mockExams}
           count={mocks.length}
           empty={t.emptyMocks}
-          emoji="⏱️"
           loading={state.loading}
         >
           {mocks.map((q, i) => (
@@ -193,7 +196,6 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
           title={t.flashcards}
           count={decks.length}
           empty={t.emptyDecks}
-          emoji="🃏"
           loading={state.loading}
         >
           {decks.map((d, i) => (
@@ -207,7 +209,6 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
           title={t.exams}
           count={exams.length}
           empty={t.emptyExams}
-          emoji="📅"
           loading={state.loading}
           action={
             <Link
@@ -242,7 +243,6 @@ function Section({
   title,
   count,
   empty,
-  emoji,
   loading = false,
   action,
   children,
@@ -252,18 +252,14 @@ function Section({
   title: string;
   count: number;
   empty: string;
-  emoji: string;
   loading?: boolean;
   action?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <section id={id} className="scroll-mt-32">
-      <div className="mb-4 flex items-center gap-3">
-        <span className="flex size-10 items-center justify-center rounded-2xl bg-[color-mix(in_srgb,var(--subject)_15%,transparent)] text-[var(--subject)]">
-          <Icon size={20} strokeWidth={2.5} />
-        </span>
-        <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">{title}</h2>
+      <div className="mb-4 flex items-baseline gap-3">
+        <h2 className="font-display text-2xl font-extrabold sm:text-3xl">{title}</h2>
         {!loading && count > 0 && (
           <span className="rounded-full bg-muted px-2.5 py-0.5 text-sm font-bold tabular-nums text-muted-foreground">
             {count}
@@ -279,8 +275,8 @@ function Section({
         </div>
       ) : count === 0 ? (
         <div className="flex items-center gap-4 rounded-3xl border-2 border-dashed border-[color-mix(in_srgb,var(--subject)_30%,transparent)] bg-[color-mix(in_srgb,var(--subject)_5%,transparent)] p-5">
-          <span className="text-3xl grayscale-[30%]" aria-hidden>
-            {emoji}
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-[color-mix(in_srgb,var(--subject)_12%,transparent)] text-[var(--subject)]" aria-hidden>
+            <Icon size={20} strokeWidth={2.25} />
           </span>
           <p className="font-medium text-muted-foreground">{empty}</p>
         </div>
@@ -289,6 +285,17 @@ function Section({
       )}
     </section>
   );
+}
+
+/** Entrance delays: quick and slightly uneven (30–80 ms steps), capped so long lists don't lag. */
+const STAGGER = [0, 40, 90, 130, 180, 210, 250, 280];
+
+/** Feeds the cursor position to the card's spotlight glow (set on the card itself). */
+function trackPointer(e: React.PointerEvent<HTMLElement>) {
+  if (e.pointerType !== "mouse") return;
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
 }
 
 /** Shared card shell: white card, subject-coloured hover glow, staggered entrance. */
@@ -304,14 +311,12 @@ function CardLink({
   className?: string;
 }) {
   return (
-    <li
-      className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-4 motion-safe:fill-mode-both motion-safe:duration-500"
-      style={{ animationDelay: `${Math.min(index, 8) * 50}ms` }}
-    >
+    <li className="enter" style={{ animationDelay: `${STAGGER[Math.min(index, STAGGER.length - 1)]}ms` }}>
       <Link
         href={href}
+        onPointerMove={trackPointer}
         className={cn(
-          "tile group flex h-full gap-4 rounded-3xl border bg-card p-4 hover:border-[color-mix(in_srgb,var(--subject)_45%,transparent)] hover:shadow-[0_20px_40px_-20px_var(--subject)] sm:p-5",
+          "tile spotlight group flex h-full gap-4 rounded-3xl border bg-card p-4 [--glow:var(--subject)] hover:border-[color-mix(in_srgb,var(--subject)_40%,transparent)] sm:p-5",
           className,
         )}
       >
@@ -391,7 +396,9 @@ function ProgressRing({ value }: { value: number | null }) {
   const stroke = 6;
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
-  const pct = value === null ? 0 : Math.round(value * 100);
+  // Draw the ring and count the number up once, when the card appears.
+  const mounted = useMounted();
+  const shown = useCountUp(value === null ? null : Math.round(value * 100));
   return (
     <span className="relative flex shrink-0 items-center justify-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90" aria-hidden>
@@ -414,13 +421,13 @@ function ProgressRing({ value }: { value: number | null }) {
             strokeLinecap="round"
             stroke="var(--subject)"
             strokeDasharray={c}
-            strokeDashoffset={c * (1 - value)}
-            className="transition-[stroke-dashoffset] duration-700"
+            strokeDashoffset={mounted ? c * (1 - value) : c}
+            className="transition-[stroke-dashoffset] duration-[900ms] ease-out"
           />
         )}
       </svg>
       <span className="absolute font-display text-sm font-extrabold tabular-nums">
-        {value === null ? <span className="text-lg text-muted-foreground">?</span> : `${pct}%`}
+        {value === null ? <span className="text-lg text-muted-foreground">?</span> : `${Math.round(shown)}%`}
       </span>
     </span>
   );

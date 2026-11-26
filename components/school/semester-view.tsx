@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { BigTile } from "@/components/big-tile";
 import { PageHero } from "@/components/page-hero";
+import { SlidingIndicator } from "@/components/sliding-indicator";
+import { SUBJECT_ICONS } from "@/components/subject-icon";
 import { getAllContent } from "@/lib/content";
 import { must, useLoad } from "@/lib/data";
 import { useI18n } from "@/lib/i18n/client";
@@ -54,7 +56,10 @@ export function SemesterView({ semester }: { semester: string }) {
         eyebrow={`${fill(t.grade, { grade })} · ${half === "1" ? t.half1 : t.half2}`}
         title={t.pickSubject}
         aside={
-          <div className="flex rounded-full border bg-card p-1 shadow-sm" role="group">
+          <div className="relative grid grid-cols-2 rounded-full border bg-card p-1 shadow-sm" role="group">
+            <span className="absolute inset-1">
+              <SlidingIndicator count={2} index={half === "1" ? 0 : 1} className="inset-0 rounded-full bg-primary shadow-md shadow-primary/30" />
+            </span>
             {HALVES.map((h) => {
               const active = h === half;
               return (
@@ -63,8 +68,8 @@ export function SemesterView({ semester }: { semester: string }) {
                   href={semesterHref(`${grade}.${h}`)}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "rounded-full px-4 py-2 text-sm font-bold transition-all",
-                    active ? "bg-brand text-white shadow-md shadow-fuchsia-500/25" : "text-muted-foreground hover:text-foreground",
+                    "press relative rounded-full px-4 py-2 text-center text-sm font-bold",
+                    active ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
                   {grade}.{h}
@@ -89,7 +94,7 @@ export function SemesterView({ semester }: { semester: string }) {
               size="md"
               href={subjectHref(id, semester)}
               background={subjectGradient(id)}
-              emoji={info.emoji}
+              icon={SUBJECT_ICONS[id]}
               title={info.label[locale]}
               subtitle={
                 hasPractice && state.loading ? (

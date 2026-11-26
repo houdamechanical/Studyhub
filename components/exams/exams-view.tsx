@@ -1,5 +1,6 @@
 "use client";
 
+import { SubjectIcon } from "@/components/subject-icon";
 import { Check, Clock, MapPin, Pencil, Plus, RotateCcw, Trash2 } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import { deleteExam, setExamStatus } from "@/lib/mutations/exams";
@@ -96,7 +97,7 @@ function ExamRow({ exam, onEdit }: { exam: Exam; onEdit: () => void }) {
         <span className="mt-1 h-10 w-1 shrink-0 rounded-full bg-[var(--subject)]" aria-hidden />
         <div className="min-w-0 flex-1">
           <p className={cn("font-medium", isDone && "text-muted-foreground line-through decoration-1")}>
-            {subject.emoji} {subject.label[locale]}
+            <SubjectIcon subject={exam.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
             {exam.title && <span className="font-normal"> · <bdi>{exam.title}</bdi></span>}
           </p>
           <p className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">

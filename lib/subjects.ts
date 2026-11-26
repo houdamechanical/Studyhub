@@ -81,8 +81,20 @@ export function subjectLabel(id: SubjectId, locale: Locale) {
   return SUBJECTS[id].label[locale];
 }
 
-/** CSS background for a subject's gradient tile. */
+/**
+ * CSS background for a subject's gradient tile: a soft mesh (a light highlight
+ * top-left, the deep colour bottom-right) over a linear base, so it has depth
+ * instead of a flat two-colour fade.
+ */
 export function subjectGradient(id: SubjectId, angle = 135) {
-  const [a, b] = SUBJECTS[id].gradient;
-  return `linear-gradient(${angle}deg, ${a}, ${b})`;
+  return meshGradient(...SUBJECTS[id].gradient, angle);
+}
+
+export function meshGradient(a: string, b: string, angle = 135) {
+  return [
+    `radial-gradient(at 0% 0%, color-mix(in oklab, ${a} 70%, white) 0, transparent 55%)`,
+    `radial-gradient(at 100% 100%, color-mix(in oklab, ${b} 80%, black) 0, transparent 60%)`,
+    `radial-gradient(at 85% 10%, color-mix(in oklab, ${b} 75%, white) 0, transparent 45%)`,
+    `linear-gradient(${angle}deg, ${a}, ${b})`,
+  ].join(", ");
 }

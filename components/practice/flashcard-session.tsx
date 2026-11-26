@@ -1,5 +1,6 @@
 "use client";
 
+import { SubjectIcon } from "@/components/subject-icon";
 import { ArrowLeft, PartyPopper } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -96,7 +97,7 @@ export function FlashcardSession({
         <div className="min-w-0 flex-1">
           <h1 className="truncate font-semibold" dir="auto">{deck.title}</h1>
           <p className="text-xs text-muted-foreground">
-            {subject.emoji} {subject.label[locale]}
+            <SubjectIcon subject={deck.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
           </p>
         </div>
         {queue && total > 0 && (
@@ -106,7 +107,7 @@ export function FlashcardSession({
 
       {queue && total > 0 && (
         <div className="h-1.5 overflow-hidden rounded-full bg-muted" aria-hidden>
-          <div className="h-full bg-[var(--chart-accent)] transition-all" style={{ width: `${(reviewed / total) * 100}%` }} />
+          <div className="h-full bg-[var(--chart-accent)] transition-[width] duration-300 ease-out" style={{ width: `${(reviewed / total) * 100}%` }} />
         </div>
       )}
 

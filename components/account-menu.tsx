@@ -49,7 +49,7 @@ export function AccountMenu({
         <button
           type="button"
           aria-label={dict.nav.account}
-          className="ms-1 flex size-10 items-center justify-center rounded-full bg-brand font-display text-base font-extrabold uppercase text-white shadow-md shadow-fuchsia-500/25 ring-2 ring-background transition-transform active:scale-95"
+          className="grain relative isolate ms-1 flex size-10 overflow-hidden items-center justify-center rounded-full bg-brand font-display text-base font-extrabold uppercase text-white shadow-md shadow-fuchsia-500/25 ring-2 ring-background press"
         >
           {nickname.slice(0, 1) || "?"}
         </button>

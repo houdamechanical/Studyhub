@@ -36,11 +36,11 @@ export function NameOnboarding({ onDone }: { onDone: (name: string) => void }) {
   }
 
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-brand px-4 py-10">
+    <div className="grain relative isolate flex min-h-dvh items-center justify-center overflow-hidden bg-brand px-4 py-10">
       <Blobs />
       <form
         onSubmit={submit}
-        className="relative w-full max-w-md rounded-4xl bg-background/90 p-7 shadow-2xl ring-1 ring-white/40 backdrop-blur-xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-500 sm:p-9"
+        className="relative w-full max-w-md rounded-4xl bg-background/90 p-7 shadow-2xl ring-1 ring-white/40 backdrop-blur-xl enter sm:p-9"
       >
         <div className="mb-5 inline-block origin-[70%_70%] text-5xl motion-safe:animate-float" aria-hidden>
           👋
@@ -77,7 +77,7 @@ export function NameOnboarding({ onDone }: { onDone: (name: string) => void }) {
         <button
           type="submit"
           disabled={saving || name.trim().length === 0}
-          className="group mt-6 flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-brand text-lg font-bold text-white shadow-lg shadow-fuchsia-500/30 transition-transform active:scale-[0.98] disabled:opacity-50"
+          className="group mt-6 flex h-14 w-full items-center justify-center gap-2 press rounded-2xl bg-primary text-lg font-bold text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 disabled:opacity-50"
         >
           {saving ? <Loader2 className="animate-spin" size={20} /> : t.cta}
           {!saving && <ArrowRight size={20} className="transition-transform group-hover:translate-x-1 rtl:rotate-180" />}

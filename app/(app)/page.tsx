@@ -1,6 +1,7 @@
 "use client";
 
-import { CalendarClock, GraduationCap, Layers, Plus, Sparkles, Trophy } from "lucide-react";
+import { SubjectIcon } from "@/components/subject-icon";
+import { CalendarClock, ChartNoAxesColumn, GraduationCap, Layers, Plus, Sparkles, Sun, Trophy } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
@@ -13,11 +14,11 @@ import { fill } from "@/lib/i18n/dictionaries";
 import { daysUntil, dueCount, loadGrades, loadPractice, loadUpcomingExams } from "@/lib/loaders";
 import { getDisplayScale } from "@/lib/mutations/grades";
 import { CURRENT, gradeHref, OPEN_GRADES, SCHOOL_GRADES } from "@/lib/school";
-import { SUBJECTS, subjectGradient } from "@/lib/subjects";
+import { meshGradient, SUBJECTS, subjectGradient } from "@/lib/subjects";
 
 const GRADE_BACKGROUND: Record<string, string> = {
   "11": "linear-gradient(120deg, #6366f1, #a855f7 40%, #ec4899 70%, #6366f1)",
-  "12": "linear-gradient(135deg, #64748b, #334155)",
+  "12": meshGradient("#64748b", "#334155"),
 };
 
 async function loadHome() {
@@ -48,12 +49,12 @@ export default function HomePage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 pb-12 pt-8 sm:pt-12">
       {/* Greeting */}
-      <section className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 motion-safe:duration-700">
+      <section className="enter">
         <p className="flex items-center gap-2 text-base font-semibold text-muted-foreground sm:text-lg">
           <Sparkles className="size-5 text-fuchsia-500 motion-safe:animate-float" aria-hidden />
           {t.welcome}
         </p>
-        <h1 className="mt-1 break-words pb-1 font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-7xl">
+        <h1 className="mt-1 break-words pb-1 font-display text-5xl font-extrabold leading-[1.05] sm:text-6xl">
           <bdi className="text-brand animate-gradient-pan">{nickname || "…"}</bdi>
           <span className="inline-block origin-[70%_70%] motion-safe:animate-float" aria-hidden>
             {" "}
@@ -75,28 +76,25 @@ export default function HomePage() {
               background={GRADE_BACKGROUND[g]}
               animate={open}
               icon={GraduationCap}
-              emoji={open ? "📚" : "🔒"}
               title={fill(t.grade, { grade: g })}
               subtitle={open ? (g === CURRENT.grade ? fill(t.nowIn, { half: halfLabel }) : null) : t.comingSoon}
-              badge={open && g === CURRENT.grade ? <TileBadge pulse>{dict.school.now}</TileBadge> : undefined}
+              badge={open && g === CURRENT.grade ? <TileBadge dot>{dict.school.now}</TileBadge> : undefined}
               delay={80 + i * 90}
             />
           );
         })}
         <BigTile
           href="/grades"
-          background="linear-gradient(135deg, #10b981, #06b6d4)"
-          icon={GraduationCap}
-          emoji="📊"
+          background={meshGradient("#10b981", "#06b6d4")}
+          icon={ChartNoAxesColumn}
           title={t.gradesExams}
           subtitle={avg !== null && data ? fill(t.gradesHint, { avg: formatScore(avg, data.scale, intlLocale(locale)) }) : t.gradesEmpty}
           delay={260}
         />
         <BigTile
           href="/compare"
-          background="linear-gradient(135deg, #f59e0b, #ef4444)"
+          background={meshGradient("#f59e0b", "#ef4444")}
           icon={Trophy}
-          emoji="🏆"
           title={t.leaderboard}
           subtitle={t.leaderboardHint}
           delay={350}
@@ -104,14 +102,14 @@ export default function HomePage() {
       </div>
 
       {/* Today: next exam + flashcards to review */}
-      <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-5 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:fill-mode-both motion-safe:delay-500 motion-safe:duration-700">
+      <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-5 enter [animation-delay:320ms]">
         <NextExamCard exams={data?.exams ?? null} today={today} />
         {totalDue > 0 && (
           <Link
             href={`/practice/deck?id=${dueDecks[0].d.id}`}
             className="tile group flex items-center gap-4 rounded-3xl border bg-card p-4 sm:p-5"
           >
-            <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-brand text-white shadow-md shadow-fuchsia-500/25">
+            <span className="grain relative isolate flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-brand text-white shadow-md shadow-fuchsia-500/25">
               <Layers size={24} />
             </span>
             <div className="min-w-0">
@@ -119,7 +117,7 @@ export default function HomePage() {
                 {totalDue === 1 ? t.oneDueCard : fill(t.dueCards, { n: totalDue })}
               </p>
               <p className="truncate text-sm text-muted-foreground">
-                {SUBJECTS[dueDecks[0].d.subject].emoji} {dueDecks[0].d.title}
+                <SubjectIcon subject={dueDecks[0].d.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{dueDecks[0].d.title}
               </p>
             </div>
           </Link>
@@ -140,7 +138,9 @@ function NextExamCard({ exams, today }: { exams: Awaited<ReturnType<typeof loadU
   if (!exam) {
     return (
       <div className="flex items-center gap-4 rounded-3xl border border-dashed bg-card/60 p-4 sm:p-5">
-        <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-muted text-2xl">🏖️</span>
+        <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-amber-500/12 text-amber-500">
+          <Sun size={24} strokeWidth={2.25} aria-hidden />
+        </span>
         <div className="min-w-0 flex-1">
           <p className="font-medium">{t.noExam}</p>
           <Link
@@ -172,7 +172,7 @@ function NextExamCard({ exams, today }: { exams: Awaited<ReturnType<typeof loadU
           <CalendarClock size={13} /> {t.nextExam}
         </p>
         <p className="truncate font-display text-lg font-bold leading-tight">
-          {subject.emoji} {exam.title || subject.label[locale]}
+          <SubjectIcon subject={exam.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{exam.title || subject.label[locale]}
         </p>
       </div>
       <span

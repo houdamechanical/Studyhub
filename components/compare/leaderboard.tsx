@@ -1,3 +1,4 @@
+import { Crown, Flag } from "lucide-react";
 import type { Board } from "@/lib/compare";
 import { cn } from "@/lib/utils";
 
@@ -35,7 +36,7 @@ export function Leaderboard({
       {note && <p className="text-xs text-muted-foreground">{note}</p>}
       {board.rows.length === 0 ? (
         <p className="rounded-3xl border-2 border-dashed p-6 text-center font-medium text-muted-foreground">
-          <span className="mb-1 block text-3xl">🏁</span>
+          <Flag className="mx-auto mb-2 size-8 text-muted-foreground/70" strokeWidth={2} aria-hidden />
           {labels.empty}
         </p>
       ) : (
@@ -132,17 +133,14 @@ const MEDAL = [
   {
     bg: "linear-gradient(135deg, #fde047, #f59e0b)",
     height: "h-28 sm:h-32",
-    emoji: "🥇",
   },
   {
     bg: "linear-gradient(135deg, #e2e8f0, #94a3b8)",
     height: "h-20 sm:h-24",
-    emoji: "🥈",
   },
   {
     bg: "linear-gradient(135deg, #fdba74, #c2410c)",
     height: "h-14 sm:h-16",
-    emoji: "🥉",
   },
 ];
 
@@ -164,8 +162,8 @@ function Podium({
         row ? (
           <li
             key={`${row.rank}-${row.nickname}`}
-            className="flex min-w-0 flex-col items-center text-center motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-4 motion-safe:fill-mode-both motion-safe:duration-700"
-            style={{ animationDelay: `${[150, 0, 300][i]}ms` }}
+            className="enter flex min-w-0 flex-col items-center text-center"
+            style={{ animationDelay: `${[90, 0, 170][i]}ms` }}
           >
             <span
               className={cn(
@@ -178,12 +176,11 @@ function Podium({
             >
               {row.nickname.slice(0, 1)}
               {row.rank === 1 && (
-                <span
-                  className="absolute -top-5 text-2xl motion-safe:animate-float sm:-top-6 sm:text-3xl"
+                <Crown
+                  className="absolute -top-6 size-7 fill-amber-300 text-amber-500 drop-shadow motion-safe:animate-float sm:-top-7 sm:size-8"
+                  strokeWidth={2}
                   aria-hidden
-                >
-                  👑
-                </span>
+                />
               )}
             </span>
             <span
@@ -210,7 +207,7 @@ function Podium({
               style={{ backgroundImage: MEDAL[Math.min(row.rank, 3) - 1].bg }}
               aria-label={`#${row.rank}`}
             >
-              {MEDAL[Math.min(row.rank, 3) - 1].emoji}
+              <span className="font-display text-3xl font-extrabold text-white/90 drop-shadow-sm">{row.rank}</span>
             </span>
           </li>
         ) : (

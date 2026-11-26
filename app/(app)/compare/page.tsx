@@ -1,5 +1,6 @@
 "use client";
 
+import { SubjectIcon } from "@/components/subject-icon";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -101,12 +102,12 @@ function CompareView({ subject, nickname, shared, board, scale }: Awaited<Return
               href={`/compare?subject=${id}`}
               aria-current={id === subject ? "page" : undefined}
               className={cn(
-                "whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-semibold transition-all",
+                "press whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-semibold",
                 id === subject ? "border-transparent text-white shadow-md" : "bg-card hover:bg-accent",
               )}
               style={id === subject ? { backgroundImage: subjectGradient(id) } : undefined}
             >
-              {SUBJECTS[id].emoji} {SUBJECTS[id].label[locale]}
+              <SubjectIcon subject={id} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{SUBJECTS[id].label[locale]}
             </Link>
           ))}
         </div>

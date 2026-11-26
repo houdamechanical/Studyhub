@@ -97,7 +97,7 @@ export function ProfileCard({ nickname, shared }: { nickname: string; shared: Su
                 onClick={() => toggle(id)}
                 className={cn(
                   "flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors",
-                  on ? "border-transparent bg-brand text-white shadow-md shadow-fuchsia-500/25" : "text-muted-foreground hover:bg-accent",
+                  on ? "border-transparent bg-primary text-primary-foreground shadow-md shadow-primary/25" : "text-muted-foreground hover:bg-accent",
                 )}
               >
                 {on && <Check size={14} />}

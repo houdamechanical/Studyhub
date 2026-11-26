@@ -1,6 +1,7 @@
 "use client";
 
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { SubjectIcon } from "@/components/subject-icon";
+import { ChartNoAxesColumn, Pencil, Plus, Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import { deleteGrade, setDisplayScale } from "@/lib/mutations/grades";
 import { GradeChart, GradeTable } from "@/components/grades/grade-chart";
@@ -22,7 +23,7 @@ import {
 } from "@/lib/grades";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatGradeCount, formatSemester } from "@/lib/i18n/dictionaries";
-import { SUBJECTS, subjectGradient, type SubjectId } from "@/lib/subjects";
+import { meshGradient, SUBJECTS, subjectGradient, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
 const ALL = "all";
@@ -72,7 +73,7 @@ export function GradesView({ grades, initialScale }: { grades: Grade[]; initialS
                 aria-pressed={semester === s}
                 className={cn(
                   "rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors",
-                  semester === s ? "border-transparent bg-brand text-white shadow-md shadow-fuchsia-500/25" : "hover:bg-accent",
+                  semester === s ? "border-transparent bg-primary text-primary-foreground shadow-md shadow-primary/25" : "hover:bg-accent",
                 )}
               >
                 {/* <bdi> keeps "11.1" and "2.27" apart in right-to-left text */}
@@ -105,9 +106,9 @@ export function GradesView({ grades, initialScale }: { grades: Grade[]; initialS
 
       {/* Summary */}
       <section className="grid gap-3 sm:grid-cols-[minmax(0,14rem)_1fr]">
-        <div className="relative isolate overflow-hidden rounded-3xl p-5 text-white shadow-lg" style={{ backgroundImage: "linear-gradient(135deg, #10b981, #06b6d4)" }}>
-          <span className="tile-dots absolute inset-0 -z-10 opacity-60" aria-hidden />
-          <span className="pointer-events-none absolute -bottom-6 -end-4 -z-10 text-8xl opacity-25" aria-hidden>📊</span>
+        <div className="relative isolate overflow-hidden rounded-3xl p-5 text-white shadow-lg" style={{ backgroundImage: meshGradient("#10b981", "#06b6d4") }}>
+          <span className="grain-layer absolute inset-0 -z-10" aria-hidden />
+          <ChartNoAxesColumn className="pointer-events-none absolute -bottom-6 -end-4 -z-10 size-36 rotate-[-12deg] text-white/[0.17]" strokeWidth={1.25} aria-hidden />
           <p className="text-sm font-semibold text-white/85">
             {semester === ALL ? t.allSemesters : `${t.semesterAverage} · ${formatSemester(semester, dict)}`}
           </p>
@@ -125,11 +126,11 @@ export function GradesView({ grades, initialScale }: { grades: Grade[]; initialS
               {bySubject.map((s) => (
                 <li key={s.subject} className="flex items-center gap-3 py-2">
                   <span
-                    className="flex size-8 shrink-0 items-center justify-center rounded-xl text-base"
+                    className="flex size-8 shrink-0 items-center justify-center rounded-xl shadow-sm"
                     style={{ backgroundImage: subjectGradient(s.subject) }}
                     aria-hidden
                   >
-                    {SUBJECTS[s.subject].emoji}
+                    <SubjectIcon subject={s.subject} className="size-4 text-white" />
                   </span>
                   <span className="flex-1 truncate">{SUBJECTS[s.subject].label[locale]}</span>
                   <span className="text-xs text-muted-foreground">{formatGradeCount(s.count, dict)}</span>

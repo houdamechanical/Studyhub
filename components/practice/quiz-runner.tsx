@@ -1,5 +1,6 @@
 "use client";
 
+import { SubjectIcon } from "@/components/subject-icon";
 import { ArrowLeft, Clock, Play } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -89,7 +90,7 @@ export function QuizRunner({
         </Link>
         <div className="rounded-3xl border bg-card p-5">
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            {quiz.kind === "mock" ? t.mock : t.mini} · {subject.emoji} {subject.label[locale]}
+            {quiz.kind === "mock" ? t.mock : t.mini} · <SubjectIcon subject={quiz.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
           </p>
           <h1 className="mt-1 text-2xl font-semibold tracking-tight" dir="auto">{quiz.title}</h1>
           {quiz.description && <p className="mt-2 whitespace-pre-line text-sm text-muted-foreground" dir="auto">{quiz.description}</p>}

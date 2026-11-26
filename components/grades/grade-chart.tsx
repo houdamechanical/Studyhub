@@ -1,5 +1,6 @@
 "use client";
 
+import { SubjectIcon } from "@/components/subject-icon";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { formatOnScale, formatScore, fromScore, toScore, type Scale, type TimelinePoint } from "@/lib/grades";
 import { formatDate, intlLocale } from "@/lib/format";
@@ -161,7 +162,7 @@ export function GradeChart({ points, scale }: { points: TimelinePoint[]; scale: 
         >
           <p className="text-muted-foreground">{formatDate(h.grade.graded_on, locale)}</p>
           <p className="mt-0.5 font-medium">
-            {SUBJECTS[h.grade.subject].emoji} {SUBJECTS[h.grade.subject].label[locale]}
+            <SubjectIcon subject={h.grade.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{SUBJECTS[h.grade.subject].label[locale]}
             {h.grade.title && <span className="font-normal"> · {h.grade.title}</span>}
           </p>
           <p className="mt-1.5 flex items-center justify-between gap-2">

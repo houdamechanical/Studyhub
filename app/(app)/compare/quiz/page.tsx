@@ -1,5 +1,6 @@
 "use client";
 
+import { SubjectIcon } from "@/components/subject-icon";
 import { ArrowLeft, Play } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -61,7 +62,7 @@ function QuizBoard() {
               </Link>
               <header>
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  {t.leaderboard} · {quiz.kind === "mock" ? dict.quiz.mock : dict.quiz.mini} · {subject.emoji}{" "}
+                  {t.leaderboard} · {quiz.kind === "mock" ? dict.quiz.mock : dict.quiz.mini} · <SubjectIcon subject={quiz.subject as SubjectId} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />
                   {subject.label[locale]}
                 </p>
                 <h1 className="mt-1 text-2xl font-semibold tracking-tight" dir="auto">

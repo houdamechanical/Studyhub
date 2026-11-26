@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock, MapPin } from "lucide-react";
+import { SubjectIcon } from "@/components/subject-icon";
+import { Clock, MapPin, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { examStart, sortByDate, type Exam } from "@/lib/exams";
 import { formatDate, formatTime } from "@/lib/format";
@@ -37,7 +38,7 @@ export function NextExamCountdown({ exams }: { exams: Exam[] }) {
   if (!next) {
     return (
       <div className="rounded-4xl border-2 border-dashed p-8 text-center font-medium text-muted-foreground">
-        <span className="mb-2 block text-4xl">🏖️</span>
+        <Sun className="mx-auto mb-2 size-9 text-amber-500" strokeWidth={2} aria-hidden />
         {t.noUpcoming}
       </div>
     );
@@ -85,16 +86,15 @@ export function NextExamCountdown({ exams }: { exams: Exam[] }) {
       className="relative isolate overflow-hidden rounded-4xl p-6 text-white shadow-lg sm:p-8"
       style={{ backgroundImage: subjectGradient(next.subject) }}
     >
-      <span className="tile-dots absolute inset-0 -z-10 opacity-60" aria-hidden />
-      <span
-        className="pointer-events-none absolute -bottom-8 -end-4 -z-10 select-none text-[9rem] leading-none opacity-25 motion-safe:animate-float"
-        aria-hidden
-      >
-        {subject.emoji}
-      </span>
+      <span className="grain-layer absolute inset-0 -z-10" aria-hidden />
+      <SubjectIcon
+        subject={next.subject}
+        strokeWidth={1.1}
+        className="pointer-events-none absolute -bottom-10 -end-6 -z-10 size-48 rotate-[-12deg] text-white/[0.17]"
+      />
       <p className="glass inline-block rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider">{t.next}</p>
       <h2 className="mt-3 font-display text-2xl font-extrabold sm:text-3xl">
-        {subject.emoji} {subject.label[locale]}
+        <SubjectIcon subject={next.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
         {next.title && <span className="font-semibold text-white/85"> · {next.title}</span>}
       </h2>
       <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-white/85">
