@@ -8,7 +8,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
           <BookOpen size={19} strokeWidth={2.25} />
         </span>
-        <span className="font-display text-2xl font-bold">Study Hub</span>
+        <span className="font-display text-2xl font-semibold">Study Hub</span>
       </div>
       <div className="enter w-full [animation-delay:60ms] [&>div]:min-h-0 [&>div]:p-0 [&>div]:py-6">{children}</div>
     </div>

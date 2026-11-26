@@ -111,7 +111,7 @@ function CompareView({ subject, nickname, shared, board, scale }: Awaited<Return
       <section>
         <div className="relative grid grid-cols-2 rounded-full border bg-card p-1 sm:inline-grid sm:min-w-80">
           <span className="absolute inset-1">
-            <SlidingIndicator count={2} index={view === "tests" ? 0 : 1} className="inset-0 rounded-full bg-white/[0.08]" />
+            <SlidingIndicator count={2} index={view === "tests" ? 0 : 1} className="inset-0 rounded-full bg-[#38332c]" />
           </span>
           {(["tests", "grades"] as const).map((v) => (
             <button

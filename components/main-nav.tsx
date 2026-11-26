@@ -1,9 +1,9 @@
 "use client";
 
-import { BookOpen, GraduationCap, House, Trophy, type LucideIcon } from "lucide-react";
+import { BookOpen, ChartNoAxesColumn, LayoutDashboard, Trophy, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MeasuredIndicator, SlidingIndicator } from "@/components/sliding-indicator";
+import { SlidingIndicator } from "@/components/sliding-indicator";
 import { useI18n } from "@/lib/i18n/client";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { semesterHref } from "@/lib/school";
@@ -18,9 +18,9 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { href: "/", label: "home", icon: House, match: [] },
+  { href: "/", label: "home", icon: LayoutDashboard, match: [] },
   { href: semesterHref(), label: "subjects", icon: BookOpen, match: ["/grade", "/library", "/practice"] },
-  { href: "/grades", label: "gradesExams", icon: GraduationCap, match: ["/grades", "/exams"] },
+  { href: "/grades", label: "gradesExams", icon: ChartNoAxesColumn, match: ["/grades", "/exams"] },
   { href: "/compare", label: "leaderboard", icon: Trophy, match: ["/compare"] },
 ];
 
@@ -33,46 +33,12 @@ function useActive() {
 /** Logo: gradient app mark + name. */
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight">
+    <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold">
       <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
         <BookOpen size={17} strokeWidth={2.5} />
       </span>
-      <span className="hidden sm:inline">Study Hub</span>
+      <span>Study Hub</span>
     </Link>
-  );
-}
-
-/**
- * Pills in the header, from the lg breakpoint up (laptops, iPad in landscape).
- * Below that – phones and iPads in portrait – the tab bar is used.
- */
-export function DesktopNav() {
-  const { dict } = useI18n();
-  const isActive = useActive();
-  const activeKey = NAV_ITEMS.find(isActive)?.label ?? null;
-  return (
-    <nav className="relative hidden lg:flex items-center gap-1 rounded-full border bg-card p-1">
-      <MeasuredIndicator activeKey={activeKey} className="rounded-full bg-white/[0.08]" />
-      {NAV_ITEMS.map((item) => {
-        const Icon = item.icon;
-        const active = isActive(item);
-        return (
-          <Link
-            key={item.label}
-            data-key={item.label}
-            href={item.href}
-            aria-current={active ? "page" : undefined}
-            className={cn(
-              "press relative flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold",
-              active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            <Icon size={16} strokeWidth={2.25} />
-            {dict.nav[item.label]}
-          </Link>
-        );
-      })}
-    </nav>
   );
 }
 
@@ -87,7 +53,7 @@ export function BottomNav() {
         <SlidingIndicator
           count={NAV_ITEMS.length}
           index={activeIndex}
-          className="inset-x-0 top-2 mx-auto h-8 w-14 rounded-full bg-white/[0.08] md:top-2.5"
+          className="inset-x-0 top-2 mx-auto h-8 w-14 rounded-lg bg-secondary md:top-2.5"
         />
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
@@ -104,8 +70,8 @@ export function BottomNav() {
               >
                 <span
                   className={cn(
-                    "flex h-8 w-14 items-center justify-center rounded-full transition-colors duration-200",
-                    active && "text-foreground",
+                    "flex h-8 w-14 items-center justify-center rounded-lg transition-colors duration-200",
+                    active && "text-primary",
                   )}
                 >
                   <Icon className="size-5" strokeWidth={2.25} />

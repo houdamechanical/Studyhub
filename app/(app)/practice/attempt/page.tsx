@@ -94,7 +94,7 @@ function AttemptView({ attempt, dict, justFinished }: { attempt: AttemptRow; dic
         {t.backToPractice}
       </Link>
 
-      <section className="rounded-3xl border bg-card p-5">
+      <section className="rounded-xl border bg-card p-5">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           {t.result} · {quiz?.kind === "mock" ? t.mock : t.mini}
         </p>
@@ -147,7 +147,7 @@ function ReviewCard({ item, index, dict }: { item: ReviewItem; index: number; di
   const t = dict.quiz;
   const Icon = item.correct ? CircleCheck : CircleX;
   return (
-    <li className="rounded-3xl border bg-card p-4">
+    <li className="rounded-xl border bg-card p-4">
       <div className="flex items-start gap-3">
         <Icon
           size={20}

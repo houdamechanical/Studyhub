@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
+import { Fraunces, Inter, Noto_Sans_Arabic } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { I18nProvider, LOCALE_BOOT_SCRIPT } from "@/lib/i18n/client";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
@@ -25,21 +25,23 @@ export const viewport: Viewport = {
   // padding itself so it stays clear of the home indicator.
   viewportFit: "cover",
   // Always dark.
-  themeColor: "#0a0a0b",
+  themeColor: "#1c1a17",
   colorScheme: "dark",
 };
 
-const geistSans = Geist({
+// Body and UI: clean, very readable sans.
+const inter = Inter({
   variable: "--font-geist-sans",
   display: "swap",
   subsets: ["latin"],
 });
 
-// Headings: clean geometric sans, set heavy with tight tracking.
-const display = Plus_Jakarta_Sans({
+// Headings: soft, bookish serif.
+const display = Fraunces({
   variable: "--font-display",
   display: "swap",
   subsets: ["latin"],
+  axes: ["SOFT", "opsz"],
 });
 
 const notoArabic = Noto_Sans_Arabic({
@@ -60,7 +62,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOT_SCRIPT }} />
       </head>
-      <body className={`${geistSans.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" forcedTheme="dark" disableTransitionOnChange>
           <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>

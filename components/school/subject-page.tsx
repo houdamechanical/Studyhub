@@ -16,7 +16,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BackPill } from "@/components/page-hero";
 import { MeasuredIndicator } from "@/components/sliding-indicator";
+import { ProgressBar } from "@/components/dashboard/cards";
 import { SubjectIcon } from "@/components/subject-icon";
+import { subjectProgress } from "@/lib/dashboard";
 import { getContentForSubject, type ContentKind } from "@/lib/content";
 import { useLoad } from "@/lib/data";
 import { formatDate, todayISO } from "@/lib/format";
@@ -66,9 +68,11 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
   const mocks = state.data?.quizList.filter((q) => q.kind === "mock") ?? [];
   const decks = state.data?.deckList ?? [];
   const nextExam = state.data?.exams[0] ?? null;
+  const [today, setToday] = useState<string | null>(null);
+  const progress =
+    state.data && today ? (subjectProgress(state.data.quizList, state.data.deckList, today)[0] ?? null) : null;
 
   const [tab, setTab] = useState<Tab>("pages");
-  const [today, setToday] = useState<string | null>(null);
   useEffect(() => {
     setToday(todayISO());
     const fromHash = window.location.hash.slice(1);
@@ -91,8 +95,8 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
         <p className="text-sm text-muted-foreground">
           {fill(dict.school.grade, { grade })} · {halfLabel}
         </p>
-        <h1 className="mt-2 flex items-center gap-3 font-display text-3xl font-bold sm:text-4xl">
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-white/[0.04] sm:size-12">
+        <h1 className="mt-2 flex items-center gap-3 font-display text-3xl font-semibold sm:text-4xl">
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-secondary sm:size-12">
             <SubjectIcon subject={subject} className="size-5 sm:size-6" strokeWidth={2} />
           </span>
           {info.label[locale]}
@@ -108,13 +112,31 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
             <span className="font-semibold text-primary">{whenLabel(nextExam.exam_date, dict)}</span>
           </Link>
         )}
+        {withPractice && progress && (
+          <div className="mt-6 rounded-xl border bg-card p-4 sm:p-5">
+            <div className="flex items-baseline justify-between gap-2">
+              <p className="text-sm font-medium">{dict.dash.progress}</p>
+              <p className="text-sm tabular-nums text-muted-foreground">{Math.round(progress.progress * 100)} %</p>
+            </div>
+            <ProgressBar value={progress.progress} className="mt-2.5" />
+            <p className="mt-2 text-xs text-muted-foreground">
+              {[
+                progress.tests ? fill(dict.dash.testsTaken, { a: progress.testsTaken, n: progress.tests }) : "",
+                progress.avgBest !== null ? fill(dict.dash.avg, { p: `${Math.round(progress.avgBest * 100)} %` }) : "",
+                progress.cards ? fill(dict.dash.cardsLearned, { a: progress.cardsLearned, n: progress.cards }) : "",
+              ]
+                .filter(Boolean)
+                .join(" · ")}
+            </p>
+          </div>
+        )}
       </header>
 
       {/* Tabs */}
-      <div className="sticky top-16 z-30 -mx-4 mt-8 bg-background/85 px-4 py-2 backdrop-blur-xl">
+      <div className="sticky top-14 z-30 -mx-4 mt-8 lg:top-0 bg-background/85 px-4 py-2 backdrop-blur-xl">
         <div className="overflow-x-auto [scrollbar-width:none]">
           <div role="tablist" className="relative flex w-max gap-1 rounded-full border bg-card p-1">
-            <MeasuredIndicator activeKey={tab} className="rounded-full bg-white/[0.08]" />
+            <MeasuredIndicator activeKey={tab} className="rounded-full bg-[#38332c]" />
             {TABS.map((id) => (
               <button
                 key={id}
@@ -140,7 +162,7 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
 
       <div key={tab} className="enter mt-4" role="tabpanel">
         {tab !== "pages" && state.loading ? (
-          <div className="h-48 animate-pulse rounded-2xl border bg-card" />
+          <div className="h-48 animate-pulse rounded-xl border bg-card" />
         ) : tab === "pages" ? (
           <List empty={t.emptyPages}>
             {pages.map((item) => (
@@ -213,9 +235,9 @@ function whenLabel(date: string, dict: ReturnType<typeof useI18n>["dict"]) {
 
 function List({ empty, children }: { empty: string; children: React.ReactNode[] }) {
   if (children.length === 0) {
-    return <p className="rounded-2xl border border-dashed px-4 py-10 text-center text-sm text-muted-foreground">{empty}</p>;
+    return <p className="rounded-xl border border-dashed px-4 py-10 text-center text-sm text-muted-foreground">{empty}</p>;
   }
-  return <ul className="divide-y overflow-hidden rounded-2xl border bg-card">{children}</ul>;
+  return <ul className="divide-y overflow-hidden rounded-xl border bg-card">{children}</ul>;
 }
 
 function Row({
@@ -235,7 +257,7 @@ function Row({
 }) {
   return (
     <li>
-      <Link href={href} className="group flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-white/[0.03] sm:px-5">
+      <Link href={href} className="group flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-secondary sm:px-5">
         <Icon size={18} className="shrink-0 text-muted-foreground" strokeWidth={2} />
         <div className="min-w-0 flex-1">
           <p className="truncate font-medium" lang={lang} dir="auto">

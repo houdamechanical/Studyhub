@@ -40,7 +40,7 @@ export function BigTile({
           className={cn(
             "flex shrink-0 items-center justify-center rounded-xl border",
             size === "lg" ? "size-11" : "size-9 sm:size-10",
-            current ? "border-transparent bg-primary text-primary-foreground" : "bg-white/[0.04] text-foreground",
+            current ? "border-transparent bg-primary text-primary-foreground" : "bg-secondary text-foreground",
           )}
         >
           {locked ? <Lock className="size-[18px]" strokeWidth={2} /> : <Icon className="size-5" strokeWidth={2} />}
@@ -54,7 +54,7 @@ export function BigTile({
           ) : null)}
       </div>
       <div className={cn("mt-auto", size === "lg" ? "pt-10 sm:pt-14" : "pt-5 sm:pt-8")}>
-        <h2 className={cn("font-display font-bold leading-tight", size === "lg" ? "text-xl sm:text-2xl" : "text-base sm:text-lg")}>
+        <h2 className={cn("font-display font-semibold leading-tight", size === "lg" ? "text-xl sm:text-2xl" : "text-base sm:text-lg")}>
           {title}
         </h2>
         {subtitle && <div className="mt-1 text-sm text-muted-foreground">{subtitle}</div>}
@@ -63,8 +63,8 @@ export function BigTile({
   );
 
   const classes = cn(
-    "tile enter group flex flex-col rounded-3xl border bg-card",
-    size === "lg" ? "p-5 sm:p-6" : "rounded-2xl p-4 sm:rounded-3xl sm:p-5",
+    "tile enter group flex flex-col rounded-xl border bg-card",
+    size === "lg" ? "p-5 sm:p-6" : "rounded-xl p-4 sm:rounded-xl sm:p-5",
     locked && "pointer-events-none opacity-50",
     className,
   );

@@ -97,7 +97,7 @@ export function QuizRunner({
           <ArrowLeft size={16} className="rtl:rotate-180" />
           {t.backToPractice}
         </Link>
-        <div className="rounded-3xl border bg-card p-5">
+        <div className="rounded-xl border bg-card p-5">
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             {quiz.kind === "mock" ? t.mock : t.mini} · <SubjectIcon subject={quiz.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
           </p>
@@ -138,7 +138,7 @@ export function QuizRunner({
         {attempts.length > 0 && (
           <section>
             <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.previousAttempts}</h2>
-            <ul className="divide-y rounded-3xl border bg-card">
+            <ul className="divide-y rounded-xl border bg-card">
               {attempts.map((a) => (
                 <li key={a.id}>
                   <Link href={`/practice/attempt?id=${a.id}`} className="flex items-center justify-between gap-3 px-4 py-3 text-sm hover:bg-accent">
@@ -167,7 +167,7 @@ export function QuizRunner({
   return (
     <div className="flex flex-col gap-4">
       {/* Sticky status bar under the app header */}
-      <div className="sticky top-14 z-30 -mx-4 flex items-center gap-3 border-b bg-background/95 px-4 py-2 backdrop-blur">
+      <div className="sticky top-14 z-30 -mx-4 flex lg:top-0 items-center gap-3 border-b bg-background/95 px-4 py-2 backdrop-blur">
         {endsAt && <Countdown endsAt={endsAt} onElapsed={() => submit(true)} />}
         <span className="text-sm text-muted-foreground tabular-nums">
           {fill(t.answered, { a: answeredCount, n: questions.length })}
@@ -182,7 +182,7 @@ export function QuizRunner({
 
       <ol className="flex flex-col gap-3">
         {questions.map((q, i) => (
-          <li key={q.id} className="rounded-3xl border bg-card p-4">
+          <li key={q.id} className="rounded-xl border bg-card p-4">
             <p className="mb-1 flex justify-between text-xs text-muted-foreground">
               <span>{fill(t.question, { n: i + 1 })}</span>
               <span>{fill(t.pointsShort, { n: q.points })}</span>

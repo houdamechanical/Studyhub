@@ -54,9 +54,9 @@ export function ProfileCard({ nickname, shared }: { nickname: string; shared: Su
   }
 
   return (
-    <section id="name" className="flex scroll-mt-24 flex-col gap-5 rounded-3xl border bg-card p-5">
+    <section id="name" className="flex scroll-mt-24 flex-col gap-5 rounded-xl border bg-card p-5">
       <form onSubmit={save} className="flex flex-col gap-1.5">
-        <label htmlFor="nickname" className="font-display text-lg font-bold">
+        <label htmlFor="nickname" className="font-display text-lg font-semibold">
           {t.nicknameTitle}
         </label>
         <div className="flex gap-2">

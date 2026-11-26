@@ -43,7 +43,7 @@ function GradesAndExams() {
       />
       <nav className="relative mt-6 grid grid-cols-2 rounded-full border bg-card p-1.5 sm:inline-grid sm:min-w-80">
         <span className="absolute inset-1.5">
-          <SlidingIndicator count={2} index={tab === "grades" ? 0 : 1} className="inset-0 rounded-full bg-white/[0.08]" />
+          <SlidingIndicator count={2} index={tab === "grades" ? 0 : 1} className="inset-0 rounded-full bg-[#38332c]" />
         </span>
         {tabs.map((t) => {
           const active = t.id === tab;

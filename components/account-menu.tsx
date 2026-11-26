@@ -49,7 +49,7 @@ export function AccountMenu({
         <button
           type="button"
           aria-label={dict.nav.account}
-          className="press ms-1 flex size-9 items-center justify-center rounded-full border bg-white/[0.06] font-display text-sm font-bold uppercase text-foreground hover:bg-white/10"
+          className="press ms-1 flex size-9 items-center justify-center rounded-full border bg-secondary font-display text-sm font-semibold uppercase text-foreground hover:bg-secondary"
         >
           {nickname.slice(0, 1) || "?"}
         </button>
@@ -57,7 +57,7 @@ export function AccountMenu({
       <DropdownMenuContent align="end" className="min-w-48">
         {nickname && (
           <>
-            <DropdownMenuLabel className="font-display text-base font-bold">
+            <DropdownMenuLabel className="font-display text-base font-semibold">
               <bdi>{nickname}</bdi>
             </DropdownMenuLabel>
             <DropdownMenuItem asChild className="flex gap-2">

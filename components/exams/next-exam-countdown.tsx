@@ -30,14 +30,14 @@ export function NextExamCountdown({ exams }: { exams: Exam[] }) {
   }, []);
 
   if (now === null) {
-    return <div className="h-40 animate-pulse rounded-3xl border bg-card" aria-hidden />;
+    return <div className="h-40 animate-pulse rounded-xl border bg-card" aria-hidden />;
   }
 
   const next = sortByDate(exams.filter((e) => e.status === "upcoming" && examCutoff(e) > now))[0];
 
   if (!next) {
     return (
-      <div className="rounded-3xl border border-dashed p-8 text-center text-sm text-muted-foreground">
+      <div className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">
         <Sun className="mx-auto mb-2 size-6 text-muted-foreground" strokeWidth={2} aria-hidden />
         {t.noUpcoming}
       </div>
@@ -57,7 +57,7 @@ export function NextExamCountdown({ exams }: { exams: Exam[] }) {
     const m = Math.floor((diff % 3_600_000) / 60_000);
     big =
       diff < 60_000 ? (
-        <p className="font-display text-2xl font-bold text-primary">{t.startsNow}</p>
+        <p className="font-display text-2xl font-semibold text-primary">{t.startsNow}</p>
       ) : (
         <div className="flex gap-2">
           {[
@@ -65,8 +65,8 @@ export function NextExamCountdown({ exams }: { exams: Exam[] }) {
             [h, t.hours],
             [m, t.minutes],
           ].map(([value, label]) => (
-            <div key={label as string} className="min-w-20 rounded-2xl border bg-white/[0.03] px-3 py-2.5 text-center">
-              <div className="font-display text-3xl font-bold tabular-nums leading-none">{value}</div>
+            <div key={label as string} className="min-w-20 rounded-xl border bg-secondary px-3 py-2.5 text-center">
+              <div className="font-display text-3xl font-semibold tabular-nums leading-none">{value}</div>
               <div className="mt-1 text-xs text-muted-foreground">{label}</div>
             </div>
           ))}
@@ -74,7 +74,7 @@ export function NextExamCountdown({ exams }: { exams: Exam[] }) {
       );
   } else {
     big = (
-      <p className="font-display text-4xl font-bold text-primary">
+      <p className="font-display text-4xl font-semibold text-primary">
         {dayDiff <= 0 ? t.today : dayDiff === 1 ? t.tomorrow : fill(t.inDays, { n: dayDiff })}
       </p>
     );
@@ -83,10 +83,10 @@ export function NextExamCountdown({ exams }: { exams: Exam[] }) {
   return (
     <section
       aria-label={t.next}
-      className="rounded-3xl border bg-card p-5 sm:p-6"
+      className="rounded-xl border bg-card p-5 sm:p-6"
     >
       <p className="text-sm text-muted-foreground">{t.next}</p>
-      <h2 className="mt-1 font-display text-xl font-bold sm:text-2xl">
+      <h2 className="mt-1 font-display text-xl font-semibold sm:text-2xl">
         <SubjectIcon subject={next.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
         {next.title && <span className="font-medium text-muted-foreground"> · {next.title}</span>}
       </h2>

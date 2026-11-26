@@ -90,7 +90,7 @@ function ExamRow({ exam, onEdit }: { exam: Exam; onEdit: () => void }) {
 
   return (
     <li
-      className={cn("rounded-3xl border bg-card p-4", pending && "opacity-60", isDone && "bg-muted/40")}
+      className={cn("rounded-xl border bg-card p-4", pending && "opacity-60", isDone && "bg-muted/40")}
     >
       <div className="flex items-start gap-3">
         <SubjectIcon subject={exam.subject} className="mt-1 size-4 shrink-0 text-muted-foreground" />

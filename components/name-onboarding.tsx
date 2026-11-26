@@ -39,10 +39,10 @@ export function NameOnboarding({ onDone }: { onDone: (name: string) => void }) {
     <div className="flex min-h-dvh items-center justify-center px-4 py-10">
       <form
         onSubmit={submit}
-        className="enter w-full max-w-md rounded-3xl border bg-card p-7 sm:p-9"
+        className="enter w-full max-w-md rounded-xl border bg-card p-7 sm:p-9"
       >
         <p className="text-sm font-medium text-muted-foreground">{t.hello}</p>
-        <h1 className="mt-1 font-display text-3xl font-bold leading-tight sm:text-4xl">
+        <h1 className="mt-1 font-display text-3xl font-semibold leading-tight sm:text-4xl">
           {t.title}
         </h1>
         <p className="mt-2 text-muted-foreground">{t.subtitle}</p>

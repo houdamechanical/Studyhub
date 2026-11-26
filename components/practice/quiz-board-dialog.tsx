@@ -38,11 +38,11 @@ export function QuizBoardDialog({ quizId, title, onClose }: { quizId: string; ti
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-4" role="dialog" aria-modal="true" aria-labelledby="board-title">
       <button type="button" aria-label={dict.quiz.close} onClick={onClose} className="dialog-backdrop absolute inset-0 bg-black/70 backdrop-blur-sm" />
-      <div className="dialog-panel relative flex max-h-[88dvh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border bg-card shadow-2xl sm:rounded-3xl">
+      <div className="dialog-panel relative flex max-h-[88dvh] w-full max-w-lg flex-col overflow-hidden rounded-t-xl border bg-card shadow-2xl sm:rounded-xl">
         <div className="flex items-start gap-3 border-b px-5 py-4">
           <div className="min-w-0 flex-1">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.leaderboard}</p>
-            <h2 id="board-title" className="truncate font-display text-lg font-bold" dir="auto">
+            <h2 id="board-title" className="truncate font-display text-lg font-semibold" dir="auto">
               {title}
             </h2>
             {me && board && (

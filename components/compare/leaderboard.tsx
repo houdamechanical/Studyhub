@@ -32,7 +32,7 @@ export function Leaderboard({
       </p>
       
       {board.rows.length === 0 ? (
-        <p className="rounded-2xl border border-dashed p-6 text-center text-sm text-muted-foreground">
+        <p className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">
           <Flag className="mx-auto mb-2 size-5 text-muted-foreground" strokeWidth={2} aria-hidden />
           {labels.empty}
         </p>
@@ -44,7 +44,7 @@ export function Leaderboard({
             you={labels.you}
           />
           {board.rows.some((r) => r.rank > 3) && (
-            <ol className="divide-y rounded-3xl border bg-card">
+            <ol className="divide-y rounded-xl border bg-card">
               {board.rows
                 .filter((r) => r.rank > 3)
                 .map((row) => (
@@ -98,8 +98,8 @@ export function Leaderboard({
 // Neutral podium; only first place gets the accent colour.
 const MEDAL = [
   { block: "h-24 sm:h-28 border-primary/40 bg-primary/15", avatar: "bg-primary text-primary-foreground" },
-  { block: "h-16 sm:h-20 bg-white/[0.05]", avatar: "bg-white/[0.12] text-foreground" },
-  { block: "h-12 sm:h-14 bg-white/[0.03]", avatar: "bg-white/[0.08] text-foreground" },
+  { block: "h-16 sm:h-20 bg-secondary", avatar: "bg-[#38332c] text-foreground" },
+  { block: "h-12 sm:h-14 bg-secondary", avatar: "bg-[#38332c] text-foreground" },
 ];
 
 /** Top three on a podium: 2nd – 1st – 3rd. */
@@ -125,7 +125,7 @@ function Podium({
           >
             <span
               className={cn(
-                "relative flex items-center justify-center rounded-full font-display font-bold uppercase",
+                "relative flex items-center justify-center rounded-full font-display font-semibold uppercase",
                 MEDAL[Math.min(row.rank, 3) - 1].avatar,
                 row.rank === 1
                   ? "size-16 text-2xl sm:size-20 sm:text-3xl"
@@ -154,7 +154,7 @@ function Podium({
                 </span>
               )}
             </span>
-            <span className="font-display text-lg font-bold tabular-nums">
+            <span className="font-display text-lg font-semibold tabular-nums">
               {format(row.value)}
             </span>
             <span
@@ -164,7 +164,7 @@ function Podium({
               )}
               aria-label={`#${row.rank}`}
             >
-              <span className="font-display text-lg font-bold text-muted-foreground">{row.rank}</span>
+              <span className="font-display text-lg font-semibold text-muted-foreground">{row.rank}</span>
             </span>
           </li>
         ) : (

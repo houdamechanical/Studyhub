@@ -18,7 +18,7 @@ https://houdamechanical.github.io/Studyhub/.
 | Area | Page | What it does |
 |---|---|---|
 | Name | first start | New users pick the name shown on leaderboards and in "Welcome back, …". |
-| Home | `/` | "Welcome back, NAME", four big tiles (Grade 11, Grade 12, Grades & Exams, Leaderboard), the next exam and flashcards due. |
+| Dashboard | `/` | "Welcome back, NAME", a 25/5 Pomodoro focus timer (keeps running while you move around), today's tasks, your study streak and progress per subject. **Focus mode** dims everything except the current task and the timer. Tasks need the database update `supabase/migrations/20261127120000_tasks.sql`. |
 | Subjects | `/grade/11` → `/grade/11/1` → `/grade/11/1/bio` | Pick a grade, then a half-year, then a subject. Every subject has the same page: study pages, mini tests, mock exams, flashcards and upcoming exams. Study pages run in a sandboxed iframe, so their own styles and scripts work but they can't touch your login. Grade 12 is locked until it's added to `OPEN_GRADES` in `lib/school.ts`. |
 | Grades & Exams | `/grades`, `/grades?tab=exams` | Grades as Note 1–6, Punkte 0–15 or %, with weights, averages and a chart; exams with countdown. |
 | Practice | from a subject | Mock exams (optional timer), mini tests (10 random questions per attempt) and flashcards with spaced repetition (SM-2). Tests and decks have no half-year in the database yet, so they show up in the current one (`CURRENT_SEMESTER` in `lib/grades.ts`). |
@@ -129,6 +129,16 @@ every visitor's browser anyway. Never put the database password
 
 The same `out/` folder also works on any other static host (Netlify, Vercel,
 Cloudflare Pages, …): build with `npm run build` and upload `out/`.
+
+## Look & feel
+
+A warm, dark "studying at night" theme: warm charcoal background (`#1C1A17`),
+cream text (`#E8E1D6`), muted amber for actions (`#C9A46A`), sage for progress,
+dusty rose for tags and slate blue for info. Headings use Fraunces (serif),
+body text Inter at 16.5 px with 1.6 line height. All text passes WCAG AA on
+every surface (slate blue isn't used as text on raised surfaces). Corners are
+12 px, motion stays at 200–300 ms, and a faint grain sits over the background.
+The colours live as tokens in `app/globals.css`.
 
 ## Install as an app (iPhone, iPad, Android)
 

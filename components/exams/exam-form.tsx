@@ -38,7 +38,7 @@ export function ExamForm({ exam, onDone }: { exam?: Exam; onDone: () => void }) 
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-4 rounded-3xl border bg-card p-4">
+    <form onSubmit={submit} className="flex flex-col gap-4 rounded-xl border bg-card p-4">
       <h2 className="font-semibold">{exam ? t.editTitle : t.add}</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label={t.subject}>

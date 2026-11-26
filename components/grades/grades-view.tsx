@@ -106,16 +106,16 @@ export function GradesView({ grades, initialScale }: { grades: Grade[]; initialS
 
       {/* Summary */}
       <section className="grid gap-3 sm:grid-cols-[minmax(0,14rem)_1fr]">
-        <div className="rounded-3xl border bg-card p-5">
+        <div className="rounded-xl border bg-card p-5">
           <p className="text-sm text-muted-foreground">
             {semester === ALL ? t.allSemesters : `${t.semesterAverage} · ${formatSemester(semester, dict)}`}
           </p>
-          <p className="mt-2 font-display text-5xl font-bold tabular-nums">
+          <p className="mt-2 font-display text-5xl font-semibold tabular-nums">
             {overall === null ? "–" : formatScore(overall, scale, nf)}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">{formatGradeCount(inSemester.length, dict)}</p>
         </div>
-        <div className="rounded-3xl border bg-card p-4">
+        <div className="rounded-xl border bg-card p-4">
           <h2 className="mb-2 font-medium">{t.perSubject}</h2>
           {bySubject.length === 0 ? (
             <p className="text-sm text-muted-foreground">{t.empty}</p>
@@ -136,10 +136,10 @@ export function GradesView({ grades, initialScale }: { grades: Grade[]; initialS
 
       {/* Chart */}
       {inSemester.length > 0 && (
-        <section className="rounded-3xl border bg-card p-4">
+        <section className="rounded-xl border bg-card p-4">
           <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
             <div>
-              <h2 className="font-display text-lg font-bold">{t.chartTitle}</h2>
+              <h2 className="font-display text-lg font-semibold">{t.chartTitle}</h2>
               <p className="text-xs text-muted-foreground">{t.chartSubtitle}</p>
             </div>
             <div className="flex items-center gap-2">
@@ -220,7 +220,7 @@ function GradeRow({ grade, onEdit }: { grade: Grade; onEdit: () => void }) {
   }
 
   return (
-    <li className={cn("rounded-3xl border bg-card px-4 py-3", pending && "opacity-60")}>
+    <li className={cn("rounded-xl border bg-card px-4 py-3", pending && "opacity-60")}>
       <div className="flex items-center gap-3">
         <SubjectIcon subject={grade.subject} className="size-4 shrink-0 text-muted-foreground" />
         <div className="min-w-0 flex-1">
