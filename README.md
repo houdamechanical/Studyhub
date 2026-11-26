@@ -21,8 +21,8 @@ https://houdamechanical.github.io/Studyhub/.
 | Home | `/` | "Welcome back, NAME", four big tiles (Grade 11, Grade 12, Grades & Exams, Leaderboard), the next exam and flashcards due. |
 | Subjects | `/grade/11` → `/grade/11/1` → `/grade/11/1/bio` | Pick a grade, then a half-year, then a subject. Every subject has the same page: study pages, mini tests, mock exams, flashcards and upcoming exams. Study pages run in a sandboxed iframe, so their own styles and scripts work but they can't touch your login. Grade 12 is locked until it's added to `OPEN_GRADES` in `lib/school.ts`. |
 | Grades & Exams | `/grades`, `/grades?tab=exams` | Grades as Note 1–6, Punkte 0–15 or %, with weights, averages and a chart; exams with countdown. |
-| Practice | from a subject | Mock exams (optional timer), mini tests and flashcards with spaced repetition (SM-2). Tests and decks have no half-year in the database yet, so they show up in the current one (`CURRENT_SEMESTER` in `lib/grades.ts`). |
-| Leaderboard | `/compare` | Podium and ranking per subject, "you vs. average", your name, and per-subject grade sharing (off by default). |
+| Practice | from a subject | Mock exams (optional timer), mini tests (10 random questions per attempt) and flashcards with spaced repetition (SM-2). Tests and decks have no half-year in the database yet, so they show up in the current one (`CURRENT_SEMESTER` in `lib/grades.ts`). |
+| Leaderboard | `/compare` | Per subject: mock-exam ranking or grade ranking (podium + list), your name, and per-subject grade sharing (off by default). Mini tests show their own leaderboard in a popup when you finish one. |
 | Admin | `/admin` | Add questions, build tests, add flashcards, or import everything from JSON. Admins only. |
 
 ## Run it locally
@@ -209,6 +209,17 @@ A mini test needs 5–10 questions. A mock exam needs `duration_minutes`.
 
 `scripts/convert-bio-quiz.mjs` shows how the Bio quiz page was turned into this
 format (`node scripts/convert-bio-quiz.mjs`).
+
+
+**Random mini tests:** give a mini test `"draw_count": 10` and list a larger pool
+of question keys (at least 10). Every attempt then draws 10 random questions from
+the pool, so each try is different. Biology's three mini tests (Block 1, Block 2,
+Transfer) work this way. This needs the database update
+`supabase/migrations/20261127090000_random_mini_tests.sql` (run it once in
+Supabase → SQL Editor).
+
+Mini tests have no ranking on the Leaderboard page; their leaderboard pops up when
+you finish one. The Leaderboard page ranks mock exams and (shared) grades.
 
 ## Privacy and security
 

@@ -74,26 +74,6 @@ export default {
         out: "cubic-bezier(0.23, 1, 0.32, 1)",
         "in-out": "cubic-bezier(0.77, 0, 0.175, 1)",
       },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
-          "50%": { transform: "translateY(-6px) rotate(8deg)" },
-        },
-        "gradient-pan": {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-        blob: {
-          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
-          "33%": { transform: "translate(30px, -20px) scale(1.08)" },
-          "66%": { transform: "translate(-20px, 15px) scale(0.95)" },
-        },
-      },
-      animation: {
-        float: "float 4s ease-in-out infinite",
-        "gradient-pan": "gradient-pan 8s ease infinite",
-        blob: "blob 18s ease-in-out infinite",
-      },
       borderRadius: {
         "4xl": "2rem",
         lg: "var(--radius)",

@@ -8,7 +8,7 @@ type Result<T> = ({ ok: true } & T) | { ok: false; error: ActionError };
 export async function startAttempt(
   quizId: string,
   timed: boolean,
-): Promise<Result<{ attemptId: string; deadline: string | null }>> {
+): Promise<Result<{ attemptId: string; deadline: string | null; questionIds: string[] | null }>> {
   const auth = await requireUser();
   if (!auth) return { ok: false, error: "unauthorized" };
   if (!isUuid(quizId)) return { ok: false, error: "invalid" };
@@ -18,7 +18,7 @@ export async function startAttempt(
     console.error("start_attempt", error);
     return { ok: false, error: "failed" };
   }
-  return { ok: true, attemptId: data.id, deadline: data.deadline };
+  return { ok: true, attemptId: data.id, deadline: data.deadline, questionIds: data.question_ids ?? null };
 }
 
 export async function submitAttempt(

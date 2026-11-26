@@ -4,7 +4,7 @@ import { SubjectIcon } from "@/components/subject-icon";
 import { ArrowLeft, Clock, Play } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { startAttempt, submitAttempt } from "@/lib/mutations/practice";
 import { Button } from "@/components/ui/button";
 import { controlClass, FormError } from "@/components/ui/field";
@@ -21,10 +21,11 @@ type Phase = "intro" | "running" | "submitting";
 
 export function QuizRunner({
   quiz,
-  questions,
+  questions: pool,
   attempts,
 }: {
   quiz: Quiz;
+  /** All of the quiz's questions; a random mini test shows only the ones drawn for the attempt. */
   questions: Question[];
   attempts: PastAttempt[];
 }) {
@@ -39,6 +40,13 @@ export function QuizRunner({
   const [endsAt, setEndsAt] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<string, GivenAnswer>>({});
   const [error, setError] = useState<string | null>(null);
+  const [drawn, setDrawn] = useState<string[] | null>(null);
+  const questions = useMemo(() => {
+    if (!drawn) return pool;
+    const byId = new Map(pool.map((q) => [q.id, q]));
+    return drawn.map((id) => byId.get(id)).filter((q): q is Question => q !== undefined);
+  }, [drawn, pool]);
+  const questionCount = quiz.draw_count ?? pool.length;
 
   const answeredCount = questions.filter((q) => isAnswered(answers[q.id])).length;
 
@@ -47,6 +55,7 @@ export function QuizRunner({
     const result = await startAttempt(quiz.id, timed);
     if (!result.ok) return setError(dict.common.error[result.error]);
     setAttemptId(result.attemptId);
+    setDrawn(result.questionIds);
     // Count down from the local clock; the server allows 30 s grace on top.
     setEndsAt(timed && quiz.duration_minutes ? Date.now() + quiz.duration_minutes * 60_000 : null);
     setPhase("running");
@@ -63,7 +72,7 @@ export function QuizRunner({
       setPhase("submitting");
       const result = await submitAttempt(attemptId, answers);
       if (result.ok) {
-        router.push(`/practice/attempt?id=${result.attemptId}`);
+        router.push(`/practice/attempt?id=${result.attemptId}&done=1`);
       } else {
         submittedRef.current = false;
         setPhase("running");
@@ -95,7 +104,7 @@ export function QuizRunner({
           <h1 className="mt-1 text-2xl font-semibold tracking-tight" dir="auto">{quiz.title}</h1>
           {quiz.description && <p className="mt-2 whitespace-pre-line text-sm text-muted-foreground" dir="auto">{quiz.description}</p>}
           <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-            <span>{fill(dict.practice.questions, { n: questions.length })}</span>
+            <span>{fill(dict.practice.questions, { n: questionCount })}</span>
             {quiz.duration_minutes && (
               <span className="flex items-center gap-1">
                 <Clock size={14} />
@@ -120,7 +129,7 @@ export function QuizRunner({
           )}
 
           <FormError message={error} />
-          <Button className="mt-4" size="lg" onClick={start} disabled={questions.length === 0}>
+          <Button className="mt-4" size="lg" onClick={start} disabled={pool.length === 0}>
             <Play size={16} />
             {t.start}
           </Button>

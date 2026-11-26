@@ -9,7 +9,6 @@ import { GradesView } from "@/components/grades/grades-view";
 import { Loaded } from "@/components/page-shell";
 import { PageHero } from "@/components/page-hero";
 import { SlidingIndicator } from "@/components/sliding-indicator";
-import { meshGradient } from "@/lib/subjects";
 import { must, useLoad } from "@/lib/data";
 import type { Exam } from "@/lib/exams";
 import { useI18n } from "@/lib/i18n/client";
@@ -42,16 +41,9 @@ function GradesAndExams() {
         title={dict.nav.gradesExams}
         subtitle={tab === "grades" ? dict.grades.subtitle : dict.exams.subtitle}
       />
-      <nav className="relative mt-6 grid grid-cols-2 rounded-full border bg-card p-1.5 shadow-sm sm:inline-grid sm:min-w-96">
-        {/* Sliding highlight; green for grades, violet-pink for exams (cross-fades as it moves) */}
+      <nav className="relative mt-6 grid grid-cols-2 rounded-full border bg-card p-1.5 sm:inline-grid sm:min-w-80">
         <span className="absolute inset-1.5">
-          <SlidingIndicator count={2} index={tab === "grades" ? 0 : 1} className="inset-0 overflow-hidden rounded-full shadow-md">
-            <span className="absolute inset-0" style={{ backgroundImage: meshGradient("#10b981", "#06b6d4") }} />
-            <span
-              className="absolute inset-0 transition-opacity duration-[260ms] ease-in-out"
-              style={{ backgroundImage: meshGradient("#6366f1", "#ec4899"), opacity: tab === "exams" ? 1 : 0 }}
-            />
-          </SlidingIndicator>
+          <SlidingIndicator count={2} index={tab === "grades" ? 0 : 1} className="inset-0 rounded-full bg-white/[0.08]" />
         </span>
         {tabs.map((t) => {
           const active = t.id === tab;
@@ -63,11 +55,11 @@ function GradesAndExams() {
               scroll={false}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "press relative flex items-center justify-center gap-2 rounded-full px-5 py-2.5 font-display text-base font-bold",
-                active ? "text-white" : "text-muted-foreground hover:text-foreground",
+                "press relative flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-medium",
+                active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
               )}
             >
-              <t.icon size={18} strokeWidth={2.5} />
+              <t.icon size={16} strokeWidth={2} />
               {t.label}
             </Link>
           );

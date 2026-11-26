@@ -24,10 +24,9 @@ export const viewport: Viewport = {
   // Lets content use the whole screen; the bottom tab bar adds the safe-area
   // padding itself so it stays clear of the home indicator.
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8f7fe" },
-    { media: "(prefers-color-scheme: dark)", color: "#0e0c14" },
-  ],
+  // Always dark.
+  themeColor: "#0a0a0b",
+  colorScheme: "dark",
 };
 
 const geistSans = Geist({
@@ -57,12 +56,12 @@ export default function RootLayout({
   return (
     // lang/dir are set in the browser (the site is static); the inline script
     // applies the saved language before the first paint.
-    <html lang={DEFAULT_LOCALE} dir="ltr" suppressHydrationWarning>
+    <html lang={DEFAULT_LOCALE} dir="ltr" className="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOT_SCRIPT }} />
       </head>
       <body className={`${geistSans.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" forcedTheme="dark" disableTransitionOnChange>
           <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>
       </body>

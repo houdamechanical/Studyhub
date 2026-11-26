@@ -36,17 +36,13 @@ export function NameOnboarding({ onDone }: { onDone: (name: string) => void }) {
   }
 
   return (
-    <div className="grain relative isolate flex min-h-dvh items-center justify-center overflow-hidden bg-brand px-4 py-10">
-      <Blobs />
+    <div className="flex min-h-dvh items-center justify-center px-4 py-10">
       <form
         onSubmit={submit}
-        className="relative w-full max-w-md rounded-4xl bg-background/90 p-7 shadow-2xl ring-1 ring-white/40 backdrop-blur-xl enter sm:p-9"
+        className="enter w-full max-w-md rounded-3xl border bg-card p-7 sm:p-9"
       >
-        <div className="mb-5 inline-block origin-[70%_70%] text-5xl motion-safe:animate-float" aria-hidden>
-          👋
-        </div>
         <p className="text-sm font-medium text-muted-foreground">{t.hello}</p>
-        <h1 className="mt-1 font-display text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
+        <h1 className="mt-1 font-display text-3xl font-bold leading-tight sm:text-4xl">
           {t.title}
         </h1>
         <p className="mt-2 text-muted-foreground">{t.subtitle}</p>
@@ -68,7 +64,7 @@ export function NameOnboarding({ onDone }: { onDone: (name: string) => void }) {
           placeholder={t.placeholder}
           aria-invalid={error ? true : undefined}
           aria-describedby="name-rule"
-          className="mt-6 h-14 w-full rounded-2xl border-2 bg-card px-4 font-display text-2xl font-bold tracking-tight outline-none transition-colors placeholder:font-sans placeholder:text-lg placeholder:font-normal placeholder:text-muted-foreground/70 focus:border-primary aria-[invalid]:border-destructive"
+          className="mt-6 h-14 w-full rounded-xl border bg-background px-4 font-display text-xl font-semibold outline-none transition-colors placeholder:font-sans placeholder:text-lg placeholder:font-normal placeholder:text-muted-foreground/70 focus:border-primary aria-[invalid]:border-destructive"
         />
         <p id="name-rule" className={error ? "mt-2 text-sm text-destructive" : "mt-2 text-xs text-muted-foreground"}>
           {error ?? t.rule}
@@ -77,7 +73,7 @@ export function NameOnboarding({ onDone }: { onDone: (name: string) => void }) {
         <button
           type="submit"
           disabled={saving || name.trim().length === 0}
-          className="group mt-6 flex h-14 w-full items-center justify-center gap-2 press rounded-2xl bg-primary text-lg font-bold text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 disabled:opacity-50"
+          className="group mt-6 flex h-14 w-full items-center justify-center gap-2 press rounded-xl bg-primary text-base font-semibold text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
         >
           {saving ? <Loader2 className="animate-spin" size={20} /> : t.cta}
           {!saving && <ArrowRight size={20} className="transition-transform group-hover:translate-x-1 rtl:rotate-180" />}
@@ -87,13 +83,3 @@ export function NameOnboarding({ onDone }: { onDone: (name: string) => void }) {
   );
 }
 
-/** Slowly drifting colour blobs (decoration). */
-export function Blobs({ className = "" }: { className?: string }) {
-  return (
-    <div className={`pointer-events-none absolute inset-0 -z-0 overflow-hidden ${className}`} aria-hidden>
-      <div className="absolute -left-24 -top-24 size-80 rounded-full bg-cyan-300/50 blur-3xl motion-safe:animate-blob" />
-      <div className="absolute -bottom-32 -right-16 size-96 rounded-full bg-yellow-300/40 blur-3xl motion-safe:animate-blob [animation-delay:-6s]" />
-      <div className="absolute left-1/3 top-1/2 size-72 rounded-full bg-pink-400/40 blur-3xl motion-safe:animate-blob [animation-delay:-12s]" />
-    </div>
-  );
-}

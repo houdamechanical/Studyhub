@@ -1,7 +1,7 @@
 "use client";
 
 import { SubjectIcon } from "@/components/subject-icon";
-import { ChartNoAxesColumn, Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import { deleteGrade, setDisplayScale } from "@/lib/mutations/grades";
 import { GradeChart, GradeTable } from "@/components/grades/grade-chart";
@@ -23,7 +23,7 @@ import {
 } from "@/lib/grades";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatGradeCount, formatSemester } from "@/lib/i18n/dictionaries";
-import { meshGradient, SUBJECTS, subjectGradient, type SubjectId } from "@/lib/subjects";
+import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
 const ALL = "all";
@@ -106,32 +106,24 @@ export function GradesView({ grades, initialScale }: { grades: Grade[]; initialS
 
       {/* Summary */}
       <section className="grid gap-3 sm:grid-cols-[minmax(0,14rem)_1fr]">
-        <div className="relative isolate overflow-hidden rounded-3xl p-5 text-white shadow-lg" style={{ backgroundImage: meshGradient("#10b981", "#06b6d4") }}>
-          <span className="grain-layer absolute inset-0 -z-10" aria-hidden />
-          <ChartNoAxesColumn className="pointer-events-none absolute -bottom-6 -end-4 -z-10 size-36 rotate-[-12deg] text-white/[0.17]" strokeWidth={1.25} aria-hidden />
-          <p className="text-sm font-semibold text-white/85">
+        <div className="rounded-3xl border bg-card p-5">
+          <p className="text-sm text-muted-foreground">
             {semester === ALL ? t.allSemesters : `${t.semesterAverage} · ${formatSemester(semester, dict)}`}
           </p>
-          <p className="mt-2 font-display text-6xl font-extrabold tabular-nums tracking-tight">
+          <p className="mt-2 font-display text-5xl font-bold tabular-nums">
             {overall === null ? "–" : formatScore(overall, scale, nf)}
           </p>
-          <p className="mt-1 text-sm font-medium text-white/85">{formatGradeCount(inSemester.length, dict)}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{formatGradeCount(inSemester.length, dict)}</p>
         </div>
         <div className="rounded-3xl border bg-card p-4">
-          <h2 className="mb-2 font-display text-lg font-bold">{t.perSubject}</h2>
+          <h2 className="mb-2 font-medium">{t.perSubject}</h2>
           {bySubject.length === 0 ? (
             <p className="text-sm text-muted-foreground">{t.empty}</p>
           ) : (
             <ul className="divide-y">
               {bySubject.map((s) => (
                 <li key={s.subject} className="flex items-center gap-3 py-2">
-                  <span
-                    className="flex size-8 shrink-0 items-center justify-center rounded-xl shadow-sm"
-                    style={{ backgroundImage: subjectGradient(s.subject) }}
-                    aria-hidden
-                  >
-                    <SubjectIcon subject={s.subject} className="size-4 text-white" />
-                  </span>
+                  <SubjectIcon subject={s.subject} className="size-4 shrink-0 text-muted-foreground" />
                   <span className="flex-1 truncate">{SUBJECTS[s.subject].label[locale]}</span>
                   <span className="text-xs text-muted-foreground">{formatGradeCount(s.count, dict)}</span>
                   <span className="w-16 text-end font-semibold tabular-nums">{formatScore(s.score, scale, nf)}</span>
@@ -230,7 +222,7 @@ function GradeRow({ grade, onEdit }: { grade: Grade; onEdit: () => void }) {
   return (
     <li className={cn("rounded-3xl border bg-card px-4 py-3", pending && "opacity-60")}>
       <div className="flex items-center gap-3">
-        <span className="h-8 w-1 shrink-0 rounded-full" style={{ background: subject.color }} aria-hidden />
+        <SubjectIcon subject={grade.subject} className="size-4 shrink-0 text-muted-foreground" />
         <div className="min-w-0 flex-1">
           <p className="truncate font-medium">
             {subject.label[locale]}

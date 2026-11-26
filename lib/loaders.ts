@@ -41,7 +41,7 @@ export async function loadPractice(subject?: SubjectId) {
   const supabase = createClient();
   let quizQuery = supabase
     .from("quizzes")
-    .select("id, kind, subject, topic, title, duration_minutes, quiz_questions(count)")
+    .select("*, quiz_questions(count)")
     .order("title");
   let deckQuery = supabase.from("decks").select("id, subject, topic, title, cards(id)").order("title");
   if (subject) {
@@ -71,7 +71,8 @@ export async function loadPractice(subject?: SubjectId) {
     topic: q.topic,
     title: q.title,
     durationMinutes: q.duration_minutes,
-    questionCount: (q.quiz_questions as unknown as { count: number }[])[0]?.count ?? 0,
+    // Random mini tests: the number drawn per attempt, not the pool size.
+    questionCount: (q.draw_count as number | null) ?? (q.quiz_questions as unknown as { count: number }[])[0]?.count ?? 0,
     best: stats.get(q.id)?.best ?? null,
     attempts: stats.get(q.id)?.count ?? 0,
   }));

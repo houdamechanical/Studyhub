@@ -1811,12 +1811,14 @@
       ]
     },
     {
-      "key": "bio111-mini-b1-1",
+      "key": "bio111-mini-block1",
       "kind": "mini",
       "subject": "bio",
-      "topic": "Zelle, Fette",
-      "title": "Mini-Test 1.1: Zelle, Fette",
+      "topic": "Block 1: Zelle & Membran",
+      "title": "Mini-Test Block 1: Zelle & Membran",
+      "description": "10 zufällige Fragen – bei jedem Versuch neu gemischt.",
       "duration_minutes": 10,
+      "draw_count": 10,
       "questions": [
         "bio111-q005",
         "bio111-q006",
@@ -1825,17 +1827,7 @@
         "bio111-q012",
         "bio111-q013",
         "bio111-q014",
-        "bio111-q015"
-      ]
-    },
-    {
-      "key": "bio111-mini-b1-2",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Membran, Modelle, Diffusion",
-      "title": "Mini-Test 1.2: Membran, Modelle, Diffusion",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q015",
         "bio111-q020",
         "bio111-q021",
         "bio111-q022",
@@ -1843,17 +1835,7 @@
         "bio111-q024",
         "bio111-q026",
         "bio111-q027",
-        "bio111-q030"
-      ]
-    },
-    {
-      "key": "bio111-mini-b1-3",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Diffusion, Osmose",
-      "title": "Mini-Test 1.3: Diffusion, Osmose",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q030",
         "bio111-q031",
         "bio111-q032",
         "bio111-q033",
@@ -1861,17 +1843,7 @@
         "bio111-q038",
         "bio111-q039",
         "bio111-q040",
-        "bio111-q041"
-      ]
-    },
-    {
-      "key": "bio111-mini-b1-4",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Plasmolyse, Transport",
-      "title": "Mini-Test 1.4: Plasmolyse, Transport",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q041",
         "bio111-q045",
         "bio111-q046",
         "bio111-q047",
@@ -1879,43 +1851,9 @@
         "bio111-q052",
         "bio111-q053",
         "bio111-q054",
-        "bio111-q055"
-      ]
-    },
-    {
-      "key": "bio111-mini-b1-5",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Transport, Vesikel, Transfer",
-      "title": "Mini-Test 1.5: Transport, Vesikel, Transfer",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q055",
         "bio111-q056",
-        "bio111-q060",
-        "bio111-q132",
-        "bio111-q133",
-        "bio111-q134",
-        "bio111-q135",
-        "bio111-q136",
-        "bio111-q137"
-      ]
-    },
-    {
-      "key": "bio111-mini-b1-6",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Transfer",
-      "title": "Mini-Test 1.6: Transfer",
-      "duration_minutes": 10,
-      "questions": [
-        "bio111-q138",
-        "bio111-q139",
-        "bio111-q140",
-        "bio111-q141",
-        "bio111-q142",
-        "bio111-q143",
-        "bio111-q144",
-        "bio111-q145"
+        "bio111-q060"
       ]
     },
     {
@@ -1987,12 +1925,14 @@
       ]
     },
     {
-      "key": "bio111-mini-b2-1",
+      "key": "bio111-mini-block2",
       "kind": "mini",
       "subject": "bio",
-      "topic": "Proteine, Energie",
-      "title": "Mini-Test 2.1: Proteine, Energie",
+      "topic": "Block 2: Proteine & Enzyme",
+      "title": "Mini-Test Block 2: Proteine & Enzyme",
+      "description": "10 zufällige Fragen – bei jedem Versuch neu gemischt.",
       "duration_minutes": 10,
+      "draw_count": 10,
       "questions": [
         "bio111-q064",
         "bio111-q065",
@@ -2001,17 +1941,7 @@
         "bio111-q068",
         "bio111-q075",
         "bio111-q076",
-        "bio111-q077"
-      ]
-    },
-    {
-      "key": "bio111-mini-b2-2",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Energie, Enzyme",
-      "title": "Mini-Test 2.2: Energie, Enzyme",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q077",
         "bio111-q078",
         "bio111-q079",
         "bio111-q080",
@@ -2019,17 +1949,7 @@
         "bio111-q088",
         "bio111-q089",
         "bio111-q090",
-        "bio111-q091"
-      ]
-    },
-    {
-      "key": "bio111-mini-b2-3",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Enzyme, Kinetik",
-      "title": "Mini-Test 2.3: Enzyme, Kinetik",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q091",
         "bio111-q092",
         "bio111-q093",
         "bio111-q094",
@@ -2037,17 +1957,7 @@
         "bio111-q101",
         "bio111-q102",
         "bio111-q103",
-        "bio111-q104"
-      ]
-    },
-    {
-      "key": "bio111-mini-b2-4",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Kinetik, Temperatur, pH",
-      "title": "Mini-Test 2.4: Kinetik, Temperatur, pH",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q104",
         "bio111-q105",
         "bio111-q110",
         "bio111-q111",
@@ -2055,17 +1965,7 @@
         "bio111-q113",
         "bio111-q114",
         "bio111-q117",
-        "bio111-q118"
-      ]
-    },
-    {
-      "key": "bio111-mini-b2-5",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "pH, Hemmung",
-      "title": "Mini-Test 2.5: pH, Hemmung",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q118",
         "bio111-q119",
         "bio111-q125",
         "bio111-q126",
@@ -2077,13 +1977,31 @@
       ]
     },
     {
-      "key": "bio111-mini-b2-6",
+      "key": "bio111-mini-transfer",
       "kind": "mini",
       "subject": "bio",
       "topic": "Transfer",
-      "title": "Mini-Test 2.6: Transfer",
+      "title": "Mini-Test Transfer",
+      "description": "10 zufällige Fragen – bei jedem Versuch neu gemischt.",
       "duration_minutes": 10,
+      "draw_count": 10,
       "questions": [
+        "bio111-q132",
+        "bio111-q133",
+        "bio111-q134",
+        "bio111-q135",
+        "bio111-q136",
+        "bio111-q137",
+        "bio111-q138",
+        "bio111-q139",
+        "bio111-q140",
+        "bio111-q141",
+        "bio111-q142",
+        "bio111-q143",
+        "bio111-q144",
+        "bio111-q145",
+        "bio111-q146",
+        "bio111-q147",
         "bio111-q148",
         "bio111-q149",
         "bio111-q150",
@@ -2091,17 +2009,7 @@
         "bio111-q152",
         "bio111-q153",
         "bio111-q154",
-        "bio111-q155"
-      ]
-    },
-    {
-      "key": "bio111-mini-b2-7",
-      "kind": "mini",
-      "subject": "bio",
-      "topic": "Transfer",
-      "title": "Mini-Test 2.7: Transfer",
-      "duration_minutes": 10,
-      "questions": [
+        "bio111-q155",
         "bio111-q156",
         "bio111-q157",
         "bio111-q158",
@@ -2109,7 +2017,8 @@
         "bio111-q160",
         "bio111-q161",
         "bio111-q162",
-        "bio111-q163"
+        "bio111-q163",
+        "bio111-q164"
       ]
     }
   ],

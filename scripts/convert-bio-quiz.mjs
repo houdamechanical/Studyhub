@@ -66,12 +66,20 @@ ${clean(item.q)}` : clean(item.q);
   }
 }
 
-// Mini tests: per block, consecutive groups of 5–10 questions (topics stay together).
-function chunk(list, max = 8) {
-  const groups = Math.ceil(list.length / max);
-  const size = Math.ceil(list.length / groups);
-  return Array.from({ length: groups }, (_, i) => list.slice(i * size, (i + 1) * size)).filter((g) => g.length);
-}
+// Mini tests: one per block plus one for all transfer tasks. Each attempt draws
+// DRAW random questions from the test's pool (quizzes.draw_count).
+const DRAW = 10;
+const mini = (key, topic, title, pool) => ({
+  key,
+  kind: "mini",
+  subject: "bio",
+  topic,
+  title,
+  description: `${DRAW} zufällige Fragen – bei jedem Versuch neu gemischt.`,
+  duration_minutes: 10,
+  draw_count: DRAW,
+  questions: pool.map((q) => q.key),
+});
 
 const quizzes = [];
 for (const [b, title] of Object.entries(BLOCKS)) {
@@ -87,20 +95,12 @@ for (const [b, title] of Object.entries(BLOCKS)) {
     duration_minutes: Math.max(10, Math.round(inBlock.length * 0.75)),
     questions: inBlock.map((q) => q.key),
   });
-  chunk(inBlock).forEach((group, i) => {
-    if (group.length < 5) return;
-    const topics = [...new Set(group.map((q) => q.topic))].join(", ");
-    quizzes.push({
-      key: `bio111-mini-b${b}-${i + 1}`,
-      kind: "mini",
-      subject: "bio",
-      topic: topics,
-      title: `Mini-Test ${b}.${i + 1}: ${topics}`,
-      duration_minutes: 10,
-      questions: group.map((q) => q.key),
-    });
-  });
+  quizzes.push(
+    mini(`bio111-mini-block${b}`, title, `Mini-Test ${title}`, inBlock.filter((q) => q.topic !== "Transfer")),
+  );
 }
+const transfer = questions.filter((q) => q.topic === "Transfer");
+if (transfer.length) quizzes.push(mini("bio111-mini-transfer", "Transfer", "Mini-Test Transfer", transfer));
 
 const decks = Object.entries(cardsByBlock)
   .filter(([, cards]) => cards.length)
@@ -113,4 +113,4 @@ writeFileSync(OUT, JSON.stringify({ questions, quizzes, decks }, null, 2) + "\n"
 
 console.log(`${OUT}: ${questions.length} questions, ${quizzes.length} tests (${quizzes.filter((q) => q.kind === "mock").length} mock, ${quizzes.filter((q) => q.kind === "mini").length} mini), ${decks.length} decks with ${decks.reduce((s, d) => s + d.cards.length, 0)} cards`);
 console.log("Skipped (no matching question type):", skipped);
-for (const z of quizzes) console.log(` - [${z.kind}] ${z.title} – ${z.questions.length} questions${z.duration_minutes ? `, ${z.duration_minutes} min` : ""}`);
+for (const z of quizzes) console.log(` - [${z.kind}] ${z.title} – ${z.draw_count ? `${z.draw_count} random of ` : ""}${z.questions.length} questions${z.duration_minutes ? `, ${z.duration_minutes} min` : ""}`);

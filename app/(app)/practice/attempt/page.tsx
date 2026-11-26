@@ -6,7 +6,8 @@ import type { SubjectId } from "@/lib/subjects";
 import { ArrowLeft, CircleCheck, CircleX, RotateCcw, TriangleAlert, Trophy } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { QuizBoardDialog } from "@/components/practice/quiz-board-dialog";
 import { Loaded, NotFoundMessage } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { isUuid } from "@/lib/actions";
@@ -61,14 +62,21 @@ function AttemptLoader() {
     if (unfinished) router.replace(`/practice/quiz?id=${attempt.quiz_id}`);
   }, [unfinished, attempt, router]);
 
+  const justFinished = useSearchParams().get("done") === "1";
   return (
     <Loaded state={state}>
-      {({ attempt }) => (attempt && attempt.submitted_at ? <AttemptView attempt={attempt} dict={dict} /> : <NotFoundMessage />)}
+      {({ attempt }) =>
+        attempt && attempt.submitted_at ? (
+          <AttemptView attempt={attempt} dict={dict} justFinished={justFinished} />
+        ) : (
+          <NotFoundMessage />
+        )
+      }
     </Loaded>
   );
 }
 
-function AttemptView({ attempt, dict }: { attempt: AttemptRow; dict: Dictionary }) {
+function AttemptView({ attempt, dict, justFinished }: { attempt: AttemptRow; dict: Dictionary; justFinished: boolean }) {
   const t = dict.quiz;
   const quiz = attempt.quizzes as unknown as { title: string; kind: "mock" | "mini"; subject: SubjectId } | null;
   const review = (attempt.review ?? []) as ReviewItem[];
@@ -76,6 +84,8 @@ function AttemptView({ attempt, dict }: { attempt: AttemptRow; dict: Dictionary 
   const max = Number(attempt.max_score);
   const percent = max > 0 ? Math.round((score / max) * 100) : 0;
   const correctCount = review.filter((r) => r.correct).length;
+  // Mini tests aren't on the Leaderboard page: their board pops up right after finishing.
+  const [boardOpen, setBoardOpen] = useState(justFinished && quiz?.kind === "mini");
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6">
@@ -111,14 +121,16 @@ function AttemptView({ attempt, dict }: { attempt: AttemptRow; dict: Dictionary 
               {t.tryAgain}
             </Link>
           </Button>
-          <Button asChild variant="outline">
-            <Link href={`/compare/quiz?id=${attempt.quiz_id}`}>
-              <Trophy size={16} />
-              {dict.compare.leaderboard}
-            </Link>
+          <Button variant="outline" onClick={() => setBoardOpen(true)}>
+            <Trophy size={16} />
+            {dict.compare.leaderboard}
           </Button>
         </div>
       </section>
+
+      {boardOpen && (
+        <QuizBoardDialog quizId={attempt.quiz_id} title={quiz?.title ?? ""} onClose={() => setBoardOpen(false)} />
+      )}
 
       <ol className="flex flex-col gap-3">
         {review.map((item, i) => (
