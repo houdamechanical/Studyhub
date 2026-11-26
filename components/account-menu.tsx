@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useI18n } from "@/lib/i18n/client";
 import { createClient } from "@/lib/supabase/client";
+import { useAuth } from "@/components/auth-gate";
 
 /** Signed in: icon menu with sign-out (no email shown). Signed out: sign-in link. */
 export function AccountMenu({ signedIn, isAdmin = false }: { signedIn: boolean; isAdmin?: boolean }) {
@@ -55,4 +56,10 @@ export function AccountMenu({ signedIn, isAdmin = false }: { signedIn: boolean; 
       </DropdownMenuContent>
     </DropdownMenu>
   );
+}
+
+/** Account menu for the app header, fed by the signed-in state from <AuthGate>. */
+export function HeaderAccount() {
+  const { userId, isAdmin } = useAuth();
+  return <AccountMenu signedIn={Boolean(userId)} isAdmin={isAdmin} />;
 }

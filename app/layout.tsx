@@ -1,17 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Noto_Sans_Arabic } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import { I18nProvider } from "@/lib/i18n/client";
-import { dirFor } from "@/lib/i18n/config";
-import { getI18n } from "@/lib/i18n/server";
+import { I18nProvider, LOCALE_BOOT_SCRIPT } from "@/lib/i18n/client";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import "./globals.css";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
+  // Public address (set by the GitHub Pages build); used for social preview images.
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: { default: "Study Hub", template: "%s · Study Hub" },
   description: "Study pages, exams, grades and practice in one place.",
 };
@@ -35,25 +31,21 @@ const notoArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
 });
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { locale, dict } = await getI18n();
-
   return (
-    <html lang={locale} dir={dirFor(locale)} suppressHydrationWarning>
+    // lang/dir are set in the browser (the site is static); the inline script
+    // applies the saved language before the first paint.
+    <html lang={DEFAULT_LOCALE} dir="ltr" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOT_SCRIPT }} />
+      </head>
       <body className={`${geistSans.variable} ${notoArabic.variable} font-sans antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <I18nProvider locale={locale} dict={dict}>
-            {children}
-          </I18nProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>
       </body>
     </html>

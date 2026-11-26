@@ -1,6 +1,4 @@
-"use server";
-
-import { revalidatePath } from "next/cache";
+import { dataChanged } from "@/lib/data";
 import { cleanText, isUuid, requireUser, type ActionResult } from "@/lib/actions";
 import { parseImport, type ImportPayload } from "@/lib/practice";
 import { isSubjectId } from "@/lib/subjects";
@@ -37,8 +35,7 @@ export async function importContent(json: string): Promise<ImportResult> {
 
   try {
     const counts = await writeImport(db, payload);
-    revalidatePath("/practice");
-    revalidatePath("/admin");
+    dataChanged();
     return { ok: true, counts };
   } catch (e) {
     console.error("importContent", e);
@@ -159,8 +156,7 @@ export async function deleteItem(kind: keyof typeof TABLES, id: string): Promise
   if (!(kind in TABLES) || !isUuid(id)) return { ok: false, error: "invalid" };
   const { error } = await auth.supabase.from(TABLES[kind]).delete().eq("id", id);
   if (error) return { ok: false, error: "failed" };
-  revalidatePath("/admin");
-  revalidatePath("/practice");
+  dataChanged();
   return { ok: true };
 }
 
@@ -173,7 +169,6 @@ export async function addCard(deckId: string, front: string, back: string): Prom
   const { count } = await auth.supabase.from("cards").select("id", { count: "exact", head: true }).eq("deck_id", deckId);
   const { error } = await auth.supabase.from("cards").insert({ deck_id: deckId, front: f, back: b, position: count ?? 0 });
   if (error) return { ok: false, error: "failed" };
-  revalidatePath("/admin");
-  revalidatePath("/practice");
+  dataChanged();
   return { ok: true };
 }

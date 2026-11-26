@@ -40,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# study pages copied at build time (source: content/)
+/public/content/
+# static export output
+/out/

@@ -1,6 +1,4 @@
-"use server";
-
-import { revalidatePath } from "next/cache";
+import { dataChanged } from "@/lib/data";
 import { isISODate, isUuid, requireUser, type ActionError } from "@/lib/actions";
 import { todayISO } from "@/lib/format";
 import { addDays, RATINGS, sm2, type GivenAnswer, type Rating } from "@/lib/practice";
@@ -45,14 +43,11 @@ export async function submitAttempt(
     console.error("submit_attempt", error);
     return { ok: false, error: "failed" };
   }
-  revalidatePath("/practice");
+  dataChanged();
   return { ok: true, attemptId };
 }
 
-/**
- * Rate a flashcard and schedule it with SM-2. `clientToday` is the user's local
- * date so the next due day doesn't shift with the server's time zone.
- */
+/** Rate a flashcard and schedule it with SM-2 (due date in the user's local calendar). */
 export async function reviewCard(
   cardId: string,
   rating: Rating,
@@ -62,12 +57,7 @@ export async function reviewCard(
   if (!auth) return { ok: false, error: "unauthorized" };
   if (!isUuid(cardId) || !(RATINGS as readonly string[]).includes(rating)) return { ok: false, error: "invalid" };
 
-  // Accept the browser's date only if it's within a day of the server's.
-  const serverToday = todayISO();
-  const today =
-    isISODate(clientToday) && Math.abs(Date.parse(clientToday) - Date.parse(serverToday)) <= 86_400_000
-      ? clientToday
-      : serverToday;
+  const today = isISODate(clientToday) ? clientToday : todayISO();
 
   const { data: prev } = await auth.supabase
     .from("card_reviews")

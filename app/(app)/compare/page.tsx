@@ -1,79 +1,78 @@
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import { useAuth } from "@/components/auth-gate";
 import { Leaderboard } from "@/components/compare/leaderboard";
 import { MeVsAverage } from "@/components/compare/me-vs-average";
 import { ProfileCard } from "@/components/compare/profile-card";
-import { isMissingTable, SetupNotice } from "@/components/setup-notice";
+import { Loaded, PageShell } from "@/components/page-shell";
 import { normaliseBoard, type SubjectBoard } from "@/lib/compare";
+import { must, useLoad } from "@/lib/data";
 import { intlLocale } from "@/lib/format";
-import { CURRENT_SEMESTER, formatScore, isScale, SCALE_COOKIE } from "@/lib/grades";
+import { CURRENT_SEMESTER, formatScore } from "@/lib/grades";
+import { useI18n } from "@/lib/i18n/client";
 import { fill, formatSemester } from "@/lib/i18n/dictionaries";
-import { getI18n } from "@/lib/i18n/server";
+import { getDisplayScale } from "@/lib/mutations/grades";
 import { isSubjectId, SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
-import { createClient } from "@/lib/supabase/server";
-import { cn, hasEnvVars } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
 
-type Props = { searchParams: Promise<{ subject?: string }> };
-
-export async function generateMetadata(): Promise<Metadata> {
-  const { dict } = await getI18n();
-  return { title: dict.compare.title };
+// /compare?subject=bio
+export default function ComparePage() {
+  return (
+    <Suspense>
+      <CompareLoader />
+    </Suspense>
+  );
 }
 
-export default async function ComparePage({ searchParams }: Props) {
-  const { locale, dict } = await getI18n();
-  const t = dict.compare;
-  const header = (
-    <>
-      <h1 className="text-2xl font-semibold tracking-tight">{t.title}</h1>
-      <p className="mt-1 mb-6 text-sm text-muted-foreground">{t.subtitle}</p>
-    </>
-  );
-  if (!hasEnvVars) {
-    return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-6">
-        {header}
-        <SetupNotice problem="no-env" />
-      </div>
-    );
-  }
-
-  const supabase = await createClient();
-  const { data: claims } = await supabase.auth.getClaims();
-  const userId = claims?.claims?.sub;
-
+async function loadCompare(asked: string, userId: string) {
+  const supabase = createClient();
   // Default subject: the one asked for, else the first subject that has tests.
-  const asked = (await searchParams).subject ?? "";
   let subject: SubjectId;
   if (isSubjectId(asked)) {
     subject = asked;
   } else {
-    const { data: first } = await supabase.from("quizzes").select("subject").order("subject").limit(1).maybeSingle();
+    const first = must(await supabase.from("quizzes").select("subject").order("subject").limit(1).maybeSingle()) as {
+      subject: string;
+    } | null;
     subject = first && isSubjectId(first.subject) ? first.subject : SUBJECT_IDS[0];
   }
-
   const [profile, shares, board] = await Promise.all([
-    supabase.from("profiles").select("nickname").eq("user_id", userId ?? "").maybeSingle(),
+    supabase.from("profiles").select("nickname").eq("user_id", userId).maybeSingle(),
     supabase.from("grade_shares").select("subject"),
     supabase.rpc("get_subject_board", { p_subject: subject, p_semester: CURRENT_SEMESTER }),
   ]);
-  const error = profile.error ?? shares.error ?? board.error;
-  if (error) {
-    console.error("load compare", error);
-    const missing = isMissingTable(error) || error.code === "PGRST202";
-    return (
-      <div className="mx-auto w-full max-w-3xl px-4 py-6">
-        {header}
-        <SetupNotice problem={missing ? "no-table" : "error"} />
-      </div>
-    );
-  }
+  return {
+    subject,
+    nickname: (must(profile) as { nickname: string } | null)?.nickname ?? "",
+    shared: must(shares).map((s) => s.subject as SubjectId),
+    board: must(board) as SubjectBoard,
+    scale: getDisplayScale(),
+  };
+}
 
-  const data = board.data as SubjectBoard;
+function CompareLoader() {
+  const asked = useSearchParams().get("subject") ?? "";
+  const { userId } = useAuth();
+  const { dict } = useI18n();
+  const state = useLoad(() => loadCompare(asked, userId), `compare:${asked}`);
+  return (
+    <PageShell title={dict.compare.title} subtitle={dict.compare.subtitle}>
+      <Loaded state={state}>{(data) => <CompareView {...data} />}</Loaded>
+    </PageShell>
+  );
+}
+
+function CompareView({ subject, nickname, shared, board, scale }: Awaited<ReturnType<typeof loadCompare>>) {
+  const { locale, dict } = useI18n();
+  const t = dict.compare;
+  const data = board;
   const tests = normaliseBoard(data.tests);
   const grades = normaliseBoard(data.grades);
-  const sharedSubjects = (shares.data ?? []).map((s) => s.subject as SubjectId);
+  const sharedSubjects = shared;
   const sharesThis = sharedSubjects.includes(subject);
   const myGrade = data.my_grade === null ? null : Number(data.my_grade);
   const quizzes = (data.quizzes ?? []).map((q) => ({
@@ -83,17 +82,14 @@ export default async function ComparePage({ searchParams }: Props) {
   }));
 
   const nf = intlLocale(locale);
-  const cookieScale = (await cookies()).get(SCALE_COOKIE)?.value;
-  const scale = isScale(cookieScale) ? cookieScale : "grade";
   const pct = (v: number) => `${Math.round(v * 100)} %`;
   const gradeFmt = (v: number) => formatScore(v, scale, nf);
   const labels = { you: t.you, average: t.average, people: t.people };
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6">
-      <div>{header}</div>
+    <div className="flex flex-col gap-6">
 
-      <ProfileCard nickname={profile.data?.nickname ?? ""} shared={sharedSubjects} />
+      <ProfileCard nickname={nickname} shared={sharedSubjects} />
 
       <nav className="-mx-4 overflow-x-auto px-4" aria-label={dict.grades.subject}>
         <div className="flex w-max gap-1.5 md:w-auto md:flex-wrap">

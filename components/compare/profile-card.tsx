@@ -2,7 +2,7 @@
 
 import { Check } from "lucide-react";
 import { useState, useTransition } from "react";
-import { saveNickname, setGradeShare } from "@/app/(app)/compare/actions";
+import { saveNickname, setGradeShare } from "@/lib/mutations/compare";
 import { Button } from "@/components/ui/button";
 import { controlClass, FormError } from "@/components/ui/field";
 import { NICKNAME_PATTERN } from "@/lib/compare";

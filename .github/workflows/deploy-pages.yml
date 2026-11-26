@@ -1,0 +1,55 @@
+# Builds the app as a static site and publishes it on GitHub Pages:
+#   https://houdamechanical.github.io/Studyhub/
+# Runs on every push to main (and can be started by hand under Actions).
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time; a newer push replaces an older run.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          GITHUB_PAGES: "true"
+          NEXT_PUBLIC_SITE_URL: https://houdamechanical.github.io/Studyhub
+          # Public by design: both values are sent to every visitor's browser.
+          # Your data is protected by Row Level Security in Supabase, not by hiding these.
+          NEXT_PUBLIC_SUPABASE_URL: https://iyktbfuannflrtlubxyi.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_Iw8MGUKeNMZzCIC57Mo_dA_XkJYBluR
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

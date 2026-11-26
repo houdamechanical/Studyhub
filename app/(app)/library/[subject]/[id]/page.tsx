@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ContentFrame } from "@/components/library/content-frame";
-import { getContent } from "@/lib/content";
-import { getI18n } from "@/lib/i18n/server";
-import { SUBJECTS } from "@/lib/subjects";
+import { ContentViewer } from "@/components/library/content-viewer";
+import { getAllContent, getContent } from "@/lib/content";
 
 type Props = { params: Promise<{ subject: string; id: string }> };
+
+// One page per study page in content/index.json (static site).
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return getAllContent().map((item) => ({ subject: item.subject, id: item.id }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
@@ -17,15 +21,5 @@ export default async function ContentViewerPage({ params }: Props) {
   const { subject, id } = await params;
   const item = getContent(id);
   if (!item || item.subject !== subject) notFound();
-
-  const { locale } = await getI18n();
-
-  return (
-    <ContentFrame
-      id={item.id}
-      title={item.title}
-      backHref={`/library/${item.subject}`}
-      backLabel={SUBJECTS[item.subject].label[locale]}
-    />
-  );
+  return <ContentViewer item={item} />;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { saveExam } from "@/app/(app)/exams/actions";
+import { saveExam } from "@/lib/mutations/exams";
 import { Button } from "@/components/ui/button";
 import { controlClass, Field, FormError } from "@/components/ui/field";
 import { EXAM_TYPES, type Exam } from "@/lib/exams";

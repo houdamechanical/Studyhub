@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ExternalLink, Maximize } from "lucide-react";
+import { ArrowLeft, Maximize } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
 import { useI18n } from "@/lib/i18n/client";
@@ -12,22 +12,24 @@ import { useI18n } from "@/lib/i18n/client";
  * normally, but it gets an opaque origin, so it cannot touch the app's cookies or
  * Supabase session. (Side effect: localStorage is unavailable inside the page, so
  * things like a quiz's high score are not remembered. The current pages handle
- * that gracefully.)
+ * that gracefully.) There is deliberately no "open in new tab": opened directly,
+ * the page would not be sandboxed.
  */
 export function ContentFrame({
-  id,
+  file,
   title,
   backHref,
   backLabel,
 }: {
-  id: string;
+  file: string;
   title: string;
   backHref: string;
   backLabel: string;
 }) {
   const { dict } = useI18n();
   const frameRef = useRef<HTMLIFrameElement>(null);
-  const src = `/api/content/${encodeURIComponent(id)}`;
+  // Copied to public/content/ at build time (scripts/copy-content.mjs).
+  const src = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/content/${file}`;
 
   return (
     <div className="flex flex-1 flex-col">
@@ -51,16 +53,6 @@ export function ContentFrame({
         >
           <Maximize size={16} />
         </button>
-        <a
-          href={src}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-foreground"
-          aria-label={dict.library.openInNewTab}
-          title={dict.library.openInNewTab}
-        >
-          <ExternalLink size={16} />
-        </a>
       </div>
       <iframe
         ref={frameRef}

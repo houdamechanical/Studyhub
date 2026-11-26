@@ -1,6 +1,4 @@
-"use server";
-
-import { revalidatePath } from "next/cache";
+import { dataChanged } from "@/lib/data";
 import { cleanText, isISODate, isUuid, requireUser, type ActionResult } from "@/lib/actions";
 import { EXAM_STATUSES, EXAM_TYPES, type ExamStatus, type ExamType } from "@/lib/exams";
 import { isSubjectId } from "@/lib/subjects";
@@ -51,7 +49,7 @@ export async function saveExam(input: ExamInput): Promise<ActionResult> {
     console.error("saveExam", error);
     return { ok: false, error: "failed" };
   }
-  revalidatePath("/exams");
+  dataChanged();
   return { ok: true };
 }
 
@@ -63,7 +61,7 @@ export async function setExamStatus(id: string, status: ExamStatus): Promise<Act
   }
   const { error } = await auth.supabase.from("exams").update({ status }).eq("id", id);
   if (error) return { ok: false, error: "failed" };
-  revalidatePath("/exams");
+  dataChanged();
   return { ok: true };
 }
 
@@ -73,6 +71,6 @@ export async function deleteExam(id: string): Promise<ActionResult> {
   if (!isUuid(id)) return { ok: false, error: "invalid" };
   const { error } = await auth.supabase.from("exams").delete().eq("id", id);
   if (error) return { ok: false, error: "failed" };
-  revalidatePath("/exams");
+  dataChanged();
   return { ok: true };
 }

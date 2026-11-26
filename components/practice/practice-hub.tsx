@@ -87,7 +87,7 @@ export function PracticeHub({ quizzes, decks }: { quizzes: QuizSummary[]; decks:
           return (
             <Row
               key={d.id}
-              href={`/practice/deck/${d.id}`}
+              href={`/practice/deck?id=${d.id}`}
               subject={d.subject}
               title={d.title}
               meta={[d.cardCount === 1 ? t.oneCard : fill(t.cards, { n: d.cardCount }), d.topic]}
@@ -140,7 +140,7 @@ function QuizRow({ quiz }: { quiz: QuizSummary }) {
   const t = dict.practice;
   return (
     <Row
-      href={`/practice/quiz/${quiz.id}`}
+      href={`/practice/quiz?id=${quiz.id}`}
       subject={quiz.subject}
       title={quiz.title}
       meta={[

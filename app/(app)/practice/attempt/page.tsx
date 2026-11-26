@@ -1,40 +1,72 @@
+"use client";
+
 import { ArrowLeft, CircleCheck, CircleX, RotateCcw, TriangleAlert, Trophy } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { SetupNotice } from "@/components/setup-notice";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect } from "react";
+import { Loaded, NotFoundMessage } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { isUuid } from "@/lib/actions";
+import { must, useLoad } from "@/lib/data";
+import { useI18n, useTitle } from "@/lib/i18n/client";
 import { fill, type Dictionary } from "@/lib/i18n/dictionaries";
-import { getI18n } from "@/lib/i18n/server";
 import type { GivenAnswer, ReviewItem, Solution } from "@/lib/practice";
-import { createClient } from "@/lib/supabase/server";
-import { cn, hasEnvVars } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
 
-type Props = { params: Promise<{ id: string }> };
+type AttemptRow = {
+  id: string;
+  quiz_id: string;
+  submitted_at: string | null;
+  over_time: boolean;
+  score: number | string | null;
+  max_score: number | string | null;
+  review: unknown;
+  quizzes: unknown;
+};
 
-export async function generateMetadata(): Promise<Metadata> {
-  const { dict } = await getI18n();
-  return { title: dict.quiz.result };
+// /practice/attempt?id=… (static site: ids come from the database, so they're query params)
+export default function AttemptPage() {
+  return (
+    <Suspense>
+      <AttemptLoader />
+    </Suspense>
+  );
 }
 
-export default async function AttemptPage({ params }: Props) {
-  const { id } = await params;
-  if (!hasEnvVars) return <SetupNotice problem="no-env" />;
-  if (!isUuid(id)) notFound();
+function AttemptLoader() {
+  const id = useSearchParams().get("id") ?? "";
+  const router = useRouter();
+  const { dict } = useI18n();
+  useTitle(dict.quiz.result);
+  const state = useLoad(async () => {
+    if (!isUuid(id)) return { attempt: null };
+    // RLS: only your own attempts are visible.
+    const attempt = must(
+      await createClient()
+        .from("attempts")
+        .select("id, quiz_id, submitted_at, over_time, score, max_score, review, quizzes(title, kind)")
+        .eq("id", id)
+        .maybeSingle(),
+    ) as AttemptRow | null;
+    return { attempt };
+  }, id);
 
-  const { dict } = await getI18n();
+  const attempt = state.data?.attempt;
+  const unfinished = attempt && !attempt.submitted_at;
+  useEffect(() => {
+    if (unfinished) router.replace(`/practice/quiz?id=${attempt.quiz_id}`);
+  }, [unfinished, attempt, router]);
+
+  return (
+    <Loaded state={state}>
+      {({ attempt }) => (attempt && attempt.submitted_at ? <AttemptView attempt={attempt} dict={dict} /> : <NotFoundMessage />)}
+    </Loaded>
+  );
+}
+
+function AttemptView({ attempt, dict }: { attempt: AttemptRow; dict: Dictionary }) {
   const t = dict.quiz;
-  const supabase = await createClient();
-  // RLS: only your own attempts are visible.
-  const { data: attempt } = await supabase
-    .from("attempts")
-    .select("id, quiz_id, submitted_at, over_time, score, max_score, review, quizzes(title, kind)")
-    .eq("id", id)
-    .maybeSingle();
-  if (!attempt) notFound();
-  if (!attempt.submitted_at) redirect(`/practice/quiz/${attempt.quiz_id}`);
-
   const quiz = attempt.quizzes as unknown as { title: string; kind: "mock" | "mini" } | null;
   const review = (attempt.review ?? []) as ReviewItem[];
   const score = Number(attempt.score);
@@ -71,13 +103,13 @@ export default async function AttemptPage({ params }: Props) {
         )}
         <div className="mt-4 flex flex-wrap gap-2">
           <Button asChild variant="outline">
-            <Link href={`/practice/quiz/${attempt.quiz_id}`}>
+            <Link href={`/practice/quiz?id=${attempt.quiz_id}`}>
               <RotateCcw size={16} />
               {t.tryAgain}
             </Link>
           </Button>
           <Button asChild variant="outline">
-            <Link href={`/compare/quiz/${attempt.quiz_id}`}>
+            <Link href={`/compare/quiz?id=${attempt.quiz_id}`}>
               <Trophy size={16} />
               {dict.compare.leaderboard}
             </Link>

@@ -40,15 +40,16 @@ export function SignUpForm({
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/library`,
+          emailRedirectTo: `${window.location.origin}${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/library/`,
         },
       });
       if (error) throw error;
-      router.push("/auth/sign-up-success");
+      // With "Confirm email" turned off in Supabase you're signed in right away.
+      router.push(data.session ? "/library" : "/auth/sign-up-success");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

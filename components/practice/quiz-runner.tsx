@@ -4,7 +4,7 @@ import { ArrowLeft, Clock, Play } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { startAttempt, submitAttempt } from "@/app/(app)/practice/actions";
+import { startAttempt, submitAttempt } from "@/lib/mutations/practice";
 import { Button } from "@/components/ui/button";
 import { controlClass, FormError } from "@/components/ui/field";
 import { intlLocale } from "@/lib/format";
@@ -61,7 +61,7 @@ export function QuizRunner({
       setPhase("submitting");
       const result = await submitAttempt(attemptId, answers);
       if (result.ok) {
-        router.push(`/practice/attempt/${result.attemptId}`);
+        router.push(`/practice/attempt?id=${result.attemptId}`);
       } else {
         submittedRef.current = false;
         setPhase("running");
@@ -130,7 +130,7 @@ export function QuizRunner({
             <ul className="divide-y rounded-xl border bg-card">
               {attempts.map((a) => (
                 <li key={a.id}>
-                  <Link href={`/practice/attempt/${a.id}`} className="flex items-center justify-between gap-3 px-4 py-3 text-sm hover:bg-accent">
+                  <Link href={`/practice/attempt?id=${a.id}`} className="flex items-center justify-between gap-3 px-4 py-3 text-sm hover:bg-accent">
                     <span className="text-muted-foreground">
                       {new Intl.DateTimeFormat(intlLocale(locale), {
                         dateStyle: "medium",

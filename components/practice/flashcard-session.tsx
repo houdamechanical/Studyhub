@@ -3,7 +3,7 @@
 import { ArrowLeft, PartyPopper } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { reviewCard } from "@/app/(app)/practice/actions";
+import { reviewCard } from "@/lib/mutations/practice";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/ui/field";
 import { todayISO } from "@/lib/format";

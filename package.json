@@ -1,9 +1,11 @@
 {
   "private": true,
   "scripts": {
+    "predev": "node scripts/copy-content.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/copy-content.mjs",
     "build": "next build",
-    "start": "next start",
+    "postbuild": "node scripts/fix-prefetch.mjs",
     "lint": "eslint ."
   },
   "dependencies": {

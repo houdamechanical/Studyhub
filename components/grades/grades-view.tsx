@@ -2,7 +2,7 @@
 
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
-import { deleteGrade, setDisplayScale } from "@/app/(app)/grades/actions";
+import { deleteGrade, setDisplayScale } from "@/lib/mutations/grades";
 import { GradeChart, GradeTable } from "@/components/grades/grade-chart";
 import { GradeForm } from "@/components/grades/grade-form";
 import { Button } from "@/components/ui/button";

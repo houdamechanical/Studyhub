@@ -1,6 +1,4 @@
-"use server";
-
-import { revalidatePath } from "next/cache";
+import { dataChanged } from "@/lib/data";
 import { requireUser, type ActionResult } from "@/lib/actions";
 import { NICKNAME_PATTERN } from "@/lib/compare";
 import { isSubjectId } from "@/lib/subjects";
@@ -17,7 +15,7 @@ export async function saveNickname(nickname: string): Promise<ActionResult> {
   if (error) {
     return { ok: false, error: error.code === "23505" ? "taken" : error.code === "23514" ? "invalid" : "failed" };
   }
-  revalidatePath("/compare");
+  dataChanged();
   return { ok: true };
 }
 
@@ -31,6 +29,6 @@ export async function setGradeShare(subject: string, shared: boolean): Promise<A
     ? await auth.supabase.from("grade_shares").upsert({ user_id: auth.userId, subject }, { onConflict: "user_id,subject" })
     : await auth.supabase.from("grade_shares").delete().eq("subject", subject);
   if (error) return { ok: false, error: "failed" };
-  revalidatePath("/compare");
+  dataChanged();
   return { ok: true };
 }

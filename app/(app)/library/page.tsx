@@ -1,15 +1,12 @@
-import type { Metadata } from "next";
+"use client";
+
 import { LibraryBrowser } from "@/components/library/library-browser";
 import { getAllContent } from "@/lib/content";
-import { getI18n } from "@/lib/i18n/server";
+import { useI18n, useTitle } from "@/lib/i18n/client";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const { dict } = await getI18n();
-  return { title: dict.library.title };
-}
-
-export default async function LibraryPage() {
-  const { dict } = await getI18n();
+export default function LibraryPage() {
+  const { dict } = useI18n();
+  useTitle(dict.library.title);
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-6">

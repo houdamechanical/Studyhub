@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { saveGrade } from "@/app/(app)/grades/actions";
+import { saveGrade } from "@/lib/mutations/grades";
 import { Button } from "@/components/ui/button";
 import { controlClass, Field, FormError } from "@/components/ui/field";
 import { CURRENT_SEMESTER, SCALE_RANGE, SCALES, type Grade, type Scale } from "@/lib/grades";

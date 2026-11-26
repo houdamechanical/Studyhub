@@ -1,13 +1,16 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/client";
 
 export type ActionError = "unauthorized" | "invalid" | "failed" | "taken";
 export type ActionResult = { ok: true } | { ok: false; error: ActionError };
 
-/** Supabase client + signed-in user id, or null if not signed in. */
+/**
+ * Browser Supabase client + signed-in user id, or null if not signed in.
+ * Every write is still checked by Row Level Security in the database.
+ */
 export async function requireUser() {
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getClaims();
-  const userId = data?.claims?.sub;
+  const supabase = createClient();
+  const { data } = await supabase.auth.getSession();
+  const userId = data.session?.user.id;
   return userId ? { supabase, userId } : null;
 }
 

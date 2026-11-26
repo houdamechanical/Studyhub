@@ -1,9 +1,6 @@
-"use server";
-
-import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import { dataChanged } from "@/lib/data";
 import { cleanText, isISODate, isUuid, requireUser, type ActionResult } from "@/lib/actions";
-import { isScale, SCALE_COOKIE, SCALE_RANGE } from "@/lib/grades";
+import { isScale, SCALE_COOKIE, SCALE_RANGE, type Scale } from "@/lib/grades";
 import { isSubjectId } from "@/lib/subjects";
 
 export type GradeInput = {
@@ -56,7 +53,7 @@ export async function saveGrade(input: GradeInput): Promise<ActionResult> {
     console.error("saveGrade", error);
     return { ok: false, error: "failed" };
   }
-  revalidatePath("/grades");
+  dataChanged();
   return { ok: true };
 }
 
@@ -66,13 +63,24 @@ export async function deleteGrade(id: string): Promise<ActionResult> {
   if (!isUuid(id)) return { ok: false, error: "invalid" };
   const { error } = await auth.supabase.from("grades").delete().eq("id", id);
   if (error) return { ok: false, error: "failed" };
-  revalidatePath("/grades");
+  dataChanged();
   return { ok: true };
 }
 
 /** Remember which scale averages are shown on (per browser). */
-export async function setDisplayScale(scale: string) {
+export function setDisplayScale(scale: string) {
   if (!isScale(scale)) return;
-  (await cookies()).set(SCALE_COOKIE, scale, { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" });
-  revalidatePath("/grades");
+  try {
+    localStorage.setItem(SCALE_COOKIE, scale);
+  } catch {
+    // storage blocked (private mode): the choice just isn't remembered
+  }
+}
+
+export function getDisplayScale(): Scale {
+  try {
+    const value = localStorage.getItem(SCALE_COOKIE);
+    if (isScale(value)) return value;
+  } catch {}
+  return "grade";
 }

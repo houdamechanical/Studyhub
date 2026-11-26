@@ -8,6 +8,11 @@ right-to-left), works on phones first, and has a dark mode.
 Built with Next.js (App Router, TypeScript, Tailwind) and Supabase (Postgres,
 Auth, Row Level Security). No extra libraries beyond the Supabase starter.
 
+The app is exported as a **static website** (no server of its own): the pages
+run in the browser and talk to Supabase directly, and all data is protected by
+Supabase's Row Level Security. It's published on **GitHub Pages** at
+https://houdamechanical.github.io/Studyhub/.
+
 ## Features
 
 | Area | Page | What it does |
@@ -93,22 +98,36 @@ Go to **Admin → Import JSON → Choose file**, pick
 107 questions, 2 mock exams, 13 mini tests and 43 flashcards. Importing again
 updates the existing items instead of creating duplicates.
 
-## Deploy to Vercel
+## Publish on GitHub Pages
 
-1. Push the project to a GitHub repository.
-2. In [Vercel](https://vercel.com/new), **import** the repository. The framework
-   (Next.js) is detected automatically.
-3. Under **Environment Variables**, add the same two values as in `.env.local`:
-   `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
-4. Click **Deploy**.
-5. In Supabase **Authentication → URL Configuration**, set **Site URL** to
-   your Vercel address (e.g. `https://study-hub.vercel.app`) and add
-   `https://study-hub.vercel.app/**` to **Redirect URLs**. Keep the localhost
-   entries if you still develop locally.
+The workflow `.github/workflows/deploy-pages.yml` builds the site and publishes
+it on every push to `main`.
 
-The study pages in `/content` are bundled with the deployment automatically
-(see `outputFileTracingIncludes` in `next.config.ts`). To add or change pages,
-commit them and push; Vercel redeploys.
+**One-time setup:**
+
+1. **Repository visibility.** On a free GitHub account, Pages only works for
+   **public** repositories (with GitHub Pro – free for students via the
+   [GitHub Student Developer Pack](https://education.github.com/pack) – it
+   also works for private ones). Change it under **Settings → General → Danger
+   Zone → Change visibility**.
+2. **Turn on Pages:** **Settings → Pages → Build and deployment → Source:
+   GitHub Actions**.
+3. **Supabase → Authentication → URL Configuration:** set **Site URL** to
+   `https://houdamechanical.github.io/Studyhub/` and add
+   `https://houdamechanical.github.io/Studyhub/**` to **Redirect URLs** (keep
+   `http://localhost:3000/**` for local development).
+4. Optional: **Authentication → Sign In / Providers → Email → Confirm email:
+   off**, so new users can start right away without a confirmation email.
+
+**Publishing:** push to `main` (`git push`). Progress is shown under the
+repository's **Actions** tab; after 1–2 minutes the site is updated.
+
+The two Supabase values in the workflow are public by design – they are sent to
+every visitor's browser anyway. Never put the database password
+(`SUPABASE_DB_URL`) into the repository.
+
+The same `out/` folder also works on any other static host (Netlify, Vercel,
+Cloudflare Pages, …): build with `npm run build` and upload `out/`.
 
 ## Adding study pages
 
@@ -132,6 +151,8 @@ commit them and push; Vercel redeploys.
 
    `subject` is one of `math`, `deutsch`, `englisch`, `chemie`, `physik`,
    `bio`, `geschichte`, `religion`. `kind` is `notes`, `quiz` or `interactive`.
+3. Commit and push. The build copies the pages to `public/content/` and
+   publishes them with the site.
 
 Pages run in a sandbox without access to the app's storage, so things a page
 saves in `localStorage` (e.g. a quiz high score) are not kept.
@@ -190,6 +211,11 @@ All tables use Supabase **Row Level Security**:
   anything others see, not even averages.
 - Leaderboards and averages come from database functions that return only the
   data above. Other users' rows can't be queried directly.
+- The site itself is static, so the login check in the browser only decides
+  what is shown – the actual protection is Row Level Security in the database.
+- **Study pages are public files.** Anyone who knows their address
+  (`…/Studyhub/content/…`) can open them without logging in. Inside the app
+  they run in a sandboxed frame without access to your login.
 
 ## Grade calculation
 
@@ -203,13 +229,14 @@ All tables use Supabase **Row Level Security**:
 
 ```
 app/(app)/            pages: library, exams, grades, practice, compare, admin
-app/api/content/      serves study pages (sandboxed)
 components/           UI, one folder per feature
 content/              study pages, index.json, imports/
 lib/                  logic: grades, SM-2, import validation, i18n, subjects
+lib/mutations/        saving data (runs in the browser, checked by RLS)
 lib/i18n/             translations (en, de, ar)
 supabase/migrations/  database schema, policies and functions
-scripts/              one-off helpers
+scripts/              build helpers (copy study pages, fix prefetch files)
+.github/workflows/    GitHub Pages deployment
 ```
 
 ## Scripts
@@ -217,6 +244,5 @@ scripts/              one-off helpers
 | Command | |
 |---|---|
 | `npm run dev` | development server on http://localhost:3000 |
-| `npm run build` | production build |
-| `npm start` | run the production build |
+| `npm run build` | static export into `out/` |
 | `npm run lint` | ESLint |

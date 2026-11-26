@@ -2,7 +2,7 @@
 
 import { CircleCheck, Trash2, Upload } from "lucide-react";
 import { useState, useTransition } from "react";
-import { addCard, deleteItem, importContent, type ImportResult } from "@/app/(app)/admin/actions";
+import { addCard, deleteItem, importContent, type ImportResult } from "@/lib/mutations/admin";
 import { Button } from "@/components/ui/button";
 import { controlClass, Field, FormError } from "@/components/ui/field";
 import { IconButton } from "@/components/ui/icon-button";

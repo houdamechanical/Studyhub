@@ -2,7 +2,7 @@
 
 import { Check, Clock, MapPin, Pencil, Plus, RotateCcw, Trash2 } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
-import { deleteExam, setExamStatus } from "@/app/(app)/exams/actions";
+import { deleteExam, setExamStatus } from "@/lib/mutations/exams";
 import { ExamForm } from "@/components/exams/exam-form";
 import { NextExamCountdown } from "@/components/exams/next-exam-countdown";
 import { Button } from "@/components/ui/button";
