@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { BigTile } from "@/components/big-tile";
 import { PageHero } from "@/components/page-hero";
+import { SlidingIndicator } from "@/components/sliding-indicator";
+import { SUBJECT_ICONS } from "@/components/subject-icon";
 import { getAllContent } from "@/lib/content";
 import { must, useLoad } from "@/lib/data";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatPageCount, type Dictionary } from "@/lib/i18n/dictionaries";
 import { CURRENT, gradeHref, HALVES, PRACTICE_SEMESTER, semesterHref, splitSemester, subjectHref } from "@/lib/school";
-import { SUBJECT_IDS, SUBJECTS, subjectGradient, type SubjectId } from "@/lib/subjects";
+import { SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -54,7 +56,10 @@ export function SemesterView({ semester }: { semester: string }) {
         eyebrow={`${fill(t.grade, { grade })} · ${half === "1" ? t.half1 : t.half2}`}
         title={t.pickSubject}
         aside={
-          <div className="flex rounded-full border bg-card p-1 shadow-sm" role="group">
+          <div className="relative grid grid-cols-2 rounded-full border bg-card p-1" role="group">
+            <span className="absolute inset-1">
+              <SlidingIndicator count={2} index={half === "1" ? 0 : 1} className="inset-0 rounded-full bg-[#38332c]" />
+            </span>
             {HALVES.map((h) => {
               const active = h === half;
               return (
@@ -63,13 +68,13 @@ export function SemesterView({ semester }: { semester: string }) {
                   href={semesterHref(`${grade}.${h}`)}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "rounded-full px-4 py-2 text-sm font-bold transition-all",
-                    active ? "bg-brand text-white shadow-md shadow-fuchsia-500/25" : "text-muted-foreground hover:text-foreground",
+                    "press relative rounded-full px-4 py-2 text-center text-sm font-bold",
+                    active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
                   {grade}.{h}
                   {grade === CURRENT.grade && h === CURRENT.half && !active && (
-                    <span className="ms-1.5 inline-block size-1.5 rounded-full bg-fuchsia-500 align-middle" />
+                    <span className="ms-1.5 inline-block size-1.5 rounded-full bg-primary align-middle" />
                   )}
                 </Link>
               );
@@ -88,12 +93,11 @@ export function SemesterView({ semester }: { semester: string }) {
               key={id}
               size="md"
               href={subjectHref(id, semester)}
-              background={subjectGradient(id)}
-              emoji={info.emoji}
+              icon={SUBJECT_ICONS[id]}
               title={info.label[locale]}
               subtitle={
                 hasPractice && state.loading ? (
-                  <span className="inline-block h-3 w-20 animate-pulse rounded bg-white/30 align-middle" />
+                  <span className="inline-block h-3 w-20 animate-pulse rounded bg-muted align-middle" />
                 ) : (
                   summary(pages, c.tests, c.decks, dict)
                 )

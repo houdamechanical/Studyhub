@@ -84,6 +84,8 @@ async function writeImport(db: Db, payload: ImportPayload) {
     const row = {
       kind: quiz.kind, subject: quiz.subject, topic: quiz.topic, title: quiz.title,
       description: quiz.description, duration_minutes: quiz.duration_minutes,
+      // Only sent when set, so imports keep working before the random-mini-tests migration.
+      ...(quiz.draw_count ? { draw_count: quiz.draw_count } : {}),
     };
     const { data, error } = quiz.key
       ? await db.from("quizzes").upsert({ key: quiz.key, ...row }, { onConflict: "key" }).select("id").single()

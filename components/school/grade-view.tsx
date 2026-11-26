@@ -1,17 +1,12 @@
 "use client";
 
-import { CalendarRange } from "lucide-react";
+import { Leaf, Sprout } from "lucide-react";
 import { BigTile, TileBadge } from "@/components/big-tile";
 import { PageHero } from "@/components/page-hero";
 import { getAllContent } from "@/lib/content";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatPageCount } from "@/lib/i18n/dictionaries";
 import { CURRENT, HALVES, OPEN_GRADES, semesterHref, type SchoolGrade } from "@/lib/school";
-
-const HALF_BACKGROUND: Record<string, string> = {
-  "1": "linear-gradient(120deg, #6366f1, #06b6d4 60%, #6366f1)",
-  "2": "linear-gradient(120deg, #ec4899, #f97316 60%, #ec4899)",
-};
 
 /** /grade/11 – pick the half-year. */
 export function GradeView({ grade }: { grade: SchoolGrade }) {
@@ -37,15 +32,12 @@ export function GradeView({ grade }: { grade: SchoolGrade }) {
               key={half}
               href={open ? semesterHref(semester) : undefined}
               locked={!open}
-              background={HALF_BACKGROUND[half]}
-              animate={isNow}
-              icon={CalendarRange}
-              emoji={half === "1" ? "🍂" : "🌱"}
+              current={isNow}
+              icon={half === "1" ? Leaf : Sprout}
               title={half === "1" ? t.half1 : t.half2}
-              subtitle={`${grade}.${half} · ${formatPageCount(pages, dict)}`}
-              badge={isNow ? <TileBadge pulse>{t.now}</TileBadge> : undefined}
+              subtitle={formatPageCount(pages, dict)}
+              badge={isNow ? <TileBadge dot>{t.now}</TileBadge> : undefined}
               delay={80 + i * 100}
-              className="sm:min-h-72"
             />
           );
         })}

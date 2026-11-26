@@ -1,5 +1,6 @@
 "use client";
 
+import { SubjectIcon } from "@/components/subject-icon";
 import { ArrowLeft, PartyPopper } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -96,7 +97,7 @@ export function FlashcardSession({
         <div className="min-w-0 flex-1">
           <h1 className="truncate font-semibold" dir="auto">{deck.title}</h1>
           <p className="text-xs text-muted-foreground">
-            {subject.emoji} {subject.label[locale]}
+            <SubjectIcon subject={deck.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
           </p>
         </div>
         {queue && total > 0 && (
@@ -106,16 +107,16 @@ export function FlashcardSession({
 
       {queue && total > 0 && (
         <div className="h-1.5 overflow-hidden rounded-full bg-muted" aria-hidden>
-          <div className="h-full bg-[var(--chart-accent)] transition-all" style={{ width: `${(reviewed / total) * 100}%` }} />
+          <div className="h-full bg-[var(--chart-accent)] transition-[width] duration-300 ease-out" style={{ width: `${(reviewed / total) * 100}%` }} />
         </div>
       )}
 
       <FormError message={error} />
 
       {queue === null ? (
-        <div className="h-72 animate-pulse rounded-2xl border bg-card" aria-hidden />
+        <div className="h-72 animate-pulse rounded-xl border bg-card" aria-hidden />
       ) : !card ? (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border bg-card p-8 text-center">
+        <div className="flex flex-col items-center gap-3 rounded-xl border bg-card p-8 text-center">
           <PartyPopper size={32} className="text-muted-foreground" />
           {total > 0 ? (
             <>
@@ -140,7 +141,7 @@ export function FlashcardSession({
           >
             <div
               className={cn(
-                "relative h-full w-full rounded-2xl transition-transform duration-500 [transform-style:preserve-3d] motion-reduce:transition-none",
+                "relative h-full w-full rounded-xl transition-transform duration-500 [transform-style:preserve-3d] motion-reduce:transition-none",
                 flipped && "[transform:rotateY(180deg)]",
               )}
             >
@@ -183,7 +184,7 @@ function Face({ back = false, children }: { back?: boolean; children: React.Reac
   return (
     <div
       className={cn(
-        "absolute inset-0 flex flex-col items-center justify-center overflow-y-auto rounded-2xl border bg-card p-6 text-center shadow-sm [backface-visibility:hidden]",
+        "absolute inset-0 flex flex-col items-center justify-center overflow-y-auto rounded-xl border bg-card p-6 text-center shadow-sm [backface-visibility:hidden]",
         back && "[transform:rotateY(180deg)]",
       )}
     >

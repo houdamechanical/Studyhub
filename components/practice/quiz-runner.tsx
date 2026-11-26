@@ -1,9 +1,10 @@
 "use client";
 
+import { SubjectIcon } from "@/components/subject-icon";
 import { ArrowLeft, Clock, Play } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { startAttempt, submitAttempt } from "@/lib/mutations/practice";
 import { Button } from "@/components/ui/button";
 import { controlClass, FormError } from "@/components/ui/field";
@@ -20,10 +21,11 @@ type Phase = "intro" | "running" | "submitting";
 
 export function QuizRunner({
   quiz,
-  questions,
+  questions: pool,
   attempts,
 }: {
   quiz: Quiz;
+  /** All of the quiz's questions; a random mini test shows only the ones drawn for the attempt. */
   questions: Question[];
   attempts: PastAttempt[];
 }) {
@@ -38,6 +40,13 @@ export function QuizRunner({
   const [endsAt, setEndsAt] = useState<number | null>(null);
   const [answers, setAnswers] = useState<Record<string, GivenAnswer>>({});
   const [error, setError] = useState<string | null>(null);
+  const [drawn, setDrawn] = useState<string[] | null>(null);
+  const questions = useMemo(() => {
+    if (!drawn) return pool;
+    const byId = new Map(pool.map((q) => [q.id, q]));
+    return drawn.map((id) => byId.get(id)).filter((q): q is Question => q !== undefined);
+  }, [drawn, pool]);
+  const questionCount = quiz.draw_count ?? pool.length;
 
   const answeredCount = questions.filter((q) => isAnswered(answers[q.id])).length;
 
@@ -46,6 +55,7 @@ export function QuizRunner({
     const result = await startAttempt(quiz.id, timed);
     if (!result.ok) return setError(dict.common.error[result.error]);
     setAttemptId(result.attemptId);
+    setDrawn(result.questionIds);
     // Count down from the local clock; the server allows 30 s grace on top.
     setEndsAt(timed && quiz.duration_minutes ? Date.now() + quiz.duration_minutes * 60_000 : null);
     setPhase("running");
@@ -62,7 +72,7 @@ export function QuizRunner({
       setPhase("submitting");
       const result = await submitAttempt(attemptId, answers);
       if (result.ok) {
-        router.push(`/practice/attempt?id=${result.attemptId}`);
+        router.push(`/practice/attempt?id=${result.attemptId}&done=1`);
       } else {
         submittedRef.current = false;
         setPhase("running");
@@ -87,14 +97,14 @@ export function QuizRunner({
           <ArrowLeft size={16} className="rtl:rotate-180" />
           {t.backToPractice}
         </Link>
-        <div className="rounded-3xl border bg-card p-5">
+        <div className="rounded-xl border bg-card p-5">
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            {quiz.kind === "mock" ? t.mock : t.mini} · {subject.emoji} {subject.label[locale]}
+            {quiz.kind === "mock" ? t.mock : t.mini} · <SubjectIcon subject={quiz.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
           </p>
           <h1 className="mt-1 text-2xl font-semibold tracking-tight" dir="auto">{quiz.title}</h1>
           {quiz.description && <p className="mt-2 whitespace-pre-line text-sm text-muted-foreground" dir="auto">{quiz.description}</p>}
           <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-            <span>{fill(dict.practice.questions, { n: questions.length })}</span>
+            <span>{fill(dict.practice.questions, { n: questionCount })}</span>
             {quiz.duration_minutes && (
               <span className="flex items-center gap-1">
                 <Clock size={14} />
@@ -119,7 +129,7 @@ export function QuizRunner({
           )}
 
           <FormError message={error} />
-          <Button className="mt-4" size="lg" onClick={start} disabled={questions.length === 0}>
+          <Button className="mt-4" size="lg" onClick={start} disabled={pool.length === 0}>
             <Play size={16} />
             {t.start}
           </Button>
@@ -128,7 +138,7 @@ export function QuizRunner({
         {attempts.length > 0 && (
           <section>
             <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.previousAttempts}</h2>
-            <ul className="divide-y rounded-3xl border bg-card">
+            <ul className="divide-y rounded-xl border bg-card">
               {attempts.map((a) => (
                 <li key={a.id}>
                   <Link href={`/practice/attempt?id=${a.id}`} className="flex items-center justify-between gap-3 px-4 py-3 text-sm hover:bg-accent">
@@ -157,7 +167,7 @@ export function QuizRunner({
   return (
     <div className="flex flex-col gap-4">
       {/* Sticky status bar under the app header */}
-      <div className="sticky top-14 z-30 -mx-4 flex items-center gap-3 border-b bg-background/95 px-4 py-2 backdrop-blur">
+      <div className="sticky top-14 z-30 -mx-4 flex lg:top-0 items-center gap-3 border-b bg-background/95 px-4 py-2 backdrop-blur">
         {endsAt && <Countdown endsAt={endsAt} onElapsed={() => submit(true)} />}
         <span className="text-sm text-muted-foreground tabular-nums">
           {fill(t.answered, { a: answeredCount, n: questions.length })}
@@ -172,7 +182,7 @@ export function QuizRunner({
 
       <ol className="flex flex-col gap-3">
         {questions.map((q, i) => (
-          <li key={q.id} className="rounded-3xl border bg-card p-4">
+          <li key={q.id} className="rounded-xl border bg-card p-4">
             <p className="mb-1 flex justify-between text-xs text-muted-foreground">
               <span>{fill(t.question, { n: i + 1 })}</span>
               <span>{fill(t.pointsShort, { n: q.points })}</span>

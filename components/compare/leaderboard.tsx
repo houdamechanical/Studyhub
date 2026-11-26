@@ -1,3 +1,4 @@
+import { Crown, Flag } from "lucide-react";
 import type { Board } from "@/lib/compare";
 import { cn } from "@/lib/utils";
 
@@ -9,33 +10,30 @@ export function Leaderboard({
   format,
   extra,
   labels,
-  note,
 }: {
   board: Board;
   format: (value: number) => string;
   extra?: (n: number) => string;
   labels: Labels;
-  note?: string;
 }) {
   return (
     <div className="flex flex-col gap-3">
-      <dl className="grid grid-cols-3 gap-2 text-center">
-        <Stat
-          label={labels.you}
-          value={board.mine === null ? "–" : format(board.mine)}
-          dot="accent"
-        />
-        <Stat
-          label={labels.average}
-          value={board.average === null ? "–" : format(board.average)}
-          dot="muted"
-        />
-        <Stat label={labels.people} value={String(board.participants)} />
-      </dl>
-      {note && <p className="text-xs text-muted-foreground">{note}</p>}
+      {/* One quiet summary line instead of three stat boxes */}
+      <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+        <span>
+          {labels.you}: <span className="font-semibold text-foreground tabular-nums">{board.mine === null ? "–" : format(board.mine)}</span>
+        </span>
+        <span>
+          {labels.average}: <span className="font-semibold text-foreground tabular-nums">{board.average === null ? "–" : format(board.average)}</span>
+        </span>
+        <span>
+          {labels.people}: <span className="font-semibold text-foreground tabular-nums">{board.participants}</span>
+        </span>
+      </p>
+      
       {board.rows.length === 0 ? (
-        <p className="rounded-3xl border-2 border-dashed p-6 text-center font-medium text-muted-foreground">
-          <span className="mb-1 block text-3xl">🏁</span>
+        <p className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">
+          <Flag className="mx-auto mb-2 size-5 text-muted-foreground" strokeWidth={2} aria-hidden />
           {labels.empty}
         </p>
       ) : (
@@ -46,7 +44,7 @@ export function Leaderboard({
             you={labels.you}
           />
           {board.rows.some((r) => r.rank > 3) && (
-            <ol className="divide-y rounded-3xl border bg-card">
+            <ol className="divide-y rounded-xl border bg-card">
               {board.rows
                 .filter((r) => r.rank > 3)
                 .map((row) => (
@@ -96,54 +94,12 @@ export function Leaderboard({
   );
 }
 
-function Stat({
-  label,
-  value,
-  dot,
-}: {
-  label: string;
-  value: string;
-  dot?: "accent" | "muted";
-}) {
-  return (
-    <div className="rounded-2xl border bg-card px-2 py-3">
-      <dt className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-        {dot && (
-          <span
-            className={cn(
-              "size-2 rounded-full",
-              dot === "accent"
-                ? "bg-[var(--chart-accent)]"
-                : "bg-[var(--chart-muted)]",
-            )}
-            aria-hidden
-          />
-        )}
-        {label}
-      </dt>
-      <dd className="mt-0.5 font-display text-xl font-extrabold tabular-nums">
-        {value}
-      </dd>
-    </div>
-  );
-}
 
+// Neutral podium; only first place gets the accent colour.
 const MEDAL = [
-  {
-    bg: "linear-gradient(135deg, #fde047, #f59e0b)",
-    height: "h-28 sm:h-32",
-    emoji: "🥇",
-  },
-  {
-    bg: "linear-gradient(135deg, #e2e8f0, #94a3b8)",
-    height: "h-20 sm:h-24",
-    emoji: "🥈",
-  },
-  {
-    bg: "linear-gradient(135deg, #fdba74, #c2410c)",
-    height: "h-14 sm:h-16",
-    emoji: "🥉",
-  },
+  { block: "h-24 sm:h-28 border-primary/40 bg-primary/15", avatar: "bg-primary text-primary-foreground" },
+  { block: "h-16 sm:h-20 bg-secondary", avatar: "bg-[#38332c] text-foreground" },
+  { block: "h-12 sm:h-14 bg-secondary", avatar: "bg-[#38332c] text-foreground" },
 ];
 
 /** Top three on a podium: 2nd – 1st – 3rd. */
@@ -164,31 +120,30 @@ function Podium({
         row ? (
           <li
             key={`${row.rank}-${row.nickname}`}
-            className="flex min-w-0 flex-col items-center text-center motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-4 motion-safe:fill-mode-both motion-safe:duration-700"
-            style={{ animationDelay: `${[150, 0, 300][i]}ms` }}
+            className="enter flex min-w-0 flex-col items-center text-center"
+            style={{ animationDelay: `${[90, 0, 170][i]}ms` }}
           >
             <span
               className={cn(
-                "relative flex items-center justify-center rounded-full font-display font-extrabold uppercase text-white shadow-lg ring-4 ring-background",
+                "relative flex items-center justify-center rounded-full font-display font-semibold uppercase",
+                MEDAL[Math.min(row.rank, 3) - 1].avatar,
                 row.rank === 1
                   ? "size-16 text-2xl sm:size-20 sm:text-3xl"
                   : "size-12 text-lg sm:size-14 sm:text-xl",
               )}
-              style={{ backgroundImage: MEDAL[Math.min(row.rank, 3) - 1].bg }}
             >
               {row.nickname.slice(0, 1)}
               {row.rank === 1 && (
-                <span
-                  className="absolute -top-5 text-2xl motion-safe:animate-float sm:-top-6 sm:text-3xl"
+                <Crown
+                  className="absolute -top-5 size-5 text-primary sm:-top-6 sm:size-6"
+                  strokeWidth={2}
                   aria-hidden
-                >
-                  👑
-                </span>
+                />
               )}
             </span>
             <span
               className={cn(
-                "mt-2 w-full truncate text-sm font-bold",
+                "mt-2 w-full truncate text-sm font-medium",
                 row.is_me && "text-primary",
               )}
             >
@@ -199,18 +154,17 @@ function Podium({
                 </span>
               )}
             </span>
-            <span className="font-display text-lg font-extrabold tabular-nums">
+            <span className="font-display text-lg font-semibold tabular-nums">
               {format(row.value)}
             </span>
             <span
               className={cn(
-                "mt-2 flex w-full items-start justify-center rounded-t-2xl pt-2 text-2xl shadow-inner",
-                MEDAL[Math.min(row.rank, 3) - 1].height,
+                "mt-2 flex w-full items-start justify-center rounded-t-xl border border-b-0 pt-2",
+                MEDAL[Math.min(row.rank, 3) - 1].block,
               )}
-              style={{ backgroundImage: MEDAL[Math.min(row.rank, 3) - 1].bg }}
               aria-label={`#${row.rank}`}
             >
-              {MEDAL[Math.min(row.rank, 3) - 1].emoji}
+              <span className="font-display text-lg font-semibold text-muted-foreground">{row.rank}</span>
             </span>
           </li>
         ) : (

@@ -23,7 +23,8 @@ async function loadQuiz(id: string) {
   if (!isUuid(id)) return null;
   const supabase = createClient();
   const [quiz, items, attempts] = await Promise.all([
-    supabase.from("quizzes").select("id, key, kind, subject, topic, title, description, duration_minutes").eq("id", id).maybeSingle(),
+    // "*" also picks up draw_count once the random-mini-tests migration is applied.
+    supabase.from("quizzes").select("*").eq("id", id).maybeSingle(),
     supabase
       .from("quiz_questions")
       .select("position, questions(id, key, subject, topic, type, prompt, options, points)")

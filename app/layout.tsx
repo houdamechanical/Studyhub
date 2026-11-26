@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Geist, Noto_Sans_Arabic } from "next/font/google";
+import { Fraunces, Inter, Noto_Sans_Arabic } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { I18nProvider, LOCALE_BOOT_SCRIPT } from "@/lib/i18n/client";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
@@ -24,23 +24,24 @@ export const viewport: Viewport = {
   // Lets content use the whole screen; the bottom tab bar adds the safe-area
   // padding itself so it stays clear of the home indicator.
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8f7fe" },
-    { media: "(prefers-color-scheme: dark)", color: "#0e0c14" },
-  ],
+  // Always dark.
+  themeColor: "#1c1a17",
+  colorScheme: "dark",
 };
 
-const geistSans = Geist({
+// Body and UI: clean, very readable sans.
+const inter = Inter({
   variable: "--font-geist-sans",
   display: "swap",
   subsets: ["latin"],
 });
 
-// Headings: bold, rounded, a bit playful.
-const display = Bricolage_Grotesque({
+// Headings: soft, bookish serif.
+const display = Fraunces({
   variable: "--font-display",
   display: "swap",
   subsets: ["latin"],
+  axes: ["SOFT", "opsz"],
 });
 
 const notoArabic = Noto_Sans_Arabic({
@@ -57,12 +58,12 @@ export default function RootLayout({
   return (
     // lang/dir are set in the browser (the site is static); the inline script
     // applies the saved language before the first paint.
-    <html lang={DEFAULT_LOCALE} dir="ltr" suppressHydrationWarning>
+    <html lang={DEFAULT_LOCALE} dir="ltr" className="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOT_SCRIPT }} />
       </head>
-      <body className={`${geistSans.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <body className={`${inter.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
+        <ThemeProvider attribute="class" forcedTheme="dark" disableTransitionOnChange>
           <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>
       </body>

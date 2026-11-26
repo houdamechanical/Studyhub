@@ -4,62 +4,62 @@
 
 @layer base {
   :root {
-    --background: 250 60% 98.5%;
-    --foreground: 250 30% 8%;
-    --card: 0 0% 100%;
-    --card-foreground: 250 30% 8%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 250 30% 8%;
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 250 40% 95%;
-    --secondary-foreground: 250 30% 12%;
-    --muted: 250 35% 95%;
-    --muted-foreground: 250 8% 44%;
-    --accent: 250 50% 94.5%;
-    --accent-foreground: 250 30% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --background: 36 10% 10%;
+    --foreground: 37 28% 87.5%;
+    --card: 34 10% 13.1%;
+    --card-foreground: 37 28% 87.5%;
+    --popover: 33 11% 16.3%;
+    --popover-foreground: 37 28% 87.5%;
+    --primary: 37 47% 60.2%;
+    --primary-foreground: 36 10% 10%;
+    --secondary: 33 11% 16.3%;
+    --secondary-foreground: 37 28% 87.5%;
+    --muted: 33 11% 16.3%;
+    --muted-foreground: 35 12% 60.4%;
+    --accent: 33 11% 16.3%;
+    --accent-foreground: 37 28% 87.5%;
+    --destructive: 0 45% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 250 30% 90%;
-    --input: 250 30% 88%;
-    --ring: 262 83% 58%;
+    --border: 33 10% 20.6%;
+    --input: 33 10% 22%;
+    --ring: 37 47% 60.2%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.85rem;
+    --radius: 0.75rem;
     /* Grade chart: accent line + de-emphasised dots (validated with the dataviz checker) */
-    --chart-accent: #2563eb;
-    --chart-muted: #737373;
+    --chart-accent: #c9a46a;
+    --chart-muted: #8a8174;
   }
   .dark {
-    --background: 250 30% 6%;
-    --foreground: 250 20% 97%;
-    --card: 250 25% 9.5%;
-    --card-foreground: 250 20% 97%;
-    --popover: 250 25% 10%;
-    --popover-foreground: 250 20% 97%;
-    --primary: 263 90% 72%;
-    --primary-foreground: 250 40% 8%;
-    --secondary: 250 20% 15%;
-    --secondary-foreground: 250 20% 97%;
-    --muted: 250 20% 13%;
-    --muted-foreground: 250 12% 66%;
-    --accent: 250 22% 16%;
-    --accent-foreground: 250 20% 97%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 36 10% 10%;
+    --foreground: 37 28% 87.5%;
+    --card: 34 10% 13.1%;
+    --card-foreground: 37 28% 87.5%;
+    --popover: 33 11% 16.3%;
+    --popover-foreground: 37 28% 87.5%;
+    --primary: 37 47% 60.2%;
+    --primary-foreground: 36 10% 10%;
+    --secondary: 33 11% 16.3%;
+    --secondary-foreground: 37 28% 87.5%;
+    --muted: 33 11% 16.3%;
+    --muted-foreground: 35 12% 60.4%;
+    --accent: 33 11% 16.3%;
+    --accent-foreground: 37 28% 87.5%;
+    --destructive: 0 45% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 250 18% 17%;
-    --input: 250 18% 20%;
-    --ring: 263 90% 72%;
+    --border: 33 10% 20.6%;
+    --input: 33 10% 22%;
+    --ring: 37 47% 60.2%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --chart-accent: #60a5fa;
-    --chart-muted: #737373;
+    --chart-accent: #c9a46a;
+    --chart-muted: #8a8174;
   }
 }
 
@@ -97,55 +97,138 @@
   }
 }
 
-/* Bold & colourful look */
+/* Dark & sleek */
+:root {
+  color-scheme: dark;
+  /* Warm night palette (hex, for places that need exact colours) */
+  --c-bg: #1c1a17;
+  --c-surface: #25221e;
+  --c-raised: #2e2a25;
+  --c-border: #3a352f;
+  --c-text: #e8e1d6;
+  --c-text-2: #a69c8e;
+  --c-amber: #c9a46a;
+  --c-sage: #8fa382;
+  --c-rose: #b88a8a;
+  --c-slate: #7d8fa6; /* info – not as text on raised surfaces (contrast 4.3) */
+  /* Fine film grain over the background */
+  --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 0.9  0 0 0 0 0.75  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  /* Motion tokens (Emil Kowalski): UI stays under 300ms, never ease-in. */
+  /* Calm motion: 200–300ms, soft curves, nothing bouncy. */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@layer base {
+  html {
+    font-size: 16.5px;
+  }
+  body {
+    line-height: 1.6;
+  }
+  /* Faint grain over everything, fixed so it doesn't scroll */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    background-image: var(--grain);
+    opacity: 0.035;
+  }
+  .font-display {
+    letter-spacing: -0.01em;
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+  }
+  h1, h2, h3 {
+    line-height: 1.25;
+  }
+  ::selection {
+    background: rgb(201 164 106 / 0.3);
+  }
+}
+
 @layer components {
-  /* Signature gradient: indigo → violet → pink */
-  .bg-brand {
-    background-image: linear-gradient(120deg, #6366f1, #a855f7 45%, #ec4899);
+  /* Press feedback for anything tappable: subtle and fast. */
+  .press {
+    transition:
+      transform 200ms var(--ease-out),
+      background-color 250ms ease,
+      border-color 250ms ease,
+      color 250ms ease,
+      box-shadow 250ms ease;
   }
-  .text-brand {
-    background-image: linear-gradient(120deg, #6366f1, #a855f7 45%, #ec4899);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .press:active {
+    transform: scale(0.985);
   }
-  /* Tiles: lift on hover, squish when pressed */
+  /* Soft shadow for cards */
+  .soft {
+    box-shadow:
+      0 1px 0 rgb(255 240 220 / 0.03) inset,
+      0 8px 24px -12px rgb(0 0 0 / 0.5);
+  }
+
+  /* Cards: lift a little on hover (mouse only – touch fires false hovers), squish when pressed */
   .tile {
-    @apply relative isolate overflow-hidden transition-[transform,box-shadow] duration-300 ease-out;
+    @apply press relative;
   }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .tile:hover {
-      transform: translateY(-4px) rotate(-0.4deg);
-      box-shadow: 0 20px 40px -18px rgb(76 29 149 / 0.45);
+      border-color: #4a443c;
+      background-color: var(--c-raised);
     }
   }
-  .tile:active {
-    transform: scale(0.97);
+
+  /* Entrance: short rise with a touch of blur (masks the jump). Stagger with animation-delay. */
+  .enter {
+    animation: enter 300ms var(--ease-out) both;
   }
-  /* Soft white sheen on gradient tiles */
-  .tile-sheen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(120% 80% at 0% 0%, rgb(255 255 255 / 0.28), transparent 55%);
-    pointer-events: none;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
   }
-  /* Little dots pattern for gradient tiles */
-  .tile-dots {
-    background-image: radial-gradient(rgb(255 255 255 / 0.18) 1px, transparent 1px);
-    background-size: 14px 14px;
-  }
-  .glass {
-    @apply bg-white/20 backdrop-blur-md ring-1 ring-white/30;
+}
+@keyframes fade-only {
+  from {
+    opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float,
-  .animate-blob,
-  .animate-gradient-pan {
-    animation: none !important;
+  /* Fewer, gentler animations – keep fades, drop movement. */
+  .enter {
+    animation: fade-only 200ms ease both;
   }
+  .tile:hover,
+  .tile:active,
+  .press:active {
+    transform: none !important;
+  }
+}
+
+/* Dialogs: backdrop fades, panel rises from slightly below (never from scale 0). */
+.dialog-backdrop {
+  animation: fade-only 200ms ease both;
+}
+.dialog-panel {
+  animation: dialog-in 260ms var(--ease-out) both;
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dialog-panel {
+    animation: fade-only 200ms ease both;
+  }
+}
+
+/* Focus mode: the room slowly dims */
+.focus-mode {
+  animation: fade-only 400ms ease both;
 }

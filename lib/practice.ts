@@ -35,6 +35,8 @@ export type Quiz = {
   title: string;
   description: string;
   duration_minutes: number | null;
+  /** Random mini test: each attempt draws this many questions from the pool. */
+  draw_count?: number | null;
 };
 
 export type ReviewItem = {
@@ -60,6 +62,8 @@ export type Attempt = {
   score: number | null;
   max_score: number | null;
   review: ReviewItem[] | null;
+  /** Questions drawn for this attempt (random mini tests), in order. */
+  question_ids?: string[] | null;
 };
 
 export const MINI_TEST_MIN = 5;
@@ -130,7 +134,9 @@ export type ImportQuiz = {
   title: string;
   description: string;
   duration_minutes: number | null;
-  questions: string[]; // question keys, in order
+  /** Mini tests only: draw this many random questions from `questions` per attempt. */
+  draw_count: number | null;
+  questions: string[]; // question keys, in order (for random tests: the pool)
 };
 export type ImportDeck = {
   key: string | null;
@@ -264,8 +270,15 @@ export function parseImport(
     if (!title) return void errors.push(`${p}.title: missing`);
     const keys = strList(z.questions);
     if (keys.length === 0) return void errors.push(`${p}.questions: list of question keys`);
-    if (z.kind === "mini" && (keys.length < MINI_TEST_MIN || keys.length > MINI_TEST_MAX)) {
-      return void errors.push(`${p}.questions: a mini test has ${MINI_TEST_MIN}–${MINI_TEST_MAX} questions (has ${keys.length})`);
+    const draw = z.draw_count;
+    if (draw !== undefined && draw !== null) {
+      if (z.kind !== "mini") return void errors.push(`${p}.draw_count: only for mini tests`);
+      if (!(isInt(draw) && draw >= MINI_TEST_MIN && draw <= MINI_TEST_MAX)) {
+        return void errors.push(`${p}.draw_count: whole number ${MINI_TEST_MIN}–${MINI_TEST_MAX}`);
+      }
+      if (keys.length < draw) return void errors.push(`${p}.questions: needs at least ${draw} questions to draw from (has ${keys.length})`);
+    } else if (z.kind === "mini" && (keys.length < MINI_TEST_MIN || keys.length > MINI_TEST_MAX)) {
+      return void errors.push(`${p}.questions: a mini test has ${MINI_TEST_MIN}–${MINI_TEST_MAX} questions (has ${keys.length}), or set draw_count to draw from a larger pool`);
     }
     const duration = z.duration_minutes;
     if (duration !== undefined && duration !== null && !(isInt(duration) && duration >= 1 && duration <= 600)) {
@@ -280,6 +293,7 @@ export function parseImport(
       title,
       description: str(z.description, 2000),
       duration_minutes: isInt(duration) ? duration : null,
+      draw_count: isInt(draw) ? draw : null,
       questions: keys,
     });
   });

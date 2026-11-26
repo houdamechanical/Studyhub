@@ -25,7 +25,7 @@ export function PageHero({
   return (
     <header
       className={cn(
-        "motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 motion-safe:duration-500",
+        "enter",
         className,
       )}
     >
@@ -33,9 +33,9 @@ export function PageHero({
       <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
           {eyebrow && (
-            <p className="text-sm font-bold uppercase tracking-wider text-muted-foreground">{eyebrow}</p>
+            <p className="mb-1 text-sm text-muted-foreground">{eyebrow}</p>
           )}
-          <h1 className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">{title}</h1>
+          <h1 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">{title}</h1>
           {subtitle && <p className="mt-2 text-base text-muted-foreground sm:text-lg">{subtitle}</p>}
         </div>
         {aside}
