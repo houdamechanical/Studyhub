@@ -1,0 +1,42 @@
+[
+  {
+    "id": "bio-klausur-zelle-enzyme",
+    "title": "Bio-Klausur Klasse 11 – einfach erklärt",
+    "subject": "bio",
+    "semester": "11.1",
+    "topic": "Zellbiologie & Enzyme",
+    "kind": "notes",
+    "tags": ["Zellbiologie", "Biomembran", "Osmose", "Diffusion", "Transport", "Proteine", "Enzyme", "Enzymkinetik", "Enzymhemmung", "Transferaufgaben", "Probeklausur"],
+    "file": "bio/11.1/bio-klausur-zelle-enzyme.html"
+  },
+  {
+    "id": "bio-quiz-lernspiel",
+    "title": "Bio-Quiz Klasse 11 – Lernspiel",
+    "subject": "bio",
+    "semester": "11.1",
+    "topic": "Zellbiologie & Enzyme",
+    "kind": "quiz",
+    "tags": ["Quiz", "Zellbiologie", "Membran", "Proteine", "Enzyme", "Karteikarten"],
+    "file": "bio/11.1/bio-quiz-lernspiel.html"
+  },
+  {
+    "id": "elektrische-stromstaerke",
+    "title": "Elektrische Stromstärke",
+    "subject": "physik",
+    "semester": "11.1",
+    "topic": "Elektrizität",
+    "kind": "interactive",
+    "tags": ["Elektrizität", "Stromstärke", "Ampere", "Ladung", "Stromkreis", "Amperemeter", "Reihenschaltung", "Parallelschaltung"],
+    "file": "physik/11.1/elektrische-stromstaerke.html"
+  },
+  {
+    "id": "religion-klausur-was-ist-religion",
+    "title": "Religion Klausur 11b – Lernseite",
+    "subject": "religion",
+    "semester": "11.1",
+    "topic": "Was ist Religion?",
+    "kind": "notes",
+    "tags": ["Religionsdefinition", "substanziell", "funktional", "Tillich", "Schleiermacher", "Durkheim", "Religionskritik"],
+    "file": "religion/11.1/religion-klausur-was-ist-religion.html"
+  }
+]

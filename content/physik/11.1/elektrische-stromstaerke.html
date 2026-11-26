@@ -1,0 +1,787 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elektrische Stromstärke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ec;
+    --surface: #ffffff;
+    --surface-2: #ece9df;
+    --ink: #1c1b17;
+    --muted: #5d5a50;
+    --line: #d6d2c4;
+    --volt: #e8a300;       /* Spannung / Licht */
+    --electron: #2563eb;   /* Elektronen */
+    --current: #d9480f;    /* technische Stromrichtung */
+    --good: #2f9e44;
+    --bad: #c92a2a;
+    --wire: #3b3a35;
+    --glow: rgba(255, 196, 0, .55);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1018;
+      --surface: #171a26;
+      --surface-2: #20243399;
+      --ink: #eceef5;
+      --muted: #a1a6b8;
+      --line: #2c3142;
+      --volt: #ffc53d;
+      --electron: #6ea8ff;
+      --current: #ff8a4c;
+      --good: #51cf66;
+      --bad: #ff6b6b;
+      --wire: #c9ccd8;
+      --glow: rgba(255, 210, 60, .6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1018;
+    --surface: #171a26;
+    --surface-2: #20243399;
+    --ink: #eceef5;
+    --muted: #a1a6b8;
+    --line: #2c3142;
+    --volt: #ffc53d;
+    --electron: #6ea8ff;
+    --current: #ff8a4c;
+    --good: #51cf66;
+    --bad: #ff6b6b;
+    --wire: #c9ccd8;
+    --glow: rgba(255, 210, 60, .6);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+    font-size: 17px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  h1, h2, h3 { line-height: 1.15; margin: 0 0 12px; }
+  h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+  h3 { font-size: 1.15rem; }
+  p { margin: 0 0 14px; }
+  .kicker {
+    font-size: .8rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px; font-weight: 500;
+  }
+  .muted { color: var(--muted); }
+  code, .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  /* ---------- Hero ---------- */
+  header.hero { padding: 64px 0 40px; position: relative; overflow: hidden; }
+  .hero h1 { font-size: clamp(2.3rem, 8vw, 4.4rem); letter-spacing: -.02em; }
+  .hero h1 .bolt { color: var(--volt); display: inline-block; animation: zap 2.4s infinite; }
+  @keyframes zap {
+    0%, 86%, 100% { transform: none; opacity: 1; }
+    88% { transform: translateX(-3px) skewX(-8deg); opacity: .5; }
+    91% { transform: translateX(3px); opacity: 1; }
+  }
+  .hero .lead { font-size: 1.2rem; max-width: 40ch; }
+  .wire-strip { height: 22px; margin-top: 28px; position: relative; }
+  .wire-strip::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 2px; background: var(--wire); opacity: .5;
+  }
+  .wire-strip span {
+    position: absolute; top: 5px; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--electron); animation: run 6s linear infinite;
+  }
+  @keyframes run { from { left: -14px; } to { left: 100%; } }
+  .theme-btn {
+    position: absolute; top: 16px; right: 16px;
+  }
+
+  /* ---------- Buttons & controls ---------- */
+  button {
+    font: inherit; font-weight: 500; cursor: pointer;
+    padding: 9px 16px; border-radius: 10px;
+    border: 1.5px solid var(--line); background: var(--surface); color: var(--ink);
+    transition: border-color .15s, transform .1s;
+  }
+  button:hover { border-color: var(--ink); }
+  button:active { transform: scale(.97); }
+  button.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  input[type=range] { width: 100%; accent-color: var(--electron); }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px;
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 680px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* ---------- Formel ---------- */
+  .formula {
+    display: flex; align-items: center; justify-content: center; gap: 18px;
+    font-size: clamp(2.2rem, 9vw, 3.6rem); font-weight: 700; margin: 18px 0 8px;
+  }
+  .frac { display: inline-flex; flex-direction: column; align-items: center; }
+  .frac .num { border-bottom: 4px solid var(--ink); padding: 0 10px; }
+  .sym { cursor: help; position: relative; border-radius: 8px; padding: 0 6px; transition: background .2s; }
+  .sym:hover, .sym.active { background: var(--surface-2); }
+  .sym.I { color: var(--current); }
+  .sym.Q { color: var(--electron); }
+  .sym.t { color: var(--volt); }
+  .sym-info { min-height: 3.2em; text-align: center; }
+
+  /* ---------- Simulator ---------- */
+  .sim { padding: 0; overflow: hidden; }
+  .sim canvas { width: 100%; height: auto; display: block; background: var(--surface); }
+  .sim-controls { padding: 18px 20px 20px; display: grid; gap: 14px; border-top: 1px solid var(--line); }
+  .ctrl-row { display: grid; grid-template-columns: 120px 1fr 80px; align-items: center; gap: 12px; }
+  .ctrl-row label { font-weight: 500; }
+  .ctrl-row output { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+  @media (max-width: 520px) { .ctrl-row { grid-template-columns: 1fr 70px; } .ctrl-row input { grid-column: 1 / -1; grid-row: 2; } }
+  .readouts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .readout { background: var(--surface-2); border-radius: 12px; padding: 10px 12px; }
+  .readout .lbl { font-size: .78rem; color: var(--muted); }
+  .readout .val { font-size: 1.4rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .readout.big .val { color: var(--current); }
+  @media (max-width: 520px) { .readouts { grid-template-columns: 1fr 1fr; } .readout.big { grid-column: 1 / -1; } }
+  .toggles { display: flex; flex-wrap: wrap; gap: 8px; }
+  .toggles button[aria-pressed="true"] { border-color: var(--electron); color: var(--electron); }
+  .fuse-msg {
+    display: none; background: var(--bad); color: #fff; border-radius: 12px; padding: 12px 14px;
+    align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .fuse-msg.show { display: flex; }
+  .fuse-msg button { background: #fff; color: #000; border-color: #fff; }
+
+  /* ---------- Analogie ---------- */
+  .analogy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .analogy .card { text-align: center; }
+  .analogy .emoji { font-size: 2.2rem; }
+  @media (max-width: 680px) { .analogy { grid-template-columns: 1fr; } }
+
+  /* ---------- Messen ---------- */
+  .choice { cursor: pointer; text-align: center; transition: border-color .2s, transform .15s; }
+  .choice:hover { transform: translateY(-2px); border-color: var(--ink); }
+  .choice svg { width: 100%; max-width: 260px; height: auto; }
+  .choice.right { border-color: var(--good); border-width: 2px; }
+  .choice.wrong { border-color: var(--bad); border-width: 2px; animation: shake .35s; }
+  @keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+  .feedback { min-height: 1.6em; font-weight: 500; margin-top: 12px; }
+  .feedback.ok { color: var(--good); }
+  .feedback.no { color: var(--bad); }
+
+  /* ---------- Skala ---------- */
+  .scale-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .scale-btns button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .meter-track { height: 18px; border-radius: 999px; background: var(--surface-2); position: relative; overflow: hidden; border: 1px solid var(--line); }
+  .meter-fill { height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--electron), var(--volt), var(--current)); transition: width .6s cubic-bezier(.2,.8,.2,1); }
+  .ticks { display: flex; justify-content: space-between; font-size: .72rem; color: var(--muted); margin-top: 4px; }
+  .scale-info { display: flex; gap: 16px; align-items: center; margin-top: 16px; }
+  .scale-info .emoji { font-size: 3rem; }
+  .scale-info .amp { font-size: 1.8rem; font-weight: 700; color: var(--current); font-variant-numeric: tabular-nums; }
+
+  /* ---------- Rechner ---------- */
+  .calc { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .calc label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 4px; }
+  .calc input[type=number] {
+    width: 100%; font: inherit; font-size: 1.2rem; padding: 10px 12px; border-radius: 10px;
+    border: 1.5px solid var(--line); background: var(--bg); color: var(--ink);
+  }
+  .calc-result { grid-column: 1 / -1; font-size: 1.3rem; }
+  .calc-result b { color: var(--current); }
+
+  /* ---------- Quiz ---------- */
+  .quiz-q { font-size: 1.2rem; font-weight: 500; margin-bottom: 14px; }
+  .quiz-opts { display: grid; gap: 8px; }
+  .quiz-opts button { text-align: left; padding: 12px 14px; }
+  .quiz-opts button.correct { border-color: var(--good); background: color-mix(in srgb, var(--good) 14%, var(--surface)); }
+  .quiz-opts button.incorrect { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 14%, var(--surface)); }
+  .quiz-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; gap: 12px; flex-wrap: wrap; }
+  .progress { display: flex; gap: 6px; }
+  .progress i { width: 26px; height: 6px; border-radius: 3px; background: var(--line); }
+  .progress i.ok { background: var(--good); }
+  .progress i.no { background: var(--bad); }
+  .progress i.now { background: var(--ink); }
+  .confetti { position: fixed; top: -10px; width: 8px; height: 14px; pointer-events: none; z-index: 9; animation: fall linear forwards; }
+  @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
+
+  .note { border-left: 4px solid var(--bad); padding: 10px 14px; background: var(--surface); border-radius: 0 12px 12px 0; }
+  footer { padding: 32px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <button class="theme-btn" id="themeBtn" aria-label="Hell/Dunkel umschalten">◐</button>
+    <div class="kicker">Physik · Elektrizitätslehre</div>
+    <h1>Die elektrische<br>Strom<span class="bolt">⚡</span>stärke</h1>
+    <p class="lead">Wie viel Ladung fließt eigentlich pro Sekunde durch ein Kabel? Schieb, klick und probier selbst aus.</p>
+    <div class="wire-strip" aria-hidden="true">
+      <span style="animation-delay:0s"></span><span style="animation-delay:-1s"></span><span style="animation-delay:-2s"></span>
+      <span style="animation-delay:-3s"></span><span style="animation-delay:-4s"></span><span style="animation-delay:-5s"></span>
+    </div>
+  </div>
+</header>
+
+<!-- 1. Idee -->
+<section id="idee">
+  <div class="wrap">
+    <div class="kicker">01 · Die Idee</div>
+    <h2>Zählen am Drehkreuz</h2>
+    <p>Stell dir vor, du stehst an einem Drehkreuz im Stadion und zählst, wie viele Menschen <em>pro Sekunde</em> hindurchgehen. Genau das misst die Stromstärke – nur dass statt Menschen <strong>elektrische Ladungen</strong> (Elektronen) durch den Querschnitt eines Leiters fließen.</p>
+    <div class="analogy">
+      <div class="card"><div class="emoji">🚗</div><h3>Autobahn</h3><p class="muted">Autos pro Minute an einer Brücke = Verkehrsstärke</p></div>
+      <div class="card"><div class="emoji">💧</div><h3>Wasserrohr</h3><p class="muted">Liter pro Sekunde durch das Rohr = Wasserstromstärke</p></div>
+      <div class="card"><div class="emoji">⚡</div><h3>Kabel</h3><p class="muted">Ladung pro Sekunde durch den Draht = elektrische Stromstärke</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Formel -->
+<section id="formel">
+  <div class="wrap">
+    <div class="kicker">02 · Die Formel</div>
+    <h2>I = Q ÷ t</h2>
+    <p>Fahr mit der Maus über die Buchstaben (oder tippe sie an):</p>
+    <div class="formula" aria-label="I gleich Q durch t">
+      <span class="sym I" data-k="I" tabindex="0">I</span>
+      <span>=</span>
+      <span class="frac">
+        <span class="num"><span class="sym Q" data-k="Q" tabindex="0">Q</span></span>
+        <span><span class="sym t" data-k="t" tabindex="0">t</span></span>
+      </span>
+    </div>
+    <p class="sym-info muted" id="symInfo">Tipp: Jeder Buchstabe verrät dir etwas.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Einheit: Ampere (A)</h3>
+        <p class="muted" style="margin:0">Benannt nach André-Marie Ampère. <br><strong>1 A = 1 Coulomb pro Sekunde</strong> – das sind rund <strong>6 240 000 000 000 000 000</strong> Elektronen, die jede Sekunde vorbeiflitzen!</p>
+      </div>
+      <div class="card">
+        <h3>Kleine & große Ströme</h3>
+        <p class="muted" style="margin:0">1 mA (Milliampere) = 0,001 A<br>1 µA (Mikroampere) = 0,000 001 A<br>1 kA (Kiloampere) = 1 000 A</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Simulator -->
+<section id="labor">
+  <div class="wrap">
+    <div class="kicker">03 · Dein Stromkreis-Labor</div>
+    <h2>Dreh am Stromkreis!</h2>
+    <p>Verändere Spannung und Widerstand. Beobachte, wie schnell die Elektronen fließen, wie hell die Lampe leuchtet und was das Amperemeter anzeigt. Am gelben Zähltor werden die vorbeifließenden Ladungen gezählt. <strong>Aber Vorsicht: Die Sicherung hält nur 5 A aus …</strong></p>
+
+    <div class="card sim">
+      <canvas id="sim" width="640" height="360" aria-label="Animierter Stromkreis"></canvas>
+      <div class="sim-controls">
+        <div class="fuse-msg" id="fuseMsg">
+          <span>💥 <strong>Peng! Die Sicherung ist durchgebrannt.</strong> Der Strom war größer als 5 A – das schützt das Kabel vor Überhitzung.</span>
+          <button id="fuseReset">Neue Sicherung einsetzen</button>
+        </div>
+        <div class="ctrl-row">
+          <label for="u">Spannung U</label>
+          <input type="range" id="u" min="0" max="12" step="0.5" value="6">
+          <output id="uOut">6 V</output>
+        </div>
+        <div class="ctrl-row">
+          <label for="r">Widerstand R</label>
+          <input type="range" id="r" min="2" max="60" step="1" value="12">
+          <output id="rOut">12 Ω</output>
+        </div>
+        <div class="readouts">
+          <div class="readout big"><div class="lbl">Stromstärke I = U ÷ R</div><div class="val" id="iOut">0,50 A</div></div>
+          <div class="readout"><div class="lbl">in Milliampere</div><div class="val" id="maOut">500 mA</div></div>
+          <div class="readout"><div class="lbl">Zähltor (Modell)</div><div class="val" id="countOut">0 /s</div></div>
+        </div>
+        <div class="toggles">
+          <button id="dirBtn" aria-pressed="false">Technische Stromrichtung zeigen</button>
+          <button id="slowBtn" aria-pressed="false">🐢 Zeitlupe</button>
+        </div>
+        <p class="muted" style="margin:0;font-size:.9rem" id="dirNote">Die blauen Punkte sind Elektronen. Sie fließen vom Minuspol (−) zum Pluspol (+).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Messen -->
+<section id="messen">
+  <div class="wrap">
+    <div class="kicker">04 · Messen</div>
+    <h2>Wo gehört das Amperemeter hin?</h2>
+    <p>Die Stromstärke misst man mit einem <strong>Amperemeter</strong> (Strommessgerät). Aber wie wird es angeschlossen? Klick auf die richtige Schaltung!</p>
+    <div class="grid2">
+      <div class="card choice" data-correct="true" tabindex="0" role="button">
+        <svg viewBox="0 0 260 160" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M40 40 H220 V120 H40 Z"/>
+          </g>
+          <rect x="30" y="68" width="20" height="24" fill="var(--surface)"/>
+          <line x1="28" y1="72" x2="52" y2="72" stroke="currentColor" stroke-width="3"/>
+          <line x1="34" y1="88" x2="46" y2="88" stroke="currentColor" stroke-width="5"/>
+          <circle cx="220" cy="80" r="16" fill="var(--surface)" stroke="currentColor" stroke-width="3"/>
+          <path d="M209 69 L231 91 M231 69 L209 91" stroke="currentColor" stroke-width="2"/>
+          <circle cx="130" cy="120" r="18" fill="var(--surface)" stroke="var(--current)" stroke-width="3"/>
+          <text x="130" y="127" text-anchor="middle" font-size="20" font-weight="700" fill="var(--current)">A</text>
+        </svg>
+        <h3>Schaltung 1: In Reihe</h3>
+        <p class="muted" style="margin:0">Das Amperemeter sitzt direkt im Stromkreis.</p>
+      </div>
+      <div class="card choice" data-correct="false" tabindex="0" role="button">
+        <svg viewBox="0 0 270 160" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M40 40 H220 V120 H40 Z"/>
+            <path d="M190 40 V20 H250 V140 H190 V120"/>
+          </g>
+          <rect x="30" y="68" width="20" height="24" fill="var(--surface)"/>
+          <line x1="28" y1="72" x2="52" y2="72" stroke="currentColor" stroke-width="3"/>
+          <line x1="34" y1="88" x2="46" y2="88" stroke="currentColor" stroke-width="5"/>
+          <circle cx="220" cy="80" r="16" fill="var(--surface)" stroke="currentColor" stroke-width="3"/>
+          <path d="M209 69 L231 91 M231 69 L209 91" stroke="currentColor" stroke-width="2"/>
+          <rect x="236" y="62" width="28" height="36" fill="var(--surface)"/>
+          <circle cx="250" cy="80" r="14" fill="var(--surface)" stroke="var(--current)" stroke-width="3"/>
+          <text x="250" y="86" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">A</text>
+        </svg>
+        <h3>Schaltung 2: Parallel</h3>
+        <p class="muted" style="margin:0">Das Amperemeter hängt neben der Lampe.</p>
+      </div>
+    </div>
+    <p class="feedback" id="measureFb" aria-live="polite"></p>
+  </div>
+</section>
+
+<!-- 5. Skala -->
+<section id="alltag">
+  <div class="wrap">
+    <div class="kicker">05 · Stromstärken im Alltag</div>
+    <h2>Von winzig bis gigantisch</h2>
+    <p>Wähle ein Beispiel. Die Skala ist <em>logarithmisch</em> – jeder Strich ist zehnmal so viel wie der vorherige.</p>
+    <div class="card">
+      <div class="scale-btns" id="scaleBtns"></div>
+      <div class="meter-track"><div class="meter-fill" id="meterFill"></div></div>
+      <div class="ticks"><span>1 µA</span><span>1 mA</span><span>1 A</span><span>1 kA</span><span>100 kA</span></div>
+      <div class="scale-info">
+        <div class="emoji" id="scaleEmoji">⌚</div>
+        <div>
+          <div class="amp" id="scaleAmp">–</div>
+          <div class="muted" id="scaleText">Wähle oben ein Beispiel.</div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:16px"><strong>Achtung, Lebensgefahr:</strong> Schon ab etwa <strong>50 mA</strong> (0,05 A) kann Strom durch den menschlichen Körper tödlich sein. Deshalb niemals an Steckdosen experimentieren!</p>
+  </div>
+</section>
+
+<!-- 6. Rechner -->
+<section id="rechner">
+  <div class="wrap">
+    <div class="kicker">06 · Selbst rechnen</div>
+    <h2>Der Stromstärke-Rechner</h2>
+    <p>Gib eine Ladung Q (in Coulomb) und eine Zeit t (in Sekunden) ein.</p>
+    <div class="card calc">
+      <div><label for="qIn">Ladung Q in C</label><input type="number" id="qIn" value="30" min="0" step="any"></div>
+      <div><label for="tIn">Zeit t in s</label><input type="number" id="tIn" value="10" min="0" step="any"></div>
+      <div class="calc-result" id="calcOut"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Quiz -->
+<section id="quiz">
+  <div class="wrap">
+    <div class="kicker">07 · Teste dich</div>
+    <h2>Strom-Quiz</h2>
+    <div class="card" id="quizBox">
+      <div class="quiz-q" id="quizQ"></div>
+      <div class="quiz-opts" id="quizOpts"></div>
+      <p class="feedback" id="quizFb" aria-live="polite"></p>
+      <div class="quiz-foot">
+        <div class="progress" id="quizProg"></div>
+        <button class="primary" id="quizNext" disabled>Weiter →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <strong>Merke:</strong> Die Stromstärke I gibt an, wie viel elektrische Ladung Q pro Zeit t durch einen Leiterquerschnitt fließt. Einheit: Ampere (A). Gemessen wird sie mit einem Amperemeter, das <strong>in Reihe</strong> geschaltet wird.
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const fmt = (n, d = 2) => n.toLocaleString("de-DE", { minimumFractionDigits: d, maximumFractionDigits: d });
+
+  /* ---------- Theme ---------- */
+  const root = document.documentElement;
+  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+  $("#themeBtn").addEventListener("click", () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+  });
+  const css = (v) => getComputedStyle(root).getPropertyValue(v).trim();
+
+  /* ---------- Formel-Symbole ---------- */
+  const info = {
+    I: "<strong>I</strong> = Stromstärke (vom lateinischen <em>intensitas</em>), gemessen in Ampere (A).",
+    Q: "<strong>Q</strong> = elektrische Ladung (vom lateinischen <em>quantitas</em>), gemessen in Coulomb (C).",
+    t: "<strong>t</strong> = Zeit (vom englischen <em>time</em>), gemessen in Sekunden (s)."
+  };
+  document.querySelectorAll(".sym").forEach((el) => {
+    const show = () => {
+      document.querySelectorAll(".sym").forEach((s) => s.classList.remove("active"));
+      el.classList.add("active");
+      $("#symInfo").innerHTML = info[el.dataset.k];
+    };
+    el.addEventListener("mouseenter", show);
+    el.addEventListener("focus", show);
+    el.addEventListener("click", show);
+  });
+
+  /* ---------- Simulator ---------- */
+  const cv = $("#sim");
+  const ctx = cv.getContext("2d");
+  const W = 640, H = 360;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = W * dpr; cv.height = H * dpr;
+  ctx.scale(dpr, dpr);
+
+  const x0 = 70, y0 = 70, w = W - 140, h = H - 140;
+  const P = 2 * (w + h);
+  // Pfad im Uhrzeigersinn ab unten links: hoch, rechts, runter, links
+  function pos(s) {
+    s = ((s % P) + P) % P;
+    if (s < h) return [x0, y0 + h - s];
+    s -= h; if (s < w) return [x0 + s, y0];
+    s -= w; if (s < h) return [x0 + w, y0 + s];
+    s -= h; return [x0 + w - s, y0 + h];
+  }
+  const N = 64;
+  const parts = Array.from({ length: N }, (_, i) => ({ s: (i / N) * P }));
+  const gateS = h + w * 0.22;      // Zähltor auf der oberen Leitung
+  let crossings = [];
+  let I = 0, shownI = 0, fuseBlown = false, showDir = false, slow = false;
+  let t0 = performance.now(), arrowPhase = 0;
+
+  const uIn = $("#u"), rIn = $("#r");
+  function update() {
+    const U = +uIn.value, R = +rIn.value;
+    $("#uOut").textContent = fmt(U, U % 1 ? 1 : 0) + " V";
+    $("#rOut").textContent = R + " Ω";
+    const Iraw = U / R;
+    if (Iraw > 5 && !fuseBlown) {
+      fuseBlown = true;
+      $("#fuseMsg").classList.add("show");
+    }
+    I = fuseBlown ? 0 : Iraw;
+    $("#iOut").textContent = fmt(I) + " A";
+    $("#maOut").textContent = Math.round(I * 1000).toLocaleString("de-DE") + " mA";
+  }
+  uIn.addEventListener("input", update);
+  rIn.addEventListener("input", update);
+  $("#fuseReset").addEventListener("click", () => {
+    fuseBlown = false;
+    $("#fuseMsg").classList.remove("show");
+    uIn.value = 6; rIn.value = 12;
+    update();
+  });
+  $("#dirBtn").addEventListener("click", (e) => {
+    showDir = !showDir;
+    e.currentTarget.setAttribute("aria-pressed", showDir);
+    $("#dirNote").innerHTML = showDir
+      ? "Die <span style='color:var(--current);font-weight:700'>orangen Pfeile</span> zeigen die <strong>technische Stromrichtung</strong>: von + nach −. Sie wurde festgelegt, bevor man die Elektronen kannte – deshalb zeigt sie genau entgegengesetzt!"
+      : "Die blauen Punkte sind Elektronen. Sie fließen vom Minuspol (−) zum Pluspol (+).";
+  });
+  $("#slowBtn").addEventListener("click", (e) => {
+    slow = !slow;
+    e.currentTarget.setAttribute("aria-pressed", slow);
+  });
+
+  function drawWire(c) {
+    ctx.strokeStyle = c.wire; ctx.lineWidth = 4; ctx.lineJoin = "round";
+    if (I > 3.5) { ctx.shadowColor = c.bad; ctx.shadowBlur = 6 + (I - 3.5) * 8; }
+    ctx.strokeRect(x0, y0, w, h);
+    ctx.shadowBlur = 0;
+  }
+  function clearBox(x, y, bw, bh, c) { ctx.fillStyle = c.surface; ctx.fillRect(x, y, bw, bh); }
+
+  function drawBattery(c) {
+    const cx = x0, cy = y0 + h / 2;
+    clearBox(cx - 26, cy - 22, 52, 44, c);
+    ctx.strokeStyle = c.ink; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(cx - 26, cy - 10); ctx.lineTo(cx + 26, cy - 10); ctx.stroke(); // + lang
+    ctx.lineWidth = 8;
+    ctx.beginPath(); ctx.moveTo(cx - 13, cy + 10); ctx.lineTo(cx + 13, cy + 10); ctx.stroke(); // − kurz
+    ctx.fillStyle = c.ink; ctx.font = "700 18px 'Space Grotesk', sans-serif"; ctx.textAlign = "right";
+    ctx.fillText("+", cx - 32, cy - 4);
+    ctx.fillText("−", cx - 32, cy + 18);
+    ctx.textAlign = "left"; ctx.font = "500 14px 'Space Grotesk', sans-serif"; ctx.fillStyle = c.muted;
+    ctx.fillText(uIn.value.replace(".", ",") + " V", cx + 34, cy + 5);
+  }
+  function drawLamp(c) {
+    const cx = x0 + w * 0.62, cy = y0;
+    const b = Math.min(1, I / 3);
+    if (b > 0.01) {
+      const g = ctx.createRadialGradient(cx, cy, 4, cx, cy, 30 + 70 * b);
+      g.addColorStop(0, c.glow.replace(/[\d.]+\)$/, (0.9 * b + 0.1) + ")"));
+      g.addColorStop(1, "rgba(255,200,0,0)");
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, 30 + 70 * b, 0, 7); ctx.fill();
+    }
+    ctx.fillStyle = b > 0.01 ? `rgba(255, ${200 + 55 * b | 0}, ${80 * b | 0}, ${0.35 + 0.65 * b})` : c.surface;
+    ctx.strokeStyle = c.ink; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(cx, cy, 18, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx - 12, cy - 12); ctx.lineTo(cx + 12, cy + 12); ctx.moveTo(cx + 12, cy - 12); ctx.lineTo(cx - 12, cy + 12); ctx.stroke();
+    ctx.fillStyle = c.muted; ctx.font = "500 13px 'Space Grotesk', sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("Lampe", cx, cy - 28);
+  }
+  function drawResistor(c) {
+    const cx = x0 + w, cy = y0 + h / 2;
+    clearBox(cx - 14, cy - 34, 28, 68, c);
+    ctx.strokeStyle = c.ink; ctx.lineWidth = 3; ctx.fillStyle = c.surface;
+    ctx.fillRect(cx - 12, cy - 30, 24, 60); ctx.strokeRect(cx - 12, cy - 30, 24, 60);
+    ctx.fillStyle = c.muted; ctx.font = "500 14px 'Space Grotesk', sans-serif"; ctx.textAlign = "left";
+    ctx.fillText("R = " + rIn.value + " Ω", cx + 20, cy + 5);
+  }
+  function drawFuse(c) {
+    const cx = x0 + w * 0.2, cy = y0 + h;
+    clearBox(cx - 26, cy - 10, 52, 20, c);
+    ctx.strokeStyle = c.ink; ctx.lineWidth = 2.5;
+    ctx.strokeRect(cx - 24, cy - 8, 48, 16);
+    ctx.strokeStyle = fuseBlown ? c.bad : c.ink;
+    ctx.beginPath();
+    if (fuseBlown) { ctx.moveTo(cx - 24, cy); ctx.lineTo(cx - 6, cy - 3); ctx.moveTo(cx + 6, cy + 3); ctx.lineTo(cx + 24, cy); }
+    else { ctx.moveTo(cx - 24, cy); ctx.lineTo(cx + 24, cy); }
+    ctx.stroke();
+    ctx.fillStyle = c.muted; ctx.font = "500 13px 'Space Grotesk', sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("Sicherung 5 A", cx, cy + 28);
+  }
+  function drawAmmeter(c) {
+    const cx = x0 + w * 0.62, cy = y0 + h;
+    shownI += (I - shownI) * 0.08;
+    ctx.fillStyle = c.surface; ctx.strokeStyle = c.current; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(cx, cy, 30, 0, 7); ctx.fill(); ctx.stroke();
+    // Skala
+    ctx.strokeStyle = c.muted; ctx.lineWidth = 1.5;
+    for (let k = 0; k <= 6; k++) {
+      const a = Math.PI * (1.15 + 0.7 * k / 6);
+      ctx.beginPath(); ctx.moveTo(cx + Math.cos(a) * 22, cy + Math.sin(a) * 22); ctx.lineTo(cx + Math.cos(a) * 26, cy + Math.sin(a) * 26); ctx.stroke();
+    }
+    const a = Math.PI * (1.15 + 0.7 * Math.min(shownI, 6) / 6);
+    ctx.strokeStyle = c.current; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(cx, cy + 4); ctx.lineTo(cx + Math.cos(a) * 24, cy + Math.sin(a) * 24); ctx.stroke();
+    ctx.fillStyle = c.current; ctx.font = "700 16px 'Space Grotesk', sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("A", cx, cy + 20);
+    ctx.font = "700 14px 'Space Grotesk', sans-serif";
+    ctx.fillText(fmt(shownI) + " A", cx, cy + 50);
+  }
+  function drawGate(c, flash) {
+    const [gx, gy] = pos(gateS);
+    ctx.strokeStyle = c.volt; ctx.lineWidth = 3; ctx.setLineDash([5, 4]);
+    ctx.beginPath(); ctx.moveTo(gx, gy - 22); ctx.lineTo(gx, gy + 22); ctx.stroke();
+    ctx.setLineDash([]);
+    if (flash) { ctx.fillStyle = c.volt; ctx.beginPath(); ctx.arc(gx, gy - 26, 4, 0, 7); ctx.fill(); }
+    ctx.fillStyle = c.muted; ctx.font = "500 13px 'Space Grotesk', sans-serif"; ctx.textAlign = "center";
+    ctx.fillText("Zähltor", gx, gy - 32);
+  }
+  function drawArrows(c) {
+    ctx.fillStyle = c.current;
+    for (let k = 0; k < 10; k++) {
+      const s = (k / 10) * P + arrowPhase;
+      const [ax, ay] = pos(s), [bx, by] = pos(s + 1);
+      const ang = Math.atan2(by - ay, bx - ax);
+      ctx.save(); ctx.translate(ax, ay); ctx.rotate(ang);
+      ctx.translate(0, -16);
+      ctx.beginPath(); ctx.moveTo(8, 0); ctx.lineTo(-6, -6); ctx.lineTo(-6, 6); ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  let lastFlash = 0;
+  function frame(now) {
+    const dt = Math.min(0.05, (now - t0) / 1000); t0 = now;
+    const c = {
+      wire: css("--wire"), ink: css("--ink"), muted: css("--muted"), surface: css("--surface"),
+      electron: css("--electron"), current: css("--current"), volt: css("--volt"), bad: css("--bad"), glow: css("--glow")
+    };
+    const speed = I * 90 * (slow ? 0.25 : 1);   // px pro Sekunde
+    // Elektronen bewegen sich gegen den Uhrzeigersinn (− → + außen herum)
+    for (const p of parts) {
+      const before = ((p.s % P) + P) % P;
+      p.s -= speed * dt;
+      // Überquerung des Tors (Bewegung in −s-Richtung)
+      const back = (before - gateS + P) % P;   // Abstand rückwärts bis zum Tor
+      if (speed > 0 && back < speed * dt) {
+        crossings.push(now); lastFlash = now;
+      }
+    }
+    arrowPhase = (arrowPhase + speed * dt) % P;
+    crossings = crossings.filter((tt) => now - tt < 1000);
+    $("#countOut").textContent = crossings.length + " /s";
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = c.surface; ctx.fillRect(0, 0, W, H);
+    drawWire(c);
+    // Elektronen
+    ctx.fillStyle = c.electron;
+    for (const p of parts) {
+      const [px, py] = pos(p.s);
+      ctx.beginPath(); ctx.arc(px, py, 5, 0, 7); ctx.fill();
+    }
+    drawBattery(c); drawLamp(c); drawResistor(c); drawFuse(c); drawAmmeter(c);
+    drawGate(c, now - lastFlash < 90);
+    if (showDir && I > 0) drawArrows(c);
+    requestAnimationFrame(frame);
+  }
+  update();
+  requestAnimationFrame(frame);
+
+  /* ---------- Messen ---------- */
+  document.querySelectorAll(".choice").forEach((el) => {
+    const pick = () => {
+      document.querySelectorAll(".choice").forEach((x) => x.classList.remove("right", "wrong"));
+      const ok = el.dataset.correct === "true";
+      el.classList.add(ok ? "right" : "wrong");
+      const fb = $("#measureFb");
+      fb.className = "feedback " + (ok ? "ok" : "no");
+      fb.innerHTML = ok
+        ? "✅ Richtig! Das Amperemeter wird <strong>in Reihe</strong> geschaltet, damit der gesamte Strom hindurchfließt. Es hat einen sehr kleinen Innenwiderstand."
+        : "❌ Leider falsch. Parallel geschaltet würde fast der ganze Strom durch das Amperemeter fließen (winziger Innenwiderstand) – <strong>Kurzschluss</strong>! Das Messgerät kann kaputtgehen.";
+    };
+    el.addEventListener("click", pick);
+    el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+  });
+
+  /* ---------- Skala ---------- */
+  const examples = [
+    { n: "Armbanduhr", e: "⌚", a: 0.000002, t: "Eine Quarzuhr kommt mit ein paar Mikroampere aus – deshalb hält die Knopfzelle jahrelang." },
+    { n: "LED", e: "💡", a: 0.02, t: "Eine kleine Leuchtdiode braucht etwa 20 mA." },
+    { n: "Gefahr für Menschen", e: "⚠️", a: 0.05, t: "Ab ca. 50 mA durch den Körper wird es lebensgefährlich!" },
+    { n: "Handy laden", e: "📱", a: 2, t: "Ein Ladekabel liefert typischerweise 1–3 A an das Smartphone." },
+    { n: "Wasserkocher", e: "🫖", a: 9, t: "Ein Wasserkocher zieht etwa 9 A aus der Steckdose." },
+    { n: "Auto-Anlasser", e: "🚗", a: 300, t: "Beim Starten eines Motors fließen kurzzeitig mehrere hundert Ampere." },
+    { n: "Blitz", e: "🌩️", a: 30000, t: "Ein Blitz erreicht etwa 30 000 A – aber nur für Bruchteile einer Sekunde." }
+  ];
+  const bx = $("#scaleBtns");
+  const ampStr = (a) => a < 0.001 ? fmt(a * 1e6, 0) + " µA" : a < 1 ? fmt(a * 1000, 0) + " mA" : a >= 1000 ? fmt(a, 0) + " A" : fmt(a, 0) + " A";
+  examples.forEach((ex, i) => {
+    const b = document.createElement("button");
+    b.textContent = ex.e + " " + ex.n;
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => {
+      bx.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", "false"));
+      b.setAttribute("aria-pressed", "true");
+      const pct = (Math.log10(ex.a) + 6) / 11 * 100; // 1 µA (1e-6) … 100 kA (1e5)
+      $("#meterFill").style.width = Math.max(2, pct) + "%";
+      $("#scaleEmoji").textContent = ex.e;
+      $("#scaleAmp").textContent = ampStr(ex.a);
+      $("#scaleText").textContent = ex.t;
+    });
+    bx.appendChild(b);
+    if (i === 3) setTimeout(() => b.click(), 0);
+  });
+
+  /* ---------- Rechner ---------- */
+  function calc() {
+    const Q = parseFloat($("#qIn").value), t = parseFloat($("#tIn").value);
+    const out = $("#calcOut");
+    if (!(t > 0) || !(Q >= 0)) { out.innerHTML = "<span class='muted'>Bitte eine Ladung ≥ 0 und eine Zeit &gt; 0 eingeben.</span>"; return; }
+    const i = Q / t;
+    const electrons = i * 6.241509e18;
+    out.innerHTML = `I = ${fmt(Q, 2)} C ÷ ${fmt(t, 2)} s = <b>${fmt(i, 3)} A</b><br><span class="muted" style="font-size:1rem">Das sind etwa ${electrons.toExponential(2).replace(".", ",").replace("e+", " · 10^")} Elektronen pro Sekunde.</span>`;
+  }
+  $("#qIn").addEventListener("input", calc);
+  $("#tIn").addEventListener("input", calc);
+  calc();
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "Was gibt die elektrische Stromstärke an?", o: ["Wie stark die Batterie drückt", "Wie viel Ladung pro Sekunde durch den Leiter fließt", "Wie dick das Kabel ist", "Wie heiß das Kabel wird"], c: 1,
+      x: "Stromstärke = Ladung pro Zeit, I = Q ÷ t." },
+    { q: "In welcher Einheit misst man die Stromstärke?", o: ["Volt", "Watt", "Ampere", "Ohm"], c: 2,
+      x: "Ampere (A). Volt ist die Spannung, Ohm der Widerstand, Watt die Leistung." },
+    { q: "Durch einen Draht fließen in 4 s genau 12 C. Wie groß ist I?", o: ["48 A", "3 A", "0,33 A", "16 A"], c: 1,
+      x: "I = 12 C ÷ 4 s = 3 A." },
+    { q: "Wie wird ein Amperemeter angeschlossen?", o: ["Parallel zur Lampe", "In Reihe (Serie)", "Gar nicht, es misst kabellos", "Nur an den Pluspol"], c: 1,
+      x: "In Reihe – sonst entsteht ein Kurzschluss." },
+    { q: "Wie viel sind 250 mA in Ampere?", o: ["25 A", "2,5 A", "0,25 A", "0,025 A"], c: 2,
+      x: "250 mA ÷ 1000 = 0,25 A." },
+    { q: "In welche Richtung zeigt die technische Stromrichtung?", o: ["Von − nach +", "Von + nach −", "Sie wechselt ständig", "Es gibt keine"], c: 1,
+      x: "Von + nach − (außerhalb der Quelle). Die Elektronen fließen genau andersherum." }
+  ];
+  let qi = 0, score = 0;
+  const results = [];
+  function renderQ() {
+    const item = Q[qi];
+    $("#quizQ").textContent = `Frage ${qi + 1} von ${Q.length}: ${item.q}`;
+    $("#quizFb").textContent = ""; $("#quizFb").className = "feedback";
+    const box = $("#quizOpts"); box.innerHTML = "";
+    item.o.forEach((txt, k) => {
+      const b = document.createElement("button");
+      b.textContent = txt;
+      b.addEventListener("click", () => answer(k));
+      box.appendChild(b);
+    });
+    $("#quizNext").disabled = true;
+    $("#quizNext").textContent = qi === Q.length - 1 ? "Ergebnis anzeigen" : "Weiter →";
+    renderProg();
+  }
+  function renderProg() {
+    $("#quizProg").innerHTML = Q.map((_, k) => `<i class="${results[k] === true ? "ok" : results[k] === false ? "no" : k === qi ? "now" : ""}"></i>`).join("");
+  }
+  function answer(k) {
+    const item = Q[qi];
+    const btns = $("#quizOpts").querySelectorAll("button");
+    btns.forEach((b) => (b.disabled = true));
+    btns[item.c].classList.add("correct");
+    const ok = k === item.c;
+    if (!ok) btns[k].classList.add("incorrect");
+    if (ok) score++;
+    results[qi] = ok;
+    $("#quizFb").className = "feedback " + (ok ? "ok" : "no");
+    $("#quizFb").textContent = (ok ? "✅ Richtig! " : "❌ Nicht ganz. ") + item.x;
+    $("#quizNext").disabled = false;
+    renderProg();
+  }
+  let finished = false;
+  $("#quizNext").addEventListener("click", () => {
+    if (finished) { finished = false; qi = 0; score = 0; results.length = 0; renderQ(); return; }
+    if (qi < Q.length - 1) { qi++; renderQ(); return; }
+    finished = true;
+    const msg = score === Q.length ? "Perfekt! Du bist ein echtes Strom-Genie ⚡"
+      : score >= 4 ? "Stark! Du hast die Stromstärke gut verstanden."
+      : "Schau dir das Labor oben nochmal an und versuch es erneut!";
+    $("#quizQ").textContent = `Du hast ${score} von ${Q.length} Fragen richtig.`;
+    $("#quizOpts").innerHTML = "";
+    $("#quizFb").className = "feedback"; $("#quizFb").textContent = msg;
+    $("#quizNext").textContent = "Nochmal spielen ↻";
+    if (score === Q.length) confetti();
+  });
+  function confetti() {
+    const cols = [css("--volt"), css("--electron"), css("--current"), css("--good")];
+    for (let k = 0; k < 80; k++) {
+      const d = document.createElement("div");
+      d.className = "confetti";
+      d.style.left = Math.random() * 100 + "vw";
+      d.style.background = cols[k % cols.length];
+      d.style.animationDuration = 1.8 + Math.random() * 1.8 + "s";
+      d.style.animationDelay = Math.random() * 0.5 + "s";
+      document.body.appendChild(d);
+      setTimeout(() => d.remove(), 4500);
+    }
+  }
+  renderQ();
+})();
+</script>
+</body>
+</html>
+
+</body></html>

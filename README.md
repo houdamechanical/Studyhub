@@ -1,0 +1,222 @@
+# Study Hub
+
+A study app for school (Klasse 11): your own HTML study pages, an exam tracker,
+a grade tracker, practice tests with flashcards, and leaderboards to compare
+with others. The interface is in **English, German and Arabic** (Arabic
+right-to-left), works on phones first, and has a dark mode.
+
+Built with Next.js (App Router, TypeScript, Tailwind) and Supabase (Postgres,
+Auth, Row Level Security). No extra libraries beyond the Supabase starter.
+
+## Features
+
+| Area | Page | What it does |
+|---|---|---|
+| Library | `/library` | Browse study pages by subject → half-year → topic, with search. Each page runs in a sandboxed iframe, so its own styles and scripts work but it can't touch your login. |
+| Exams | `/exams` | Exams with subject, date, time, type, room and status, plus a countdown to the next one. |
+| Grades | `/grades` | Grades as Note 1–6, Punkte 0–15 or %, with weights. Averages per subject and half-year, and a progress chart. |
+| Practice | `/practice` | Mock exams (with an optional timer), mini tests (5–10 questions) and flashcards with spaced repetition (SM-2). Results show the correct answer and a step-by-step explanation. |
+| Compare | `/compare` | Public nickname, leaderboards per test and per subject, and "you vs. average". Sharing grades is off by default and chosen per subject. |
+| Admin | `/admin` | Add questions, build tests, add flashcards, or import everything from JSON. Admins only. |
+
+## Run it locally
+
+You need **Node.js 20.9 or newer** and a free [Supabase](https://supabase.com) project.
+
+### 1. Install
+
+```bash
+npm install
+```
+
+### 2. Connect Supabase
+
+Copy `.env.example` to `.env.local` and fill in the values from your Supabase
+dashboard (**Project Settings → API**):
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://<your-project>.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<your publishable or anon key>
+```
+
+### 3. Create the database tables
+
+The schema is in `supabase/migrations/`. Apply the files **in name order**:
+
+| File | Creates |
+|---|---|
+| `20261126120000_exams_and_grades.sql` | exams, grades |
+| `20261126150000_practice.sql` | admins, questions, solutions, tests, flashcards, attempts, grading functions |
+| `20261126180000_compare.sql` | nicknames, grade sharing, leaderboard functions |
+
+**Option A – dashboard:** open **SQL Editor → New query**, paste a file, click
+**Run**, then do the same with the next file.
+
+**Option B – Supabase CLI:**
+
+```bash
+npx supabase login
+npx supabase link --project-ref <your-project-ref>
+npx supabase db push
+```
+
+### 4. Allow sign-up links
+
+In **Authentication → URL Configuration**, set **Site URL** to
+`http://localhost:3000` and add `http://localhost:3000/**` under
+**Redirect URLs**. Sign-up confirmation emails link back to these addresses.
+
+### 5. Start
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3000 and sign up. Every new account gets a nickname like
+`Student-k3f9a`, which you can change on the Compare page.
+
+### 6. Make yourself admin (once)
+
+Run this in the SQL Editor with your own login email:
+
+```sql
+insert into public.admins (user_id)
+select id from auth.users where email = 'you@example.com';
+```
+
+Reload the app. **Admin** now appears in the account menu (top right).
+
+### 7. Import the Bio questions (optional)
+
+Go to **Admin → Import JSON → Choose file**, pick
+`content/imports/bio-11.1-quiz.json`, then click **Import**. That adds
+107 questions, 2 mock exams, 13 mini tests and 43 flashcards. Importing again
+updates the existing items instead of creating duplicates.
+
+## Deploy to Vercel
+
+1. Push the project to a GitHub repository.
+2. In [Vercel](https://vercel.com/new), **import** the repository. The framework
+   (Next.js) is detected automatically.
+3. Under **Environment Variables**, add the same two values as in `.env.local`:
+   `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
+4. Click **Deploy**.
+5. In Supabase **Authentication → URL Configuration**, set **Site URL** to
+   your Vercel address (e.g. `https://study-hub.vercel.app`) and add
+   `https://study-hub.vercel.app/**` to **Redirect URLs**. Keep the localhost
+   entries if you still develop locally.
+
+The study pages in `/content` are bundled with the deployment automatically
+(see `outputFileTracingIncludes` in `next.config.ts`). To add or change pages,
+commit them and push; Vercel redeploys.
+
+## Adding study pages
+
+1. Put the HTML file in `content/{subject}/{half-year}/`, e.g.
+   `content/chemie/11.1/redoxreaktionen.html`. Use lowercase names without
+   spaces. (`content/raw/` is an inbox for files that haven't been sorted yet.)
+2. Add an entry to `content/index.json`:
+
+   ```json
+   {
+     "id": "redoxreaktionen",
+     "title": "Redoxreaktionen – Lernseite",
+     "subject": "chemie",
+     "semester": "11.1",
+     "topic": "Redoxreaktionen",
+     "kind": "notes",
+     "tags": ["Oxidation", "Reduktion", "Elektronenübergang"],
+     "file": "chemie/11.1/redoxreaktionen.html"
+   }
+   ```
+
+   `subject` is one of `math`, `deutsch`, `englisch`, `chemie`, `physik`,
+   `bio`, `geschichte`, `religion`. `kind` is `notes`, `quiz` or `interactive`.
+
+Pages run in a sandbox without access to the app's storage, so things a page
+saves in `localStorage` (e.g. a quiz high score) are not kept.
+
+## Adding questions with JSON
+
+**Admin → Import JSON → Show example** shows the complete format. In short:
+
+```json
+{
+  "questions": [
+    { "key": "math-abl-1", "subject": "math", "topic": "Ableitungen", "type": "numeric",
+      "prompt": "f(x) = x². Wie groß ist f'(3)?", "answer": 6,
+      "explanation": ["f'(x) = 2x", "f'(3) = 2 · 3 = 6"] }
+  ],
+  "quizzes": [
+    { "key": "math-mini-1", "kind": "mini", "subject": "math", "title": "Mini-Test Ableitungen",
+      "duration_minutes": 10, "questions": ["math-abl-1", "…4 to 9 more keys…"] }
+  ],
+  "decks": [
+    { "key": "math-begriffe", "subject": "math", "title": "Analysis – Begriffe",
+      "cards": [{ "front": "Ableitung", "back": "Steigung der Tangente" }] }
+  ]
+}
+```
+
+Question types and their `answer`:
+
+| `type` | `answer` |
+|---|---|
+| `single` | index of the right option (`0` = first) |
+| `multi` | list of indexes, e.g. `[0, 2]` |
+| `numeric` | a number, or `{ "value": 2.5, "tolerance": 0.05 }` |
+| `text` | accepted text, or a list of them (capitalisation is ignored) |
+
+A mini test needs 5–10 questions. A mock exam needs `duration_minutes`.
+
+`scripts/convert-bio-quiz.mjs` shows how the Bio quiz page was turned into this
+format (`node scripts/convert-bio-quiz.mjs`).
+
+## Privacy and security
+
+All tables use Supabase **Row Level Security**:
+
+- Exams, grades, flashcard progress and test attempts can only be read and
+  changed by their owner.
+- Answers and explanations are only readable by admins. Students see them in
+  their results after submitting.
+- Tests are graded inside the database (`submit_attempt`), so a score can't be
+  faked. Submissions more than 30 s after the time limit are marked late and
+  left out of leaderboards.
+- Other people only ever see a **nickname**, never a name or email.
+- Test results are visible on leaderboards.
+- **Grades are private** unless you share a subject. Sharing is off by default
+  and chosen per subject. Grades of subjects you don't share are never used for
+  anything others see, not even averages.
+- Leaderboards and averages come from database functions that return only the
+  data above. Other users' rows can't be queried directly.
+
+## Grade calculation
+
+- **Subject average:** weighted average of that subject's grades.
+- **Half-year average:** every subject counts equally, as on a report card.
+- **Mixed scales** are converted linearly: 1.0 = 15 points = 100 %, and
+  6.0 = 0 points = 0 %. This is a simplification, not an official conversion
+  table.
+
+## Project structure
+
+```
+app/(app)/            pages: library, exams, grades, practice, compare, admin
+app/api/content/      serves study pages (sandboxed)
+components/           UI, one folder per feature
+content/              study pages, index.json, imports/
+lib/                  logic: grades, SM-2, import validation, i18n, subjects
+lib/i18n/             translations (en, de, ar)
+supabase/migrations/  database schema, policies and functions
+scripts/              one-off helpers
+```
+
+## Scripts
+
+| Command | |
+|---|---|
+| `npm run dev` | development server on http://localhost:3000 |
+| `npm run build` | production build |
+| `npm start` | run the production build |
+| `npm run lint` | ESLint |

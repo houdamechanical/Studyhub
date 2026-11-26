@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Religion Klausur 11b – Lernseite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,600&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0c0f24;--night2:#161a3a;--paper:#fbf6ea;--paper2:#f3ecdb;--ink:#1d1b26;--soft:#6b6676;
+  --gold:#e8b44a;--gold2:#f6d58c;
+  --c:#5b4bd1;--c2:#8f7cff;--cbg:#ece8ff;
+  --i:#0d8f6c;--i2:#3fd1a4;--ibg:#dff4ec;
+  --k:#e0573f;--kbg:#fde6df;--t:#c9861a;--tbg:#fbefd8;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{
+  color:var(--paper);font:16px/1.65 Inter,-apple-system,sans-serif;min-height:100vh;
+  background:
+   radial-gradient(1.5px 1.5px at 20px 30px,#fff8,transparent),
+   radial-gradient(1px 1px at 80px 120px,#fff6,transparent),
+   radial-gradient(1.5px 1.5px at 160px 60px,#fff9,transparent),
+   radial-gradient(1px 1px at 230px 170px,#fff5,transparent),
+   radial-gradient(1px 1px at 300px 40px,#fff7,transparent),
+   radial-gradient(1.2px 1.2px at 340px 210px,#fff6,transparent),
+   radial-gradient(ellipse at 70% -10%,#3a2f7a 0%,transparent 55%),
+   radial-gradient(ellipse at 0% 60%,#0e4a45 0%,transparent 50%),
+   var(--night);
+  background-size:360px 240px,360px 240px,360px 240px,360px 240px,360px 240px,360px 240px,100% 100%,100% 100%,100% 100%;
+  background-attachment:fixed;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 90px}
+.serif{font-family:Fraunces,Georgia,serif}
+.hand{font-family:Caveat,cursive}
+.ar{font-family:"Geeza Pro","Noto Naskh Arabic",serif}
+.fade{animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- HOME ---------- */
+.hero{padding:42px 4px 10px;position:relative}
+.hero .eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-family:Fraunces,serif;font-weight:900;font-size:clamp(2.6rem,11vw,4rem);line-height:.95;margin:10px 0 12px;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;font-weight:600;color:var(--gold2)}
+.hero p{margin:0;color:#c9c6dc;max-width:440px}
+.moon{position:absolute;right:6px;top:30px;width:86px;opacity:.9}
+.portals{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:30px 0 10px}
+.portal{background:none;border:none;padding:0;text-align:center;color:var(--paper)}
+.portal svg{width:100%;display:block;filter:drop-shadow(0 10px 24px rgba(0,0,0,.45));transition:transform .25s}
+.portal:hover svg,.portal:active svg{transform:translateY(-4px) scale(1.02)}
+.portal h2{font-family:Fraunces,serif;font-size:1.2rem;margin:10px 0 0;line-height:1.15}
+.portal small{color:#b9b5cf;font-size:.78rem}
+.wide{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:none;border-radius:20px;padding:16px;margin-top:14px;color:var(--ink);position:relative;overflow:hidden}
+.wide h2{font-family:Fraunces,serif;margin:0;font-size:1.2rem}
+.wide p{margin:2px 0 0;font-size:.85rem;color:#5d5868}
+.wide .art{flex:0 0 74px}
+.wide.k{background:linear-gradient(120deg,#ffe3d6,#ffd0bf)}
+.wide.t{background:linear-gradient(120deg,#fff0cf,#f8dc9d)}
+.wide .go{margin-left:auto;font-size:1.4rem}
+.progress{display:flex;align-items:center;gap:12px;margin-top:26px;padding:14px 16px;border:1px solid #ffffff22;border-radius:16px;background:#ffffff0d}
+.ring{flex:0 0 46px}
+.progress b{display:block;font-family:Fraunces,serif}
+.progress span{font-size:.85rem;color:#c9c6dc}
+
+.wide.l{background:linear-gradient(120deg,#e4ecfb,#c9d9f5)}
+/* ---------- READING (ruhig) ---------- */
+body.read{background:#f7f4ee;color:#1f1d27}
+body.read .wrap{max-width:none;padding:0}
+.rbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f7f4eeee;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #e6e0d4}
+.rback{width:38px;height:38px;border-radius:50%;border:1px solid #ddd5c6;background:#fff;font-size:1.1rem}
+.rtitle{font-weight:700;font-size:.95rem;flex:1}
+.rtop{border:1px solid #ddd5c6;background:#fff;border-radius:999px;padding:6px 12px;font-size:.8rem;font-weight:600;color:#555}
+.doc{max-width:680px;margin:0 auto;padding:8px 20px 80px;font-size:17px;line-height:1.75}
+.dochead{padding:26px 0 10px}
+.kick{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.dochead h1{font-family:Fraunces,serif;font-weight:900;font-size:2.2rem;line-height:1.1;margin:6px 0 10px}
+.dochead p{margin:0;color:#4d4958}
+.toc{background:#fff;border:1px solid #e6e0d4;border-radius:14px;padding:14px 18px;margin:20px 0 10px}
+.toc b{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:#7a7484}
+.toc ol{margin:8px 0 0;padding-left:22px}
+.toc li{margin:3px 0}.toc li::marker{color:var(--accent);font-weight:700}
+.toc button{display:inline;background:none;border:none;padding:2px 0;text-align:left;color:#1f1d27;font-size:.95rem;text-decoration:underline;text-decoration-color:#cfc7b6;text-underline-offset:3px}
+.ch{padding-top:30px;margin-top:30px;border-top:1px solid #e6e0d4;scroll-margin-top:60px}
+.chn{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.ch h2{font-family:Fraunces,serif;font-size:1.6rem;line-height:1.2;margin:4px 0 14px}
+.ch h3.sub{font-family:Fraunces,serif;font-size:1.2rem;margin:26px 0 8px}
+.ch p{margin:10px 0}
+.ch ul,.ch ol{padding-left:22px}.ch li{margin:6px 0}
+.ch li::marker{color:var(--accent)}
+.box{background:#fff;border:1px solid #e6e0d4;border-left:3px solid var(--accent);border-radius:10px;padding:12px 16px;margin:14px 0}
+.box h3{font-family:Fraunces,serif;font-size:1.08rem;margin:2px 0 4px}
+.box p:first-of-type{margin-top:4px}
+.img{background:color-mix(in srgb,var(--accent) 8%,#fff);border-radius:10px;padding:12px 16px;margin:16px 0;font-size:.97rem}
+.tip{border:1.5px dashed color-mix(in srgb,var(--accent) 55%,#fff);border-radius:10px;padding:12px 16px;margin:16px 0;font-size:.97rem}
+.note{font-size:.88rem;color:#77717f}
+.scale{display:flex;border-radius:8px;overflow:hidden;font-size:.74rem;font-weight:700;text-align:center;margin:10px 0}
+.scale div{flex:1;padding:9px 2px;color:#fff}
+ol.big li{margin:9px 0}
+ul.sum li{margin:9px 0}
+.docend{display:flex;flex-direction:column;gap:10px;margin-top:40px}
+.docend button{border:none;background:var(--accent);color:#fff;border-radius:12px;padding:14px;font-size:1rem;text-align:center}
+.docend .ghost{background:#fff;color:#1f1d27;border:1px solid #ddd5c6}
+.ar{font-family:"Geeza Pro","Noto Naskh Arabic",serif}
+/* Karikaturen */
+.cartoon{background:#fff;border:2px solid #26222e;border-radius:6px;padding:6px;margin:10px 0 4px}
+.cartoon svg{display:block;width:100%;height:auto}
+.caption{text-align:center;font-family:Caveat,cursive;font-size:1.45rem;margin:8px 0 10px}
+.step{background:#fff;border:1px solid #e6e0d4;border-radius:10px;margin:10px 0;overflow:hidden}
+.step .q{display:flex;gap:12px;align-items:center;padding:12px 14px}
+.step .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem}
+.step .q b{display:block;font-size:1rem}.step .q small{color:#77717f;font-size:.85rem}
+.reveal{width:100%;border:none;border-top:1px solid #eee7da;background:#faf8f3;padding:10px;font-weight:600;color:var(--accent);font-size:.92rem}
+.ans{display:none;padding:12px 16px;border-top:1px solid #eee7da;font-size:.97rem}
+.step.open .ans{display:block}.step.open .reveal{display:none}
+/* Karten + Quiz */
+.seg{display:flex;background:#ece7dc;border-radius:10px;padding:3px;margin:6px 0 14px}
+.seg button{flex:1;border:none;background:none;padding:8px;border-radius:8px;font-weight:600;font-size:.88rem;color:#666}
+.seg button.on{background:#fff;color:#1f1d27;box-shadow:0 1px 3px #0002}
+.flip{perspective:1200px;height:230px;cursor:pointer}
+.fi{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.f .fi{transform:rotateY(180deg)}
+.side{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;text-align:center;border:1px solid #e6e0d4}
+.front{background:#fff}.front b{font-family:Fraunces,serif;font-size:1.45rem;line-height:1.25}
+.front .hint{position:absolute;bottom:12px;font-size:.75rem;color:#999}
+.backs{transform:rotateY(180deg);background:color-mix(in srgb,var(--accent) 8%,#fff)}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:12px}
+.btn{border:1px solid #d8d0c0;background:#fff;border-radius:10px;padding:9px 16px;font-weight:600}
+.btn.main{background:#1f1d27;color:#fff;border-color:#1f1d27}
+.qhead{display:flex;justify-content:space-between;font-size:.85rem;color:#77717f;margin-bottom:6px}
+.qbar{height:5px;background:#e6e0d4;border-radius:9px;overflow:hidden;margin-bottom:14px}
+.qbar div{height:100%;background:var(--accent);transition:width .3s}
+.qq{font-family:Fraunces,serif;font-size:1.2rem;line-height:1.35;margin:0 0 6px}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;font-weight:500}
+.opt.r{background:#d8f0e2;border-color:#4a9c6e}.opt.w{background:#f7dcdc;border-color:#c46a6a}
+.result{text-align:center;padding:10px 0}.result .big{font-family:Fraunces,serif;font-weight:900;font-size:2.6rem}
+
+.fsbtn{border:1px solid #ffffff40;background:#ffffff14;color:#fff;border-radius:999px;padding:6px 12px;font-size:.8rem;font-weight:600;margin-top:14px}
+.rbar .fsbtn{margin:0;border-color:#ddd5c6;background:#fff;color:#555}
+#fshint{position:fixed;left:50%;bottom:20px;transform:translate(-50%,40px);opacity:0;transition:.3s;background:#1f1d27;color:#fff;padding:12px 16px;border-radius:12px;font-size:.9rem;max-width:90vw;z-index:99;pointer-events:none}
+#fshint.show{opacity:1;transform:translate(-50%,0)}
+/* Tablet / iPad: ganze Breite nutzen */
+@media (min-width:820px){
+ .wrap{max-width:1000px;padding:0 40px 90px}
+ .hero h1{font-size:4.6rem}
+ .hero p{font-size:1.1rem;max-width:560px}
+ .moon{width:120px}
+ .portals{gap:40px;max-width:540px;margin:30px auto 20px}
+ .portal h2{font-size:1.5rem}
+ .tiles3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+ .wide{padding:22px}
+ .doc{max-width:880px;padding:10px 48px 100px;font-size:18.5px}
+ .dochead h1{font-size:2.8rem}
+ .ch h2{font-size:1.9rem}
+ .cartoon{max-width:640px;margin-left:auto;margin-right:auto}
+ .flip{height:280px}
+}
+.arline{text-align:center;font-size:1.45rem;line-height:1.9;margin:10px 0 2px;direction:rtl}
+.arline .ar,.ar{font-family:"Geeza Pro","Noto Naskh Arabic","Amiri",serif}
+details.ms{background:#fff;border:1.5px solid var(--accent);border-radius:12px;margin:12px 0 22px;overflow:hidden}
+details.ms summary{padding:12px 16px;font-weight:700;color:var(--accent);cursor:pointer}
+details.ms[open] summary{border-bottom:1px solid #eee7da;background:#faf8f3}
+details.ms>div{padding:4px 18px 14px}
+.gl{background:#fff;border:1px solid #e6e0d4;border-left:3px solid var(--accent);border-radius:10px;padding:10px 16px;margin:10px 0}
+.glh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.glh b{font-family:Fraunces,serif;font-size:1.12rem}
+.glh .ar{font-size:1.35rem;color:var(--accent)}
+.glm{font-size:.88rem;color:#77717f;font-style:italic;margin-top:-2px}
+.gl p{margin:6px 0 2px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+/* ===================== INHALT ===================== */
+const PAGES={};
+
+/* ======================= CHRISTLICHER TEIL ======================= */
+PAGES.c={title:"Christlicher Teil",intro:"Hier geht es um die große Frage: <b>Was ist Religion überhaupt?</b> Du lernst, woher das Wort kommt, wie man Religion definieren kann, was Tillich und Kaufmann sagen und wie sich das christliche und das islamische Glaubensbekenntnis unterscheiden.",
+chapters:[
+
+{t:"Was ist Religion?",h:`
+<p>Fast jeder Mensch hat ein Bild im Kopf, wenn er „Religion“ hört: eine Kirche, eine Moschee, ein Gebet, ein heiliges Buch. Aber was steckt dahinter? In diesem Kapitel bekommst du einen <b>Überblick</b>. Die folgenden Kapitel gehen dann einzeln in die Tiefe.</p>
+
+<h3 class="sub">Eine einfache Arbeitsdefinition</h3>
+<div class="box"><p>Religion ist die <b>Beziehung des Menschen zu etwas, das größer ist als er selbst</b>: zu Gott, dem Göttlichen, dem Heiligen oder dem Unendlichen. Diese Beziehung zeigt sich in dem, was Menschen <b>glauben</b>, wie sie <b>handeln</b> und wie sie <b>zusammenleben</b>.</p></div>
+<p class="note">Achtung: Das ist nur eine Hilfe zum Verstehen. Eine Definition, der alle Wissenschaftler zustimmen, gibt es nicht (dazu mehr im nächsten Kapitel).</p>
+
+<h3 class="sub">Woran erkennt man eine Religion?</h3>
+<p>Auch wenn Religionen sehr verschieden sind, haben die meisten diese <b>Bausteine</b>:</p>
+<div class="box"><h3>1. Glaubenslehre</h3><p>Was glaubt man? Aussagen über Gott, die Welt, den Menschen und das Leben nach dem Tod.<br><b>Beispiele:</b> das christliche Glaubensbekenntnis, das islamische Āmantu.</p></div>
+<div class="box"><h3>2. Rituale</h3><p>Feste Handlungen, die immer wieder gleich ausgeführt werden.<br><b>Beispiele:</b> Gottesdienst, Taufe, Abendmahl; tägliches Gebet, Fasten im Ramadan.</p></div>
+<div class="box"><h3>3. Ethik (Moral)</h3><p>Regeln, wie man richtig lebt und mit anderen umgeht.<br><b>Beispiele:</b> die Zehn Gebote, das Gebot der Nächstenliebe; Glaube und rechtschaffenes Handeln im Islam.</p></div>
+<div class="box"><h3>4. Gemeinschaft</h3><p>Menschen, die denselben Glauben teilen und sich treffen.<br><b>Beispiele:</b> Kirchengemeinde; Umma.</p></div>
+<div class="box"><h3>5. Heilige Schriften und Überlieferung</h3><p>Texte, die als Offenbarung oder als besonders wichtig gelten.<br><b>Beispiele:</b> Bibel; Koran und Sunna.</p></div>
+<div class="box"><h3>6. Heilige Orte, Zeiten und Symbole</h3><p><b>Beispiele:</b> Kirche, Kreuz, Weihnachten und Ostern; Moschee, Kaaba, Qibla, Ramadan.</p></div>
+<div class="box"><h3>7. Persönliche Erfahrung</h3><p>Das innere Erleben: Staunen, Ehrfurcht, Vertrauen, das Gefühl, getragen zu sein.<br><b>Beispiele:</b> Schleiermachers „Gefühl schlechthinniger Abhängigkeit“, Einsteins „Erfahrung des Mystischen“.</p></div>
+<div class="img"><b>Zum Vorstellen:</b> Religion ist wie ein <b>Haus</b>. Die Glaubenslehre ist das Fundament, die Ethik sind die Hausregeln, die Rituale sind der Tagesablauf, die Gemeinschaft sind die Bewohner und die persönliche Erfahrung ist das Gefühl, darin zu Hause zu sein.</div>
+
+<h3 class="sub">Die großen Fragen hinter der Religion</h3>
+<p>Religionen antworten auf Fragen, die jeder Mensch irgendwann stellt:</p>
+<ul><li><b>Woher</b> komme ich? (Ursprung, Schöpfung)</li>
+<li><b>Wozu</b> lebe ich? (Sinn, Ziel)</li>
+<li><b>Wie</b> soll ich leben? (Moral, Orientierung)</li>
+<li><b>Warum</b> gibt es Leid? (Kontingenz)</li>
+<li><b>Wohin</b> gehe ich? (Tod, Jenseits)</li></ul>
+<p>Diese Fragen kann die Wissenschaft nicht vollständig beantworten. Genau hier setzt Religion an. Tillich nennt das die <b>Dimension der Tiefe</b>.</p>
+
+<h3 class="sub">Zwei Blickwinkel auf Religion</h3>
+<p>Man kann Religion auf zwei Arten betrachten. Das ist der rote Faden für diesen ganzen Teil:</p>
+<div class="box"><p><b>Von innen (substanziell):</b> Was ist Religion selbst? Antwort: die Beziehung zum Heiligen, zu Gott, zum Unendlichen.</p>
+<p><b>Von außen (funktional):</b> Was tut Religion für Menschen? Antwort: Sie gibt Sinn, Halt, Gemeinschaft, Orientierung und Trost.</p></div>
+
+<h3 class="sub">Was Religion nicht ist</h3>
+<ul><li>Religion ist <b>nicht dasselbe wie Wissen</b>. Glauben heißt vertrauen und überzeugt sein, ohne es beweisen zu können.</li>
+<li>Religion ist <b>nicht nur Regeln</b>. Ohne innere Haltung bleiben Rituale leer.</li>
+<li>Religion ist <b>nicht nur Gefühl</b>. Zu den meisten Religionen gehören auch Lehre, Handeln und Gemeinschaft.</li></ul>
+
+<div class="tip"><b>Klausur-Tipp:</b> Wenn du gefragt wirst, was Religion ist, nenne zuerst das Problem (keine einheitliche Definition), dann die zwei Blickwinkel (substanziell und funktional) und dann ein Beispiel für jeden: „Substanziell: Schleiermacher, Religion als Gefühl für das Unendliche. Funktional: Kaufmann, Religion als Sinnstiftung, Kontingenzbewältigung usw.“</div>`},
+
+{t:"Warum ist „Religion“ so schwer zu definieren?",h:`
+<p>Jeder Mensch hat ein Gefühl dafür, was Religion ist. Soll man aber eine <b>genaue Definition</b> geben, wird es schwierig. Der Wissenschaftsjournalist <b>Ulrich Schnabel</b> zeigt das an zwei Versuchen:</p>
+<div class="box"><h3>Versuch 1: „Religion ist der Glaube an einen allmächtigen Gott.“</h3>
+<p>Das stimmt nicht immer. Der <b>Buddhismus</b> ist eine Religion, hat aber <b>keinen Gott</b>. Man nennt ihn deshalb eine „gottlose“ Religion. Die Definition schließt ihn also aus.</p></div>
+<div class="box"><h3>Versuch 2: „Religion ist das, was Menschen Trost gibt.“</h3>
+<p>Auch das reicht nicht. Religion kann Menschen auch <b>Angst machen</b>. Ein Beispiel ist die Vorstellung vom <b>Fegefeuer</b>: Sie erzeugt erst die Angst, die die Religion dann angeblich heilt.</p></div>
+<p><b>Ergebnis:</b> Es gibt bis heute <b>keine Definition von Religion, der alle zustimmen</b>. Je nachdem, aus welcher Sicht man schaut (Philosophie, Soziologie, Psychologie, Theologie), meint man mit „Religion“ ganz unterschiedliche Dinge.</p>
+<div class="img"><b>Zum Vorstellen:</b> Es ist wie mit dem Wort „Spiel“. Fußball, Schach und Verstecken sind alle Spiele, aber es ist sehr schwer, <i>ein</i> Merkmal zu finden, das alle gemeinsam haben.</div>`},
+
+{t:"Woher kommt das Wort „Religion“?",h:`
+<p>Das Wort kommt vom lateinischen <b>religio</b>. Für die Herkunft gibt es <b>zwei Erklärungen</b>, und jede betont etwas anderes:</p>
+<div class="box"><h3>1. religare = „an- oder zurückbinden“</h3>
+<p>Das ist die übliche Erklärung. Danach ist Religion die <b>Rückbindung des Menschen an eine höhere Wirklichkeit</b>, zum Beispiel an Gott.</p>
+<p>Der Mensch ist also nicht allein, sondern mit etwas Größerem verbunden.</p></div>
+<div class="box"><h3>2. relegere = „wieder auflesen, wieder aufsammeln“</h3>
+<p>Diese Erklärung stammt vom römischen Politiker und Philosophen <b>Cicero</b>. Sie betont den Aspekt der <b>rituellen Wiederholung</b>: Religiöse Handlungen werden sorgfältig und immer wieder gleich ausgeführt.</p></div>
+<div class="img"><b>Zum Vorstellen:</b> <b>religare</b> ist wie ein Seil, das den Menschen mit Gott verbindet. <b>relegere</b> ist wie das tägliche Gebet: dieselben Worte und Bewegungen, immer wieder, mit großer Sorgfalt.</div>
+<div class="tip"><b>Klausur-Tipp:</b> Wenn ein Text von „Verbindung“ oder „Verbundenheit“ spricht, passt <b>religare</b>. Wenn er von Ritualen und Wiederholung spricht, passt <b>relegere</b>.</div>`},
+
+{t:"Substanzielle und funktionale Definitionen",h:`
+<p>Wissenschaftler haben zwei große Wege gefunden, Religion zu definieren. Das ist eines der <b>wichtigsten Themen</b> für die Klausur.</p>
+<div class="box"><h3>Substanzielle Definition: „Was IST Religion?“</h3>
+<p>Man fragt nach dem <b>Inhalt</b> von Religion. Religion wird definiert über ihren Bezug auf etwas <b>Transzendentes</b> (etwas, das über unsere Welt hinausgeht), auf das <b>Absolute</b> oder das <b>Heilige</b>.</p>
+<p>Diese Sicht bevorzugen vor allem <b>Theologen</b>.</p></div>
+<div class="box"><h3>Funktionale Definition: „Was LEISTET Religion?“</h3>
+<p>Man fragt nach der <b>Aufgabe</b> von Religion. Religion wird definiert über das, was sie für den Einzelnen und für die Gesellschaft tut, zum Beispiel Gemeinschaft schaffen oder Trost spenden.</p>
+<p>Diese Sicht haben vor allem <b>Soziologen, Psychologen und Ethnologen</b>.</p></div>
+<div class="img"><b>Zum Vorstellen:</b> Ein Auto kann man auf zwei Arten erklären. <b>Substanziell:</b> „Ein Auto hat einen Motor, vier Räder und ein Lenkrad.“ <b>Funktional:</b> „Ein Auto bringt mich von A nach B.“</div>
+
+<h3 class="sub">Wer sagt was? Die funktionalen Definitionen</h3>
+<ul>
+<li><b>Immanuel Kant</b> (Philosoph): Religion ist entweder eine „<b>Denknotwendigkeit</b>“ (man muss Gott denken, damit Moral Sinn ergibt) oder eine „<b>Denkmöglichkeit</b>“ (man kann Gott denken, aber nicht beweisen).</li>
+<li><b>Émile Durkheim</b> (Soziologe): Religion ist „ein einheitliches <b>System von Glaubensvorstellungen und Praktiken</b> in Bezug auf das Heilige“. Ihm ist wichtig, dass Religion Menschen zu einer Gemeinschaft verbindet.</li>
+<li><b>Sigmund Freud</b> (Psychologe): Religion ist eine <b>Massenneurose</b>, also eine Art seelische Störung vieler Menschen, die sich an einen „Vater-Gott“ klammern. Das ist eine sehr <b>kritische</b> Sicht.</li>
+<li><b>Erich Fromm</b> (Psychologe): Religion ist eine <b>Institution</b> mit eigener <b>Hierarchie</b>, eigenen <b>Dogmen</b> (festen Lehrsätzen) und einem gewissen <b>Autoritarismus</b>.</li>
+<li><b>Clifford Geertz</b> (Ethnologe): Religionen sind <b>kulturelle Zeichen- und Symbolsysteme</b>, so wie eine Sprache.</li>
+</ul>
+
+<h3 class="sub">Wer sagt was? Die substanziellen Definitionen</h3>
+<ul>
+<li><b>Friedrich Schleiermacher</b> (evangelischer Theologe): Religion ist der „<b>Sinn und Geschmack für das Unendliche</b>“ oder das „<b>Gefühl schlechthinniger Abhängigkeit</b>“. Das heißt: Der Mensch spürt, dass er sich nicht selbst gemacht hat und ganz von etwas Größerem abhängt.</li>
+<li><b>Gustav Mensching</b> (Religionswissenschaftler): Religion ist die „<b>erlebnishafte Begegnung mit dem Heiligen</b> und antwortendes Handeln des vom Heiligen bestimmten Menschen“. Also: Erst erlebt man das Heilige, dann handelt man danach.</li>
+<li><b>Johann Baptist Metz</b> (katholischer Theologe): Religion ist der „<b>Einbruch des göttlichen Heils</b>“, der das „Immer-weiter-so“ durchbricht. Seine kürzeste Formel für Religion lautet: <b>Unterbrechung</b>.</li>
+</ul>
+
+<h3 class="sub">Kritik an beiden Seiten</h3>
+<div class="box"><h3>Kritik an der funktionalen Definition</h3>
+<p>Viele Theologen sagen: Sie erfasst <b>das Wesentliche nicht</b>. Wenn Religion nur über ihre Aufgabe definiert wird, kann alles Mögliche eine Religion sein. Auch ein <b>Fußballverein</b> schafft Gemeinschaft, Rituale und Gefühle. Ist er dann eine Religion?</p></div>
+<div class="box"><h3>Kritik an der substanziellen Definition</h3>
+<p>Das „Heilige“ oder „Transzendente“ kann man <b>nicht beweisen oder messen</b>. Außerdem passen manche Religionen nicht gut hinein, zum Beispiel der Buddhismus ohne Gott.</p></div>
+<div class="tip"><b>Klausur-Tipp:</b> Signalwörter für <b>substanziell</b>: das Heilige, das Unendliche, Gott, transzendent, Begegnung, Gefühl. Signalwörter für <b>funktional</b>: hilft, gibt, leistet, Aufgabe, Gemeinschaft, Trost, Orientierung.</div>`},
+
+{t:"Die Anfänge der Religion (Härle)",h:`
+<p>Der Theologe <b>Wilfried Härle</b> fragt: Seit wann gibt es Religion, und warum?</p>
+<div class="box"><h3>Religion ist typisch menschlich</h3>
+<p>Seit etwa <b>50 000 Jahren</b> gibt es rituelle Handlungen mit religiöser Bedeutung. Das unterscheidet den „modernen Menschen“ von früheren Menschenformen und von Tieren. Bei <b>Tieren</b> gibt es, soweit wir wissen, <b>keine religiösen Rituale</b>. Religion zeigt sich in der Evolution also als etwas <b>charakteristisch Menschliches</b>.</p></div>
+<div class="box"><h3>Der Beweis: Grabbeigaben</h3>
+<p>Die Körper der Toten zerfielen sichtbar. Trotzdem gab man ihnen <b>Nahrung, Schminke und Amulette</b> mit ins Grab. Ein Beispiel sind die Grabbeigaben für ein <b>Mädchen aus El Kubania in Ägypten</b> (ca. 20.–18. Jahrhundert v. Chr.): ein Holzkästchen mit Halsketten, Armband, Skarabäus und Schminkgefäßen.</p>
+<p>Das zeigt: Die Menschen dachten über den <b>Tod hinaus</b>. Sie glaubten wohl an ein <b>Weiterleben nach dem Tod</b>. Diese Sorge um das Schicksal der Toten ist seitdem ein fester Teil von Kultur und Religion.</p></div>
+<div class="box"><h3>Woher kommt das religiöse Fragen?</h3>
+<p>Härle sagt: Religion entsteht aus einem <b>menschlichen Wissensdurst</b> und dem Gefühl einer <b>besonderen Bestimmung</b>.</p>
+<ul><li>Es gibt den <b>technischen Wissensdrang</b>: Der Mensch will die Welt erfassen, erklären und beherrschen.</li>
+<li>Daneben gibt es ein <b>religiöses Fragen</b>: Der Mensch fragt nach seinem Dasein <b>als Ganzem</b>. Er ist nicht zufrieden mit dem, was er sieht, sondern will wissen, <b>wohin sein Leben ausgerichtet ist</b> und worauf es letztlich hinausläuft.</li></ul></div>
+<div class="img"><b>Zum Vorstellen:</b> Ein Kind fragt erst „Wie funktioniert das Auto?“ (technisch). Später fragt es „Warum bin ich überhaupt auf der Welt?“ (religiös).</div>`},
+
+{t:"Die Dimension der Tiefe (Tillich)",h:`
+<p><b>Paul Tillich</b> (1886–1965) war Theologe und Religionsphilosoph. Sein Text ist ein Hauptthema der Klausur.</p>
+<div class="box"><h3>Seine These</h3>
+<p>Das entscheidende Problem des heutigen westlichen Menschen ist der <b>Verlust der Dimension der Tiefe</b>.</p></div>
+<div class="box"><h3>Was heißt „Dimension der Tiefe“?</h3>
+<p>Es ist eine <b>Metapher</b> (ein Bild). Gemeint ist: Der Mensch hat die Antwort auf die Frage nach dem <b>Sinn seines Lebens</b> verloren. Er fragt nicht mehr:</p>
+<ul><li><b>Woher</b> komme ich?</li><li><b>Wohin</b> gehe ich?</li><li><b>Was</b> soll ich tun?</li><li>Was soll ich aus mir machen in der <b>kurzen Zeit zwischen Geburt und Tod</b>?</li></ul>
+<p>Tillich nennt diese Tiefe im Menschen seine <b>religiöse Dimension</b>.</p></div>
+<div class="box"><h3>Was heißt „religiös sein“ für Tillich?</h3>
+<p>Religiös sein bedeutet, <b>leidenschaftlich nach dem Sinn unseres Lebens zu fragen</b> und offen für Antworten zu sein, <b>auch wenn sie uns tief erschüttern</b>.</p></div>
+<div class="box"><h3>Was Religion für Tillich NICHT ist</h3>
+<ul><li>Sie ist <b>nicht nur</b> der Glaube an Götter oder an einen Gott.</li>
+<li>Sie besteht <b>nicht nur</b> aus Handlungen und Einrichtungen (Gottesdienst, Kirche), in denen der Mensch seine Verbindung mit Gott zeigt.</li></ul>
+<p>Die geschichtlichen Religionen sind zwar Religion in diesem Sinn, aber Religion ist <b>mehr</b>: Sie ist das <b>Sein des Menschen</b>, wenn es ihm um den Sinn seines Lebens geht.</p></div>
+<div class="box"><h3>Das „unbedingte Anliegen“</h3>
+<p>Religion ist das <b>„Ergriffensein von einem letzten, unbedingten Anliegen“</b>, also von dem, was uns <b>unbedingt angeht</b> und wichtiger ist als alles andere. Tillich sagt: Der typische moderne Mensch ist sich keines solchen Anliegens mehr bewusst.</p></div>
+<div class="img"><b>Zum Vorstellen:</b> Das Leben ist wie ein Meer. Die meisten Menschen schwimmen nur an der <b>Oberfläche</b>: Arbeit, Handy, Freizeit. Religion heißt, <b>abzutauchen</b> und zu fragen, was darunter liegt.</div>
+<div class="box"><h3>Was folgt daraus?</h3>
+<ul><li>Religion wird <b>universal menschlich</b>: Jeder Mensch, der ernsthaft nach dem Sinn fragt, ist religiös, auch ohne Kirche oder Moschee.</li>
+<li>Das weicht von dem ab, was man normalerweise unter Religion versteht.</li>
+<li>Tillich ist Theologe, sein Ansatz ist eher <b>substanziell</b>. Er enthält aber auch die Funktion der <b>Sinnstiftung</b>.</li></ul></div>
+<div class="tip"><b>Klausur-Tipp:</b> Tillich passt immer, wenn ein Text von Staunen, Sinn, Tiefe oder dem „Wesentlichen“ spricht, zum Beispiel bei Einstein.</div>`},
+
+{t:"Die Funktionen von Religion (Kaufmann)",h:`
+<p><b>Franz-Xaver Kaufmann</b> ist <b>Religionssoziologe</b>. Er fragt: Welche <b>Aufgaben</b> erfüllt Religion für Menschen und Gesellschaften? Das ist also ein <b>funktionaler</b> Religionsbegriff. Seine Funktionen erklären, warum Religion auch heute noch für viele Menschen wichtig ist.</p>
+<div class="img"><b>Zum Merken:</b> Jede Funktion beantwortet eine Frage. <b>Wer bin ich?</b> · <b>Was soll ich tun?</b> · <b>Wie halte ich Leid aus?</b> · <b>Wo gehöre ich hin?</b> · <b>Wozu lebe ich?</b> · <b>Was ist ungerecht?</b></div>
+
+<div class="box"><h3>1. Persönlichkeitsstärkung (Identität)</h3>
+<p><b>Frage:</b> Wer bin ich?</p>
+<p><b>Erklärung:</b> Religion hilft, das eigene Selbst und die eigene <b>Identität</b> zu bestimmen. Dadurch hilft sie bei der <b>Angstbewältigung</b> und gibt <b>Sicherheit</b>.</p>
+<p><b>Beispiel Christentum:</b> „Ich bin ein von Gott geliebtes Kind.“ · <b>Beispiel Islam:</b> „Ich bin Muslim, also einer, der sich Gott hingibt.“</p>
+<p class="note">Signalwörter im Text: Identität, Selbst, Sicherheit, Halt, Angst nehmen.</p></div>
+
+<div class="box"><h3>2. Rituale, Moral und Orientierung (Handlungsführung)</h3>
+<p><b>Frage:</b> Was soll ich tun?</p>
+<p><b>Erklärung:</b> Religion gibt <b>Regeln</b>, <b>ethische Maßstäbe</b> und <b>Rituale</b>. Sie hilft vor allem in Situationen, die <b>nicht alltäglich</b> sind, wie Geburt, Hochzeit oder Tod. Das erleichtert Entscheidungen.</p>
+<p><b>Beispiel Christentum:</b> die Zehn Gebote, Taufe, Hochzeit in der Kirche. · <b>Beispiel Islam:</b> die fünf Säulen, das tägliche Gebet, die Gebetsrichtung (Qibla).</p>
+<p class="note">Signalwörter: Aufgabe, sollen, müssen, Regel, Gebot, Ritual, Weg.</p></div>
+
+<div class="box"><h3>3. Kontingenzbewältigung</h3>
+<p><b>Frage:</b> Wie halte ich Leid aus?</p>
+<p><b>Erklärung:</b> „Kontingenz“ ist das, was <b>zufällig</b> passiert und was wir nicht kontrollieren können: <b>Leid, Verlust, Krankheit, Unrecht, Schicksalsschläge</b>. Religion hilft, solche Erfahrungen zu <b>verarbeiten</b> und damit umzugehen.</p>
+<p><b>Beispiel Christentum:</b> Gebet am Krankenbett, Hoffnung auf Auferstehung bei einer Beerdigung. · <b>Beispiel Islam:</b> Glaube an das Schicksal (qadar): Alles Gute und Schlechte kommt von Gott.</p>
+<p class="note">Signalwörter: Leid, Tod, Trost, Krise, Schicksal, Hoffnung.</p></div>
+
+<div class="box"><h3>4. Sozialintegration (Gemeinschaft)</h3>
+<p><b>Frage:</b> Wo gehöre ich hin?</p>
+<p><b>Erklärung:</b> Religion <b>stiftet Gemeinschaft</b>. Gemeinsame Überzeugungen, Werte und Rituale verbinden Menschen miteinander. Das stärkt den <b>Zusammenhalt</b> der Gesellschaft.</p>
+<p><b>Beispiel Christentum:</b> Gemeinde, Gottesdienst, Weihnachten. · <b>Beispiel Islam:</b> Umma (Gemeinschaft aller Muslime), Freitagsgebet, Ramadan, Hadsch.</p>
+<p class="note">Signalwörter: wir, Gemeinschaft, verbunden, zusammen, Teil von.</p></div>
+
+<div class="box"><h3>5. Sinnstiftung</h3>
+<p><b>Frage:</b> Wozu lebe ich?</p>
+<p><b>Erklärung:</b> Religion bietet ein <b>Sinnsystem</b>. Sie deutet die Welt und beantwortet Grundfragen nach <b>Ursprung, Ziel und Sinn des Lebens</b>. So verhindert sie das Gefühl von <b>Sinnlosigkeit und Chaos</b>.</p>
+<p><b>Beispiel Christentum:</b> Gott hat die Welt aus Liebe geschaffen. · <b>Beispiel Islam:</b> Das Ziel des Lebens ist, Gottes Wohlgefallen zu erlangen (Sure 98:8).</p>
+<p class="note">Signalwörter: Sinn, Ziel, warum, wozu, Ursprung, das Ganze.</p></div>
+
+<div class="box"><h3>6. Kritik an Ungerechtigkeit (Weltdistanzierung)</h3>
+<p><b>Frage:</b> Was ist ungerecht?</p>
+<p><b>Erklärung:</b> Religion ermöglicht es, bestehende Verhältnisse zu <b>hinterfragen</b>, sich von <b>Unrecht zu distanzieren</b> und sich für eine <b>bessere, gerechtere Welt</b> einzusetzen.</p>
+<p><b>Beispiel Christentum:</b> Martin Luther King, kirchliche Hilfe für Arme. · <b>Beispiel Islam:</b> Zakat (Pflichtabgabe für Arme); heilige Werte dürfen nicht für eigennützige Zwecke missbraucht werden.</p>
+<p class="note">Signalwörter: befreien, Unrecht, Gerechtigkeit, Kritik, ändern.</p></div>
+
+<div class="tip"><b>So ordnest du in der Klausur zu:</b><br>1. Funktion nennen → 2. kurz erklären, was sie bedeutet → 3. Textstelle mit Zeile zitieren → 4. erklären, warum die Stelle zur Funktion passt.<br><i>Beispiel: „Die Aussage, wer nicht mehr staunen könne, sei ‚so gut wie tot‘ (Z. 3f.), lässt sich der Sinnstiftung zuordnen. Denn für Einstein gibt erst das Staunen dem Leben einen Sinn.“</i></div>`},
+
+{t:"Glaubensbekenntnisse im Vergleich",h:`
+<p>Ein Glaubensbekenntnis ist eine <b>kurze Zusammenfassung</b> dessen, was eine Religion glaubt. Man lernt es auswendig und spricht es gemeinsam.</p>
+<div class="box"><h3>Das christliche Glaubensbekenntnis</h3>
+<p>Das wichtigste ist das <b>Apostolische Glaubensbekenntnis</b>. Es heißt auch „<b>Credo</b>“, lateinisch für „ich glaube“. Es wird im Gottesdienst und bei der Taufe gesprochen. Es hat <b>drei Teile</b>, entsprechend der <b>Dreifaltigkeit</b> (Trinität):</p>
+<ol><li><b>Gott Vater:</b> Er ist allmächtig und hat Himmel und Erde geschaffen.</li>
+<li><b>Jesus Christus:</b> Er ist Gottes eingeborener <b>Sohn</b>, vom Heiligen Geist empfangen, von der Jungfrau Maria geboren. Er hat gelitten, wurde gekreuzigt, ist gestorben und begraben worden. Am dritten Tag ist er <b>auferstanden</b>, in den Himmel aufgefahren und wird kommen, um zu <b>richten</b> über die Lebenden und die Toten.</li>
+<li><b>Heiliger Geist:</b> Dazu gehören die heilige Kirche, die Gemeinschaft der Heiligen, die <b>Vergebung der Sünden</b>, die <b>Auferstehung der Toten</b> und das <b>ewige Leben</b>.</li></ol></div>
+<div class="box"><h3>Das islamische Glaubensbekenntnis (kurz)</h3>
+<p>Im Islam gibt es das <b>Glaubensbekenntnis (Āmantu)</b> mit sechs Glaubensinhalten und das <b>Glaubenszeugnis (Schahāda)</b>. Beides wird im islamischen Teil genau erklärt.</p></div>
+<h3 class="sub">Gemeinsamkeiten</h3>
+<ul>
+<li>Beide beginnen mit „<b>ich glaube</b>“: Credo und Āmantu bedeuten dasselbe.</li>
+<li>Beide glauben an <b>einen Gott</b>, der die Welt <b>erschaffen</b> hat.</li>
+<li>Beide glauben an <b>Offenbarung</b>, an das <b>Jüngste Gericht</b>, die <b>Auferstehung</b> und ein Leben nach dem Tod.</li>
+<li>Beide kennen <b>Jesus</b> und <b>Maria</b>.</li>
+<li>Beide sind <b>kurze Formeln</b>, die man auswendig lernt und gemeinsam spricht. Sie geben <b>Identität</b> und schaffen <b>Gemeinschaft</b> (Kaufmann).</li>
+</ul>
+<h3 class="sub">Unterschiede</h3>
+<div class="box"><h3>Das Gottesbild</h3><p><b>Christentum:</b> Gott ist <b>einer in drei Personen</b> (Vater, Sohn, Heiliger Geist). · <b>Islam:</b> Gott ist streng <b>Einer</b> (Tauḥīd). Er hat keinen Sohn und keine „Personen“.</p></div>
+<div class="box"><h3>Jesus</h3><p><b>Christentum:</b> Jesus ist <b>Gottes Sohn</b>, er stirbt am Kreuz und steht auf. · <b>Islam:</b> Jesus (ʿĪsā) ist ein großer <b>Prophet</b>, aber nicht Gottes Sohn.</p></div>
+<div class="box"><h3>Was zusätzlich vorkommt</h3><p><b>Christentum:</b> die <b>Kirche</b> und die Vergebung der Sünden. · <b>Islam:</b> <b>Muhammad</b> als Gesandter, die <b>Engel</b> und das <b>Schicksal</b>.</p></div>
+<div class="box"><h3>Wann es gesprochen wird</h3><p><b>Christentum:</b> im Gottesdienst, bei Taufe und Konfirmation/Firmung. · <b>Islam:</b> beim Gebet, bei der Waschung, bei der Heirat und beim Eintritt in den Islam.</p></div>
+<div class="img"><b>Zum Vorstellen:</b> Zwei Häuser auf <b>demselben Fundament</b> (ein Schöpfergott, Gericht, Jenseits), aber mit <b>unterschiedlichen Dächern</b> (Dreifaltigkeit und Tauḥīd).</div>`},
+
+{t:"Das Wichtigste auf einen Blick",h:`
+<ul class="sum">
+<li>Es gibt <b>keine allgemein anerkannte Definition</b> von Religion.</li>
+<li><b>religare</b> = zurückbinden (Verbindung zu Gott) · <b>relegere</b> = wieder auflesen (rituelle Wiederholung, Cicero).</li>
+<li><b>Substanziell</b> = was Religion ist (das Heilige): Schleiermacher, Mensching, Metz.</li>
+<li><b>Funktional</b> = was Religion leistet: Kant, Durkheim, Freud, Fromm, Geertz, Kaufmann.</li>
+<li><b>Härle:</b> Religion gibt es seit ca. 50 000 Jahren, sichtbar an Grabbeigaben; sie entsteht aus dem Fragen nach dem Ganzen.</li>
+<li><b>Tillich:</b> Der moderne Mensch hat die <b>Dimension der Tiefe</b> verloren. Religiös sein heißt, leidenschaftlich nach dem Sinn zu fragen; Religion ist das, was uns <b>unbedingt angeht</b>.</li>
+<li><b>Kaufmann:</b> Persönlichkeitsstärkung · Rituale/Moral/Orientierung · Kontingenzbewältigung · Sozialintegration · Sinnstiftung · Kritik an Ungerechtigkeit.</li>
+<li><b>Bekenntnisse:</b> gleiches Fundament (Schöpfergott, Gericht, Auferstehung), Unterschied bei Dreifaltigkeit und Jesus.</li>
+</ul>`}
+]};
+
+/* ======================= ISLAMISCHER TEIL ======================= */
+PAGES.i={title:"Islamischer Teil",intro:"Hier lernst du, was das Wort <b>Islam</b> bedeutet (innere und äußere Dimension), was <b>Dīn</b> heißt, warum Religion im Islam eine <b>Ausrichtung</b> ist, was <b>Glaubensbekenntnis</b> und <b>Glaubenszeugnis</b> sind und was „glauben“ eigentlich bedeutet.",
+chapters:[
+
+{t:"Was bedeutet das Wort „Islam“?",h:`
+<p><b>Islam</b> (<bdi class="ar">إسلام</bdi>) bedeutet auf Arabisch <b>Selbsthingabe an Gott</b>.</p>
+<p>Im Kern bezeichnet Islam:</p>
+<ul><li>den Glauben an die <b>Existenz</b> Gottes (Gott gibt es),</li>
+<li>den Glauben an die <b>Einheit</b> Gottes (es gibt nur einen Gott),</li>
+<li>und die <b>Hingabe</b> an Ihn.</li></ul>
+<p>Ein <b>Muslim</b> ist dementsprechend „jemand, der sich Gott hingibt“.</p>
+<div class="img"><b>Zum Vorstellen:</b> Hingabe ist wie bei einem Menschen, der einem guten Arzt ganz vertraut und sich ihm überlässt. Er sagt nicht „Ich weiß alles besser“, sondern „Ich vertraue dir.“</div>
+<div class="tip"><b>Wichtig:</b> Das Wort Islam hat im Koran <b>zwei Bedeutungen</b>. Das nennt man die <b>innere</b> und die <b>äußere Dimension</b>. Das ist ein Kernthema der Klausur.</div>`},
+
+{t:"Die innere Dimension des Islam",h:`
+<p>In der <b>inneren</b> (allgemeinen) Bedeutung ist Islam eine <b>Haltung des Herzens</b>: die aufrichtige Hingabe an Gott.</p>
+<div class="box"><h3>Was daraus folgt</h3>
+<ul><li><b>Jeder Mensch</b>, der sich Gott aufrichtig hingibt, ist in diesem Sinn ein <b>Muslim</b>.</li>
+<li>Darum wird im Koran schon <b>Abraham</b> „Muslim“ genannt, obwohl er lange vor Muhammad lebte. Er war jemand, der sich Gott ganz hingegeben hat.</li>
+<li>Islam ist der allgemeine Name für die Religion, die <b>alle Propheten Gottes</b> verkündet haben, die im Koran genannten und auch die nicht genannten.</li>
+<li>Die Offenbarungen von <b>Adam bis Muhammad</b> können in ihrer <b>Form</b> (Scharia, also die Regeln) unterschiedlich sein. In ihrem <b>Wesensgehalt</b>, also im Kern, sind sie aber <b>gleich</b> (Sure 5:48).</li></ul></div>
+<div class="img"><b>Zum Vorstellen:</b> Ein Baum. Die <b>Wurzel</b> ist die Hingabe an Gott, und sie ist bei allen Propheten dieselbe. Die <b>Äste</b> sehen je nach Zeit verschieden aus.</div>`},
+
+{t:"Die äußere Dimension des Islam",h:`
+<p>In der <b>äußeren</b> (historischen) Bedeutung ist Islam der <b>Eigenname der Religion</b>, die der Prophet <b>Muhammad</b> verkündet hat.</p>
+<div class="box"><h3>Was daraus folgt</h3>
+<ul><li>Über Muhammad heißt es im Koran, er sei „der <b>erste</b> von denen, die sich Gott hingeben“ (Sure 6:14; 39:12).</li>
+<li>Nach dieser Bedeutung ist <b>nur der ein Muslim</b>, der sich zu der von Muhammad verkündeten Religion <b>bekennt</b>.</li></ul></div>
+<div class="box"><h3>Was zu dieser Religion gehört</h3>
+<ul><li><b>Grundprinzip:</b> das Glaubenszeugnis: „Es gibt keine Gottheit außer Gott, und Muhammad ist Sein Diener und Gesandter.“</li>
+<li><b>Glaubensinhalte:</b> Glaube an Engel, heilige Schriften, Propheten, das Jenseits und den Tag des Gerichts.</li>
+<li><b>Basispflichten</b> (Säulen der religiösen Praxis): rituelles Gebet, Fasten, soziale Pflichtabgabe (Zakat) und Wallfahrt (Hadsch).</li>
+<li><b>Gelehrte</b> interpretieren je nach Epoche die Hauptquellen <b>Koran und Sunna</b> neu (<i>idschtihad</i>) und versuchen, einen <b>Konsens</b> zu finden (<i>idschma</i>).</li></ul></div>
+<h3 class="sub">Innen und außen im Vergleich</h3>
+<div class="box"><p><b>Innere Dimension:</b> Haltung des Herzens · gilt für alle aufrichtigen Menschen · Beispiel Abraham.</p>
+<p><b>Äußere Dimension:</b> konkrete Religion Muhammads · gilt für alle, die sich zu ihr bekennen · Schahāda und Säulen.</p></div>
+<div class="tip"><b>Klausur-Satz:</b> „Der Begriff Islam hat eine innere Dimension, die Hingabe an Gott, die jeden aufrichtigen Menschen zum Muslim macht, und eine äußere Dimension, die historische Religion Muhammads mit Glaubenszeugnis und Säulen.“</div>`},
+
+{t:"Glaube und Handeln gehören zusammen",h:`
+<p>Im Islam ist Glaube <b>nicht nur etwas im Kopf</b>. Glaube muss sich im Leben zeigen.</p>
+<div class="box"><h3>Gott ist Einer</h3>
+<p>In deutlicher Abgrenzung zum <b>Polytheismus</b> (Glaube an viele Götter) ist Gott im Islam <b>Einer</b>. Er ist <b>einzigartig, ewig und transzendent</b> (über der Welt).</p>
+<p>Der Mensch soll sich <b>niemandem anderen beugen als Gott</b>. Heilige Werte dürfen <b>nicht für eigennützige Zwecke</b> missbraucht werden.</p></div>
+<div class="box"><h3>Das Ziel</h3>
+<p>Das Ziel ist, <b>Gottes Wohlgefallen</b> zu erlangen (Sure 98:8). Der Mensch soll sich bewusst sein, dass <b>jedes Handeln einen religiösen Bezug</b> hat.</p></div>
+<div class="box"><h3>Rechenschaft</h3>
+<p>Für <b>jede Handlung und jedes Wort</b> muss man im Jenseits <b>Rechenschaft</b> ablegen.</p></div>
+<div class="box"><h3>Glaube + rechtschaffenes Handeln</h3>
+<p>In vielen Koranversen werden <b>Glaube und rechtschaffenes Handeln zusammen</b> genannt (z. B. 2:25, 2:82, 2:277; 4:57, 4:124). Sittliches Verhalten ist der <b>Widerschein des Glaubens</b>. Muhammad sah einwandfreies Verhalten als <b>Grundbedingung</b> des Muslimseins an.</p>
+<p>Islam ist also <b>kein Glaube, der im Theoretischen bleibt</b>. Er zeigt sich im persönlichen Leben und in der Gesellschaft. Muhammad hat das <b>vorgelebt</b>.</p></div>
+<div class="box"><h3>Harmonie mit allem</h3>
+<p>Der Islam zielt auf das <b>Glück und Wohlbefinden</b> des Menschen. Er legt ihm eine <b>friedliche, liebevolle und harmonische Beziehung</b> nahe:</p>
+<ul><li>zu <b>sich selbst</b>,</li><li>zu seinen <b>Mitmenschen</b>,</li><li>zu seinem <b>Schöpfer</b>,</li><li>und zum <b>gesamten Kosmos</b>.</li></ul></div>
+<div class="tip"><b>Klausur-Tipp:</b> Die „Harmonie mit dem gesamten Kosmos“ ist ein sehr gutes Argument, wenn ein Text (wie der von Einstein) von Verbundenheit mit allem Leben spricht.</div>`},
+
+{t:"Dīn – mehr als „Religion“",h:`
+<p>Das arabische Wort für Religion ist <b>Dīn</b> (<bdi class="ar">دين</bdi>). Es bedeutet aber mehr als das deutsche Wort „Religion“. Es hat <b>drei Bedeutungen</b>:</p>
+<div class="box"><h3>1. Religion, Lebensweise, Ordnung</h3>
+<p>Religion ist ein <b>ganzer Lebensweg</b>, eine Ordnung für das ganze Leben, nicht nur ein Gebet am Freitag.</p></div>
+<div class="box"><h3>2. Schuld, Verpflichtung</h3>
+<p>Das Wort ist verwandt mit <i>dayn</i> = <b>Schuld</b>. Der Mensch „schuldet“ Gott etwas: Dank und Gehorsam, weil Gott ihm das Leben gegeben hat.</p></div>
+<div class="box"><h3>3. Gericht, Vergeltung</h3>
+<p><i>Yaum ad-Dīn</i> ist der <b>Tag des Gerichts</b> (Sure 1:4). An diesem Tag wird alles vergolten, was der Mensch getan hat.</p></div>
+<p>Im Koran heißt es (Sure 3:19): Die Religion (Dīn) bei Gott ist der Islam, also die Hingabe.</p>
+<div class="img"><b>Vergleich:</b> <b>religio</b> (lateinisch) heißt Rückbindung an etwas Höheres. <b>Dīn</b> heißt Lebensweg, Verpflichtung und Verantwortung vor Gott. Beide zeigen: Religion verbindet den Menschen mit etwas Höherem.</div>
+<p class="note">Hinweis: Dieses Thema stand nicht auf deinen Arbeitsblättern. Vergleiche es mit deinem Heft.</p>`},
+
+{t:"Islam als Ausrichtung",h:`
+<p>Religion bedeutet im Islam auch: <b>sich ausrichten</b>. Die Ausrichtung hat zwei Seiten:</p>
+<ul><li>eine <b>topografische</b> Seite (im Raum, in eine Richtung),</li>
+<li>und eine <b>psychologische</b> Seite (innerlich, mit dem Herzen).</li></ul>
+<p>Drei arabische Begriffe zeigen das:</p>
+<div class="box"><h3>Widschha (<bdi class="ar">وجهة</bdi>), Sure 2:148–152</h3>
+<p>Wörtlich: das „<b>Gesicht</b>“. Das Gesicht ist ein <b>Bild für die Ausrichtung der ganzen Person</b>.</p>
+<p>Im Deutschen gibt es etwas Ähnliches: Wer „<b>sein Gesicht verliert</b>“, hat nicht seine Haut verloren, sondern sein <b>Ansehen, seinen Erfolg, seine Ehre</b>.</p>
+<p>Dieser Erfolg heißt im Koran und im Gebetsruf <b>falāḥ</b> (<bdi class="ar">فلاح</bdi>), Erfolg bei Gott. Den erreicht der Mensch, indem er sich <b>innerlich ganz auf Gott ausrichtet</b>.</p></div>
+<div class="box"><h3>Qibla (<bdi class="ar">قبلة</bdi>), Sure 2:177</h3>
+<p>Von <i>qibala</i> = „<b>in Richtung auf</b>“. Gemeint ist die <b>Gebetsrichtung</b>. Muslime beteten zuerst Richtung <b>Jerusalem</b>, später Richtung <b>Mekka</b>.</p>
+<p>Das ist der <b>topografische</b> Aspekt der Ausrichtung. Er steht für die Ausrichtung der ganzen religiösen Lebensweise. So etwas gibt es in vielen Religionen.</p></div>
+<div class="box"><h3>Tauba (<bdi class="ar">توبة</bdi>), Sure 25:71</h3>
+<p>Wörtlich: „<b>Drehung</b>“, „Rotation“. Gemeint ist die <b>Umkehr</b>: Wer seinen Kurs aus den Augen verloren hat, nimmt ihn wieder auf.</p>
+<p>Frei übersetzt: „Wer bereut, der richtet sich wieder auf Gott aus, in aufrichtiger Veränderung.“</p>
+<p>Tauba nur mit „Reue“ zu übersetzen, ist zu wenig. Viele Muslime verbinden damit ein <b>bestimmtes Verfahren</b>:</p>
+<ol><li><b>Reue</b> (es tut mir leid),</li><li><b>Absichtserklärung</b> (ich will es nicht wieder tun),</li><li><b>Schadensbehebung</b> (ich mache den Schaden wieder gut).</li></ol></div>
+<div class="img"><b>Zum Vorstellen:</b> wie ein Navi. <b>Widschha:</b> Du drehst dich zum Ziel. <b>Qibla:</b> die Richtung auf der Karte. <b>Tauba:</b> „Route wird neu berechnet“, nachdem du falsch abgebogen bist.</div>`},
+
+{t:"Das Glaubensbekenntnis (Āmantu)",h:`
+<p>Das Glaubensbekenntnis heißt auf Arabisch <b>Āmantu</b>, auf Türkisch <b>Âmentü</b>. Das Wort bedeutet „<b>ich glaube</b>“ und kommt auch im Koran vor (z. B. 10:90; 36:25; 42:15).</p>
+<p>Es ist die kurze <b>Aufzählung der sechs Glaubensprinzipien</b>:</p>
+<div class="box"><ol class="big">
+<li><b>Gott:</b> Es gibt nur einen Gott. Das ist die <b>Grundlage</b> von allem.</li>
+<li><b>Die Engel:</b> Gottes Boten, z. B. Gabriel, der Muhammad den Koran brachte.</li>
+<li><b>Die Offenbarungsschriften:</b> Thora, Psalmen, Evangelium und Koran.</li>
+<li><b>Die Propheten:</b> von Adam über Abraham, Mose und Jesus bis Muhammad.</li>
+<li><b>Die Auferstehung und das Jüngste Gericht:</b> Nach dem Tod folgt ohne Zweifel die Auferstehung.</li>
+<li><b>Das Schicksal (qadar):</b> Alles Gute und Böse, das mir widerfährt, kommt von Gott.</li></ol></div>
+<div class="box"><h3>Die Formel</h3>
+<p>Sinngemäß: „Ich glaube an Gott, an Seine Engel, an Seine Bücher, an Seine Propheten, an das Jüngste Gericht und an das Schicksal, nämlich dass alles Gute und Böse von Gott kommt. Nach dem Tod wird ohne Zweifel die Auferstehung folgen. Ich bezeuge, dass es keine Gottheit gibt außer Gott und dass Muhammad Sein Diener und Gesandter ist.“</p></div>
+<div class="box"><h3>Woher kommen die sechs Prinzipien?</h3>
+<ul><li><b>Fünf</b> von ihnen stehen in unterschiedlicher Form im <b>Koran</b> (2:136, 177, 285; 4:136).</li>
+<li>Nur der Glaube an das <b>Schicksal</b> steht nicht im Koran als Teil des Bekenntnisses. Er wird in manchen <b>Hadith-Sammlungen</b> genannt (Bukhari), in anderen nicht (Muslim).</li>
+<li>Der Glaube an den <b>einen Gott</b> ist die Grundlage. Daraus folgt der Glaube an Seine Bücher, Propheten, Engel und das Jenseits.</li>
+<li><b>Abu Hanifa</b> (gest. 767), der Gründer der <b>hanafitischen Rechtsschule</b>, hat diese Prinzipien in seinem Hauptwerk „Die Fundamente des Glaubens“ (<i>al-Fiqh al-Akbar</i>) formuliert.</li></ul></div>
+<div class="box"><h3>Im Alltag</h3>
+<ul><li>Muslime lernen das Bekenntnis schon <b>als Kinder auswendig</b>.</li>
+<li>Es wird bei vielen Gelegenheiten <b>auf Arabisch</b> gesprochen: bei der <b>rituellen Waschung</b>, beim <b>Sündenbekenntnis (Tauba)</b> und bei der <b>Eheschließung</b>.</li></ul></div>`},
+
+{t:"Das Glaubenszeugnis (Schahāda)",h:`
+<p>Das Glaubenszeugnis heißt auf Arabisch <b>Kalima asch-Schahāda</b>, auf Türkisch Kelime-i Şehadet. Man <b>bekundet</b> damit seinen Glauben, man „legt <b>Zeugnis</b> ab“.</p>
+<div class="box"><h3>Der Wortlaut</h3>
+<p>„<b>Ich bezeuge, dass es keine Gottheit außer Gott gibt, und ich bezeuge, dass Muhammad Sein Diener und Gesandter ist.</b>“</p>
+<p class="note">Arabisch: aschhadu an lā ilāha illā-llāh wa-aschhadu anna Muḥammadan ʿabduhu wa-rasūluhu.</p></div>
+<div class="box"><h3>Was die zwei Teile bedeuten</h3>
+<p><b>Teil 1: „Keine Gottheit außer Gott“.</b> Wer das sagt, bestätigt seinen Glauben an die <b>Existenz, Erhabenheit und Einheit Gottes</b>.</p>
+<p><b>Teil 2: „Muhammad ist Sein Diener und Gesandter“.</b> Wer das anerkennt, akzeptiert damit automatisch auch die anderen Glaubensinhalte, die Muhammad überbracht hat: die Propheten, die Engel, die Offenbarungsbücher und das Jenseits. Wer an den Gesandten glaubt, erkennt auch die <b>Gebote</b> an, die er übermittelt hat.</p></div>
+<div class="box"><h3>Warum es so wichtig ist</h3>
+<ul><li>Es ist die <b>erste Voraussetzung, um Muslim zu werden</b>.</li>
+<li>Wer es <b>aufrichtig</b> spricht, gilt als Gläubiger und Muslim.</li>
+<li>Muhammad nennt es in einem Hadith den <b>ersten Grundsatz des Islam</b> (überliefert bei Muslim).</li>
+<li>Wer sich für den Islam entscheidet, muss <b>zuerst</b> das Glaubenszeugnis sprechen.</li></ul></div>
+<div class="box"><h3>Die Kurzform: Bekenntnis zur Einheit</h3>
+<p>„Es gibt keine Gottheit außer Gott und Muhammad ist der Gesandte Gottes“ (<i>lā ilāha illā-llāh, Muḥammadun rasūlu-llāh</i>). Diese Formel heißt auch <b>Kalima at-Tauḥīd</b>, das <b>Bekenntnis zur Einheit</b> Gottes.</p></div>`},
+
+{t:"Bekenntnis und Zeugnis im Vergleich",h:`
+<div class="box"><h3>Gemeinsam</h3>
+<ul><li>Die <b>Botschaft</b> beider Texte ist <b>im Kern gleich</b>.</li>
+<li>In beiden wird der Glaube <b>kurz zusammengefasst</b>.</li>
+<li>Glaubenszeugnis und Bekenntnis zur Einheit sind die <b>kürzesten Formulierungen</b> des Glaubens.</li></ul></div>
+<div class="box"><h3>Unterschiedlich</h3>
+<p><b>Glaubensbekenntnis (Āmantu):</b> beginnt mit „Ich glaube …“ · eine <b>ausführliche Liste</b> von sechs Inhalten · sagt, <b>was</b> ich glaube.</p>
+<p><b>Glaubenszeugnis (Schahāda):</b> beginnt mit „<b>Ich bezeuge</b> …“, deshalb heißt es „Zeugnis“ · ein <b>kurzer Satz</b> · ein öffentliches Zeugnis <b>vor anderen</b> · nötig, um Muslim zu werden.</p></div>
+<div class="img"><b>Zum Vorstellen:</b> Das Bekenntnis ist wie ein <b>ganzer Vertrag</b> mit allen Punkten. Das Zeugnis ist die <b>Unterschrift</b> darunter. Mit der Unterschrift akzeptiert man den ganzen Vertrag.</div>
+<p>Zu diesem Thema ist in der islamischen Tradition ein reiches Schrifttum entstanden.</p>`},
+
+{t:"Was heißt „glauben“?",h:`
+<p>Das Wort „glauben“ hat im Deutschen <b>drei verschiedene Bedeutungen</b>:</p>
+<div class="box"><h3>1. Bereich Wissen: vermuten</h3>
+<p>„Glauben“ heißt hier: etwas für wahr halten, <b>ohne sicher zu sein</b>.</p>
+<p><i>„Ich glaube, morgen regnet es.“</i></p></div>
+<div class="box"><h3>2. Zwischenmenschlicher Bereich: vertrauen</h3>
+<p>„Glauben“ heißt hier: einem Menschen <b>vertrauen</b>, sich auf ihn <b>verlassen</b>.</p>
+<p><i>„Ich glaube dir.“</i></p></div>
+<div class="box"><h3>3. Bereich Religion: überzeugt sein und sich hingeben</h3>
+<p>„Glauben“ heißt hier: fest <b>überzeugt</b> sein, Gott <b>vertrauen</b> und sich ihm <b>hingeben</b>, auch wenn man es nicht beweisen kann.</p>
+<p><i>„Ich glaube an Gott.“</i></p></div>
+<h3 class="sub">Die Skala von unsicher bis sicher</h3>
+<div class="scale"><div style="background:#b5524d">vermuten</div><div style="background:#c27a3f">meinen</div><div style="background:#a8923a">annehmen</div><div style="background:#5a8f4a">überzeugt sein</div><div style="background:#2f7058">wissen</div></div>
+<p><b>Wissen</b> geht über das Glauben hinaus und gehört in den <b>Bereich des Wissens</b>, denn es ist beweisbar.</p>
+<h3 class="sub">Lösung zum Arbeitsblatt</h3>
+<div class="box"><ul>
+<li><b>a)</b> Der Patient glaubt dem Arzt → er <b>vertraut</b> ihm → zwischenmenschlich</li>
+<li><b>b)</b> Marc glaubt, dass Julie ihn belogen hat → er <b>vermutet</b> es → Wissen</li>
+<li><b>c)</b> Christen und Muslime glauben an ein Leben nach dem Tod → sie <b>sind überzeugt / hoffen</b> → Religion</li>
+<li><b>d)</b> Judith glaubt, dass Tom sie nicht allein lässt → sie <b>verlässt sich</b> auf ihn → zwischenmenschlich</li>
+<li><b>e)</b> Kinder glauben ihren Eltern alles → sie <b>vertrauen</b> ihnen → zwischenmenschlich</li>
+<li><b>f)</b> Muslime, Juden und Christen glauben, dass Gott sie geschaffen hat → sie <b>sind überzeugt</b> → Religion</li>
+<li><b>g)</b> Martin geht ins Kloster, weil er an Gott glaubt → er <b>vertraut</b> Gott und <b>gibt sich hin</b> → Religion</li>
+<li><b>h)</b> Die Kreationisten glauben nicht an die Evolution → sie <b>halten sie für falsch</b> → Wissen</li></ul></div>
+<div class="img"><b>Interessant:</b> Āmantu („ich glaube“) hat dieselbe Wurzel wie <i>amn</i> (Sicherheit) und <i>amāna</i> (Vertrauen). Religiöser Glaube im Islam ist also <b>Vertrauen</b>, nicht nur „Vermuten“.</div>`},
+
+{t:"Strömungen nach Muhammads Tod",h:`
+<p>Nach dem Tod Muhammads (<b>632</b>) entstanden durch politische, soziale und kulturelle Entwicklungen <b>verschiedene Denkrichtungen</b>.</p>
+<p>Unter dem dritten Kalifen <b>Uthman</b> (644–656) kam es zu politischen Streitigkeiten. Man diskutierte: Wer von den verfeindeten Parteien ist im Recht? Werden die Gefallenen im Jenseits bestraft oder belohnt?</p>
+<div class="box"><h3>Kharidschiten</h3>
+<p><b>Ali</b>, Vetter und Schwiegersohn des Propheten, akzeptierte im Streit mit <b>Muawiya</b> einen Schiedsrichter. Einige Anhänger verließen ihn deshalb: Er habe das Urteil eines Menschen über das Urteil Gottes gestellt. Sie beschuldigten ihn des Unglaubens.</p>
+<p>Später sagten sie: Wer <b>schwere Sünden</b> begeht, wird zum <b>Abtrünnigen</b>. Sie neigten zur <b>Intoleranz</b>.</p></div>
+<div class="box"><h3>Murdschiten</h3>
+<p>Die Gegner dieser Ansicht sagten: Das Urteil über die Toten des Bürgerkriegs und über Sünder liegt <b>allein bei Gott</b>. Sünden schaden dem Glauben <b>nicht</b>, egal wie groß sie sind.</p></div>
+<div class="box"><h3>Schiiten</h3>
+<p>Sie unterstützten Ali <b>bedingungslos</b>. Sie waren überzeugt, dass die Leitung der Muslime <b>nur Ali und seinen Nachkommen</b> zusteht, und stützten sich dabei auf Koran und Prophet.</p></div>`},
+
+{t:"Alle wichtigen Begriffe des Islam",h:`<p>Hier findest du alle wichtigen Begriffe des Islam mit <b>arabischer Schrift</b>, <b>Bedeutung</b> und <b>Erklärung</b>, nach Themen sortiert. Begriffe, die direkt in euren Texten vorkommen, sind ein Muss für die Klausur. Die anderen helfen dir, Zusammenhänge zu verstehen und Zusatzpunkte zu holen.</p><h3 class="sub">Grundbegriffe</h3><div class="gl"><div class="glh"><b>Islām</b><bdi class="ar">إسلام</bdi></div><div class="glm">„Selbsthingabe an Gott“</div><p>Kern des Islam ist der Glaube an die Existenz und die Einheit Gottes und die Hingabe an Ihn. Das Wort hat eine <b>innere</b> Bedeutung (die Hingabe des Herzens, die jeden aufrichtigen Menschen zum Muslim macht, z. B. Abraham) und eine <b>äußere</b> Bedeutung (die von Muhammad verkündete Religion). Es kommt von der Wurzel <b>s-l-m</b>, zu der auch salām (Frieden) gehört.</p></div><div class="gl"><div class="glh"><b>Muslim</b><bdi class="ar">مسلم</bdi></div><div class="glm">„einer, der sich Gott hingibt“</div><p>Im inneren Sinn jeder Mensch, der sich Gott aufrichtig hingibt. Im äußeren Sinn jemand, der sich zur Religion Muhammads bekennt. Die weibliche Form ist <i>Muslima</i>.</p></div><div class="gl"><div class="glh"><b>Allāh</b><bdi class="ar">الله</bdi></div><div class="glm">„Gott“</div><p>Das arabische Wort für Gott. Es ist kein Eigenname eines „anderen“ Gottes. Auch arabische Christen beten zu „Allāh“. Muslime glauben, dass es derselbe Gott ist, an den auch Juden und Christen glauben, verstehen Ihn aber streng als <b>Einen</b>.</p></div><div class="gl"><div class="glh"><b>Dīn</b><bdi class="ar">دين</bdi></div><div class="glm">„Religion, Lebensweise“</div><p>Mehr als das deutsche Wort „Religion“: Dīn bedeutet <b>Lebensweg und Ordnung</b>, <b>Verpflichtung</b> (verwandt mit <i>dayn</i> = Schuld) und <b>Gericht</b> (<i>Yaum ad-Dīn</i> = Tag des Gerichts, Sure 1:4). Sure 3:19: Die Religion bei Gott ist der Islam.</p></div><div class="gl"><div class="glh"><b>Tauḥīd</b><bdi class="ar">توحيد</bdi></div><div class="glm">„Einheit Gottes“</div><p>Der wichtigste Grundsatz des Islam: Gott ist <b>Einer</b>, einzigartig, ewig und transzendent. Er hat keine Teilhaber, keine Kinder und nichts ist Ihm gleich (Sure 112). Das Gegenteil ist <b>Schirk</b>.</p></div><div class="gl"><div class="glh"><b>Schirk</b><bdi class="ar">شرك</bdi></div><div class="glm">„Beigesellung“</div><p>Gott etwas oder jemanden „beigesellen“, also etwas anderes neben Gott anbeten oder wie Gott behandeln. Schirk gilt als die <b>schwerste Sünde</b>. Auch Geld, Macht oder Ruhm können zu einem „Götzen“ werden, wenn man ihnen alles unterordnet.</p></div><div class="gl"><div class="glh"><b>Īmān</b><bdi class="ar">إيمان</bdi></div><div class="glm">„Glaube“</div><p>Der innere Glaube des Herzens an die sechs Glaubensprinzipien. Das Wort ist verwandt mit <i>amn</i> (Sicherheit) und <i>amāna</i> (Vertrauen): Glauben heißt <b>vertrauen</b>. Ein Gläubiger heißt <i>Muʾmin</i>.</p></div><div class="gl"><div class="glh"><b>Iḥsān</b><bdi class="ar">إحسان</bdi></div><div class="glm">„das Gute tun, Vollkommenheit“</div><p>Die höchste Stufe der Religion: Gott so zu dienen, <b>als ob man Ihn sähe</b>, denn auch wenn man Ihn nicht sieht, sieht Er einen. Im bekannten Gabriel-Hadith gibt es drei Stufen: <b>Islām</b> (die äußere Praxis), <b>Īmān</b> (der innere Glaube) und <b>Iḥsān</b> (die Vollkommenheit). Das passt gut zur inneren und äußeren Dimension.</p></div><div class="gl"><div class="glh"><b>Fiṭra</b><bdi class="ar">فطرة</bdi></div><div class="glm">„natürliche Veranlagung“</div><p>Nach islamischer Lehre wird jeder Mensch mit einer angeborenen Neigung zu Gott geboren (Sure 30:30). Religion ist also <b>im Menschen angelegt</b>. Das ist ein gutes Argument dafür, warum Glaube tief im Menschen verwurzelt ist.</p></div><div class="gl"><div class="glh"><b>Raḥma</b><bdi class="ar">رحمة</bdi></div><div class="glm">„Barmherzigkeit“</div><p>Eine zentrale Eigenschaft Gottes. Fast jede Sure beginnt mit der <b>Basmala</b>: „Im Namen Gottes, des Allerbarmers, des Barmherzigen“ (bismi-llāhi r-raḥmāni r-raḥīm). Khorchides Buch heißt „Islam ist Barmherzigkeit“.</p></div><h3 class="sub">Glaubensinhalte (Āmantu)</h3><div class="gl"><div class="glh"><b>Āmantu</b><bdi class="ar">آمنت</bdi></div><div class="glm">„ich glaube“</div><p>Das <b>Glaubensbekenntnis</b> mit den sechs Glaubensprinzipien: Gott, Engel, Offenbarungsschriften, Propheten, Auferstehung und Jüngstes Gericht, Schicksal. Formuliert von <b>Abu Hanifa</b> (gest. 767). Es wird bei der Waschung, bei der Tauba und bei der Heirat gesprochen.</p></div><div class="gl"><div class="glh"><b>Malāʾika</b><bdi class="ar">ملائكة</bdi></div><div class="glm">„Engel“</div><p>Geschöpfe Gottes, die Seine Befehle ausführen. Der wichtigste ist <b>Dschibrīl</b> (Gabriel), der Muhammad den Koran überbrachte. Engel haben keinen freien Willen wie Menschen.</p></div><div class="gl"><div class="glh"><b>Kutub</b><bdi class="ar">كتب</bdi></div><div class="glm">„die (heiligen) Bücher“</div><p>Die Offenbarungsschriften: <b>Taurāt</b> (Thora, an Mose), <b>Zabūr</b> (Psalmen, an David), <b>Indschīl</b> (Evangelium, an Jesus) und der <b>Qurʾān</b> (an Muhammad). Im Kern haben sie dieselbe Botschaft (Sure 5:48).</p></div><div class="gl"><div class="glh"><b>Nabī und Rasūl</b><bdi class="ar">نبي / رسول</bdi></div><div class="glm">„Prophet und Gesandter“</div><p>Ein <b>Nabī</b> (Prophet) ist ein Mensch, dem Gott Offenbarung gibt. Ein <b>Rasūl</b> (Gesandter) bringt zusätzlich eine eigene Schrift oder Botschaft für ein Volk. Von Adam über Noah, Abraham, Mose und Jesus bis <b>Muhammad</b>, dem letzten Propheten („Siegel der Propheten“).</p></div><div class="gl"><div class="glh"><b>Qadar</b><bdi class="ar">قدر</bdi></div><div class="glm">„Schicksal, Vorherbestimmung“</div><p>Der Glaube, dass alles Gute und Böse, das einem widerfährt, von Gott kommt. Er steht nur in manchen Hadith-Sammlungen als Teil des Bekenntnisses (Bukhari ja, Muslim nein). Für Kaufmann gehört er zur <b>Kontingenzbewältigung</b>.</p></div><div class="gl"><div class="glh"><b>Āchira</b><bdi class="ar">آخرة</bdi></div><div class="glm">„das Jenseits“</div><p>Das Leben nach dem Tod. Nach der <b>Auferstehung</b> (<i>Yaum al-Qiyāma</i>) folgt das <b>Jüngste Gericht</b> (<i>Yaum ad-Dīn</i>). Jeder Mensch legt Rechenschaft für jedes Wort und jede Tat ab. Danach kommt das Paradies (<b>Dschanna</b>, auch <i>dār as-salām</i>, „Haus des Friedens“) oder die Hölle (<b>Dschahannam</b>).</p></div><h3 class="sub">Die Bekenntnisformeln</h3><div class="gl"><div class="glh"><b>Schahāda</b><bdi class="ar">شهادة</bdi></div><div class="glm">„Glaubenszeugnis“</div><p>„Ich bezeuge, dass es keine Gottheit außer Gott gibt, und ich bezeuge, dass Muhammad Sein Diener und Gesandter ist.“ Die <b>erste Voraussetzung</b>, um Muslim zu werden, und die erste der fünf Säulen. Wer Muhammad als Gesandten anerkennt, akzeptiert damit auch Engel, Bücher und Jenseits.</p></div><div class="gl"><div class="glh"><b>Kalima at-Tauḥīd</b><bdi class="ar">كلمة التوحيد</bdi></div><div class="glm">„Bekenntnis zur Einheit“</div><p>Die Kurzform: „Es gibt keine Gottheit außer Gott, Muhammad ist der Gesandte Gottes“ (lā ilāha illā-llāh, Muḥammadun rasūlu-llāh). Zusammen mit der Schahāda die <b>kürzeste</b> Formulierung des Glaubens.</p></div><h3 class="sub">Die religiöse Praxis (fünf Säulen)</h3><div class="gl"><div class="glh"><b>Ṣalāt</b><bdi class="ar">صلاة</bdi></div><div class="glm">„rituelles Gebet“</div><p>Das Pflichtgebet <b>fünfmal am Tag</b> zu festen Zeiten, in Richtung <b>Qibla</b> (Mekka). Es besteht aus festen Bewegungen (Stehen, Verbeugen, Niederwerfen) und Koranversen. Vorher macht man die rituelle Waschung (<b>Wuḍūʾ</b>).</p></div><div class="gl"><div class="glh"><b>Ṣaum</b><bdi class="ar">صوم</bdi></div><div class="glm">„Fasten“</div><p>Im Monat <b>Ramadan</b> verzichten Muslime von der Morgendämmerung bis zum Sonnenuntergang auf Essen, Trinken und andere Bedürfnisse. Es soll Selbstbeherrschung, Dankbarkeit und Mitgefühl mit Armen stärken. Am Ende steht das Fest des Fastenbrechens.</p></div><div class="gl"><div class="glh"><b>Zakāt</b><bdi class="ar">زكاة</bdi></div><div class="glm">„soziale Pflichtabgabe“</div><p>Jeder Muslim, der genug besitzt, gibt jedes Jahr einen Teil (meist <b>2,5 %</b> des Ersparten) an Bedürftige. Das Wort bedeutet auch „Reinigung“: Das Geben reinigt den Besitz und das Herz. Passt zu Kaufmanns Funktion <b>Kritik an Ungerechtigkeit</b>.</p></div><div class="gl"><div class="glh"><b>Ḥaddsch</b><bdi class="ar">حج</bdi></div><div class="glm">„Wallfahrt nach Mekka“</div><p>Jeder Muslim, der gesund ist und es sich leisten kann, soll <b>einmal im Leben</b> nach Mekka pilgern. Dort umrunden die Pilger die <b>Kaaba</b>. Alle tragen einfache weiße Kleidung: Vor Gott sind alle gleich (<b>Sozialintegration</b>).</p></div><div class="gl"><div class="glh"><b>Wuḍūʾ</b><bdi class="ar">وضوء</bdi></div><div class="glm">„rituelle Waschung“</div><p>Waschung von Händen, Mund, Nase, Gesicht, Armen, Kopf und Füßen vor dem Gebet. Sie steht für <b>äußere und innere Reinheit</b>. Dabei wird oft das Glaubensbekenntnis gesprochen.</p></div><div class="gl"><div class="glh"><b>Kaaba</b><bdi class="ar">الكعبة</bdi></div><div class="glm">„der Würfel“</div><p>Das würfelförmige Heiligtum in Mekka, nach islamischer Überlieferung von <b>Abraham</b> und Ismael errichtet. Es ist der Mittelpunkt der Qibla und der Wallfahrt.</p></div><div class="gl"><div class="glh"><b>Masdschid</b><bdi class="ar">مسجد</bdi></div><div class="glm">„Moschee“</div><p>Wörtlich „Ort der Niederwerfung“. Hier beten Muslime gemeinsam, besonders beim <b>Freitagsgebet</b>. Der <b>Imām</b> ist der Vorbeter.</p></div><div class="gl"><div class="glh"><b>ʿIbāda</b><bdi class="ar">عبادة</bdi></div><div class="glm">„Gottesdienst“</div><p>Nicht nur das Gebet: Jede gute Handlung, die man mit der richtigen <b>Absicht</b> (<i>niyya</i>) für Gott tut, ist ʿIbāda. Das zeigt: Im Islam hat <b>jegliches Handeln einen religiösen Bezug</b>.</p></div><div class="gl"><div class="glh"><b>Duʿāʾ</b><bdi class="ar">دعاء</bdi></div><div class="glm">„Bittgebet“</div><p>Das freie, persönliche Gebet in eigenen Worten, in jeder Sprache und zu jeder Zeit. Anders als die Ṣalāt hat es keine feste Form.</p></div><h3 class="sub">Quellen und Gelehrsamkeit</h3><div class="gl"><div class="glh"><b>Qurʾān</b><bdi class="ar">القرآن</bdi></div><div class="glm">„Koran, „Lesung, Vortrag““</div><p>Das heilige Buch des Islam. Muslime glauben, dass es das <b>wörtliche Wort Gottes</b> ist, das Muhammad über ca. 23 Jahre (610–632) durch den Engel Gabriel offenbart wurde. Es hat <b>114 Suren</b> (Kapitel), die aus <b>Āyāt</b> (Versen) bestehen.</p></div><div class="gl"><div class="glh"><b>Āya</b><bdi class="ar">آية</bdi></div><div class="glm">„Vers, Zeichen“</div><p>Ein Vers des Koran. Das Wort bedeutet auch „<b>Zeichen</b>“: Die ganze Schöpfung (Himmel, Natur, der Mensch) ist voller Zeichen Gottes, über die man nachdenken soll. Gut für Vergleiche mit Einsteins Staunen.</p></div><div class="gl"><div class="glh"><b>Sunna</b><bdi class="ar">سنة</bdi></div><div class="glm">„Brauch, Lebenspraxis“</div><p>Die Lebensweise und das Vorbild des Propheten Muhammad: was er gesagt, getan und erlaubt hat. Neben dem Koran die <b>zweite Hauptquelle</b> des Islam.</p></div><div class="gl"><div class="glh"><b>Ḥadīth</b><bdi class="ar">حديث</bdi></div><div class="glm">„Überlieferung, Bericht“</div><p>Ein überlieferter Bericht über einen Ausspruch oder eine Handlung Muhammads. Die wichtigsten Sammlungen sind die von <b>Bukhari</b> und <b>Muslim</b>.</p></div><div class="gl"><div class="glh"><b>Scharia</b><bdi class="ar">شريعة</bdi></div><div class="glm">„Weg zur Wasserquelle“</div><p>Die von Gott gegebene <b>Ordnung</b> für das ganze Leben: Gebet, Fasten, Ethik, Familie, Handel und Recht. Sie ist <b>nicht nur Strafrecht</b>. Laut eurem Text sind die Scharias der Propheten in der Form verschieden, im Kern gleich (5:48).</p></div><div class="gl"><div class="glh"><b>Fiqh</b><bdi class="ar">فقه</bdi></div><div class="glm">„Verständnis“</div><p>Die islamische <b>Rechtswissenschaft</b>: wie Gelehrte die Scharia verstehen und auf das Leben anwenden. Sie ist menschlich und kann sich unterscheiden.</p></div><div class="gl"><div class="glh"><b>Madhhab</b><bdi class="ar">مذهب</bdi></div><div class="glm">„Rechtsschule“</div><p>Eine Schule der Rechtsauslegung. Es gibt vier große sunnitische Rechtsschulen: <b>hanafitisch</b> (Gründer Abu Hanifa), malikitisch, schafiitisch und hanbalitisch.</p></div><div class="gl"><div class="glh"><b>Idschtihād</b><bdi class="ar">اجتهاد</bdi></div><div class="glm">„eigene Anstrengung“</div><p>Die selbständige <b>Neuinterpretation</b> von Koran und Sunna durch Gelehrte, je nach Epoche. So kann der Islam auf neue Fragen antworten.</p></div><div class="gl"><div class="glh"><b>Idschmāʿ</b><bdi class="ar">إجماع</bdi></div><div class="glm">„Konsens“</div><p>Die <b>Übereinstimmung</b> der Gelehrten in einer Frage. Neben Koran und Sunna eine wichtige Quelle für religiöse Entscheidungen.</p></div><h3 class="sub">Ausrichtung und innerer Weg</h3><div class="gl"><div class="glh"><b>Widschha</b><bdi class="ar">وجهة</bdi></div><div class="glm">„Gesicht, Ausrichtung“</div><p>Das Gesicht als Bild für die Ausrichtung der <b>ganzen Person</b> auf Gott (Sure 2:148–152). Wie im Deutschen „das Gesicht verlieren“ = Ehre und Ansehen verlieren.</p></div><div class="gl"><div class="glh"><b>Falāḥ</b><bdi class="ar">فلاح</bdi></div><div class="glm">„Erfolg, Heil“</div><p>Der wahre <b>Erfolg bei Gott</b>, wie im Gebetsruf: „Kommt zum Erfolg!“ (ḥayya ʿalā l-falāḥ). Man erreicht ihn, indem man sich innerlich ganz auf Gott ausrichtet.</p></div><div class="gl"><div class="glh"><b>Qibla</b><bdi class="ar">قبلة</bdi></div><div class="glm">„Gebetsrichtung“</div><p>Von <i>qibala</i> = „in Richtung auf“. Erst Jerusalem, dann Mekka (Sure 2:177). Die <b>topografische</b> Seite der Ausrichtung.</p></div><div class="gl"><div class="glh"><b>Tauba</b><bdi class="ar">توبة</bdi></div><div class="glm">„Umkehr, Drehung“</div><p>Wer seinen Kurs verloren hat, richtet sich wieder auf Gott aus (Sure 25:71). Dazu gehören drei Schritte: <b>Reue</b>, <b>feste Absicht</b> und <b>Wiedergutmachung</b>. Mehr als nur „Reue“.</p></div><div class="gl"><div class="glh"><b>Tazkiya</b><bdi class="ar">تزكية</bdi></div><div class="glm">„Läuterung“</div><p>Reinigung und Erleuchtung des Menschen. Gott will, dass der Mensch sich <b>vervollkommnet</b> (Khorchide). Die Läuterung steht vor dem Wissen (Sure 62:2). Ziel ist ein <b>gesundes Herz</b>.</p></div><div class="gl"><div class="glh"><b>Qalb salīm</b><bdi class="ar">قلب سليم</bdi></div><div class="glm">„gesundes, heiles Herz“</div><p>Nur wer mit einem gesunden Herzen zu Gott kommt, ist im Jenseits erfolgreich (Sure 26:88–89). Metapher für die <b>innere Vollkommenheit</b>. <i>salīm</i> hat dieselbe Wurzel wie islām und salām.</p></div><div class="gl"><div class="glh"><b>Salām</b><bdi class="ar">سلام</bdi></div><div class="glm">„Frieden, Heil“</div><p>Frieden mit sich, mit Gott und den Mitmenschen. Gleiche Wurzel <b>s-l-m</b> wie islām. Gruß: <i>as-salāmu ʿalaikum</i> („Friede sei mit euch“). <b>as-Salām</b> ist einer der Namen Gottes, das Paradies heißt „Haus des Friedens“.</p></div><div class="gl"><div class="glh"><b>an-Nafs al-muṭmaʾinna</b><bdi class="ar">النفس المطمئنة</bdi></div><div class="glm">„die Seele voll Ruhe“</div><p>Die Seele, die durch Läuterung Frieden gefunden hat und zu Gott zurückkehrt (Sure 89:27–28). Ziel des inneren Weges.</p></div><div class="gl"><div class="glh"><b>Taqwā</b><bdi class="ar">تقوى</bdi></div><div class="glm">„Gottesbewusstsein“</div><p>Das ständige Bewusstsein, dass Gott alles sieht. Es führt zu Ehrfurcht und verantwortungsvollem Handeln. Oft mit „Gottesfurcht“ übersetzt, meint aber eher Achtsamkeit vor Gott.</p></div><div class="gl"><div class="glh"><b>ʿAmal ṣāliḥ</b><bdi class="ar">عمل صالح</bdi></div><div class="glm">„rechtschaffenes Handeln“</div><p>Gute Taten. Im Koran werden <b>Glaube und rechtschaffenes Handeln</b> fast immer zusammen genannt (z. B. 2:25, 2:277). Der Glaube muss sich im Leben zeigen.</p></div><h3 class="sub">Gemeinschaft und Geschichte</h3><div class="gl"><div class="glh"><b>Umma</b><bdi class="ar">أمة</bdi></div><div class="glm">„Gemeinschaft“</div><p>Die weltweite Gemeinschaft aller Muslime, über Länder, Sprachen und Hautfarben hinweg. Passt zu Kaufmanns <b>Sozialintegration</b>.</p></div><div class="gl"><div class="glh"><b>Hidschra</b><bdi class="ar">هجرة</bdi></div><div class="glm">„Auswanderung“</div><p>Die Auswanderung Muhammads von Mekka nach Medina im Jahr <b>622</b>. Damit beginnt die islamische Zeitrechnung.</p></div><div class="gl"><div class="glh"><b>Kalif</b><bdi class="ar">خليفة</bdi></div><div class="glm">„Nachfolger, Stellvertreter“</div><p>Der Führer der Muslime nach Muhammads Tod (632). Der dritte Kalif war <b>Uthman</b> (644–656), der vierte <b>Ali</b>. In ihrer Zeit kam es zu Streit und Spaltung.</p></div><div class="gl"><div class="glh"><b>Sunniten</b><bdi class="ar">أهل السنة</bdi></div><div class="glm">„Leute der Sunna“</div><p>Die größte Gruppe der Muslime (ca. 85–90 %). Sie erkennen alle vier ersten Kalifen an und folgen der Sunna und dem Konsens.</p></div><div class="gl"><div class="glh"><b>Schiiten</b><bdi class="ar">شيعة</bdi></div><div class="glm">„Partei (Alis)“</div><p>Sie unterstützten <b>Ali</b> bedingungslos und meinen, die Führung der Muslime stehe nur Ali und seinen Nachkommen (den Imamen) zu.</p></div><div class="gl"><div class="glh"><b>Kharidschiten</b><bdi class="ar">خوارج</bdi></div><div class="glm">„die Ausziehenden“</div><p>Sie verließen Ali, weil er einen Schiedsrichter akzeptierte. Für sie wurde ein schwerer Sünder zum Abtrünnigen. Sie neigten zur <b>Intoleranz</b>.</p></div><div class="gl"><div class="glh"><b>Murdschiten</b><bdi class="ar">مرجئة</bdi></div><div class="glm">„die Aufschiebenden“</div><p>Sie „schoben“ das Urteil über Sünder auf und sagten: Das Urteil liegt <b>allein bei Gott</b>, Sünden schaden dem Glauben nicht.</p></div><p class="note">Die Begriffe, die nicht auf deinen Arbeitsblättern stehen, habe ich aus allgemeinem Wissen ergänzt. Vergleiche sie mit deinem Heft.</p>`},
+
+{t:"Islam substanziell und funktional betrachtet",h:`
+<p>Die zwei Blickwinkel aus dem christlichen Teil kann man auch auf den Islam anwenden:</p>
+<ul><li><b>Substanziell:</b> Was <b>ist</b> der Islam? Was ist sein Inhalt, sein Kern?</li>
+<li><b>Funktional:</b> Was <b>leistet</b> der Islam für den Menschen und die Gemeinschaft?</li></ul>
+<p>Die arabischen Begriffe in diesem Kapitel stammen aus euren Texten.</p>
+
+<h3 class="sub">Seite 1: Der Islam substanziell (Was ist der Islam?)</h3>
+<p>Substanziell schaut man auf das <b>Heilige</b> selbst, hier also auf Gott und die Beziehung zu Ihm.</p>
+<div class="box"><h3>Islām <bdi class="ar">إسلام</bdi> = Selbsthingabe an Gott</h3>
+<p>Der Kern des Islam ist der Glaube an die <b>Existenz</b> und die <b>Einheit Gottes</b> und die <b>Hingabe</b> an Ihn. Ein <b>Muslim</b> (<bdi class="ar">مسلم</bdi>) ist jemand, der sich Gott ganz hingegeben hat, wie <b>Abraham</b>.</p></div>
+<div class="box"><h3>Tauḥīd <bdi class="ar">توحيد</bdi> = die Einheit Gottes</h3>
+<p>Gott ist <b>Einer</b>, <b>einzigartig, ewig und transzendent</b>, in deutlicher Abgrenzung zum Polytheismus. Das <b>Bekenntnis zur Einheit</b> heißt <b>Kalima at-Tauḥīd</b>:</p>
+<p class="arline"><bdi class="ar">لا إله إلا الله، محمد رسول الله</bdi></p>
+<p class="note">lā ilāha illā-llāh, Muḥammadun rasūlu-llāh = Es gibt keine Gottheit außer Gott, und Muhammad ist der Gesandte Gottes.</p></div>
+<div class="box"><h3>Āmantu <bdi class="ar">آمنت</bdi> = „ich glaube“</h3>
+<p>Das Glaubensbekenntnis nennt den <b>Inhalt</b> des Glaubens: Gott, Engel, Offenbarungsschriften, Propheten, Auferstehung und Jüngstes Gericht, Schicksal (<b>qadar</b>, <bdi class="ar">قدر</bdi>). Der Glaube an den <b>einen Gott</b> ist die Grundlage von allem.</p></div>
+<div class="box"><h3>Schahāda <bdi class="ar">شهادة</bdi> = das Glaubenszeugnis</h3>
+<p class="arline"><bdi class="ar">أشهد أن لا إله إلا الله وأشهد أن محمدا عبده ورسوله</bdi></p>
+<p class="note">aschhadu an lā ilāha illā-llāh wa-aschhadu anna Muḥammadan ʿabduhu wa-rasūluhu = Ich bezeuge, dass es keine Gottheit außer Gott gibt, und ich bezeuge, dass Muhammad Sein Diener und Gesandter ist.</p>
+<p>Wer das sagt, bestätigt die <b>Existenz, Erhabenheit und Einheit Gottes</b>.</p></div>
+<div class="img"><b>Substanziell gesagt:</b> Der Islam ist die <b>Hingabe an den einen, transzendenten Gott</b>. Das ist sein „Stoff“, sein Inhalt, und das gilt auch dann, wenn der Islam dem Menschen gerade nichts „bringt“.</div>
+
+<h3 class="sub">Seite 2: Der Islam funktional (Was leistet der Islam?)</h3>
+<p>Funktional schaut man darauf, was der Islam für den Menschen <b>tut</b>. Dafür nehmen wir die sechs Funktionen von <b>Kaufmann</b>.</p>
+<div class="box"><h3>1. Persönlichkeitsstärkung: „Ich bin Muslim“</h3>
+<p>Wer die <b>Schahāda</b> spricht, wird <b>Muslim</b> (<bdi class="ar">مسلم</bdi>) und weiß, wer er ist. Kinder lernen das Bekenntnis schon früh auswendig. Das gibt <b>Identität</b> und <b>Sicherheit</b>.</p></div>
+<div class="box"><h3>2. Rituale, Moral und Orientierung: Qibla und Widschha</h3>
+<p>Die <b>Qibla</b> (<bdi class="ar">قبلة</bdi>, von qibala = „in Richtung auf“) ist die Gebetsrichtung, erst Jerusalem, dann Mekka. Die <b>Widschha</b> (<bdi class="ar">وجهة</bdi>, das „Gesicht“) ist die Ausrichtung der ganzen Person auf Gott.</p>
+<p>Dazu kommen die <b>Basispflichten</b>: rituelles Gebet, Fasten, soziale Pflichtabgabe und Wallfahrt. <b>Glaube und rechtschaffenes Handeln</b> gehören zusammen.</p></div>
+<div class="box"><h3>3. Kontingenzbewältigung: Qadar</h3>
+<p>Der Glaube an das <b>Schicksal</b> (<bdi class="ar">قدر</bdi>, qadar): „Alles, was mir an Gutem oder Bösem widerfährt, kommt von Gott.“ Das hilft, <b>Leid und Unglück</b> zu tragen.</p></div>
+<div class="box"><h3>4. Sozialintegration: gemeinsames Bekenntnis und Idschmāʿ</h3>
+<p>Das Bekenntnis wird bei der <b>Waschung</b> und bei der <b>Eheschließung</b> auf Arabisch gesprochen. Gelehrte suchen einen <b>Konsens</b> (<bdi class="ar">إجماع</bdi>, idschmāʿ). Islam will eine friedliche Beziehung zu den <b>Mitmenschen</b>.</p></div>
+<div class="box"><h3>5. Sinnstiftung: Falāḥ und Gottes Wohlgefallen</h3>
+<p>Das Ziel des Lebens ist, <b>Gottes Wohlgefallen</b> zu erlangen (Sure 98:8). Der wahre Erfolg heißt <b>falāḥ</b> (<bdi class="ar">فلاح</bdi>), Erfolg bei Gott, wie im Gebetsruf. Im <b>Jenseits</b> legt man Rechenschaft ab. So hat jede Handlung einen <b>Sinn</b>.</p></div>
+<div class="box"><h3>6. Kritik und Veränderung: Tauba und Idschtihād</h3>
+<p><b>Tauba</b> (<bdi class="ar">توبة</bdi>, „Drehung“) heißt Umkehr: Reue, Absicht und Wiedergutmachung. Erhabene Werte dürfen <b>nicht für eigennützige Zwecke</b> missbraucht werden. Mit <b>idschtihād</b> (<bdi class="ar">اجتهاد</bdi>) werden Koran und Sunna in jeder Zeit neu gedeutet.</p></div>
+<div class="img"><b>Funktional gesagt:</b> Der Islam gibt dem Menschen <b>Identität, Richtung, Trost, Gemeinschaft, Sinn und die Möglichkeit zur Umkehr</b>.</div>
+
+<h3 class="sub">Beide Seiten zusammen</h3>
+<p>Im Islam gehören beide Seiten <b>untrennbar zusammen</b>. Das zeigen eure Texte:</p>
+<div class="box"><ul>
+<li><b>Innere Dimension = eher substanziell:</b> die Hingabe des Herzens an den einen Gott.</li>
+<li><b>Äußere Dimension = eher funktional:</b> die gelebte Religion mit Schahāda, Gebet, Fasten, Zakat und Wallfahrt.</li>
+<li>Der Text sagt: Islam ist <b>kein im Theoretischen verharrender Glaube</b>. Er spiegelt sich im <b>Leben des Einzelnen und in der Gesellschaft</b> wider.</li>
+<li><b>Glaube</b> (substanziell) ohne <b>Handeln</b> (funktional) ist unvollständig, und Handeln ohne Glauben ist leer.</li></ul></div>
+<div class="img"><b>Zum Vorstellen:</b> Ein Baum. Die <b>Wurzel</b> ist der Glaube an den einen Gott (substanziell). Die <b>Früchte</b> sind das, was der Glaube im Leben bewirkt (funktional). Ohne Wurzel keine Früchte, und ohne Früchte erkennt man den Baum nicht.</div>
+
+<h3 class="sub">Kritik aus islamischer Sicht</h3>
+<div class="box"><p><b>An einer nur funktionalen Sicht:</b> Wer den Islam nur als Hilfe sieht, zum Beispiel nur als Trost in der Not, vergisst den Kern: die <b>Hingabe an Gott um Gottes willen</b>, nicht nur für den eigenen Nutzen.</p>
+<p><b>An einer nur substanziellen Sicht:</b> Wer nur „im Kopf“ glaubt, aber nicht danach handelt, lebt den Islam nicht. Im Koran werden <b>Glaube und rechtschaffenes Handeln</b> fast immer zusammen genannt.</p></div>
+
+<div class="tip"><b>Klausur-Satz:</b> „Substanziell betrachtet ist der Islam die Selbsthingabe (islām) an den einen Gott (tauḥīd), wie sie in der Schahāda bezeugt wird. Funktional erfüllt er zum Beispiel die Funktion der Orientierung durch die Qibla und der Kontingenzbewältigung durch den Glauben an das Schicksal (qadar). Im Islam gehören beide Seiten zusammen, denn Glaube und rechtschaffenes Handeln sind untrennbar.“</div>`},
+
+{t:"Das Wichtigste auf einen Blick",h:`
+<ul class="sum">
+<li><b>Islam</b> = Selbsthingabe an Gott; Kern: Existenz und Einheit Gottes.</li>
+<li><b>Substanziell:</b> Hingabe an den einen Gott (Tauḥīd, Schahāda) · <b>Funktional:</b> Identität, Qibla, Qadar, Gemeinschaft, Falāḥ, Tauba · im Islam gehören beide zusammen.</li>
+<li><b>Innere Dimension:</b> Hingabe des Herzens, jeder Aufrichtige ist Muslim (Abraham); alle Propheten haben denselben Kern (5:48).</li>
+<li><b>Äußere Dimension:</b> die historische Religion Muhammads mit Schahāda, Glaubensinhalten und Säulen.</li>
+<li><b>Glaube + Handeln</b> gehören zusammen; Ziel ist Gottes Wohlgefallen; Rechenschaft im Jenseits; Harmonie mit sich, Mitmenschen, Schöpfer und Kosmos.</li>
+<li><b>Dīn</b> = Lebensweise · Verpflichtung · Gericht.</li>
+<li><b>Ausrichtung:</b> Widschha (Gesicht, ganze Person, falāḥ) · Qibla (Gebetsrichtung) · Tauba (Umkehr: Reue, Absicht, Wiedergutmachung).</li>
+<li><b>Āmantu:</b> 6 Prinzipien: Gott, Engel, Schriften, Propheten, Auferstehung/Gericht, Schicksal; Abu Hanifa.</li>
+<li><b>Schahāda:</b> „Ich bezeuge …“, die erste Voraussetzung, um Muslim zu werden.</li>
+<li><b>glauben</b> = vermuten (Wissen) · vertrauen (zwischenmenschlich) · überzeugt sein und sich hingeben (Religion).</li>
+</ul>`}
+]};
+
+/* ======================= TRAINING ======================= */
+PAGES.t={title:"Klausur-Training",intro:"So ist die Klausur aufgebaut, was die Operatoren verlangen und wie vollständige Lösungen aussehen, mit der Probeklausur und der echten Klausur von 2025 (christlicher und islamischer Teil).",
+chapters:[
+{t:"So läuft die Klausur",h:`
+<p>Du bekommst <b>ein Material</b>: entweder einen <b>Text</b> oder eine <b>Karikatur</b>. Dazu kommen meist <b>drei Aufgaben</b>, die immer schwieriger werden.</p>
+<div class="box"><h3>Aufgabe 1: Herausarbeiten (Inhalt)</h3><p>Was sagt das Material? Du stellst die Position des Autors mit eigenen Worten dar, mit Zeilenangaben. <b>Keine eigene Meinung!</b></p></div>
+<div class="box"><h3>Aufgabe 2: Zuordnen und Erläutern (Verbindung)</h3><p>Du verbindest das Material mit dem Unterricht, z. B. mit Kaufmanns Funktionen, mit substanziell/funktional oder mit Tillich. Jede Zuordnung belegst du mit einer Textstelle.</p></div>
+<div class="box"><h3>Aufgabe 3: Bewerten (eigenes Urteil)</h3><p>Du sagst begründet, ob die Aussage überzeugt. Du nennst Pro- und Contra-Argumente mit Beispielen und Wissen aus dem Unterricht, auch aus dem Islam. Am Ende steht ein Fazit.</p></div>
+<div class="img"><b>Zum Vorstellen:</b> wie beim Arzt. Aufgabe 1 heißt Symptome aufschreiben, Aufgabe 2 heißt Diagnose stellen, Aufgabe 3 heißt eine Empfehlung geben.</div>`},
+{t:"Die Operatoren",h:`
+<p>Der <b>Operator</b> ist das fett gedruckte Verb in der Aufgabe. Er sagt dir genau, was du tun sollst.</p>
+<h3 class="sub">Anforderungsbereich I: wiedergeben</h3>
+<ul><li><b>beschreiben:</b> die Merkmale eines Bildes oder Materials mit Worten in Einzelheiten schildern.</li>
+<li><b>darstellen / aufzeigen:</b> den Gedankengang oder die Hauptaussage mit eigenen Worten darlegen.</li>
+<li><b>nennen / benennen:</b> Elemente, Begriffe, Personen ohne Kommentar angeben.</li>
+<li><b>skizzieren:</b> einen Sachverhalt in seinen Grundzügen ausdrücken.</li>
+<li><b>wiedergeben / paraphrasieren:</b> den Inhalt mit Fachsprache und eigenen Worten ausdrücken.</li>
+<li><b>zusammenfassen:</b> die Kernaussagen komprimiert und strukturiert darlegen.</li></ul>
+<h3 class="sub">Anforderungsbereich II: verstehen und verbinden</h3>
+<ul><li><b>analysieren / untersuchen:</b> unter einer gezielten Frage Elemente und Zusammenhänge systematisch erschließen.</li>
+<li><b>anwenden:</b> einen bekannten Sachverhalt oder eine Methode auf etwas Neues beziehen.</li>
+<li><b>einordnen / zuordnen:</b> einen Sachverhalt in einen anderen Zusammenhang stellen oder die Position eines Autors einer Denkrichtung oder Theorie zuordnen, mit Textstellen und Vorwissen.</li>
+<li><b>erläutern / erklären / entfalten:</b> einen Sachverhalt mit zusätzlichen Informationen und Beispielen nachvollziehbar machen.</li>
+<li><b>herausarbeiten:</b> aus den Aussagen eines Textes eine Position erkennen und darstellen.</li>
+<li><b>in Beziehung setzen:</b> Zusammenhänge begründet herstellen.</li>
+<li><b>vergleichen / gegenüberstellen:</b> Gemeinsamkeiten, Ähnlichkeiten und Unterschiede ermitteln und darstellen.</li></ul>
+<h3 class="sub">Anforderungsbereich III: urteilen</h3>
+<ul><li><b>beurteilen / bewerten / Stellung nehmen:</b> sich mit Fachwissen begründet positionieren (Sach- oder Werturteil).</li>
+<li><b>eigene Überlegungen entwickeln:</b> einen eigenen bewertenden Gedankengang entfalten.</li>
+<li><b>erörtern:</b> ein Problem erkennen, Thesen aufstellen, Pro und Contra abwägen und begründet schließen.</li>
+<li><b>gestalten / entwerfen:</b> sich kreativ mit einer Frage auseinandersetzen (z. B. fiktives Gespräch).</li>
+<li><b>interpretieren:</b> ein Material sachgemäß analysieren und zu einer schlüssigen Gesamtauslegung kommen.</li>
+<li><b>Konsequenzen aufzeigen / Perspektiven entwickeln:</b> Schlussfolgerungen ziehen, Handlungsmöglichkeiten entfalten.</li></ul>
+<div class="tip"><b>Satzanfänge</b><br><b>Herausarbeiten:</b> „Der Autor vertritt die These, dass … (Z. x). Er begründet dies damit, dass … Daraus folgert er …“<br><b>Zuordnen:</b> „Diese Aussage lässt sich der Funktion … zuordnen, denn …“<br><b>Bewerten:</b> „Für die Aussage spricht … Dagegen spricht … Insgesamt halte ich die Aussage für teilweise überzeugend, weil …“</div>
+<p class="note">Häufigster Fehler: in Aufgabe 1 schon bewerten oder in Aufgabe 3 nur nacherzählen.</p>`},
+{t:"Musterlösung: Probeklausur Einstein",h:`
+<h3 class="sub">Aufgabe 1: Kernaussagen herausarbeiten</h3>
+<div class="box"><p>Im vorliegenden Text beschreibt <b>Albert Einstein</b>, worin für ihn <b>wahre Religiosität</b> besteht.</p>
+<ul><li>Das schönste und tiefste Gefühl ist die <b>Erfahrung des Mystischen</b>. Sie ist die Quelle („Säerin“) aller echten Wissenschaft (Z. 1f.).</li>
+<li>Wer dieses Gefühl nicht kennt und nicht mehr <b>staunen</b> und in Ehrfurcht stehen kann, ist „so gut wie tot“ (Z. 2–4).</li>
+<li>Der <b>Kern wahrer Religiosität</b> ist das Wissen und Spüren, dass das Unergründliche wirklich existiert. Wir können es mit unseren Sinnen nur in seiner primitivsten Form wahrnehmen (Z. 4–7).</li>
+<li>Der Mensch ist ein <b>Teil des Ganzen</b>. Dass er sich als getrennt vom Rest erlebt, ist eine „optische Illusion“ seines Bewusstseins (Z. 7–9).</li>
+<li>Unsere <b>Aufgabe</b> ist es, uns aus diesem „Gefängnis“ zu befreien, indem wir unser <b>Mitleid auf alle Lebewesen</b> ausdehnen und die ganze Natur in ihrer Schönheit umarmen (Z. 9–11).</li></ul>
+<p><b>Fazit:</b> Religion ist für Einstein kein Glaube an einen persönlichen Gott, sondern <b>Staunen</b> über das Universum und <b>Verbundenheit</b> mit allem Leben.</p></div>
+<h3 class="sub">Aufgabe 2: Zuordnung zu Kaufmann</h3>
+<div class="box"><ul>
+<li><b>Sinnstiftung:</b> Ohne das Staunen ist der Mensch „so gut wie tot“ (Z. 4). Erst die Erfahrung des Mystischen gibt dem Leben Sinn und Tiefe.</li>
+<li><b>Persönlichkeitsstärkung:</b> Einstein sagt dem Menschen, wer er wirklich ist: „Teil des Ganzen“ (Z. 7), kein isoliertes Ich. Das gibt Identität.</li>
+<li><b>Moral / Orientierung:</b> Er gibt eine klare Aufgabe: das Mitleid auf alle lebenden Kreaturen auszudehnen (Z. 10f.). Das ist ein ethischer Maßstab.</li>
+<li><b>Sozialintegration (erweitert):</b> Die Verbundenheit gilt nicht nur einer Gruppe, sondern allem Leben und der ganzen Natur.</li>
+<li><b>Kritik:</b> Die Befreiung aus dem „Gefängnis“ (Z. 10) kritisiert ein egoistisches, abgetrenntes Leben.</li>
+<li><b>Nicht erfüllt:</b> Kontingenzbewältigung (zu Leid und Tod sagt er nichts) und Rituale.</li></ul>
+<p class="note">Zusatz: Einsteins Sicht ist eher <b>substanziell</b>, ähnlich wie Schleiermachers „Gefühl für das Unendliche“ und Tillichs Dimension der Tiefe.</p></div>
+<h3 class="sub">Aufgabe 3: Bewerten</h3>
+<div class="box"><p><b>Für</b> Einsteins Aussage spricht:</p>
+<ul><li>Sie ist <b>universal</b>: Auch Menschen ohne Gottesglauben können so religiös sein. Das passt zu <b>Tillich</b>, für den jeder religiös ist, der nach der Tiefe fragt.</li>
+<li>Sie verbindet <b>Wissenschaft und Religion</b>, statt sie gegeneinander zu stellen.</li>
+<li>Auch der <b>Islam</b> kennt das Staunen: Der Koran fordert oft auf, über die <b>Zeichen (āyāt)</b> in Himmel und Erde nachzudenken. Und der Islam will eine harmonische Beziehung zum <b>gesamten Kosmos</b>.</li>
+<li>Aktuelles Beispiel: <b>Umwelt- und Tierschutz</b> folgen direkt aus seiner Ethik des Mitleids.</li></ul>
+<p><b>Gegen</b> Einsteins Aussage spricht:</p>
+<ul><li>Es fehlt ein <b>persönlicher Gott</b>. Im Islam ist der Kern aber die <b>Hingabe an den einen Gott</b> (Schahāda). Staunen ohne Gott reicht dort nicht.</li>
+<li>Im Islam gehören <b>Glaube und Handeln</b> zusammen: Gebet, Fasten, Zakat, Rechenschaft. Bei Einstein fehlen <b>Rituale</b> und <b>Gemeinschaft</b>.</li>
+<li>Es fehlt die <b>Kontingenzbewältigung</b>: Einem trauernden Menschen hilft das Staunen über die Sterne wenig. Religionen geben Trost und Hoffnung auf Auferstehung.</li>
+<li>Seine Religiosität ist sehr <b>individuell</b> und hat keine festen Inhalte, die man weitergeben könnte.</li></ul>
+<p><b>Fazit:</b> Ich halte Einsteins Aussage für <b>teilweise überzeugend</b>. Staunen und Verbundenheit sind ein wichtiger <b>Anfang</b> von Religion, ähnlich wie die Ausrichtung (Widschha) im Islam. Für eine vollständige Religion fehlen aber der Bezug zu Gott, die Gemeinschaft, das Handeln und der Trost im Leid.</p></div>`},
+
+{t:"Klausur 2025 – Christlicher Teil (mit Musterlösung)",h:`
+<p class="note">Religionsklausur 11.1 vom 28.10.2025 · Thema: Was ist Religion? · 20 BE</p>
+<h3 class="sub">Das Material: die Karikatur</h3>
+<div class="box"><h3>„Kirche braucht Begeisterung wie im Fußball“ (Olaf Thielsch)</h3>
+<p>Die Karikatur ist auf deinem Klausurblatt. Hier ist sie in Worten beschrieben:</p>
+<ul><li><b>Links:</b> eine laute Gruppe <b>Fußballfans des VfL Osnabrück</b>. Sie tragen <b>Trikots, Schals und Fahnen in Lila-Weiß</b>, schwenken eine große karierte Fahne, rufen und singen mit offenem Mund. Einer trägt eine <b>Kiste Bier</b>. Sie wirken begeistert und voller Energie.</li>
+<li><b>Rechts:</b> eine <b>katholische Pilgergruppe</b>. Vorne gehen <b>Messdiener</b> in Weiß und ein <b>Priester</b> in Rot, einer trägt ein <b>Kreuz</b>. Sie halten Fahnen mit <b>Alpha und Omega</b> und zwei <b>Kelchen</b> (Christussymbole) und singen aus Liedblättern. Sie wirken ordentlich, aber eher ruhig.</li>
+<li><b>In der Mitte:</b> ein gelbes Straßenschild nach <b>Telgte / Münster</b>. Telgte ist ein bekannter Wallfahrtsort. Beide Gruppen kommen sich auf <b>derselben Straße</b> entgegen.</li></ul></div>
+
+<h3 class="sub">Aufgabe 1 (12 BE)</h3>
+<div class="box"><p><i>Vergleichen Sie die beiden Gruppen miteinander, indem Sie Ihnen bekannte Religionsbegriffe auf sie übertragen, und erklären Sie dabei, ob Fußball eine Religion oder ein Religionsersatz sein kann.</i></p></div>
+<details class="ms"><summary>Musterlösung Aufgabe 1 zeigen</summary><div>
+<p><b>Einleitung:</b> Die Karikatur „Kirche braucht Begeisterung wie im Fußball“ von Olaf Thielsch zeigt, wie eine katholische Pilgergruppe auf dem Weg nach Telgte auf eine Gruppe Fußballfans des VfL Osnabrück trifft. Beide Gruppen sind gemeinsam unterwegs, tragen Fahnen und singen. Im Folgenden werden beide Gruppen mit Hilfe von Religionsbegriffen verglichen.</p>
+<p><b>1. Gemeinsamkeiten: der funktionale Religionsbegriff</b></p>
+<p>Nach dem <b>funktionalen</b> Religionsbegriff ist Religion das, was bestimmte <b>Aufgaben</b> für Menschen erfüllt. Mit den Funktionen nach <b>Kaufmann</b> zeigt sich, dass beide Gruppen sehr ähnlich sind:</p>
+<ul><li><b>Sozialintegration:</b> Beide Gruppen sind eine <b>Gemeinschaft</b>. Die Fans tragen dieselben Farben Lila-Weiß, die Pilger gehen zusammen und singen dieselben Lieder.</li>
+<li><b>Persönlichkeitsstärkung / Identität:</b> Das Trikot zeigt „Ich bin Osnabrück-Fan“, so wie das Kreuz zeigt „Wir sind Christen“.</li>
+<li><b>Rituale:</b> Beide haben feste Abläufe: Die Fans pilgern zum Spiel, schwenken Fahnen und singen Fangesänge. Die Pilger machen eine Wallfahrt mit Kreuz, Fahnen und Liedern. Das passt zu <b>relegere</b> (Cicero): die immer wiederkehrende, sorgfältige Wiederholung.</li>
+<li><b>Kontingenzbewältigung (nur teilweise):</b> Fans tragen Sieg und Niederlage gemeinsam.</li>
+<li>Nach <b>Durkheim</b> ist Religion ein System von Glaubensvorstellungen und Praktiken in Bezug auf das „Heilige“. Für Fans ist der Verein fast „heilig“; man spricht sogar vom „Fußballtempel“.</li></ul>
+<p>→ <b>Funktional</b> betrachtet könnte man Fußball also fast als Religion bezeichnen.</p>
+<p><b>2. Unterschiede: der substanzielle Religionsbegriff</b></p>
+<p>Nach dem <b>substanziellen</b> Religionsbegriff gehört zur Religion der Bezug auf etwas <b>Transzendentes</b>, auf das Heilige oder auf Gott. Hier zeigt sich der große Unterschied:</p>
+<ul><li>Die Fahnen der Pilger zeigen <b>Alpha und Omega</b>, den ersten und letzten Buchstaben des griechischen Alphabets. Sie bedeuten: Christus ist <b>Anfang und Ende</b> von allem. Die <b>Kelche</b> erinnern an das Abendmahl. Die Pilger beziehen sich also auf etwas <b>Ewiges</b>.</li>
+<li>Die Fans beziehen sich auf einen <b>Verein</b>, also auf etwas <b>Endliches</b>. Der Verein kann absteigen und Spiele verlieren, und er hat keine Antwort auf die Fragen nach Tod, Leid und Sinn.</li>
+<li><b>Schleiermacher</b> versteht Religion als „Sinn und Geschmack für das Unendliche“. Fußball bleibt im Endlichen.</li>
+<li><b>Mensching</b>: Religion ist die Begegnung mit dem Heiligen und das antwortende Handeln. Die Pilger antworten auf Gott, die Fans auf ein Spiel.</li>
+<li><b>Tillich</b>: Religion ist das Ergriffensein von dem, was uns <b>unbedingt angeht</b>. Ein Verein kann für Fans sehr wichtig werden, aber er ist nur etwas <b>Vorläufiges</b>. Wenn er zum Wichtigsten im Leben wird, ist das eine falsche Ausrichtung.</li>
+<li><b>Sinnstiftung</b> und <b>Kontingenzbewältigung</b> im Leid bietet Fußball kaum: Am Grab hilft kein Fangesang.</li></ul>
+<p><b>3. Ergebnis: Religion oder Religionsersatz?</b></p>
+<p>Fußball ist <b>keine Religion</b>, weil ihm der Bezug zum Transzendenten fehlt (substanziell). Fußball kann aber ein <b>Religionsersatz</b> sein, weil er wichtige <b>Funktionen</b> von Religion übernimmt: Gemeinschaft, Identität, Rituale und starke Gefühle. Genau deshalb kritisieren Theologen den rein funktionalen Religionsbegriff: Sonst wäre auch ein Fußballverein eine Religion.</p>
+<p><b>Die Botschaft des Zeichners:</b> Der Titel sagt „Kirche braucht <b>Begeisterung</b> wie im Fußball“. Die Fans wirken lebendig und laut, die Pilger eher brav. Der Zeichner meint: Die Kirche kann vom Fußball lernen, wie man Menschen <b>begeistert</b> und Gemeinschaft <b>erlebbar</b> macht.</p>
+</div></details>
+
+<h3 class="sub">Aufgabe 2 (8 BE)</h3>
+<div class="box"><p><i>Die moderne Lebenswelt bietet viele Sinnangebote, die in Konkurrenz zum Glauben stehen und die Funktionen einer Ersatzreligion einnehmen können. Nehmen Sie persönlich Stellung zu einem Beispiel für Ersatzreligion (außer Fußball), das Sie oder jemand aus Ihrem Umfeld selbst erfahren hat, und formulieren Sie einen Ratschlag im Umgang damit.</i></p></div>
+<details class="ms"><summary>Musterlösung Aufgabe 2 zeigen</summary><div>
+<p class="note">Andere mögliche Beispiele: Social Media / Smartphone, Gaming, Shopping und Markenkleidung, Stars und Influencer, Karriere und Geld.</p>
+<p><b>Beispiel: Fitness und der perfekte Körper</b></p>
+<p><b>1. Das Beispiel:</b> Ein Freund von mir geht sechsmal pro Woche ins Fitnessstudio. Er plant sein Essen genau, postet Fortschrittsbilder und spricht fast nur über Training. Wenn er einmal ausfallen muss, ist er schlecht gelaunt.</p>
+<p><b>2. Warum das eine Ersatzreligion sein kann:</b> Fitness übernimmt viele Funktionen von Religion nach Kaufmann:</p>
+<ul><li><b>Persönlichkeitsstärkung:</b> Der Körper wird zur Identität: „Ich bin Sportler.“ Das gibt Selbstbewusstsein.</li>
+<li><b>Rituale und Orientierung:</b> Es gibt feste Trainingstage, Essenspläne und Regeln, fast wie Gebote.</li>
+<li><b>Sozialintegration:</b> Im Studio und online gibt es eine Gemeinschaft mit eigener Sprache.</li>
+<li><b>Sinnstiftung:</b> Das Ziel „der perfekte Körper“ gibt dem Alltag eine Richtung.</li></ul>
+<p><b>3. Meine Stellungnahme:</b> Ich finde Sport grundsätzlich <b>gut</b>: Er ist gesund, macht diszipliniert und kann Freundschaften schaffen. Problematisch wird es aber, wenn der Körper zum „<b>unbedingten Anliegen</b>“ im Sinne Tillichs wird. Dann bekommt etwas <b>Endliches</b> den Platz, der eigentlich dem Unbedingten gehört. Fitness gibt außerdem <b>keine Antwort auf Leid und Tod</b>: Bei einer Verletzung oder im Alter bricht dieses Sinnsystem zusammen, weil der Körper nicht ewig stark bleibt. Es fehlt also die <b>Kontingenzbewältigung</b>. Außerdem kann großer Druck entstehen, wenn man seinen Wert nur über das Aussehen misst.</p>
+<p><b>4. Mein Ratschlag:</b></p>
+<ul><li>Sport als <b>Teil</b> des Lebens sehen, nicht als <b>Mittelpunkt</b>.</li>
+<li>Den eigenen Wert nicht nur am Körper messen. Man ist mehr als sein Aussehen.</li>
+<li>Sich auch die großen Fragen stellen: Was trägt mich, wenn ich krank werde? Wofür lebe ich? Hier können Glaube, Familie und Freunde Halt geben, die nicht vom Erfolg abhängen.</li>
+<li>Bewusst Pausen machen, ohne schlechtes Gewissen.</li></ul>
+<p><b>Fazit:</b> Fitness kann eine Ersatzreligion werden, weil sie viele Funktionen von Religion erfüllt. Sie kann aber das Wesentliche von Religion, den Bezug zum Unendlichen und den Halt im Leid, nicht ersetzen.</p>
+</div></details>
+<div class="tip"><b>Was bringt Punkte?</b> In Aufgabe 1 musst du <b>beide</b> Religionsbegriffe (substanziell <b>und</b> funktional) mit Namen und Beispielen aus der Karikatur verbinden und am Ende klar sagen: <b>Religion oder Religionsersatz?</b> In Aufgabe 2 brauchst du ein <b>echtes, persönliches</b> Beispiel, eine <b>begründete</b> Meinung mit Fachbegriffen und einen <b>konkreten</b> Ratschlag.</div>`},
+
+{t:"Klausur 2025 – Islamischer Teil (mit Musterlösung)",h:`
+<p class="note">Klausur Kooperativer RU 11.1 vom 11.11.2025 · Thema: Was ist Religion · 20 BE</p>
+<h3 class="sub">Das Material: „Religion ist mehr als Ethik“ (Mouhanad Khorchide)</h3>
+<div class="box"><p>Der Text steht auf deinem Klausurblatt. Hier ist sein Inhalt in eigenen Worten:</p>
+<ul><li><b>Z. 1–4:</b> Religion muss etwas leisten, was die Vernunft nicht leistet, sonst ist sie ersetzbar. Religion ist <b>mehr als Ethik</b>. Im Koran geht es Gott vor allem darum, <b>mit dem Menschen in Beziehung zu treten</b>. Die <b>spirituelle Dimension</b> steht im Vordergrund.</li>
+<li><b>Z. 4–6:</b> Gott möchte, dass der Mensch sich <b>vervollkommnet</b>. Der Koran nennt das <b>Läuterung</b> (<b>tazkiya</b>, <bdi class="ar">تزكية</bdi>), also Reinigung und Erleuchtung.</li>
+<li><b>Z. 6–12:</b> Gott hat Propheten geschickt, um den Menschen die Verse vorzutragen, sie zu <b>läutern</b> und sie Schrift und Weisheit zu lehren (Sure 62:2 und 3:164). Die Läuterung steht an <b>erster</b> Stelle, das Wissen (die kognitive Dimension) erst an <b>zweiter</b>.</li>
+<li><b>Z. 12–17:</b> Die Vervollkommnung ist <b>kein Selbstzweck</b>. Im Jenseits nützen weder Geld noch Kinder; erfolgreich ist, wer mit einem <b>gesunden Herzen</b> zu Gott kommt (Sure 26:88–89). Das „gesunde Herz“ ist eine Metapher für die <b>innere Vollkommenheit</b>.</li>
+<li><b>Z. 17–23:</b> Ziel der Läuterung ist, dass der Mensch in die <b>Gemeinschaft Gottes</b> eintritt. Der Koran spricht von der Rückkehr der „Seele voll Ruhe“ zu ihrem Herrn (Sure 89:27–28). Gott <b>zwingt niemanden</b>, er <b>lädt ein</b>; der Mensch entscheidet sich <b>frei</b>.</li></ul></div>
+
+<h3 class="sub">Aufgabe 1 (11 BE)</h3>
+<div class="box"><p><i>Erklären Sie, wie der im Text beschriebene Prozess der Läuterung (Tazkiya) mit den zentralen Begriffen der „Hingabe“ an Gott und des „Friedens – Salam“ zusammenhängt.</i></p></div>
+<details class="ms"><summary>Musterlösung Aufgabe 1 zeigen</summary><div>
+<p><b>Einleitung:</b> Im Text „Religion ist mehr als Ethik“ erklärt Mouhanad Khorchide, dass es Gott im Koran vor allem um die <b>Beziehung</b> zum Menschen und um dessen <b>Läuterung</b> (tazkiya) geht. Im Folgenden wird erklärt, wie diese Läuterung mit der Hingabe (islām) und dem Frieden (salām) zusammenhängt.</p>
+<p><b>1. Was ist Läuterung (tazkiya)?</b></p>
+<p>Läuterung bedeutet <b>Reinigung</b> und <b>Erleuchtung</b> des Menschen. Gott möchte, dass der Mensch sich <b>vervollkommnet</b> (Z. 4f.). Darum hat er Propheten geschickt, die die Menschen läutern und sie Schrift und Weisheit lehren (Sure 62:2, Z. 8f.). Die Läuterung des Herzens kommt dabei <b>vor</b> dem Wissen (Z. 11f.). Es geht also nicht in erster Linie um Regeln oder Wissen, sondern um das <b>Innere</b> des Menschen.</p>
+<p><b>2. Der Schlüssel: eine gemeinsame Wortwurzel</b></p>
+<p>Im Arabischen haben vier zentrale Wörter dieselbe Wurzel <b>s-l-m</b> (<bdi class="ar">س ل م</bdi>):</p>
+<ul><li><b>islām</b> (<bdi class="ar">إسلام</bdi>) = Hingabe an Gott</li>
+<li><b>muslim</b> (<bdi class="ar">مسلم</bdi>) = einer, der sich Gott hingibt</li>
+<li><b>salām</b> (<bdi class="ar">سلام</bdi>) = Frieden, Heil</li>
+<li><b>salīm</b> (<bdi class="ar">سليم</bdi>) = gesund, heil, unversehrt. Genau dieses Wort steht in Sure 26:89: das „gesunde Herz“ (<i>qalb salīm</i>, <bdi class="ar">قلب سليم</bdi>).</li></ul>
+<p>Die Sprache zeigt also schon: <b>Hingabe, Heil-Sein und Frieden gehören zusammen.</b></p>
+<p><b>3. Der Zusammenhang als Weg in drei Schritten</b></p>
+<ul><li><b>Anfang: Hingabe (islām).</b> Der Mensch öffnet sich Gott und gibt sich ihm hin. Das geschieht <b>freiwillig</b>, denn Gott zwingt niemanden, er lädt ein (Z. 20–22). Hingabe ist die Antwort des Menschen auf Gottes Einladung zur <b>Beziehung</b> (Z. 3f.).</li>
+<li><b>Weg: Läuterung (tazkiya).</b> Wer sich Gott hingibt, lässt sich von Ihm „reinigen“. Sein Herz wird Schritt für Schritt von Egoismus, Gier und falschen Bindungen befreit. Geld und Kinder zählen am Ende nicht (Z. 14), sondern nur der Zustand des Herzens.</li>
+<li><b>Ziel: Frieden (salām).</b> Das geläuterte Herz wird <b>salīm</b>, also gesund und heil (Z. 15). Ein heiles Herz ist ein Herz <b>im Frieden</b>: mit sich selbst, mit Gott und mit den Mitmenschen. Der Koran nennt diesen Menschen eine „<b>Seele voll Ruhe</b>“ (Sure 89:27, Z. 19f.). Diese Seele kehrt zu Gott zurück und tritt in die <b>Gemeinschaft Gottes</b> ein (Z. 20f.). Das Paradies heißt im Koran auch „<b>Haus des Friedens</b>“ (<i>dār as-salām</i>, Sure 10:25), und <b>as-Salām</b> ist einer der Namen Gottes (Sure 59:23).</li></ul>
+<div class="img"><b>Zum Vorstellen:</b> Ein verschmutztes Glas Wasser. <b>Hingabe</b> heißt, das Glas zur Quelle zu bringen. <b>Läuterung</b> ist das Reinigen. <b>Frieden</b> ist das klare, ruhige Wasser am Ende.</div>
+<p><b>4. Fazit:</b> Läuterung ist der <b>Weg</b> zwischen Hingabe und Frieden. Die <b>Hingabe</b> (islām) ist der Anfang, die <b>Läuterung</b> (tazkiya) der Prozess und der <b>Frieden</b> (salām) mit einem heilen Herzen (qalb salīm) das Ziel. So zeigt der Text, dass Religion <b>mehr als Ethik</b> ist: Es geht nicht nur um richtiges Handeln, sondern um eine verwandelte, friedvolle Beziehung zu Gott.</p>
+</div></details>
+
+<h3 class="sub">Aufgabe 2 (9 BE)</h3>
+<div class="box"><p><i>Erörtern Sie die These: „Religion muss etwas leisten, das die Vernunft nicht leistet, ansonsten wird sie ersetzbar.“ Arbeiten Sie die Vielschichtigkeit dieser These heraus, indem Sie die Funktion von Religion sowie von Weltanschauungen bzw. Ideologien miteinander vergleichen und erklären, warum Glaube und religiöse Überzeugungen tief im menschlichen Leben verwurzelt sind.</i></p></div>
+<details class="ms"><summary>Musterlösung Aufgabe 2 zeigen</summary><div>
+<p><b>1. Die These erklären</b></p>
+<p>Khorchide meint: Wenn Religion nur <b>Ethik</b> wäre, also nur Regeln für gutes Handeln, dann bräuchte man sie nicht. Denn gute Regeln kann der Mensch auch mit seiner <b>Vernunft</b> finden, zum Beispiel durch Philosophie, Menschenrechte oder Gesetze. Religion wäre dann <b>ersetzbar</b>. Religion muss also etwas Eigenes bieten.</p>
+<p><b>2. Vergleich: Religion und Weltanschauungen / Ideologien</b></p>
+<p>Weltanschauungen und Ideologien sind Gesamtdeutungen der Welt <b>ohne Gott</b>, zum Beispiel der <b>Humanismus</b>, der <b>Kommunismus</b>, der <b>Nationalismus</b> oder der Glaube an <b>Konsum</b> und <b>Wissenschaft</b>. Sie können viele Funktionen von Religion nach <b>Kaufmann</b> erfüllen:</p>
+<ul><li><b>Moral und Orientierung:</b> Der Humanismus hat klare Werte (Würde, Freiheit).</li>
+<li><b>Sozialintegration:</b> Der Nationalismus schafft ein starkes „Wir“.</li>
+<li><b>Sinnstiftung:</b> Der Kommunismus versprach eine gerechte Zukunft (klassenlose Gesellschaft).</li>
+<li><b>Rituale:</b> Ideologien haben eigene Feiern, Fahnen, Lieder und Aufmärsche.</li></ul>
+<p>→ In diesen Bereichen ist Religion tatsächlich <b>ersetzbar</b>. Das spricht <b>für</b> die These: Religion muss mehr bieten.</p>
+<p><b>3. Was nur Religion leisten kann</b></p>
+<ul><li><b>Beziehung zu Gott:</b> Khorchide sagt, Gott will mit dem Menschen in <b>Beziehung</b> treten (Z. 3f.). Eine Ideologie kann keine Beziehung zu einem persönlichen Gott anbieten.</li>
+<li><b>Kontingenzbewältigung:</b> Die Vernunft kann erklären, <b>wie</b> ein Mensch stirbt, aber nicht, <b>warum</b> und was danach kommt. Religion gibt Hoffnung über den Tod hinaus (Jenseits, Rückkehr zu Gott, Sure 89:27f.).</li>
+<li><b>Innere Verwandlung:</b> Religion will das Herz <b>läutern</b> (tazkiya), nicht nur das Verhalten regeln.</li>
+<li><b>Das Unbedingte:</b> Nach <b>Tillich</b> ist Religion das Ergriffensein von dem, was uns <b>unbedingt</b> angeht. Ideologien machen oft etwas <b>Endliches</b> (Nation, Partei, Geld) zum Absoluten. Das ist gefährlich, wie die totalitären Ideologien des 20. Jahrhunderts zeigen.</li></ul>
+<p><b>4. Die Vielschichtigkeit: Kritik an der These</b></p>
+<ul><li>Das Wort „<b>leisten</b>“ ist sehr <b>funktional</b>. Es klingt, als wäre Religion ein Produkt, das sich lohnen muss. <b>Substanziell</b> betrachtet ist Religion aber Hingabe an Gott <b>um Gottes willen</b>, nicht wegen ihres Nutzens.</li>
+<li><b>Vernunft und Glaube</b> sind keine Gegner. Auch im Islam gehört Wissen dazu: Die Propheten lehren „Schrift und Weisheit“ (Z. 9). Der Koran ruft oft zum Nachdenken auf. Religion steht also nicht <b>gegen</b> die Vernunft, sondern geht <b>über</b> sie hinaus.</li>
+<li>Religion lässt sich in der Praxis gar nicht so leicht ersetzen. Trotz Aufklärung und Wissenschaft gibt es Religion bis heute.</li></ul>
+<p><b>5. Warum Glaube tief im Menschen verwurzelt ist</b></p>
+<ul><li><b>Geschichte:</b> Laut <b>Härle</b> gibt es religiöse Rituale seit ca. <b>50 000 Jahren</b>. Schon frühe Menschen gaben ihren Toten Grabbeigaben mit. Religion ist <b>typisch menschlich</b>.</li>
+<li><b>Die großen Fragen:</b> Woher komme ich, wohin gehe ich? Diese Fragen nach der „<b>Dimension der Tiefe</b>“ (Tillich) bleiben, auch wenn die Wissenschaft viel erklärt.</li>
+<li><b>Endlichkeit:</b> Der Mensch weiß, dass er sterben wird. Er sucht nach Halt (Schleiermacher: das „Gefühl schlechthinniger Abhängigkeit“).</li>
+<li><b>Sehnsucht nach Frieden:</b> Der Mensch sucht innere Ruhe. Der Koran spricht von der „Seele voll Ruhe“, und diese Sehnsucht kann keine Ideologie ganz stillen.</li>
+<li><b>Staunen:</b> Wie Einstein sagt, erlebt der Mensch das Geheimnisvolle und staunt darüber.</li></ul>
+<p><b>6. Fazit:</b> Ich halte die These für <b>überzeugend</b>, aber mit einer Einschränkung. Es stimmt: Wenn Religion nur Ethik wäre, könnten Vernunft und Weltanschauungen sie ersetzen. Ihre eigentliche „Leistung“ ist aber die <b>Beziehung zu Gott</b>, die <b>Läuterung des Herzens</b> und die <b>Hoffnung über den Tod hinaus</b>. Das kann keine Ideologie bieten. Man sollte Religion jedoch nicht nur nach ihrem Nutzen beurteilen, denn im Kern ist sie <b>Hingabe</b> und nicht Dienstleistung.</p>
+</div></details>
+<div class="tip"><b>Was bringt Punkte?</b> In Aufgabe 1 die Wurzel <b>s-l-m</b> erklären (islām, salām, salīm, muslim) und den Weg <b>Hingabe → Läuterung → Frieden</b> mit <b>Zeilen und Suren</b> belegen. In Aufgabe 2 nicht nur zustimmen: <b>Pro</b> (Ideologien können Funktionen ersetzen), <b>Contra</b> („leisten“ ist zu funktional, Vernunft und Glaube gehören zusammen), dann klar erklären, <b>warum</b> Glaube tief verwurzelt ist, und ein <b>Fazit</b> ziehen.</div>`}
+]};
+
+/* ======================= KARIKATUREN (Methode) ======================= */
+const KMETHOD=`
+<p>Wenn dein Material eine Karikatur ist, gehst du immer in <b>vier Schritten</b> vor.</p>
+<div class="box"><h3>1. Beschreiben</h3><p>Was sehe ich genau? Titel, Zeichner, Jahr. Personen (Kleidung, Gesichtsausdruck, Haltung), Gegenstände, Texte in Sprechblasen, Größenverhältnisse, Vorder- und Hintergrund.</p><p class="note">„Im Vordergrund sieht man … Rechts steht … In der Sprechblase steht …“</p></div>
+<div class="box"><h3>2. Deuten</h3><p>Was bedeuten die Dinge? Symbole entschlüsseln: Ein Handy steht für Ablenkung, ein leeres Gotteshaus für weniger Religion im Alltag, ein Kompass für Orientierung, ein Sturm für eine Krise. Dann formulierst du die <b>Aussage</b>: Was kritisiert der Zeichner?</p><p class="note">„Der Zeichner kritisiert, dass …“</p></div>
+<div class="box"><h3>3. Einordnen</h3><p>Welches Unterrichtswissen passt? Kaufmanns Funktionen? Tillich? Substanziell oder funktional? Glauben und Wissen? Hingabe, Ausrichtung, Tauba?</p></div>
+<div class="box"><h3>4. Bewerten</h3><p>Hat der Zeichner recht? Pro, Contra, Fazit.</p></div>
+<div class="tip"><b>Wichtig:</b> Nicht nur beschreiben! Die meisten Punkte gibt es für <b>Deuten</b> und <b>Einordnen</b>.</div>`;
+
+const CARDS=[
+["religare","„an-/zurückbinden“ → Rückbindung an eine höhere Wirklichkeit","c"],
+["relegere (Cicero)","„wieder auflesen“ → rituelle Wiederholung","c"],
+["Substanziell","Was Religion IST: Bezug auf Transzendentes, Heiliges","c"],
+["Funktional","Was Religion LEISTET (z. B. Kaufmann, Freud, Durkheim)","c"],
+["Schleiermacher","„Sinn und Geschmack für das Unendliche“, „Gefühl schlechthinniger Abhängigkeit“","c"],
+["Metz","Kürzeste Formel der Religion: Unterbrechung","c"],
+["Freud","Religion als Massenneurose","c"],
+["Tillich","Dimension der Tiefe: leidenschaftlich nach dem Sinn fragen; das, was uns unbedingt angeht","c"],
+["Härle","seit ca. 50 000 Jahren Rituale; Grabbeigaben; Frage nach dem Tod","c"],
+["Kaufmanns 6 Funktionen","Persönlichkeitsstärkung · Rituale/Moral · Kontingenzbewältigung · Sozialintegration · Sinnstiftung · Kritik","c"],
+["Kontingenzbewältigung","Hilfe beim Umgang mit Leid, Tod und Zufall","c"],
+["Apostolisches Glaubensbekenntnis","3 Teile: Vater (Schöpfer) · Sohn (Kreuz, Auferstehung) · Heiliger Geist (Kirche, ewiges Leben)","c"],
+["Bekenntnisse: größter Unterschied","Christentum: Dreifaltigkeit, Jesus ist Sohn Gottes · Islam: Tauḥīd, Jesus ist Prophet","c"],
+["Islam (Wortbedeutung)","Hingabe an Gott","i"],
+["Innere Dimension","Haltung der Hingabe: jeder Aufrichtige ist „Muslim“ (z. B. Abraham)","i"],
+["Äußere Dimension","die historische Religion Muhammads (Schahāda, 5 Säulen)","i"],
+["Dīn","Lebensweise · Verpflichtung (dayn) · Gericht (Yaum ad-Dīn)","i"],
+["Widschha","„Gesicht“: Ausrichtung der ganzen Person; Erfolg = falāḥ","i"],
+["Qibla","Gebetsrichtung (zuerst Jerusalem, dann Mekka)","i"],
+["Tauba","„Drehung“: Umkehr zu Gott (Reue, Absicht, Wiedergutmachung)","i"],
+["Āmantu","6 Prinzipien: Gott, Engel, Schriften, Propheten, Gericht, Schicksal","i"],
+["Schahāda","„Ich bezeuge: keine Gottheit außer Gott, Muhammad ist Sein Diener und Gesandter“","i"],
+["glauben: 3 Bereiche","vermuten (Wissen) · vertrauen (zwischenmenschlich) · überzeugt sein und sich hingeben (Religion)","i"],
+["Īmān","Glaube des Herzens, verwandt mit Sicherheit und Vertrauen","i"],
+["Iḥsān","Gott dienen, als ob man Ihn sähe – höchste Stufe nach Islām und Īmān","i"],
+["Schirk","Gott etwas beigesellen – schwerste Sünde, Gegenteil von Tauḥīd","i"],
+["Fiṭra","angeborene Veranlagung zu Gott (Sure 30:30)","i"],
+["Tazkiya","Läuterung: Reinigung und Vervollkommnung des Herzens","i"],
+["Qalb salīm","das gesunde, heile Herz (Sure 26:89)","i"],
+["Wurzel s-l-m","islām (Hingabe) · muslim · salām (Frieden) · salīm (heil)","i"],
+["Sunna / Ḥadīth","Lebenspraxis Muhammads / einzelner überlieferter Bericht","i"],
+["Scharia","göttliche Ordnung für das ganze Leben, nicht nur Strafrecht","i"],
+["Idschtihād / Idschmāʿ","Neuinterpretation durch Gelehrte / Konsens der Gelehrten","i"],
+["Fünf Säulen","Schahāda · Ṣalāt (Gebet) · Ṣaum (Fasten) · Zakāt (Abgabe) · Ḥaddsch (Wallfahrt)","i"],
+["Umma","weltweite Gemeinschaft aller Muslime","i"],
+["Taqwā","Gottesbewusstsein, Achtsamkeit vor Gott","i"]
+];
+
+const QUIZ=[
+["Kaufmann definiert Religion …",["substanziell","funktional","gar nicht"],1,"Er fragt nach den Aufgaben von Religion.","c"],
+["„religare“ bedeutet …",["wieder auflesen","an-/zurückbinden","sich hingeben"],1,"relegere = wieder auflesen (Cicero).","c"],
+["Wer nennt Religion „Unterbrechung“?",["Tillich","Freud","Metz"],2,"Johann Baptist Metz.","c"],
+["Für Freud ist Religion …",["eine Massenneurose","ein Gefühl für das Unendliche","ein Symbolsystem"],0,"Symbolsystem = Geertz, Unendliches = Schleiermacher.","c"],
+["Tillichs „Dimension der Tiefe“ meint …",["viele Götter","die Frage nach dem Sinn des Lebens","Rituale"],1,"Religiös sein heißt, leidenschaftlich nach dem Sinn zu fragen.","c"],
+["Jemand betet nach dem Tod seiner Mutter. Welche Funktion?",["Sozialintegration","Kontingenzbewältigung","Kritik"],1,"Umgang mit Leid.","c"],
+["Wie ist das Apostolische Glaubensbekenntnis aufgebaut?",["nach den 5 Säulen","nach der Dreifaltigkeit","nach den 10 Geboten"],1,"Vater, Sohn, Heiliger Geist.","c"],
+["Warum nennt der Koran Abraham einen Muslim?",["Er lebte in Mekka","Er gab sich Gott ganz hin","Er sprach die Schahāda"],1,"Das ist die innere Dimension des Islam.","i"],
+["Wie viele Prinzipien hat das Āmantu?",["5","6","4"],1,"Gott, Engel, Schriften, Propheten, Gericht, Schicksal.","i"],
+["Die erste Voraussetzung, um Muslim zu werden:",["Hadsch","Schahāda","Fasten"],1,"Das Glaubenszeugnis.","i"],
+["Tauba bedeutet wörtlich …",["Gesicht","Gebetsrichtung","Drehung"],2,"Drehung, also Umkehr.","i"],
+["Qibla ist …",["die Gebetsrichtung","ein Engel","der Gebetsruf"],0,"Zuerst Jerusalem, dann Mekka.","i"],
+["Dīn bedeutet u. a. …",["Gesicht","Gericht","Rückbindung"],1,"Yaum ad-Dīn ist der Tag des Gerichts.","i"],
+["„Marc glaubt, dass Julie lügt.“ glauben = …",["vertrauen","vermuten","sich hingeben"],1,"Bereich Wissen/Meinung.","i"],
+["Welche Funktion fehlt bei Einstein am deutlichsten?",["Sinnstiftung","Kontingenzbewältigung","Moral"],1,"Er sagt nichts zu Leid und Tod.","t"],
+["„Bewerten“ gehört zu …",["AFB I","AFB II","AFB III"],2,"Bewerten heißt, eine begründete eigene Position einzunehmen.","t"]
+];
+
+
+/* ===================== ZEICHEN-HELFER ===================== */
+const INK="#26222e",SKIN="#f1c9a0",SKIN2="#c98e5f";
+const S=`stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"`;
+function person(x,y,c,o={}){ // y = Füße
+  const sk=o.skin||SKIN,arms=o.arms||"down";
+  let a;
+  if(arms==="up")a=`<path d="M${x-12},${y-56} L${x-24},${y-88}" ${S} fill="none"/><path d="M${x+12},${y-56} L${x+24},${y-88}" ${S} fill="none"/>`;
+  else if(arms==="phone")a=`<path d="M${x-12},${y-54} L${x-18},${y-34}" ${S} fill="none"/><path d="M${x+12},${y-54} L${x+20},${y-44} L${x+8},${y-50}" ${S} fill="none"/><rect x="${x+4}" y="${y-62}" width="11" height="17" rx="2" fill="#333" ${S} stroke-width="2"/><rect x="${x+6}" y="${y-60}" width="7" height="12" fill="#8fe3ff"/>`;
+  else if(arms==="point")a=`<path d="M${x-12},${y-54} L${x-18},${y-34}" ${S} fill="none"/><path d="M${x+12},${y-56} L${x+34},${y-66}" ${S} fill="none"/>`;
+  else if(arms==="open")a=`<path d="M${x-12},${y-54} L${x-28},${y-46}" ${S} fill="none"/><path d="M${x+12},${y-54} L${x+28},${y-46}" ${S} fill="none"/>`;
+  else a=`<path d="M${x-12},${y-54} L${x-18},${y-32}" ${S} fill="none"/><path d="M${x+12},${y-54} L${x+18},${y-32}" ${S} fill="none"/>`;
+  const face=o.face==="shock"?`<circle cx="${x-4}" cy="${y-76}" r="2" fill="${INK}"/><circle cx="${x+4}" cy="${y-76}" r="2" fill="${INK}"/><ellipse cx="${x}" cy="${y-68}" rx="3" ry="4" fill="${INK}"/>`
+    :o.face==="cool"?`<rect x="${x-10}" y="${y-80}" width="20" height="6" rx="3" fill="${INK}"/><path d="M${x-4},${y-68} Q${x},${y-65} ${x+5},${y-68}" ${S} stroke-width="2" fill="none"/>`
+    :o.face==="think"?`<circle cx="${x-4}" cy="${y-76}" r="2" fill="${INK}"/><circle cx="${x+4}" cy="${y-76}" r="2" fill="${INK}"/><path d="M${x-4},${y-68} L${x+4},${y-69}" ${S} stroke-width="2"/>`
+    :`<circle cx="${x-4}" cy="${y-76}" r="2" fill="${INK}"/><circle cx="${x+4}" cy="${y-76}" r="2" fill="${INK}"/><path d="M${x-4},${y-69} Q${x},${y-66} ${x+4},${y-69}" ${S} stroke-width="2" fill="none"/>`;
+  return `<g><path d="M${x-6},${y-28} L${x-9},${y}" ${S}/><path d="M${x+6},${y-28} L${x+9},${y}" ${S}/>
+  <rect x="${x-14}" y="${y-62}" width="28" height="38" rx="11" fill="${c}" ${S}/>${a}
+  <circle cx="${x}" cy="${y-75}" r="13" fill="${sk}" ${S}/>${o.hair?`<path d="M${x-13},${y-77} Q${x},${y-98} ${x+13},${y-77} Q${x},${y-86} ${x-13},${y-77}Z" fill="${o.hair}" ${S} stroke-width="2"/>`:""}${face}</g>`;
+}
+function bowing(x,y,c,sk){ // Niederwerfung, Blick nach rechts
+  return `<g><path d="M${x-26},${y} L${x-4},${y}" ${S}/><path d="M${x-22},${y-16} L${x-26},${y}" ${S}/>
+  <ellipse cx="${x-2}" cy="${y-18}" rx="25" ry="12" fill="${c}" ${S} transform="rotate(24 ${x-2} ${y-18})"/>
+  <path d="M${x+12},${y-10} L${x+30},${y}" ${S}/>
+  <circle cx="${x+24}" cy="${y-9}" r="10" fill="${sk||SKIN}" ${S}/></g>`;
+}
+function bubble(x,y,w,h,lines,tx,ty,o={}){
+  const fs=o.fs||11.5;
+  return `<g><path d="M${x+w*.3},${y+h-2} L${tx},${ty} L${x+w*.5},${y+h-2}" fill="#fff" ${S} stroke-width="2.2"/>
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${o.r||14}" fill="#fff" ${S} stroke-width="2.2"/>
+  <path d="M${x+w*.3+2},${y+h-1.5} L${x+w*.5-2},${y+h-1.5}" stroke="#fff" stroke-width="4"/>
+  ${lines.map((l,n)=>`<text x="${x+w/2}" y="${y+h/2+(n-(lines.length-1)/2)*(fs+3)+fs*.35}" text-anchor="middle" font-family="Caveat,cursive" font-weight="700" font-size="${fs+5}" fill="${INK}">${l}</text>`).join("")}</g>`;
+}
+function think(x,y,w,h,lines,tx,ty){
+  return `<g><circle cx="${tx}" cy="${ty}" r="3" fill="#fff" ${S} stroke-width="2"/><circle cx="${(tx+x+w/2)/2}" cy="${(ty+y+h)/2}" r="5" fill="#fff" ${S} stroke-width="2"/>
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h/2}" fill="#fff" ${S} stroke-width="2.2" stroke-dasharray="1 0"/>
+  ${lines.map((l,n)=>`<text x="${x+w/2}" y="${y+h/2+(n-(lines.length-1)/2)*16+5}" text-anchor="middle" font-family="Caveat,cursive" font-weight="700" font-size="17" fill="${INK}">${l}</text>`).join("")}</g>`;
+}
+const label=(x,y,t,o={})=>`<text x="${x}" y="${y}" text-anchor="${o.a||"middle"}" font-family="${o.f||"Inter,sans-serif"}" font-weight="${o.w||700}" font-size="${o.s||11}" fill="${o.c||INK}">${t}</text>`;
+const svg=(inner,h=300)=>`<svg viewBox="0 0 400 ${h}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+
+/* ===================== KARIKATUREN ===================== */
+const CARTOONS={
+k1:{t:"Die neue Qibla",s:"Smartphone als Ersatzreligion",cap:"„Die neue Qibla“",
+draw:()=>svg(`
+<rect width="400" height="300" fill="#fdf6e6"/>
+<rect y="248" width="400" height="52" fill="#e9dcc0"/>
+<!-- leere Gotteshäuser -->
+<g opacity=".55">
+<rect x="22" y="196" width="46" height="52" fill="#cfc7b4" ${S} stroke-width="2"/><path d="M22,196 L45,170 L68,196" fill="#cfc7b4" ${S} stroke-width="2"/><rect x="38" y="150" width="14" height="24" fill="#cfc7b4" ${S} stroke-width="2"/><path d="M45,138 V150 M40,143 H50" ${S} stroke-width="2"/><rect x="39" y="222" width="12" height="26" fill="#9c937f"/>
+<rect x="82" y="206" width="54" height="42" fill="#cfc7b4" ${S} stroke-width="2"/><path d="M90,206 Q109,170 128,206" fill="#cfc7b4" ${S} stroke-width="2"/><rect x="140" y="162" width="10" height="86" fill="#cfc7b4" ${S} stroke-width="2"/><path d="M140,162 L145,150 L150,162" fill="#cfc7b4" ${S} stroke-width="2"/><rect x="102" y="226" width="14" height="22" rx="7" fill="#9c937f"/>
+</g>
+<g transform="rotate(-8 80 132)"><rect x="50" y="122" width="62" height="20" fill="#fff" ${S} stroke-width="2"/>${label(81,136,"HEUTE LEER",{s:9.5})}</g>
+<path d="M58,190 Q62,180 70,186 M100,188 l6,-4" stroke="#9c937f" stroke-width="1.2" fill="none"/>
+<!-- Handy -->
+<g><circle cx="320" cy="44" r="0" />
+<ellipse cx="320" cy="34" rx="34" ry="9" fill="none" stroke="#e8b44a" stroke-width="5"/>
+${[0,1,2,3,4,5,6,7].map(n=>{const a=Math.PI*(n/7);return `<path d="M${320-Math.cos(a)*70},${150-Math.sin(a)*110} L${320-Math.cos(a)*86},${150-Math.sin(a)*128}" stroke="#e8b44a" stroke-width="4" stroke-linecap="round"/>`}).join("")}
+<rect x="276" y="50" width="88" height="192" rx="16" fill="#2a2733" ${S}/>
+<rect x="284" y="64" width="72" height="162" rx="6" fill="#bfefff"/>
+<path d="M302,112 Q320,96 338,112 M308,120 Q320,110 332,120 M314,128 Q320,123 326,128" stroke="#2a8fbf" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="320" cy="136" r="3.5" fill="#2a8fbf"/>
+<rect x="296" y="160" width="48" height="10" rx="5" fill="#fff"/><rect x="296" y="176" width="34" height="10" rx="5" fill="#fff"/>
+<rect x="306" y="72" width="28" height="8" rx="4" fill="#2a2733"/>
+${label(347,82,"❤ 99+",{s:9,c:"#e0573f"})}
+</g>
+${bowing(170,248,"#7aa6e0")}${bowing(220,248,"#e0a25b",SKIN2)}
+<!-- stehende Person -->
+${person(110,248,"#9b7bd6",{arms:"open",face:"think",hair:"#3b2a20"})}
+${bubble(160,124,140,52,["O Allwissender …","äh, Google!"],215,226)}
+${bubble(12,46,130,40,["Wohin schaut ihr?"],100,162)}
+`),
+steps:[
+["Beschreiben","Was siehst du?","Rechts steht ein riesiges Smartphone mit WLAN-Zeichen, über ihm ein goldener Heiligenschein und Strahlen. Zwei Menschen werfen sich davor nieder wie beim Gebet. Einer sagt: „O Allwissender … äh, Google!“ Links stehen ausgegraute, leere Gotteshäuser (Kirche und Moschee) mit dem Schild „Heute leer“. Eine Person fragt verwundert: „Wohin schaut ihr?“"],
+["Deuten","Was will der Zeichner sagen?","Das Handy hat für viele Menschen den Platz Gottes eingenommen: Man richtet sich ganz darauf aus, „betet“ es an und erwartet von ihm alle Antworten (Google = „allwissend“). Die leeren Gotteshäuser zeigen, dass Religion im Alltag an Bedeutung verliert. Der Zeichner kritisiert eine <b>Ersatzreligion</b>."],
+["Einordnen","Welches Unterrichtswissen passt?","<b>Qibla / Widschha:</b> Im Islam richtet sich der Mensch mit seinem ganzen „Gesicht“ auf Gott aus. Hier zeigt die Ausrichtung in die <b>falsche Richtung</b>.<br><b>Tillich:</b> Das Handy wird zum „unbedingten Anliegen“, und dem Menschen fehlt die Dimension der Tiefe.<br><b>Kaufmann:</b> Das Handy erfüllt scheinbar Funktionen von Religion (Gemeinschaft durch Likes, Orientierung, Ablenkung von Angst), aber keine <b>Sinnstiftung</b>."],
+["Bewerten","Hat der Zeichner recht?","<b>Pro:</b> Viele verbringen Stunden am Handy und fragen kaum nach dem Sinn; Likes ersetzen Gemeinschaft.<br><b>Contra:</b> Das Handy kann auch religiöses Leben unterstützen, z. B. durch Gebetszeiten-Apps, die Qibla-Richtung oder Koran-Apps. Und nicht jeder Handynutzer hat seinen Glauben verloren.<br><b>Fazit:</b> Die Karikatur übertreibt, macht aber zu Recht darauf aufmerksam, worauf wir uns eigentlich ausrichten."]
+]},
+
+k2:{t:"Nur im Notfall",s:"Religion als Notrufsäule",cap:"„Gott? Nur im Notfall.“",
+draw:()=>svg(`
+<rect width="400" height="300" fill="#fff"/>
+<!-- Panel 1 -->
+<rect x="6" y="6" width="190" height="288" fill="#fff4c9" ${S}/>
+<circle cx="160" cy="44" r="22" fill="#ffd34d" ${S} stroke-width="2.5"/>
+${[0,1,2,3,4,5,6,7].map(n=>{const a=n*Math.PI/4;return `<path d="M${160+Math.cos(a)*28},${44+Math.sin(a)*28} L${160+Math.cos(a)*36},${44+Math.sin(a)*36}" ${S} stroke-width="2.5"/>`}).join("")}
+<rect x="6" y="238" width="190" height="56" fill="#f2d98c"/>
+<path d="M60,238 L48,210 M100,238 L112,210 M44,208 L116,208" ${S} stroke-width="3"/>
+${person(80,238,"#ff8a65",{arms:"phone",face:"cool",hair:"#5a3d2b"})}
+${bubble(12,62,146,54,["Gott?","Keine Zeit, später!"],70,148)}
+${label(100,280,"Montag, Sonne",{f:"Caveat,cursive",s:20})}
+<!-- Panel 2 -->
+<rect x="204" y="6" width="190" height="288" fill="#5d6a86" ${S}/>
+<path d="M214,40 Q240,14 270,32 Q300,10 330,30 Q365,18 384,44 Q360,60 330,52 Q300,66 270,54 Q240,62 214,40Z" fill="#3c4560" ${S} stroke-width="2.5"/>
+<path d="M300,56 L288,84 L300,84 L286,112" stroke="#ffd34d" stroke-width="4" fill="none" stroke-linejoin="round"/>
+${[0,1,2,3,4,5,6,7,8].map(n=>`<path d="M${220+n*19},${70+(n%3)*18} l-6,16" stroke="#cfe3ff" stroke-width="2" stroke-linecap="round"/>`).join("")}
+<path d="M254,214 L346,214 L332,246 L268,246Z" fill="#a0522d" ${S}/>
+${person(300,226,"#ff8a65",{arms:"up",face:"shock",hair:"#5a3d2b"})}
+<path d="M204,236 Q228,220 252,238 Q276,256 300,238 Q324,220 348,238 Q372,256 394,236 L394,294 L204,294Z" fill="#3f7fbf" ${S}/>
+${bubble(210,100,146,54,["HILFE! Gott,","wo bist du?!"],282,148)}
+${label(300,280,"Freitag, Sturm",{f:"Caveat,cursive",s:20,c:"#fff"})}
+`),
+steps:[
+["Beschreiben","Was siehst du?","Zwei Bilder. Links an einem sonnigen „Montag“ liegt ein Mann mit Sonnenbrille und Handy entspannt am Strand und sagt: „Gott? Keine Zeit, später!“ Rechts am „Freitag“ sitzt derselbe Mann im Sturm in einem sinkenden Boot, reißt die Arme hoch und schreit: „HILFE! Gott, wo bist du?!“"],
+["Deuten","Was will der Zeichner sagen?","Viele Menschen brauchen Gott nur, wenn es ihnen schlecht geht. Im normalen Alltag spielt Religion keine Rolle. Der Zeichner kritisiert diese „Notfall-Religion“, bei der Gott wie ein Rettungsdienst benutzt wird."],
+["Einordnen","Welches Unterrichtswissen passt?","<b>Kaufmann:</b> Hier bleibt von Religion nur die <b>Kontingenzbewältigung</b> übrig, also die Hilfe bei Leid und Unglück. Sinnstiftung, Moral, Gemeinschaft und Persönlichkeitsstärkung im Alltag fehlen.<br><b>Funktionaler Religionsbegriff:</b> Religion wird nur über ihren Nutzen gesehen.<br><b>Islam:</b> Islam ist Hingabe im <b>ganzen</b> Leben, mit täglichem Gebet und Handeln, nicht nur in der Not. Dazu passt Tauba als ehrliche Umkehr."],
+["Bewerten","Hat der Zeichner recht?","<b>Pro:</b> Es ist menschlich und häufig, dass man erst in Krisen betet.<br><b>Contra:</b> Gerade die Not kann ein echter Anfang des Glaubens sein. Und es ist nichts Schlechtes, dass Religion in Krisen tröstet; das ist ja eine ihrer Aufgaben.<br><b>Fazit:</b> Die Karikatur zeigt treffend eine einseitige Religiosität. Religion ist mehr als ein Airbag."]
+]},
+
+k3:{t:"Zwei Fragen, ein Himmel",s:"Glauben und Wissen",cap:"„Zwei Fragen – ein Himmel“",
+draw:()=>svg(`
+<defs><radialGradient id="sky3" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#2d2a6e"/><stop offset="1" stop-color="#0c0f24"/></radialGradient></defs>
+<rect width="400" height="300" fill="url(#sky3)"/>
+${Array.from({length:40},(_,n)=>`<circle cx="${(n*97)%400}" cy="${(n*53)%170}" r="${n%4?1.2:2.2}" fill="#fff" opacity="${.5+(n%3)*.2}"/>`).join("")}
+<path d="M190,30 l4,10 l10,1 l-8,7 l3,10 l-9,-6 l-9,6 l3,-10 l-8,-7 l10,-1z" fill="#f6d58c"/>
+<path d="M0,250 Q200,200 400,250 L400,300 L0,300Z" fill="#20304a" ${S}/>
+<!-- Teleskop -->
+<path d="M70,236 L82,206 L94,236 M82,206 L82,236" ${S} stroke="#ddd" stroke-width="2.5"/>
+<g transform="rotate(-35 82 206)"><rect x="70" y="196" width="60" height="16" rx="4" fill="#c8ccd8" ${S}/><rect x="126" y="193" width="10" height="22" rx="2" fill="#9aa0b2" ${S}/></g>
+${person(60,246,"#f2f2f2",{arms:"point",face:"think",hair:"#888"})}
+${person(320,246,"#3fd1a4",{arms:"open",face:"smile",hair:"#2b1d14",skin:SKIN2})}
+${person(196,252,"#ffb347",{arms:"down"}).replace(/r="13"/,'r="11"')}
+${bubble(8,62,132,46,["WIE funktioniert","das Universum?"],70,152,{fs:11.5})}
+${bubble(260,62,134,46,["WARUM gibt es","das alles?"],318,152,{fs:11.5})}
+${think(138,116,120,42,["Darf man","beides fragen?"],196,160)}
+`),
+steps:[
+["Beschreiben","Was siehst du?","Nachts auf einem Hügel unter einem Sternenhimmel. Links steht ein Wissenschaftler mit Teleskop und fragt: „WIE funktioniert das Universum?“ Rechts steht ein Mensch mit offenen Händen und fragt: „WARUM gibt es das alles?“ In der Mitte denkt ein Kind: „Darf man beides fragen?“"],
+["Deuten","Was will der Zeichner sagen?","Wissenschaft und Religion schauen auf <b>denselben</b> Himmel, stellen aber <b>unterschiedliche Fragen</b>. Die Wissenschaft fragt nach dem „Wie“ (Erklärung), die Religion nach dem „Warum“ (Sinn). Das Kind zeigt: Beides muss sich nicht widersprechen."],
+["Einordnen","Welches Unterrichtswissen passt?","<b>AB „Glauben“:</b> Wissen ist beweisbar, religiöser Glaube ist Vertrauen und Überzeugung. Beides sind verschiedene Bereiche.<br><b>Einstein:</b> Das Staunen über das Mystische ist die Quelle der Wissenschaft und Kern der Religiosität.<br><b>Härle:</b> Religion entsteht aus Wissensdurst.<br><b>Tillich:</b> Die Frage nach dem Sinn ist die religiöse Dimension.<br><b>Islam:</b> Der Koran fordert auf, über die Zeichen (āyāt) im Himmel nachzudenken."],
+["Bewerten","Hat der Zeichner recht?","<b>Pro:</b> Viele Wissenschaftler waren gläubig; die Fragen ergänzen sich.<br><b>Contra:</b> Manchmal gibt es echte Konflikte, z. B. Kreationismus gegen Evolution (AB glauben, Satz h).<br><b>Fazit:</b> Die Karikatur zeigt ein überzeugendes Modell: Glauben und Wissen beantworten verschiedene Fragen."]
+]},
+
+k4:{t:"Oberflächlich",s:"Die Dimension der Tiefe",cap:"„Wer taucht noch ab?“",
+draw:()=>svg(`
+<defs><linearGradient id="sea4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fb7e8"/><stop offset=".5" stop-color="#1d5d8f"/><stop offset="1" stop-color="#071a33"/></linearGradient>
+<radialGradient id="glow4"><stop offset="0" stop-color="#fff6c8"/><stop offset="1" stop-color="#fff6c800"/></radialGradient>
+<linearGradient id="beam4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6c8aa"/><stop offset="1" stop-color="#fff6c800"/></linearGradient></defs>
+<rect width="400" height="300" fill="#cfeeff"/>
+<rect y="70" width="400" height="230" fill="url(#sea4)"/>
+<path d="M0,70 Q25,62 50,70 T100,70 T150,70 T200,70 T250,70 T300,70 T350,70 T400,70" stroke="#fff" stroke-width="3" fill="none"/>
+<!-- Leute auf Schwimmringen -->
+${[40,120,200,280].map((x,n)=>`<ellipse cx="${x}" cy="70" rx="26" ry="8" fill="${["#ff6b6b","#ffd34d","#7ee0a8","#c69bff"][n]}" ${S} stroke-width="2.5"/>
+<rect x="${x-10}" y="40" width="20" height="26" rx="8" fill="${["#ffb3a1","#9fc9ff","#ffc78f","#b7f0d0"][n]}" ${S} stroke-width="2.5"/>
+<circle cx="${x}" cy="30" r="10" fill="${n%2?SKIN2:SKIN}" ${S} stroke-width="2.5"/>
+<rect x="${x+3}" y="34" width="9" height="13" rx="2" fill="#333" ${S} stroke-width="1.5"/><rect x="${x+5}" y="36" width="5" height="8" fill="#8fe3ff"/>`).join("")}
+${label(40,12,"Likes!",{f:"Caveat,cursive",s:17})}${label(120,12,"Neue Folge!",{f:"Caveat,cursive",s:17})}${label(200,12,"Lol 😂",{f:"Caveat,cursive",s:17})}${label(280,12,"Akku!!",{f:"Caveat,cursive",s:17})}
+<!-- Taucher -->
+<g transform="rotate(35 330 175)">
+<polygon points="352,182 420,300 300,300" fill="url(#beam4)"/>
+<rect x="306" y="160" width="44" height="22" rx="11" fill="#2e2e3a" ${S}/>
+<rect x="296" y="156" width="14" height="30" rx="5" fill="#ffd34d" ${S} stroke-width="2"/>
+<circle cx="356" cy="171" r="11" fill="${SKIN}" ${S}/><rect x="352" y="164" width="14" height="10" rx="3" fill="#8fe3ff" ${S} stroke-width="2"/>
+<path d="M306,166 L282,158 L276,172Z M306,176 L284,184 L282,196Z" fill="#ff8a65" ${S} stroke-width="2"/>
+</g>
+<circle cx="345" cy="118" r="4" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="352" cy="104" r="3" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="346" cy="92" r="2" fill="none" stroke="#fff" stroke-width="1.5"/>
+<!-- Licht in der Tiefe -->
+<circle cx="250" cy="262" r="46" fill="url(#glow4)"/>
+<path d="M238,262 Q250,236 262,262 Q250,276 238,262Z" fill="#fff6c8" ${S} stroke-width="2"/>
+${label(250,292,"SINN?",{s:13,c:"#fff6c8"})}
+${label(120,140,"Oberfläche",{f:"Caveat,cursive",s:22,c:"#ffffffcc"})}
+${label(110,232,"Tiefe",{f:"Caveat,cursive",s:24,c:"#ffffff99"})}
+`),
+steps:[
+["Beschreiben","Was siehst du?","Ein Meer im Querschnitt. An der Oberfläche treiben vier Menschen auf bunten Schwimmringen, alle schauen auf ihr Handy und rufen „Likes!“, „Neue Folge!“, „Lol“ und „Akku!!“. Nur ein Taucher mit Lampe schwimmt nach unten in die dunkle Tiefe, wo ein Licht mit der Aufschrift „SINN?“ leuchtet."],
+["Deuten","Was will der Zeichner sagen?","Die meisten Menschen leben „oberflächlich“: Sie beschäftigen sich mit Unterhaltung und schnellen Reizen. Nur wenige wagen es, „abzutauchen“, also nach dem tieferen Sinn des Lebens zu fragen. Das ist anstrengend und dunkel, aber dort liegt das eigentliche Licht."],
+["Einordnen","Welches Unterrichtswissen passt?","<b>Tillich (Dimension der Tiefe):</b> Der moderne Mensch hat die Tiefe verloren, also die Frage nach Woher, Wohin und Wozu. Religiös sein heißt, leidenschaftlich nach dem Sinn zu fragen. Der Taucher ist genau dieser religiöse Mensch.<br><b>Kaufmann:</b> Sinnstiftung.<br><b>Einstein:</b> Wer nicht mehr staunen kann, ist „so gut wie tot“."],
+["Bewerten","Hat der Zeichner recht?","<b>Pro:</b> Social Media lenkt tatsächlich stark ab; viele denken selten über den Sinn nach.<br><b>Contra:</b> Es ist ungerecht, alle Handynutzer als oberflächlich darzustellen, und auch Religion kann oberflächlich gelebt werden (nur Rituale ohne Herz).<br><b>Fazit:</b> Die Karikatur veranschaulicht Tillichs These sehr gut, verallgemeinert aber zu stark."]
+]},
+
+k5:{t:"Route wird neu berechnet",s:"Tauba – die Umkehr",cap:"„Tauba – die Drehung“",
+draw:()=>svg(`
+<rect width="400" height="300" fill="#eaf6ee"/>
+<path d="M0,215 Q120,200 240,215 T400,210" stroke="#cfe6d6" stroke-width="60" fill="none"/>
+<!-- Straße -->
+<path d="M-10,250 C120,250 220,250 300,190 C340,160 360,120 380,40" stroke="#8a8f99" stroke-width="44" fill="none"/>
+<path d="M-10,250 C120,250 220,250 300,190 C340,160 360,120 380,40" stroke="#fff" stroke-width="3" stroke-dasharray="14 12" fill="none"/>
+<!-- Abgrund -->
+<path d="M330,80 L400,60 L400,0 L300,0 Z" fill="#3a3340"/>
+<rect x="318" y="62" width="70" height="26" fill="#ffd34d" ${S} transform="rotate(-18 353 75)"/>
+<g transform="rotate(-18 353 75)">${label(353,80,"SACKGASSE",{s:10})}</g>
+<!-- U-Turn -->
+<path d="M250,170 C270,120 200,100 170,150 C150,185 170,205 190,215" stroke="#0d8f6c" stroke-width="7" fill="none" stroke-dasharray="2 12" stroke-linecap="round"/>
+<path d="M178,206 L196,220 L200,198" stroke="#0d8f6c" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+${person(270,230,"#5b8def",{arms:"phone",face:"think",hair:"#2b1d14"})}
+<!-- Navi -->
+<rect x="20" y="26" width="160" height="92" rx="14" fill="#1d1b26" ${S}/>
+<rect x="28" y="34" width="144" height="76" rx="8" fill="#0d8f6c"/>
+<path d="M100,92 C120,92 132,74 120,58 C110,46 86,50 86,66" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M80,60 L86,70 L94,60" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+${label(100,54,"⟳",{s:16,c:"#fff"})}
+${bubble(188,26,150,56,["Route wird","neu berechnet …"],186,90,{fs:13})}
+${think(14,150,166,38,["Ich hab mich verirrt …"],240,150)}
+`),
+steps:[
+["Beschreiben","Was siehst du?","Ein Mensch läuft eine Straße entlang, die in einer „Sackgasse“ an einem Abgrund endet. Er schaut auf sein Handy und denkt: „Ich hab mich verirrt …“ Ein grüner gestrichelter Pfeil zeigt eine U-Kehre zurück. Ein Navi meldet: „Route wird neu berechnet …“"],
+["Deuten","Was will der Zeichner sagen?","Jeder Mensch kann im Leben den falschen Weg gehen. Entscheidend ist, dass man es bemerkt und <b>umkehrt</b>. Umkehr ist keine Schande, sondern eine neue Chance; das Ziel bleibt erreichbar."],
+["Einordnen","Welches Unterrichtswissen passt?","<b>Tauba</b> (Sure 25:71) heißt wörtlich „Drehung“: Wer seinen Kurs verloren hat, richtet sich wieder auf Gott aus. Dazu gehören Reue, eine feste Absicht und Wiedergutmachung.<br><b>Widschha / Qibla:</b> Religion als Ausrichtung.<br><b>Kaufmann:</b> Moral/Orientierung (Kompass) und Persönlichkeitsstärkung (neuer Anfang nimmt Angst).<br><b>Christlich:</b> „Umkehr“ (Buße) ist auch im Christentum zentral; Vergebung der Sünden steht im Glaubensbekenntnis."],
+["Bewerten","Hat der Zeichner recht?","<b>Pro:</b> Das Bild macht Hoffnung: Fehler sind nicht das Ende, der Mensch kann sich ändern.<br><b>Contra:</b> Echte Umkehr ist schwerer als ein Klick auf „neu berechnen“; Schaden muss man auch wiedergutmachen. Das zeigt die Karikatur zu einfach.<br><b>Fazit:</b> Ein gutes Bild für Tauba, aber man darf nicht vergessen, dass Umkehr auch Anstrengung bedeutet."]
+]}
+};
+
+
+/* ===================== DEKOR ===================== */
+function pattern(k,id){
+  if(k==="i")return `<pattern id="${id}" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#0d8f6c"/><g transform="translate(20 20)" fill="none" stroke="#f6d58c" stroke-width="1.6" opacity=".75"><rect x="-10" y="-10" width="20" height="20"/><rect x="-10" y="-10" width="20" height="20" transform="rotate(45)"/><circle r="3.5" fill="#f6d58c"/></g><g stroke="#3fd1a4" stroke-width="1" opacity=".6"><path d="M0,0 L6,6 M40,0 L34,6 M0,40 L6,34 M40,40 L34,34"/></g></pattern>`;
+  if(k==="c")return `<pattern id="${id}" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="#4a3cb8"/><path d="M0,0 L22,22 L44,0 M0,44 L22,22 L44,44" stroke="#2a1f78" stroke-width="3"/><path d="M22,22 m-9,0 a9,9 0 1,0 18,0 a9,9 0 1,0 -18,0" fill="#e8b44a" opacity=".85" stroke="#2a1f78" stroke-width="2"/><path d="M0,22 L8,22 M36,22 L44,22" stroke="#2a1f78" stroke-width="3"/><circle cx="0" cy="22" r="5" fill="#e0573f" opacity=".8"/><circle cx="44" cy="22" r="5" fill="#e0573f" opacity=".8"/><circle cx="22" cy="0" r="5" fill="#3fd1a4" opacity=".7"/><circle cx="22" cy="44" r="5" fill="#3fd1a4" opacity=".7"/></pattern>`;
+  if(k==="k")return `<pattern id="${id}" width="30" height="30" patternUnits="userSpaceOnUse"><rect width="30" height="30" fill="#e0573f"/><circle cx="8" cy="8" r="4" fill="#ff8a70"/><circle cx="23" cy="23" r="4" fill="#ff8a70"/></pattern>`;
+  return `<pattern id="${id}" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="#c9861a"/><path d="M0,24 L24,0" stroke="#f6d58c" stroke-width="3"/></pattern>`;
+}
+function portal(k){
+  const arch=k==="i"?"M6,236 V100 Q6,40 90,8 Q174,40 174,100 V236 Z":"M6,236 V92 A84,84 0 0 1 174,92 V236 Z";
+  const inner=k==="i"?"M30,236 V110 Q30,62 90,36 Q150,62 150,110 V236 Z":"M30,236 V98 A60,60 0 0 1 150,98 V236 Z";
+  const emblem=k==="i"
+    ?`<g transform="translate(90 132)"><circle r="34" fill="#0c0f24" opacity=".35"/><path d="M8,-22 A24,24 0 1,0 8,22 A19,19 0 1,1 8,-22Z" fill="#f6d58c"/><path d="M18,-6 l3,7 l7,0 l-6,4 l2,7 l-6,-4 l-6,4 l2,-7 l-6,-4 l7,0z" fill="#f6d58c"/></g>`
+    :`<g transform="translate(90 132)"><circle r="34" fill="#0c0f24" opacity=".35"/>${[0,1,2,3,4,5,6,7].map(n=>`<ellipse rx="7" ry="15" transform="rotate(${n*45}) translate(0 -14)" fill="${["#e8b44a","#e0573f","#3fd1a4","#8f7cff"][n%4]}" opacity=".9"/>`).join("")}<circle r="7" fill="#f6d58c"/><path d="M0,-5 V5 M-4,-1 H4" stroke="#2a1f78" stroke-width="2"/></g>`;
+  return `<svg viewBox="0 0 180 240"><defs>${pattern(k,"pp"+k)}<linearGradient id="dk${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient></defs>
+  <path d="${arch}" fill="${k==="i"?"#f6d58c":"#e8b44a"}"/><path d="${arch}" fill="url(#pp${k})" transform="translate(5 5) scale(.944 .958)"/>
+  <path d="${inner}" fill="${k==="i"?"#0a5e47":"#2a1f78"}"/><path d="${inner}" fill="url(#dk${k})"/>${emblem}</svg>`;
+}
+function band(k){return `<svg preserveAspectRatio="xMidYMid slice" viewBox="0 0 400 120"><defs>${pattern(k,"bp"+k)}</defs><rect width="400" height="120" fill="url(#bp${k})"/></svg>`}
+
+
+/* ===================== APP ===================== */
+const ACC={c:"#5b4bd1",i:"#0d8f6c",k:"#d0533d",t:"#b77a14",l:"#3c6fb0"};
+const app=document.getElementById("app");
+const ORDER=["c","i","k","t","l"];
+const NAMES={c:"Christlicher Teil",i:"Islamischer Teil",k:"Karikaturen",t:"Klausur-Training",l:"Karteikarten & Quiz"};
+
+function home(){
+  document.body.className="";
+  app.innerHTML=`<div class="fade"><div class="hero">
+  <svg class="moon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="34" fill="#f6d58c" opacity=".15"/><circle cx="50" cy="50" r="24" fill="#f6d58c"/><circle cx="62" cy="42" r="22" fill="#0c0f24"/><circle cx="20" cy="20" r="2" fill="#fff"/><circle cx="86" cy="76" r="1.5" fill="#fff"/><circle cx="78" cy="18" r="1.2" fill="#fff"/></svg>
+  <div class="eyebrow">Religion · Klasse 11b</div><h1>Was ist<br><em>Religion?</em></h1><p>Zwei Tore, ein Ziel: die Klausur. Wähle deinen Weg.</p><button class="fsbtn" data-fs="1">⛶ Vollbild</button></div>
+  <div class="portals">
+   <button class="portal" data-go="c">${portal("c")}<h2>Christlicher Teil</h2><small>${PAGES.c.chapters.length} Kapitel</small></button>
+   <button class="portal" data-go="i">${portal("i")}<h2>Islamischer Teil</h2><small>${PAGES.i.chapters.length} Kapitel</small></button>
+  </div>
+  <button class="wide k" data-go="k"><svg class="art" viewBox="0 0 80 70"><rect x="4" y="6" width="64" height="54" rx="4" fill="#fff" stroke="${INK}" stroke-width="3" transform="rotate(-5 36 33)"/><circle cx="30" cy="38" r="9" fill="${SKIN}" stroke="${INK}" stroke-width="2.5"/><rect x="38" y="14" width="34" height="18" rx="8" fill="#fff" stroke="${INK}" stroke-width="2.5"/><path d="M44,32 L38,38" stroke="${INK}" stroke-width="2.5"/><text x="55" y="27" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="13">?!</text></svg><div><h2>Karikaturen</h2><p>Methode + 5 Übungs-Karikaturen mit Lösung</p></div><span class="go">→</span></button>
+  <button class="wide t" data-go="t"><svg class="art" viewBox="0 0 80 70"><rect x="12" y="8" width="50" height="58" rx="4" fill="#fff" stroke="${INK}" stroke-width="3"/><path d="M20,24 H54 M20,34 H54 M20,44 H42" stroke="#c9861a" stroke-width="3" stroke-linecap="round"/><path d="M50,46 l6,6 l12,-14" stroke="#0d8f6c" stroke-width="4" fill="none" stroke-linecap="round"/></svg><div><h2>Klausur-Training</h2><p>Ablauf · Operatoren · Musterlösung Einstein</p></div><span class="go">→</span></button>
+  <button class="wide l" data-go="l"><svg class="art" viewBox="0 0 80 70"><rect x="16" y="14" width="50" height="36" rx="5" fill="#fff1a6" stroke="${INK}" stroke-width="3" transform="rotate(8 41 32)"/><rect x="10" y="18" width="50" height="36" rx="5" fill="#fff" stroke="${INK}" stroke-width="3"/><text x="35" y="42" text-anchor="middle" font-family="Fraunces,serif" font-weight="900" font-size="18" fill="${INK}">?</text></svg><div><h2>Karteikarten & Quiz</h2><p>Begriffe wiederholen und dich testen</p></div><span class="go">→</span></button>
+  </div>`;
+}
+
+function readPage(key){
+  document.body.className="read";
+  const acc=ACC[key];
+  let chapters=[],intro="",title=NAMES[key];
+  if(PAGES[key]){chapters=PAGES[key].chapters;intro=PAGES[key].intro}
+  if(key==="k"){intro="Erst lernst du die Methode. Dann übst du an fünf Karikaturen. Überlege immer zuerst selbst und decke dann die Lösung auf.";
+    chapters=[{t:"So analysierst du eine Karikatur",h:KMETHOD},...Object.values(CARTOONS).map(c=>({t:"Übung: "+c.t,h:cartoonHTML(c)}))]}
+  if(key==="l"){intro="Wiederhole die wichtigsten Begriffe mit den Karteikarten und teste dich dann mit dem Quiz.";
+    chapters=[{t:"Karteikarten",h:`<div id="cards"></div>`},{t:"Quiz",h:`<div id="quiz"></div>`}]}
+  const idx=ORDER.indexOf(key),next=ORDER[idx+1];
+  app.innerHTML=`<div class="rbar"><button class="rback" data-go="home" aria-label="Zur Startseite">←</button><span class="rtitle">${title}</span><button class="fsbtn" data-fs="1">⛶ Vollbild</button><button class="rtop" data-top="1">Inhalt ↑</button></div>
+  <article class="doc" style="--accent:${acc}">
+   <header class="dochead"><span class="kick">${key==="c"?"✝":key==="i"?"☪":"✎"} ${title}</span><h1>${title}</h1><p>${intro}</p></header>
+   <nav class="toc"><b>Inhalt</b><ol>${chapters.map((c,n)=>`<li><button data-ch="${n}">${c.t}</button></li>`).join("")}</ol></nav>
+   ${chapters.map((c,n)=>`<section class="ch" id="ch${n}"><span class="chn">Kapitel ${n+1}</span><h2>${c.t}</h2>${c.h}</section>`).join("")}
+   <div class="docend">${next?`<button data-go="${next}">Weiter: <b>${NAMES[next]}</b> →</button>`:""}<button class="ghost" data-go="home">← Zur Startseite</button></div>
+  </article>`;
+  if(key==="l"){cards();quiz()}
+}
+function cartoonHTML(c){
+  return `<div class="cartoon">${c.draw()}</div><div class="caption">${c.cap}</div>
+  ${c.steps.map((s,n)=>`<div class="step"><div class="q"><span class="n">${n+1}</span><span><b>${s[0]}</b><small>${s[1]}</small></span></div><button class="reveal" data-reveal="1">Lösung zeigen</button><div class="ans">${s[2]}</div></div>`).join("")}`;
+}
+function seg(cb){const w=document.createElement("div");w.className="seg";[["a","Alle"],["c","Christlich"],["i","Islamisch"]].forEach(([v,l],n)=>{const b=document.createElement("button");b.textContent=l;if(!n)b.className="on";b.onclick=()=>{w.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");cb(v)};w.appendChild(b)});return w}
+function cards(){
+  const box=document.getElementById("cards");let deck=CARDS.slice(),i=0;
+  box.appendChild(seg(v=>{deck=CARDS.filter(c=>v==="a"||c[2]===v);i=0;draw()}));
+  const f=document.createElement("div");f.className="flip";f.innerHTML=`<div class="fi"><div class="side front"><b></b><span class="hint">Tippen zum Umdrehen</span></div><div class="side backs"><span></span></div></div>`;box.appendChild(f);
+  const r=document.createElement("div");r.className="row";r.innerHTML=`<button class="btn">←</button><span class="note"></span><button class="btn">Mischen</button><button class="btn main">→</button>`;box.appendChild(r);
+  const [bp,cnt,bm,bn]=r.children;
+  function draw(){f.classList.remove("f");f.querySelector(".front b").textContent=deck[i][0];f.querySelector(".backs span").textContent=deck[i][1];cnt.textContent=(i+1)+" / "+deck.length}
+  f.onclick=()=>f.classList.toggle("f");bp.onclick=()=>{i=(i-1+deck.length)%deck.length;draw()};bn.onclick=()=>{i=(i+1)%deck.length;draw()};bm.onclick=()=>{deck.sort(()=>Math.random()-.5);i=0;draw()};draw();
+}
+function quiz(){
+  const box=document.getElementById("quiz");let Q=QUIZ.slice(),i=0,sc=0,done=false;
+  box.appendChild(seg(v=>{Q=QUIZ.filter(q=>v==="a"||q[4]===v||q[4]==="t");i=0;sc=0;draw()}));
+  const a=document.createElement("div");box.appendChild(a);
+  function draw(){done=false;
+    if(i>=Q.length){a.innerHTML=`<div class="result"><div class="big">${sc} / ${Q.length}</div><p>${sc===Q.length?"Alles richtig.":sc>=Q.length*.7?"Gut gemacht.":"Lies die Kapitel noch einmal und versuch es erneut."}</p><button class="btn main" id="ag">Nochmal</button></div>`;document.getElementById("ag").onclick=()=>{i=0;sc=0;draw()};return}
+    const q=Q[i];a.innerHTML=`<div class="qhead"><span>Frage ${i+1} von ${Q.length}</span><span>${sc} richtig</span></div><div class="qbar"><div style="width:${i/Q.length*100}%"></div></div><p class="qq">${q[0]}</p>`;
+    q[1].forEach((o,n)=>{const b=document.createElement("button");b.className="btn opt";b.textContent=o;b.onclick=()=>{if(done)return;done=true;
+      if(n===q[2]){b.classList.add("r");sc++}else{b.classList.add("w");a.querySelectorAll(".opt")[q[2]].classList.add("r")}
+      const e=document.createElement("p");e.className="note";e.textContent=q[3];a.appendChild(e);
+      const nb=document.createElement("button");nb.className="btn main";nb.style.width="100%";nb.style.marginTop="8px";nb.textContent=i+1<Q.length?"Nächste Frage":"Ergebnis zeigen";nb.onclick=()=>{i++;draw()};a.appendChild(nb)};a.appendChild(b)})}
+  draw();
+}
+function go(h){if(ORDER.includes(h))readPage(h);else home();window.scrollTo(0,0);setTimeout(()=>window.scrollTo(0,0),0)}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-go],[data-ch],[data-top],[data-reveal],[data-fs]");if(!t)return;
+  if(t.dataset.fs){toggleFs();return}
+  if(t.dataset.go){e.preventDefault();go(t.dataset.go)}
+  else if(t.dataset.ch){const el=document.getElementById("ch"+t.dataset.ch);if(el){const y=el.getBoundingClientRect().top+window.pageYOffset-60;window.scrollTo(0,y)}}
+  else if(t.dataset.top){window.scrollTo(0,0)}
+  else if(t.dataset.reveal){t.parentNode.classList.add("open")}
+});
+function fsEl(){return document.fullscreenElement||document.webkitFullscreenElement}
+function toggleFs(){
+  const d=document.documentElement;
+  try{
+    if(fsEl()){(document.exitFullscreen||document.webkitExitFullscreen).call(document);return}
+    const r=(d.requestFullscreen||d.webkitRequestFullscreen);
+    if(!r){fsHint();return}
+    const p=r.call(d);if(p&&p.catch)p.catch(fsHint);
+  }catch(e){fsHint()}
+}
+function fsHint(){let n=document.getElementById("fshint");if(!n){n=document.createElement("div");n.id="fshint";document.body.appendChild(n)}
+  n.textContent="Vollbild wird hier vom Gerät nicht erlaubt. Drehe das iPad ins Querformat, die Seite passt sich der Breite an.";n.className="show";setTimeout(()=>n.className="",5000)}
+go("home");
+
+</script>
+</body>
+</html>

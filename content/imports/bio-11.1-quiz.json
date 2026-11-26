@@ -1,0 +1,2349 @@
+{
+  "questions": [
+    {
+      "key": "bio111-q005",
+      "subject": "bio",
+      "topic": "Zelle",
+      "type": "single",
+      "prompt": "Was haben Prokaryoten NICHT?",
+      "options": [
+        "Zellkern",
+        "DNA",
+        "Ribosomen",
+        "Zellmembran"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Prokaryoten haben DNA, Ribosomen (70S) und eine Zellmembran – aber keinen Zellkern."
+      ]
+    },
+    {
+      "key": "bio111-q006",
+      "subject": "bio",
+      "topic": "Zelle",
+      "type": "single",
+      "prompt": "Welche Ribosomen haben Bakterien?",
+      "options": [
+        "70S",
+        "80S",
+        "90S",
+        "gar keine"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Bakterien: 70S (klein). Eukaryoten: 80S (groß). Antibiotika wie Streptomycin hemmen gezielt 70S."
+      ]
+    },
+    {
+      "key": "bio111-q007",
+      "subject": "bio",
+      "topic": "Zelle",
+      "type": "single",
+      "prompt": "Bakterien haben keine DNA.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch! Sie haben DNA, nur keinen Zellkern."
+      ]
+    },
+    {
+      "key": "bio111-q008",
+      "subject": "bio",
+      "topic": "Zelle",
+      "type": "single",
+      "prompt": "Mitochondrien haben eigene DNA.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – ein Beleg für die Endosymbiontentheorie."
+      ]
+    },
+    {
+      "key": "bio111-q012",
+      "subject": "bio",
+      "topic": "Fette",
+      "type": "single",
+      "prompt": "Was passiert bei der Veresterung?",
+      "options": [
+        "Wasser wird abgespalten",
+        "Wasser wird aufgenommen",
+        "ATP wird verbraucht",
+        "Sauerstoff wird frei"
+      ],
+      "answer": 0,
+      "explanation": [
+        "OH vom Glycerin + COOH der Fettsäure → Esterbindung + H₂O (Kondensation)."
+      ]
+    },
+    {
+      "key": "bio111-q013",
+      "subject": "bio",
+      "topic": "Fette",
+      "type": "single",
+      "prompt": "Wie viele Doppelbindungen hat C₁₈H₃₂O₂ (Linolsäure)?",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": [
+        "Gesättigt wäre H₃₆. Es fehlen 4 H → 4 : 2 = 2 Doppelbindungen."
+      ]
+    },
+    {
+      "key": "bio111-q014",
+      "subject": "bio",
+      "topic": "Fette",
+      "type": "single",
+      "prompt": "Ungesättigte Fettsäuren haben Knicke in der Kette.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – an jeder C=C-Doppelbindung."
+      ]
+    },
+    {
+      "key": "bio111-q015",
+      "subject": "bio",
+      "topic": "Fette",
+      "type": "text",
+      "prompt": "Bei der Veresterung wird ____ abgespalten.",
+      "answer": [
+        "wasser",
+        "h2o",
+        "h₂o",
+        "Wasser (H₂O)"
+      ],
+      "explanation": [
+        "Richtige Antwort: Wasser (H₂O)"
+      ]
+    },
+    {
+      "key": "bio111-q020",
+      "subject": "bio",
+      "topic": "Membran",
+      "type": "single",
+      "prompt": "Welcher Teil eines Phospholipids ist hydrophob?",
+      "options": [
+        "Die Fettsäure-Schwänze",
+        "Die Phosphatgruppe",
+        "Das Glycerin",
+        "Der ganze Kopf"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Die unpolaren Schwänze meiden Wasser und zeigen in der Doppelschicht nach innen."
+      ]
+    },
+    {
+      "key": "bio111-q021",
+      "subject": "bio",
+      "topic": "Membran",
+      "type": "single",
+      "prompt": "Warum kommt Glucose nicht einfach durch die Lipidschicht?",
+      "options": [
+        "Sie ist groß und polar",
+        "Sie ist zu klein",
+        "Sie ist fettlöslich",
+        "Sie ist ein Gas"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Das Membraninnere ist hydrophob und stößt polare Moleküle ab → Carrier nötig."
+      ]
+    },
+    {
+      "key": "bio111-q022",
+      "subject": "bio",
+      "topic": "Membran",
+      "type": "single",
+      "prompt": "Integrale Proteine können sich seitlich in der Membran bewegen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – nur nach oben/unten können sie nicht heraus."
+      ]
+    },
+    {
+      "key": "bio111-q023",
+      "subject": "bio",
+      "topic": "Membran",
+      "type": "single",
+      "prompt": "Kanalproteine sind innen hydrophil.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – so können Ionen und Wasser hindurch, ohne die fettige Mitte zu berühren."
+      ]
+    },
+    {
+      "key": "bio111-q024",
+      "subject": "bio",
+      "topic": "Membran",
+      "type": "text",
+      "prompt": "Ein Molekül mit hydrophilem und hydrophobem Teil nennt man ____.",
+      "answer": [
+        "amphiphil"
+      ],
+      "explanation": [
+        "Richtige Antwort: amphiphil"
+      ]
+    },
+    {
+      "key": "bio111-q026",
+      "subject": "bio",
+      "topic": "Modelle",
+      "type": "single",
+      "prompt": "Welcher Versuch zeigte, dass Membranproteine beweglich sind?",
+      "options": [
+        "Zellfusion mit Farbstoffen (Frye & Edidin)",
+        "Overtons Versuch",
+        "Kaliumpermanganat-Versuch",
+        "Zwiebel-Versuch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Grün und rot markierte Proteine waren nach ca. 40 min gemischt."
+      ]
+    },
+    {
+      "key": "bio111-q027",
+      "subject": "bio",
+      "topic": "Modelle",
+      "type": "single",
+      "prompt": "Das Sandwich-Modell ist heute noch gültig.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – es wurde vom Flüssig-Mosaik-Modell ersetzt, weil Proteine IN der Membran stecken."
+      ]
+    },
+    {
+      "key": "bio111-q030",
+      "subject": "bio",
+      "topic": "Diffusion",
+      "type": "single",
+      "prompt": "Am Ende der Diffusion hören die Teilchen auf, sich zu bewegen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – sie bewegen sich weiter (dynamisches Gleichgewicht)."
+      ]
+    },
+    {
+      "key": "bio111-q031",
+      "subject": "bio",
+      "topic": "Diffusion",
+      "type": "single",
+      "prompt": "Teilchen diffundieren, weil sie sich verteilen wollen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – Teilchen wollen nichts. Die Bewegung ist zufällig, die Richtung entsteht statistisch."
+      ]
+    },
+    {
+      "key": "bio111-q032",
+      "subject": "bio",
+      "topic": "Diffusion",
+      "type": "single",
+      "prompt": "Was macht Diffusion SCHNELLER?",
+      "options": [
+        "Höhere Temperatur",
+        "Längere Strecke",
+        "Größere Teilchen",
+        "Kleinerer Konzentrationsunterschied"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Wärmer → schnellere Teilchen. Kurze Strecken, kleine Teilchen und große Unterschiede helfen auch."
+      ]
+    },
+    {
+      "key": "bio111-q033",
+      "subject": "bio",
+      "topic": "Diffusion",
+      "type": "text",
+      "prompt": "Die zufällige Bewegung aller Teilchen heißt ____ Molekularbewegung.",
+      "answer": [
+        "brownsche",
+        "brown'sche",
+        "brownische",
+        "Brownsche"
+      ],
+      "explanation": [
+        "Richtige Antwort: Brownsche"
+      ]
+    },
+    {
+      "key": "bio111-q037",
+      "subject": "bio",
+      "topic": "Osmose",
+      "type": "single",
+      "prompt": "Rote Blutzelle in destilliertem Wasser – was passiert?",
+      "options": [
+        "Sie platzt",
+        "Sie schrumpft",
+        "Nichts",
+        "Plasmolyse"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Dest. Wasser ist hypoton → Wasser strömt ein → keine Zellwand → platzt."
+      ]
+    },
+    {
+      "key": "bio111-q038",
+      "subject": "bio",
+      "topic": "Osmose",
+      "type": "single",
+      "prompt": "Kaviar in 3 % Salzlösung: Masse von 50 g auf …",
+      "options": [
+        "45 g, weil Wasser austritt",
+        "63 g, weil Wasser eintritt",
+        "50 g, isoton",
+        "45 g, weil Salz austritt"
+      ],
+      "answer": 0,
+      "explanation": [
+        "3 % ist hyperton → Wasser verlässt die Eier durch Osmose."
+      ]
+    },
+    {
+      "key": "bio111-q039",
+      "subject": "bio",
+      "topic": "Osmose",
+      "type": "single",
+      "prompt": "Bei der Osmose wandert das Salz durch die Membran.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – nur Wasser wandert. Das Salz kommt nicht durch."
+      ]
+    },
+    {
+      "key": "bio111-q040",
+      "subject": "bio",
+      "topic": "Osmose",
+      "type": "single",
+      "prompt": "Wasser wandert zur Seite mit MEHR gelösten Teilchen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig: „Wasser folgt dem Salz“."
+      ]
+    },
+    {
+      "key": "bio111-q041",
+      "subject": "bio",
+      "topic": "Osmose",
+      "type": "text",
+      "prompt": "Kanalproteine nur für Wasser heißen ____.",
+      "answer": [
+        "aquaporine",
+        "aquaporin",
+        "Aquaporine"
+      ],
+      "explanation": [
+        "Richtige Antwort: Aquaporine"
+      ]
+    },
+    {
+      "key": "bio111-q045",
+      "subject": "bio",
+      "topic": "Plasmolyse",
+      "type": "single",
+      "prompt": "Pflanzenzellen platzen in destilliertem Wasser nicht.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – die Zellwand hält dagegen (Turgor)."
+      ]
+    },
+    {
+      "key": "bio111-q046",
+      "subject": "bio",
+      "topic": "Plasmolyse",
+      "type": "single",
+      "prompt": "Bei 0,4 mol/l Zucker sind 50 % der Zwiebelzellen plasmolysiert. Zellsaft-Konzentration?",
+      "options": [
+        "ca. 0,4 mol/l",
+        "0 mol/l",
+        "ca. 0,1 mol/l",
+        "ca. 1 mol/l"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Grenzplasmolyse ≈ isoton → Zellsaft ≈ 0,4 mol/l."
+      ]
+    },
+    {
+      "key": "bio111-q047",
+      "subject": "bio",
+      "topic": "Plasmolyse",
+      "type": "text",
+      "prompt": "Der Druck des Zellinhalts gegen die Zellwand heißt ____.",
+      "answer": [
+        "turgor",
+        "Turgor"
+      ],
+      "explanation": [
+        "Richtige Antwort: Turgor"
+      ]
+    },
+    {
+      "key": "bio111-q051",
+      "subject": "bio",
+      "topic": "Transport",
+      "type": "single",
+      "prompt": "Was macht die Natrium-Kalium-Pumpe pro ATP?",
+      "options": [
+        "3 Na⁺ raus, 2 K⁺ rein",
+        "2 Na⁺ raus, 3 K⁺ rein",
+        "3 Na⁺ rein, 2 K⁺ raus",
+        "1 Na⁺ raus, 1 K⁺ rein"
+      ],
+      "answer": 0,
+      "explanation": [
+        "3 Na⁺ nach außen, 2 K⁺ nach innen – beide gegen ihr Gefälle."
+      ]
+    },
+    {
+      "key": "bio111-q052",
+      "subject": "bio",
+      "topic": "Transport",
+      "type": "single",
+      "prompt": "Aufnahmekurve steigt und wird dann waagerecht (Sättigung). Welcher Transport?",
+      "options": [
+        "Über Carrier-Proteine",
+        "Einfache Diffusion",
+        "Osmose",
+        "Durch die Lipidschicht"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Sättigung = alle Carrier besetzt. Einfache Diffusion steigt linear."
+      ]
+    },
+    {
+      "key": "bio111-q053",
+      "subject": "bio",
+      "topic": "Transport",
+      "type": "single",
+      "prompt": "Welcher Stoff geht durch einfache Diffusion durch die Membran?",
+      "options": [
+        "O₂",
+        "Na⁺",
+        "Glucose",
+        "Proteine"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Klein und unpolar → direkt durch die Lipidschicht."
+      ]
+    },
+    {
+      "key": "bio111-q054",
+      "subject": "bio",
+      "topic": "Transport",
+      "type": "single",
+      "prompt": "Erleichterte Diffusion braucht Energie.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – sie ist passiv. Das Protein hilft nur."
+      ]
+    },
+    {
+      "key": "bio111-q055",
+      "subject": "bio",
+      "topic": "Transport",
+      "type": "single",
+      "prompt": "Sekundär aktiver Transport nutzt direkt ATP.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – er nutzt einen Ionengradienten, den vorher eine ATP-Pumpe aufgebaut hat."
+      ]
+    },
+    {
+      "key": "bio111-q056",
+      "subject": "bio",
+      "topic": "Transport",
+      "type": "single",
+      "prompt": "Beim Symport bewegen sich die Stoffe in entgegengesetzte Richtungen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – das ist Antiport. Symport = gleiche Richtung."
+      ]
+    },
+    {
+      "key": "bio111-q060",
+      "subject": "bio",
+      "topic": "Vesikel",
+      "type": "single",
+      "prompt": "Endo- und Exocytose brauchen Energie.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – sie sind aktive Vorgänge."
+      ]
+    },
+    {
+      "key": "bio111-q064",
+      "subject": "bio",
+      "topic": "Proteine",
+      "type": "single",
+      "prompt": "Was hält die Sekundärstruktur zusammen?",
+      "options": [
+        "Wasserstoffbrücken im Rückgrat",
+        "Peptidbindungen",
+        "Disulfidbrücken zwischen Resten",
+        "ATP"
+      ],
+      "answer": 0,
+      "explanation": [
+        "H-Brücken zwischen C=O und N–H des Rückgrats → α-Helix / β-Faltblatt."
+      ]
+    },
+    {
+      "key": "bio111-q065",
+      "subject": "bio",
+      "topic": "Proteine",
+      "type": "single",
+      "prompt": "Was bleibt bei der Denaturierung erhalten?",
+      "options": [
+        "Die Primärstruktur",
+        "Die Tertiärstruktur",
+        "Das aktive Zentrum",
+        "Die Quartärstruktur"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Peptidbindungen sind kovalent und bleiben. Nur die Faltung geht kaputt."
+      ]
+    },
+    {
+      "key": "bio111-q066",
+      "subject": "bio",
+      "topic": "Proteine",
+      "type": "single",
+      "prompt": "Wie viele verschiedene Peptide aus 7 Aminosäuren gibt es?",
+      "options": [
+        "20⁷",
+        "7²⁰",
+        "20 × 7",
+        "7"
+      ],
+      "answer": 0,
+      "explanation": [
+        "20 Möglichkeiten an jeder der 7 Stellen → 20⁷ ≈ 1,28 Milliarden."
+      ]
+    },
+    {
+      "key": "bio111-q067",
+      "subject": "bio",
+      "topic": "Proteine",
+      "type": "single",
+      "prompt": "Disulfidbrücken sind kovalente Bindungen.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – deshalb sind sie besonders stabil (z. B. Dauerwelle, thermophile Enzyme)."
+      ]
+    },
+    {
+      "key": "bio111-q068",
+      "subject": "bio",
+      "topic": "Proteine",
+      "type": "single",
+      "prompt": "Bei der Denaturierung zerfällt ein Protein in einzelne Aminosäuren.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – die Kette bleibt, nur die Raumstruktur geht verloren."
+      ]
+    },
+    {
+      "key": "bio111-q075",
+      "subject": "bio",
+      "topic": "Energie",
+      "type": "single",
+      "prompt": "Was bedeutet ΔG < 0?",
+      "options": [
+        "Reaktion läuft freiwillig",
+        "Reaktion braucht Energie",
+        "Gleichgewicht",
+        "Wärme wird aufgenommen"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Negatives ΔG = exergonisch = freiwillig."
+      ]
+    },
+    {
+      "key": "bio111-q076",
+      "subject": "bio",
+      "topic": "Energie",
+      "type": "single",
+      "prompt": "Glucose + Fructose → Saccharose (ΔG = +23) gekoppelt mit ATP-Spaltung (ΔG = −30). Gesamt-ΔG?",
+      "options": [
+        "−7 kJ/mol",
+        "+53 kJ/mol",
+        "−53 kJ/mol",
+        "+7 kJ/mol"
+      ],
+      "answer": 0,
+      "explanation": [
+        "+23 + (−30) = −7 → läuft freiwillig (energetische Kopplung)."
+      ]
+    },
+    {
+      "key": "bio111-q077",
+      "subject": "bio",
+      "topic": "Energie",
+      "type": "single",
+      "prompt": "Exotherm und exergonisch bedeuten immer dasselbe.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – exotherm = Wärme (ΔH), exergonisch = freiwillig (ΔG). Kältepack: endotherm, aber exergonisch."
+      ]
+    },
+    {
+      "key": "bio111-q078",
+      "subject": "bio",
+      "topic": "Energie",
+      "type": "single",
+      "prompt": "Wärme fließt von selbst von kalt nach warm.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – nur von warm nach kalt (2. Hauptsatz)."
+      ]
+    },
+    {
+      "key": "bio111-q079",
+      "subject": "bio",
+      "topic": "Energie",
+      "type": "single",
+      "prompt": "Die Entropie nimmt von selbst zu.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – 2. Hauptsatz (in abgeschlossenen Systemen)."
+      ]
+    },
+    {
+      "key": "bio111-q080",
+      "subject": "bio",
+      "topic": "Energie",
+      "type": "text",
+      "prompt": "ΔG = ΔH − T · ____",
+      "answer": [
+        "δs",
+        "ds",
+        "s",
+        "deltas",
+        "delta s",
+        "∆s",
+        "ΔS"
+      ],
+      "explanation": [
+        "Richtige Antwort: ΔS"
+      ]
+    },
+    {
+      "key": "bio111-q087",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "single",
+      "prompt": "Was verändert ein Enzym?",
+      "options": [
+        "Die Aktivierungsenergie",
+        "ΔG der Reaktion",
+        "Die Produkte",
+        "Die Edukte"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Nur der Hügel wird kleiner – ΔG bleibt gleich."
+      ]
+    },
+    {
+      "key": "bio111-q088",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "single",
+      "prompt": "Saccharase spaltet Saccharose in …",
+      "options": [
+        "Glucose + Fructose",
+        "Glucose + Galactose",
+        "2 Glucose",
+        "Stärke"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Glucose + Galactose entsteht aus Lactose (Lactase)."
+      ]
+    },
+    {
+      "key": "bio111-q089",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "single",
+      "prompt": "H₂O₂ + gekochte Kartoffel: fast keine Bläschen. Warum?",
+      "options": [
+        "Katalase ist denaturiert",
+        "Es fehlt Substrat",
+        "Kartoffel hat kein Enzym",
+        "Reaktion ist endergonisch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Hitze zerstört die Raumstruktur der Katalase → keine Katalyse."
+      ]
+    },
+    {
+      "key": "bio111-q090",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "single",
+      "prompt": "In welche Enzymklasse gehört die Lipase (spaltet Fett mit Wasser)?",
+      "options": [
+        "Hydrolasen",
+        "Ligasen",
+        "Isomerasen",
+        "Transferasen"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Spaltung mit Wasser = Hydrolyse → Hydrolasen."
+      ]
+    },
+    {
+      "key": "bio111-q091",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "single",
+      "prompt": "Enzyme liefern die Energie für die Reaktion.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – sie senken nur die Aktivierungsenergie."
+      ]
+    },
+    {
+      "key": "bio111-q092",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "single",
+      "prompt": "Enzyme werden bei der Reaktion verbraucht.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – sie gehen unverändert aus der Reaktion hervor."
+      ]
+    },
+    {
+      "key": "bio111-q093",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "single",
+      "prompt": "Enzymnamen enden meistens auf „-ase“.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig: Lactase, Amylase, Saccharase …"
+      ]
+    },
+    {
+      "key": "bio111-q094",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "text",
+      "prompt": "E + S → ____ → EP → E + P",
+      "answer": [
+        "es",
+        "es-komplex",
+        "enzym-substrat-komplex",
+        "ES (Enzym-Substrat-Komplex)"
+      ],
+      "explanation": [
+        "Richtige Antwort: ES (Enzym-Substrat-Komplex)"
+      ]
+    },
+    {
+      "key": "bio111-q095",
+      "subject": "bio",
+      "topic": "Enzyme",
+      "type": "text",
+      "prompt": "Eine Spaltung mit Wasser heißt ____.",
+      "answer": [
+        "hydrolyse",
+        "Hydrolyse"
+      ],
+      "explanation": [
+        "Richtige Antwort: Hydrolyse"
+      ]
+    },
+    {
+      "key": "bio111-q101",
+      "subject": "bio",
+      "topic": "Kinetik",
+      "type": "single",
+      "prompt": "Was ist Km?",
+      "options": [
+        "Substratkonzentration bei ½ Vmax",
+        "Die halbe Maximalgeschwindigkeit",
+        "Die Enzymmenge",
+        "Die Wechselzahl"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Km ist eine Konzentration (z. B. mmol/l), keine Geschwindigkeit!"
+      ]
+    },
+    {
+      "key": "bio111-q102",
+      "subject": "bio",
+      "topic": "Kinetik",
+      "type": "single",
+      "prompt": "Enzym A: Km = 0,1 mmol/l. Enzym B: Km = 10 mmol/l. Wer bindet das Substrat stärker?",
+      "options": [
+        "Enzym A",
+        "Enzym B",
+        "Beide gleich",
+        "Kann man nicht sagen"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Kleiner Km = hohe Affinität."
+      ]
+    },
+    {
+      "key": "bio111-q103",
+      "subject": "bio",
+      "topic": "Kinetik",
+      "type": "single",
+      "prompt": "Man verdoppelt die Enzymmenge. Was passiert?",
+      "options": [
+        "Vmax steigt, Km gleich",
+        "Km steigt, Vmax gleich",
+        "Beide sinken",
+        "Nichts"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Mehr Enzyme = mehr Kassen → höheres Vmax. Km hängt nicht von der Menge ab."
+      ]
+    },
+    {
+      "key": "bio111-q104",
+      "subject": "bio",
+      "topic": "Kinetik",
+      "type": "single",
+      "prompt": "Warum hilft Trinkalkohol bei Methanol-Vergiftung?",
+      "options": [
+        "Ethanol hemmt die ADH kompetitiv",
+        "Ethanol zerstört Methanol",
+        "Ethanol denaturiert die ADH",
+        "Ethanol erhöht Vmax"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Ethanol hat kleineren Km (1,7 statt 150) → verdrängt Methanol aus dem aktiven Zentrum."
+      ]
+    },
+    {
+      "key": "bio111-q105",
+      "subject": "bio",
+      "topic": "Kinetik",
+      "type": "single",
+      "prompt": "Großer Km bedeutet hohe Affinität.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – großer Km = niedrige Affinität."
+      ]
+    },
+    {
+      "key": "bio111-q110",
+      "subject": "bio",
+      "topic": "Temperatur",
+      "type": "single",
+      "prompt": "Um wie viel steigt die Reaktionsgeschwindigkeit laut RGT-Regel bei +10 °C?",
+      "options": [
+        "2- bis 3-fach",
+        "10-fach",
+        "halbiert sich",
+        "gar nicht"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Faustregel für chemische Reaktionen."
+      ]
+    },
+    {
+      "key": "bio111-q111",
+      "subject": "bio",
+      "topic": "Temperatur",
+      "type": "single",
+      "prompt": "Banane über der Flamme: Bereich 1 direkt darüber bleibt gelb. Warum?",
+      "options": [
+        "Das Enzym PPO ist denaturiert",
+        "Die Schale ist verbrannt",
+        "Es gibt dort kein Phenol",
+        "Die Temperatur war zu niedrig"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Zu heiß → Denaturierung → kein Chinon/Melanin."
+      ]
+    },
+    {
+      "key": "bio111-q112",
+      "subject": "bio",
+      "topic": "Temperatur",
+      "type": "single",
+      "prompt": "Siamkatze: Warum sind Ohren und Pfoten dunkel?",
+      "options": [
+        "Dort ist es kühler, die Tyrosinase arbeitet",
+        "Dort ist es wärmer",
+        "Dort gibt es mehr Substrat",
+        "Zufall"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Die Tyrosinase ist über ca. 33 °C inaktiv – nur an kühlen Stellen entsteht Melanin."
+      ]
+    },
+    {
+      "key": "bio111-q113",
+      "subject": "bio",
+      "topic": "Temperatur",
+      "type": "single",
+      "prompt": "Kälte denaturiert Enzyme.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – Kälte macht sie nur langsamer (reversibel)."
+      ]
+    },
+    {
+      "key": "bio111-q114",
+      "subject": "bio",
+      "topic": "Temperatur",
+      "type": "single",
+      "prompt": "Enzyme thermophiler Bakterien sind durch viele Disulfidbrücken besonders stabil.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – z. B. Taq-Polymerase, aktiv bei 95 °C."
+      ]
+    },
+    {
+      "key": "bio111-q117",
+      "subject": "bio",
+      "topic": "pH",
+      "type": "single",
+      "prompt": "Warum wirkt Zitronensaft gegen braune Äpfel/Bananen?",
+      "options": [
+        "pH sinkt unter das Optimum der PPO",
+        "Er liefert Energie",
+        "Er erhöht die Temperatur",
+        "Er ist ein Katalysator"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Saurer pH → Ladungen im aktiven Zentrum ändern sich → PPO arbeitet nicht."
+      ]
+    },
+    {
+      "key": "bio111-q118",
+      "subject": "bio",
+      "topic": "pH",
+      "type": "single",
+      "prompt": "Was passiert mit der Speichel-Amylase im Magen (pH 1–2)?",
+      "options": [
+        "Sie wird denaturiert",
+        "Sie wird schneller",
+        "Nichts",
+        "Sie wird zu Pepsin"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Ihr Optimum ist pH 7 – im Magen wird sie irreversibel inaktiv."
+      ]
+    },
+    {
+      "key": "bio111-q119",
+      "subject": "bio",
+      "topic": "pH",
+      "type": "text",
+      "prompt": "Pepsin hat sein Optimum bei ungefähr pH ____.",
+      "answer": [
+        "2",
+        "1-2",
+        "1,5",
+        "2,0"
+      ],
+      "explanation": [
+        "Richtige Antwort: 2"
+      ]
+    },
+    {
+      "key": "bio111-q125",
+      "subject": "bio",
+      "topic": "Hemmung",
+      "type": "single",
+      "prompt": "Kompetitive Hemmung: Was passiert mit Vmax und Km?",
+      "options": [
+        "Vmax gleich, Km steigt",
+        "Vmax sinkt, Km gleich",
+        "Beide sinken",
+        "Beide steigen"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Viel Substrat verdrängt den Hemmstoff → Vmax wird erreicht; für ½ Vmax braucht man mehr Substrat."
+      ]
+    },
+    {
+      "key": "bio111-q126",
+      "subject": "bio",
+      "topic": "Hemmung",
+      "type": "single",
+      "prompt": "Allosterische Hemmung: Was passiert mit Vmax und Km?",
+      "options": [
+        "Vmax sinkt, Km gleich",
+        "Vmax gleich, Km steigt",
+        "Beide gleich",
+        "Km sinkt"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Weniger aktive Enzyme → Vmax sinkt; die übrigen binden normal → Km gleich."
+      ]
+    },
+    {
+      "key": "bio111-q127",
+      "subject": "bio",
+      "topic": "Hemmung",
+      "type": "single",
+      "prompt": "Allopurinol gegen Gicht ähnelt dem Substrat Hypoxanthin. Welche Hemmung?",
+      "options": [
+        "Kompetitiv",
+        "Allosterisch",
+        "Irreversibel",
+        "Endprodukthemmung"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Ähnliche Struktur → konkurriert um das aktive Zentrum der Xanthinoxidase."
+      ]
+    },
+    {
+      "key": "bio111-q128",
+      "subject": "bio",
+      "topic": "Hemmung",
+      "type": "single",
+      "prompt": "Warum sollen Bleirohre ausgetauscht werden?",
+      "options": [
+        "Blei hemmt Enzyme irreversibel",
+        "Blei ist ein Katalysator",
+        "Blei senkt den pH",
+        "Blei ist ein Substrat"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Blei-Ionen binden dauerhaft an SH-Gruppen von Enzymen."
+      ]
+    },
+    {
+      "key": "bio111-q129",
+      "subject": "bio",
+      "topic": "Hemmung",
+      "type": "single",
+      "prompt": "Bei kompetitiver Hemmung hilft eine sehr hohe Substratkonzentration.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – der Hemmstoff wird statistisch verdrängt."
+      ]
+    },
+    {
+      "key": "bio111-q130",
+      "subject": "bio",
+      "topic": "Hemmung",
+      "type": "single",
+      "prompt": "Ein allosterischer Hemmstoff sitzt im aktiven Zentrum.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Falsch – er sitzt an einer anderen Stelle (allosterisches Zentrum)."
+      ]
+    },
+    {
+      "key": "bio111-q131",
+      "subject": "bio",
+      "topic": "Hemmung",
+      "type": "single",
+      "prompt": "Bei der Endprodukthemmung wird meistens das erste Enzym der Kette gehemmt.",
+      "options": [
+        "Richtig",
+        "Falsch"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Richtig – so entstehen auch keine unnötigen Zwischenprodukte."
+      ]
+    },
+    {
+      "key": "bio111-q132",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Kaviar (Fischeier) wird 15 min in Lösungen gelegt. 50 g werden zu: 3 % Salz: 45 g · 0,2 % Salz: 50 g · dest. Wasser: 63 g, Eier teilweise geplatzt.\n\nWelche Aussage erklärt die Werte richtig?",
+      "options": [
+        "3 % ist hyperton → Wasser verlässt die Eier; dest. Wasser ist hypoton → Wasser strömt ein, keine Zellwand → Platzen",
+        "3 % ist hypoton → Salz strömt in die Eier",
+        "In dest. Wasser strömt Salz aus den Eiern",
+        "0,2 % ist hyperton, deshalb bleibt die Masse gleich"
+      ],
+      "answer": 0,
+      "explanation": [
+        "0,2 % ist etwa isoton zum Inneren der Eier → kein Netto-Wasserstrom. Bei Osmose wandert nur Wasser."
+      ]
+    },
+    {
+      "key": "bio111-q133",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Meeresspaghetti sind Algen (Pflanzen) aus dem Atlantik (ca. 3 % Salz). Sie werden in destilliertes Wasser gelegt.\n\nWelche Hypothese ist am besten begründet?",
+      "options": [
+        "Masse nimmt zu, aber die Zellen platzen nicht – die Zellwand hält dagegen (Turgor)",
+        "Die Zellen platzen wie Kaviar",
+        "Masse nimmt ab, weil Wasser austritt",
+        "Nichts passiert, weil Algen keine Membran haben"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Dest. Wasser ist hypoton → Wasser strömt ein. Pflanzenzellen haben eine Zellwand → kein Platzen."
+      ]
+    },
+    {
+      "key": "bio111-q134",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Meeresspaghetti (an 3 % Meerwasser angepasst) werden in eine 3 %ige Salzlösung gelegt.\n\nWas erwartest du?",
+      "options": [
+        "Masse bleibt etwa gleich (isoton)",
+        "Masse nimmt stark ab (hyperton)",
+        "Masse nimmt stark zu",
+        "Zellen platzen"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Die Algen sind an 3 % angepasst. Ihr Zellsaft ist ungefähr isoton dazu."
+      ]
+    },
+    {
+      "key": "bio111-q135",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Kartoffelstäbchen (5,0 cm) in Zuckerlösungen. Länge danach: 0 mol/l: 5,4 · 0,2: 5,15 · 0,3: 5,0 · 0,4: 4,8 · 0,6: 4,6 cm.\n\nWelche Konzentration hat der Zellsaft ungefähr?",
+      "options": [
+        "0,3 mol/l",
+        "0 mol/l",
+        "0,6 mol/l",
+        "5,0 mol/l"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Bei 0,3 mol/l ändert sich die Länge nicht → isoton → Zellsaft ≈ 0,3 mol/l."
+      ]
+    },
+    {
+      "key": "bio111-q136",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Gibt man Salz auf geschnittene Gurken, steht nach 20 min viel Wasser in der Schüssel. Die Gurken werden weich.\n\nWarum?",
+      "options": [
+        "Außen entsteht eine hypertone Lösung → Wasser verlässt die Zellen (Osmose), Turgor sinkt",
+        "Das Salz zieht in die Zellen und drückt Wasser heraus",
+        "Das Salz denaturiert Enzyme",
+        "Die Zellwände lösen sich auf"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Salz löst sich auf der Oberfläche → hyperton → Wasser strömt aus den Zellen."
+      ]
+    },
+    {
+      "key": "bio111-q137",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: An Straßen mit viel Streusalz im Winter sterben oft Bäume.\n\nWelche Hypothese passt?",
+      "options": [
+        "Bodenwasser wird hyperton → Wurzelzellen verlieren Wasser (Plasmolyse)",
+        "Salz ist ein Enzym-Hemmstoff für Fotosynthese",
+        "Bodenwasser wird hypoton → Wurzelzellen platzen",
+        "Salz macht den Boden zu warm"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Statt Wasser aufzunehmen, geben die Wurzeln Wasser ab."
+      ]
+    },
+    {
+      "key": "bio111-q138",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Marmelade (ca. 60 % Zucker) und Salzfisch verderben kaum, auch ohne Kühlschrank.\n\nWarum wachsen dort kaum Bakterien?",
+      "options": [
+        "Die Umgebung ist stark hyperton → Bakterien verlieren durch Osmose Wasser",
+        "Zucker und Salz sind Antibiotika",
+        "Bakterien mögen keinen Geschmack",
+        "Die Bakterien platzen, weil es hypoton ist"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Ohne Wasser laufen ihre Enzyme nicht → keine Vermehrung."
+      ]
+    },
+    {
+      "key": "bio111-q139",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Das Antibiotikum Streptomycin blockiert 70S-Ribosomen.\n\nWarum schadet es Bakterien, aber kaum menschlichen Zellen?",
+      "options": [
+        "Bakterien haben 70S-, menschliche Zellen im Cytoplasma 80S-Ribosomen",
+        "Menschen haben keine Ribosomen",
+        "Bakterien haben keinen Zellkern, deshalb wirkt es",
+        "Streptomycin zerstört Zellwände"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Mögliche Nebenwirkung: Mitochondrien haben auch 70S-Ribosomen (Endosymbiontentheorie)."
+      ]
+    },
+    {
+      "key": "bio111-q140",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Schmelztemperatur: Stearinsäure (0 Doppelbindungen) 69 °C · Ölsäure (1) 13 °C · Linolsäure (2) −5 °C. Fische aus eiskaltem Wasser haben viele mehrfach ungesättigte Fettsäuren in ihren Membranen.\n\nWelchen Vorteil hat das?",
+      "options": [
+        "Die Membran bleibt bei Kälte flüssig und beweglich",
+        "Die Membran wird fester und stabiler",
+        "Die Fische speichern mehr Energie",
+        "Wasser kann nicht mehr durch die Membran"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Knicke → lockere Packung → niedrige Schmelztemperatur → Membran bleibt flüssig."
+      ]
+    },
+    {
+      "key": "bio111-q141",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Viele Viren haben eine Hülle aus einer Lipid-Doppelschicht. Seifen-Moleküle (Tenside) haben einen hydrophilen Kopf und einen hydrophoben Schwanz.\n\nWie zerstört Seife die Virushülle?",
+      "options": [
+        "Die hydrophoben Schwänze lagern sich in die Lipidschicht ein und lösen sie heraus",
+        "Seife denaturiert die DNA",
+        "Seife ist hyperton und lässt das Virus schrumpfen",
+        "Seife spaltet Peptidbindungen"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Amphiphile Tenside zerstören die Doppelschicht. Reines Wasser kann das nicht."
+      ]
+    },
+    {
+      "key": "bio111-q142",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Frye-Edidin-Versuch: Nach 40 min sind die markierten Membranproteine bei 37 °C gemischt, bei 15 °C noch getrennt.\n\nWelche Erklärung passt?",
+      "options": [
+        "Bei Kälte bewegen sich die Teilchen langsamer und die Membran wird zähflüssiger",
+        "Bei 15 °C sind die Proteine denaturiert",
+        "Bei 15 °C gibt es keine Membran",
+        "Bei 37 °C sind die Proteine kleiner"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Die Proteine sind trotzdem beweglich, nur langsamer (Flüssig-Mosaik-Modell)."
+      ]
+    },
+    {
+      "key": "bio111-q143",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Diffusionszeit von O₂: 10 µm: 0,03 s · 100 µm: 3 s · 1 mm: 4 min · 1 cm: 7 Stunden.\n\nWelche Folgerung ist richtig?",
+      "options": [
+        "Diffusion ist nur über kurze Strecken schnell → Zellen sind klein, große Tiere brauchen einen Kreislauf",
+        "Diffusion ist über alle Strecken gleich schnell",
+        "Größere Zellen sind besser versorgt",
+        "Sauerstoff braucht ATP für die Diffusion"
+      ],
+      "answer": 0,
+      "explanation": [
+        "10-fache Strecke → ca. 100-fache Zeit."
+      ]
+    },
+    {
+      "key": "bio111-q144",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Bei Mukoviszidose ist ein Chlorid-Kanal (CFTR) defekt. Normalerweise strömen Cl⁻-Ionen durch ihn aus den Zellen in den Lungenschleim.\n\nWarum ist der Schleim bei Mukoviszidose zäh?",
+      "options": [
+        "Ohne Cl⁻ im Schleim folgt kaum Wasser durch Osmose → der Schleim bleibt wasserarm",
+        "Cl⁻ zerstört den Schleim",
+        "Der Kanal pumpt zu viel Wasser hinaus",
+        "Der Schleim wird hypoton und platzt"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Normal: Cl⁻ raus → Schleim hyperton → Wasser folgt → dünnflüssiger Schleim."
+      ]
+    },
+    {
+      "key": "bio111-q145",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Stoff A: Aufnahme steigt linear mit der Konzentration, auch ohne ATP. Stoff B: Aufnahme erreicht ein Maximum und stoppt, wenn die ATP-Bildung blockiert wird.\n\nWelche Zuordnung stimmt?",
+      "options": [
+        "A: einfache Diffusion · B: aktiver Transport über Carrier",
+        "A: aktiver Transport · B: einfache Diffusion",
+        "A und B: Osmose",
+        "A: Endocytose · B: Kanal"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Sättigung = Carrier. Ohne ATP gestoppt = aktiv."
+      ]
+    },
+    {
+      "key": "bio111-q146",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Insulin ist ein großes Protein. Es wird im Golgi-Apparat in Vesikel verpackt und bei hohem Blutzucker ins Blut abgegeben.\n\nWie verlässt Insulin die Zelle?",
+      "options": [
+        "Durch Exocytose: Vesikel verschmilzt mit der Zellmembran",
+        "Durch einfache Diffusion",
+        "Durch einen Ionenkanal",
+        "Durch Endocytose"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Zu groß und zu polar für die Lipidschicht oder Kanäle."
+      ]
+    },
+    {
+      "key": "bio111-q147",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Zwiebelzellen in Zuckerlösungen, Anteil plasmolysierter Zellen: 0,2 mol/l: 0 % · 0,3: 10 % · 0,4: 50 % · 0,5: 90 % · 0,6: 100 %.\n\nWas bedeutet der Wert bei 0,4 mol/l?",
+      "options": [
+        "Grenzplasmolyse: Lösung etwa isoton zum Zellsaft",
+        "Alle Zellen sind tot",
+        "Die Lösung ist stark hypoton",
+        "Hier beginnt die Deplasmolyse"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Zellsaft-Konzentration ≈ 0,4 mol/l."
+      ]
+    },
+    {
+      "key": "bio111-q148",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Banane: Sauerstoff + Phenol → (Enzym PPO) → Chinon → spontan → braunes Melanin. Die Banane wird 15 s über eine Flamme gehalten. Direkt über der Flamme bleibt die Schale gelb.\n\nWarum bleibt sie dort gelb?",
+      "options": [
+        "PPO ist durch die Hitze denaturiert → kein Chinon, kein Melanin",
+        "Die Schale ist verbrannt",
+        "Dort war es zu kalt",
+        "Dort fehlt das Phenol"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Zu heiß → Tertiärstruktur zerstört → aktives Zentrum passt nicht mehr."
+      ]
+    },
+    {
+      "key": "bio111-q149",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Banane über der Flamme: Etwas weiter weg von der heißesten Stelle ist die Schale braunschwarz.\n\nWarum ist sie dort am dunkelsten?",
+      "options": [
+        "Temperatur nahe dem Optimum (RGT-Regel) + zerstörte Membranen → Enzym und Substrat kommen zusammen",
+        "Dort ist das Enzym denaturiert",
+        "Dort ist die Schale verbrannt",
+        "Dort ist es am kältesten"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Erhöhte Temperatur beschleunigt die Reaktion, ohne das Enzym zu zerstören."
+      ]
+    },
+    {
+      "key": "bio111-q150",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Geschnittene Bananen im Obstsalat werden braun.\n\nWelche Maßnahme ist am besten begründet?",
+      "options": [
+        "Zitronensaft: pH sinkt unter das Optimum der PPO",
+        "Den Salat in die Sonne stellen: mehr Licht",
+        "Mehr Sauerstoff zuführen",
+        "Den Salat warm stellen (RGT-Regel)"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Auch gut: kühlen (langsamer), Sauerstoff fernhalten, kurz blanchieren (Denaturierung)."
+      ]
+    },
+    {
+      "key": "bio111-q151",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: H₂O₂ zerfällt sehr langsam zu Wasser + O₂. Zugabe von: nichts → fast keine Bläschen · Braunstein → viele · rohe Kartoffel → sehr viele · gekochte Kartoffel → fast keine.\n\nWelche Erklärung passt zur gekochten Kartoffel?",
+      "options": [
+        "Die Katalase ist durch Hitze denaturiert",
+        "Gekochte Kartoffeln enthalten mehr Substrat",
+        "Die Reaktion ist endergonisch geworden",
+        "Braunstein fehlt"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Rohe Kartoffel: Katalase senkt die Aktivierungsenergie stark."
+      ]
+    },
+    {
+      "key": "bio111-q152",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Mit frischer Ananas wird Götterspeise (Gelatine = Protein) nicht fest. Mit Dosenananas (erhitzt) schon.\n\nWarum?",
+      "options": [
+        "Frische Ananas enthält Bromelain, das Gelatine spaltet; in der Dose ist es durch Hitze denaturiert",
+        "Dosenananas enthält mehr Zucker",
+        "Frische Ananas ist zu sauer für Gelatine",
+        "Gelatine ist ein Hemmstoff"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Bromelain ist eine Protease (spaltet Peptidbindungen)."
+      ]
+    },
+    {
+      "key": "bio111-q153",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Glucose-Teststreifen enthalten das Enzym Glucose-Oxidase. Fructose hat dieselbe Summenformel (C₆H₁₂O₆) wie Glucose, zeigt aber keine Farbe.\n\nWelche Eigenschaft von Enzymen erklärt das?",
+      "options": [
+        "Substratspezifität: nur Glucose passt räumlich ins aktive Zentrum",
+        "Wirkungsspezifität: das Enzym macht nur eine Reaktion",
+        "Denaturierung durch Fructose",
+        "Kompetitive Hemmung durch Fructose"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Gleiche Summenformel, aber andere räumliche Struktur."
+      ]
+    },
+    {
+      "key": "bio111-q154",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Hexokinase (Muskel, Gehirn): Km = 0,1 mmol/l. Glucokinase (Leber): Km = 10 mmol/l. Blutzucker normal 5, nach dem Essen 10 mmol/l.\n\nWarum ist das sinnvoll?",
+      "options": [
+        "Muskel/Gehirn bekommen immer Glucose; die Leber nimmt nur bei hohem Blutzucker viel auf",
+        "Die Leber braucht immer am meisten Glucose",
+        "Hexokinase hat die niedrigere Affinität",
+        "Glucokinase ist bei 5 mmol/l gesättigt"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Kleiner Km = hohe Affinität → bei 5 mmol/l fast gesättigt."
+      ]
+    },
+    {
+      "key": "bio111-q155",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Siamkatzen: Fell am warmen Rumpf hell, an Ohren, Pfoten, Schwanz dunkel. Ihr Enzym Tyrosinase (bildet Melanin) ist über ca. 33 °C inaktiv.\n\nEine Stelle am Rücken wird rasiert und wochenlang gekühlt. Was wächst nach?",
+      "options": [
+        "Dunkles Fell, weil die Tyrosinase bei Kälte aktiv ist",
+        "Helles Fell, weil Kälte Enzyme denaturiert",
+        "Gar kein Fell",
+        "Weißes Fell, weil die RGT-Regel nicht gilt"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Unter 33 °C ist die Tyrosinase aktiv → Melanin."
+      ]
+    },
+    {
+      "key": "bio111-q156",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Pepsin (Optimum pH 2) gelangt mit dem Speisebrei in den Dünndarm. Dort wird mit Hydrogencarbonat auf pH 7–8 neutralisiert.\n\nWas passiert mit dem Pepsin?",
+      "options": [
+        "Es wird inaktiv/denaturiert, weil sich die Ladungen im aktiven Zentrum ändern",
+        "Es arbeitet schneller",
+        "Es wird zu Trypsin",
+        "Es senkt den pH-Wert wieder"
+      ],
+      "answer": 0,
+      "explanation": [
+        "pH weit über dem Optimum → Struktur verändert."
+      ]
+    },
+    {
+      "key": "bio111-q157",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: v ohne Hemmstoff: 50 · 67 · 80 · 91 · 98. v mit Malonsäure: 20 · 33 · 50 · 71 · 91 (Substrat steigt von 0,5 bis 20 mmol/l). Malonsäure ähnelt dem Substrat.\n\nWelcher Hemmtyp liegt vor?",
+      "options": [
+        "Kompetitiv: Vmax wird fast erreicht, Km steigt",
+        "Allosterisch: Vmax sinkt",
+        "Irreversibel",
+        "Endprodukthemmung"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Bei viel Substrat wird der ähnliche Hemmstoff verdrängt."
+      ]
+    },
+    {
+      "key": "bio111-q158",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Ein Hemmstoff wird zugegeben. Selbst bei sehr hoher Substratkonzentration erreicht v nur 60 % des normalen Vmax. Der Km-Wert ändert sich nicht.\n\nWelcher Hemmtyp?",
+      "options": [
+        "Allosterisch (nicht-kompetitiv)",
+        "Kompetitiv",
+        "Gar keine Hemmung",
+        "Substratspezifität"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Vmax sinkt, Km gleich → Hemmstoff bindet an anderer Stelle."
+      ]
+    },
+    {
+      "key": "bio111-q159",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Waschmittel enthalten Proteasen und Lipasen. Die Packung empfiehlt 40 °C statt 90 °C.\n\nWarum?",
+      "options": [
+        "Bei 90 °C würden die Enzyme denaturieren",
+        "Bei 40 °C gilt die RGT-Regel nicht",
+        "Enzyme arbeiten nur bei Kälte",
+        "Bei 90 °C wird das Wasser zu sauer"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Lösung für heiße Wäsche: Enzyme aus thermophilen Bakterien."
+      ]
+    },
+    {
+      "key": "bio111-q160",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Methanol wird von der Alkoholdehydrogenase (ADH) zu giftiger Ameisensäure abgebaut. Km der ADH: Ethanol 1,7 · Methanol 150 mmol/l. Patienten bekommen Trinkalkohol.\n\nWarum hilft das?",
+      "options": [
+        "Ethanol hat höhere Affinität und verdrängt Methanol aus dem aktiven Zentrum (kompetitiv)",
+        "Ethanol zerstört die ADH",
+        "Ethanol neutralisiert Ameisensäure",
+        "Ethanol erhöht die Wechselzahl"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Methanol wird kaum abgebaut und unverändert ausgeschieden."
+      ]
+    },
+    {
+      "key": "bio111-q161",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Fieber über 42 °C ist lebensgefährlich. Eine Unterkühlung auf 30 °C wird oft ohne bleibende Schäden überlebt.\n\nWarum?",
+      "options": [
+        "Hitze denaturiert Enzyme irreversibel; Kälte macht sie nur langsamer",
+        "Kälte denaturiert Enzyme, Hitze nicht",
+        "Bei 42 °C gilt die RGT-Regel nicht",
+        "Bei 30 °C gibt es keine Enzyme"
+      ],
+      "answer": 0,
+      "explanation": [
+        "RGT-Regel: 30 °C ist langsamer, aber reversibel."
+      ]
+    },
+    {
+      "key": "bio111-q162",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Reaktion 1: Glucose + Fructose → Saccharose, ΔG = +23 kJ/mol. ATP-Spaltung: ΔG = −30 kJ/mol.\n\nWas gilt für die gekoppelte Reaktion?",
+      "options": [
+        "ΔG = −7 kJ/mol → exergonisch, läuft freiwillig",
+        "ΔG = +53 kJ/mol → endergonisch",
+        "Das Enzym liefert die fehlende Energie",
+        "Reaktion 1 läuft auch allein freiwillig"
+      ],
+      "answer": 0,
+      "explanation": [
+        "+23 + (−30) = −7. Enzyme liefern keine Energie."
+      ]
+    },
+    {
+      "key": "bio111-q163",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Im Kältepack löst sich ein Salz in Wasser. Der Beutel wird kalt (ΔH > 0), trotzdem läuft es von selbst ab.\n\nWarum?",
+      "options": [
+        "Die Entropie steigt stark (Kristall → verteilte Ionen), daher ΔG < 0",
+        "ΔH > 0 bedeutet immer freiwillig",
+        "Das Salz ist ein Enzym",
+        "Der 1. Hauptsatz gilt hier nicht"
+      ],
+      "answer": 0,
+      "explanation": [
+        "ΔG = ΔH − T·ΔS. Großes ΔS macht ΔG negativ."
+      ]
+    },
+    {
+      "key": "bio111-q164",
+      "subject": "bio",
+      "topic": "Transfer",
+      "type": "single",
+      "prompt": "Material: Sichelzellanämie: Im Hämoglobin ist eine Aminosäure mit geladenem, hydrophilem Rest durch eine mit hydrophobem Rest ersetzt. Die Moleküle verklumpen zu Fasern.\n\nWas zeigt dieses Beispiel?",
+      "options": [
+        "Eine Änderung der Primärstruktur verändert Struktur und Funktion",
+        "Nur die Quartärstruktur ist wichtig",
+        "Hydrophobe Reste stoßen sich immer ab",
+        "Denaturierung durch Hitze"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Hydrophobe Bereiche lagern sich aneinander → Fasern → Sichelform."
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "key": "bio111-mock-b1",
+      "kind": "mock",
+      "subject": "bio",
+      "topic": "Block 1: Zelle & Membran",
+      "title": "Probeklausur Block 1: Zelle & Membran",
+      "description": "Alle Fragen dieses Blocks aus dem Bio-Quiz Klasse 11.",
+      "duration_minutes": 38,
+      "questions": [
+        "bio111-q005",
+        "bio111-q006",
+        "bio111-q007",
+        "bio111-q008",
+        "bio111-q012",
+        "bio111-q013",
+        "bio111-q014",
+        "bio111-q015",
+        "bio111-q020",
+        "bio111-q021",
+        "bio111-q022",
+        "bio111-q023",
+        "bio111-q024",
+        "bio111-q026",
+        "bio111-q027",
+        "bio111-q030",
+        "bio111-q031",
+        "bio111-q032",
+        "bio111-q033",
+        "bio111-q037",
+        "bio111-q038",
+        "bio111-q039",
+        "bio111-q040",
+        "bio111-q041",
+        "bio111-q045",
+        "bio111-q046",
+        "bio111-q047",
+        "bio111-q051",
+        "bio111-q052",
+        "bio111-q053",
+        "bio111-q054",
+        "bio111-q055",
+        "bio111-q056",
+        "bio111-q060",
+        "bio111-q132",
+        "bio111-q133",
+        "bio111-q134",
+        "bio111-q135",
+        "bio111-q136",
+        "bio111-q137",
+        "bio111-q138",
+        "bio111-q139",
+        "bio111-q140",
+        "bio111-q141",
+        "bio111-q142",
+        "bio111-q143",
+        "bio111-q144",
+        "bio111-q145",
+        "bio111-q146",
+        "bio111-q147"
+      ]
+    },
+    {
+      "key": "bio111-mini-b1-1",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Zelle, Fette",
+      "title": "Mini-Test 1.1: Zelle, Fette",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q005",
+        "bio111-q006",
+        "bio111-q007",
+        "bio111-q008",
+        "bio111-q012",
+        "bio111-q013",
+        "bio111-q014",
+        "bio111-q015"
+      ]
+    },
+    {
+      "key": "bio111-mini-b1-2",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Membran, Modelle, Diffusion",
+      "title": "Mini-Test 1.2: Membran, Modelle, Diffusion",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q020",
+        "bio111-q021",
+        "bio111-q022",
+        "bio111-q023",
+        "bio111-q024",
+        "bio111-q026",
+        "bio111-q027",
+        "bio111-q030"
+      ]
+    },
+    {
+      "key": "bio111-mini-b1-3",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Diffusion, Osmose",
+      "title": "Mini-Test 1.3: Diffusion, Osmose",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q031",
+        "bio111-q032",
+        "bio111-q033",
+        "bio111-q037",
+        "bio111-q038",
+        "bio111-q039",
+        "bio111-q040",
+        "bio111-q041"
+      ]
+    },
+    {
+      "key": "bio111-mini-b1-4",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Plasmolyse, Transport",
+      "title": "Mini-Test 1.4: Plasmolyse, Transport",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q045",
+        "bio111-q046",
+        "bio111-q047",
+        "bio111-q051",
+        "bio111-q052",
+        "bio111-q053",
+        "bio111-q054",
+        "bio111-q055"
+      ]
+    },
+    {
+      "key": "bio111-mini-b1-5",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Transport, Vesikel, Transfer",
+      "title": "Mini-Test 1.5: Transport, Vesikel, Transfer",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q056",
+        "bio111-q060",
+        "bio111-q132",
+        "bio111-q133",
+        "bio111-q134",
+        "bio111-q135",
+        "bio111-q136",
+        "bio111-q137"
+      ]
+    },
+    {
+      "key": "bio111-mini-b1-6",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Transfer",
+      "title": "Mini-Test 1.6: Transfer",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q138",
+        "bio111-q139",
+        "bio111-q140",
+        "bio111-q141",
+        "bio111-q142",
+        "bio111-q143",
+        "bio111-q144",
+        "bio111-q145"
+      ]
+    },
+    {
+      "key": "bio111-mock-b2",
+      "kind": "mock",
+      "subject": "bio",
+      "topic": "Block 2: Proteine & Enzyme",
+      "title": "Probeklausur Block 2: Proteine & Enzyme",
+      "description": "Alle Fragen dieses Blocks aus dem Bio-Quiz Klasse 11.",
+      "duration_minutes": 43,
+      "questions": [
+        "bio111-q064",
+        "bio111-q065",
+        "bio111-q066",
+        "bio111-q067",
+        "bio111-q068",
+        "bio111-q075",
+        "bio111-q076",
+        "bio111-q077",
+        "bio111-q078",
+        "bio111-q079",
+        "bio111-q080",
+        "bio111-q087",
+        "bio111-q088",
+        "bio111-q089",
+        "bio111-q090",
+        "bio111-q091",
+        "bio111-q092",
+        "bio111-q093",
+        "bio111-q094",
+        "bio111-q095",
+        "bio111-q101",
+        "bio111-q102",
+        "bio111-q103",
+        "bio111-q104",
+        "bio111-q105",
+        "bio111-q110",
+        "bio111-q111",
+        "bio111-q112",
+        "bio111-q113",
+        "bio111-q114",
+        "bio111-q117",
+        "bio111-q118",
+        "bio111-q119",
+        "bio111-q125",
+        "bio111-q126",
+        "bio111-q127",
+        "bio111-q128",
+        "bio111-q129",
+        "bio111-q130",
+        "bio111-q131",
+        "bio111-q148",
+        "bio111-q149",
+        "bio111-q150",
+        "bio111-q151",
+        "bio111-q152",
+        "bio111-q153",
+        "bio111-q154",
+        "bio111-q155",
+        "bio111-q156",
+        "bio111-q157",
+        "bio111-q158",
+        "bio111-q159",
+        "bio111-q160",
+        "bio111-q161",
+        "bio111-q162",
+        "bio111-q163",
+        "bio111-q164"
+      ]
+    },
+    {
+      "key": "bio111-mini-b2-1",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Proteine, Energie",
+      "title": "Mini-Test 2.1: Proteine, Energie",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q064",
+        "bio111-q065",
+        "bio111-q066",
+        "bio111-q067",
+        "bio111-q068",
+        "bio111-q075",
+        "bio111-q076",
+        "bio111-q077"
+      ]
+    },
+    {
+      "key": "bio111-mini-b2-2",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Energie, Enzyme",
+      "title": "Mini-Test 2.2: Energie, Enzyme",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q078",
+        "bio111-q079",
+        "bio111-q080",
+        "bio111-q087",
+        "bio111-q088",
+        "bio111-q089",
+        "bio111-q090",
+        "bio111-q091"
+      ]
+    },
+    {
+      "key": "bio111-mini-b2-3",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Enzyme, Kinetik",
+      "title": "Mini-Test 2.3: Enzyme, Kinetik",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q092",
+        "bio111-q093",
+        "bio111-q094",
+        "bio111-q095",
+        "bio111-q101",
+        "bio111-q102",
+        "bio111-q103",
+        "bio111-q104"
+      ]
+    },
+    {
+      "key": "bio111-mini-b2-4",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Kinetik, Temperatur, pH",
+      "title": "Mini-Test 2.4: Kinetik, Temperatur, pH",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q105",
+        "bio111-q110",
+        "bio111-q111",
+        "bio111-q112",
+        "bio111-q113",
+        "bio111-q114",
+        "bio111-q117",
+        "bio111-q118"
+      ]
+    },
+    {
+      "key": "bio111-mini-b2-5",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "pH, Hemmung",
+      "title": "Mini-Test 2.5: pH, Hemmung",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q119",
+        "bio111-q125",
+        "bio111-q126",
+        "bio111-q127",
+        "bio111-q128",
+        "bio111-q129",
+        "bio111-q130",
+        "bio111-q131"
+      ]
+    },
+    {
+      "key": "bio111-mini-b2-6",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Transfer",
+      "title": "Mini-Test 2.6: Transfer",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q148",
+        "bio111-q149",
+        "bio111-q150",
+        "bio111-q151",
+        "bio111-q152",
+        "bio111-q153",
+        "bio111-q154",
+        "bio111-q155"
+      ]
+    },
+    {
+      "key": "bio111-mini-b2-7",
+      "kind": "mini",
+      "subject": "bio",
+      "topic": "Transfer",
+      "title": "Mini-Test 2.7: Transfer",
+      "duration_minutes": 10,
+      "questions": [
+        "bio111-q156",
+        "bio111-q157",
+        "bio111-q158",
+        "bio111-q159",
+        "bio111-q160",
+        "bio111-q161",
+        "bio111-q162",
+        "bio111-q163"
+      ]
+    }
+  ],
+  "decks": [
+    {
+      "key": "bio111-deck-b1",
+      "subject": "bio",
+      "topic": "Block 1: Zelle & Membran",
+      "title": "Karteikarten Block 1: Zelle & Membran",
+      "cards": [
+        {
+          "key": "bio111-card-001",
+          "front": "Prokaryot",
+          "back": "Zelle ohne Zellkern. DNA (ringförmig) frei im Cytoplasma, oft Plasmide, 70S-Ribosomen, keine Organellen mit Membran. Beispiel: Bakterien."
+        },
+        {
+          "key": "bio111-card-002",
+          "front": "Eukaryot",
+          "back": "Zelle mit Zellkern und Organellen mit Membran (Mitochondrien, ER, Golgi …), 80S-Ribosomen. Beispiel: Tiere, Pflanzen, Pilze."
+        },
+        {
+          "key": "bio111-card-003",
+          "front": "Kompartimentierung",
+          "back": "Die Zelle ist durch Membranen in abgetrennte Räume geteilt. So laufen viele Reaktionen gleichzeitig ab, ohne sich zu stören."
+        },
+        {
+          "key": "bio111-card-004",
+          "front": "Endosymbiontentheorie",
+          "back": "Mitochondrien und Chloroplasten waren früher eigene Bakterien. Belege: Doppelmembran, eigene ringförmige DNA, 70S-Ribosomen."
+        },
+        {
+          "key": "bio111-card-010",
+          "front": "Fett (Triglycerid)",
+          "back": "1 Glycerin + 3 Fettsäuren, verbunden durch Esterbindungen. Dabei werden 3 Wasser abgespalten."
+        },
+        {
+          "key": "bio111-card-011",
+          "front": "Gesättigt / ungesättigt",
+          "back": "Gesättigt: keine C=C-Doppelbindung, gerade Kette → fest. Ungesättigt: Doppelbindung(en) → Knick → locker → flüssig."
+        },
+        {
+          "key": "bio111-card-016",
+          "front": "Phospholipid",
+          "back": "Glycerin + 2 Fettsäuren + Phosphatgruppe. Kopf hydrophil, 2 Schwänze hydrophob → amphiphil."
+        },
+        {
+          "key": "bio111-card-017",
+          "front": "Hydrophil / hydrophob",
+          "back": "Hydrophil = liebt Wasser (polar, geladen). Hydrophob = meidet Wasser (unpolar, wie Fett)."
+        },
+        {
+          "key": "bio111-card-018",
+          "front": "Selektiv permeabel",
+          "back": "Die Membran ist nur für manche Stoffe durchlässig (z. B. Wasser, O₂), für andere nicht (Ionen, Zucker)."
+        },
+        {
+          "key": "bio111-card-019",
+          "front": "Flüssig-Mosaik-Modell",
+          "back": "(Singer & Nicolson, 1972) Proteine stecken in der Lipid-Doppelschicht. Alles kann sich seitlich bewegen (flüssig), Proteine sind verteilt wie Mosaiksteine."
+        },
+        {
+          "key": "bio111-card-028",
+          "front": "Diffusion",
+          "back": "Ausgleich von Konzentrationsunterschieden von selbst, durch die zufällige Eigenbewegung der Teilchen. Von hoher zu niedriger Konzentration."
+        },
+        {
+          "key": "bio111-card-029",
+          "front": "Brownsche Molekularbewegung",
+          "back": "Ständige, zufällige Bewegung aller Teilchen durch Wärme."
+        },
+        {
+          "key": "bio111-card-034",
+          "front": "Osmose",
+          "back": "Diffusion von Wasser durch eine selektiv permeable Membran zur Seite mit mehr gelösten Teilchen."
+        },
+        {
+          "key": "bio111-card-035",
+          "front": "Aquaporine",
+          "back": "Kanalproteine nur für Wasser. Hauptweg des Wassers durch die Membran bei der Osmose."
+        },
+        {
+          "key": "bio111-card-042",
+          "front": "Plasmolyse / Deplasmolyse",
+          "back": "Plasmolyse: Pflanzenzelle in hypertoner Lösung → Wasser raus → Protoplast löst sich von der Zellwand. Deplasmolyse: in hypotoner Lösung → wieder groß."
+        },
+        {
+          "key": "bio111-card-043",
+          "front": "Grenzplasmolyse",
+          "back": "Konzentration, bei der sich der Protoplast gerade eben ablöst (ca. 50 % der Zellen). Dort ist die Lösung etwa isoton zum Zellsaft."
+        },
+        {
+          "key": "bio111-card-048",
+          "front": "Passiver / aktiver Transport",
+          "back": "Passiv: mit dem Gefälle, ohne Energie (Diffusion, erleichterte Diffusion, Osmose). Aktiv: gegen das Gefälle, braucht Energie (ATP oder Ionengradient)."
+        },
+        {
+          "key": "bio111-card-049",
+          "front": "Symport / Antiport",
+          "back": "Cotransport: Symport = zwei Stoffe in die gleiche Richtung (Na⁺ + Glucose). Antiport = in entgegengesetzte Richtungen."
+        },
+        {
+          "key": "bio111-card-058",
+          "front": "Endocytose / Exocytose",
+          "back": "Endo: Membran umschließt große Teilchen → Vesikel nach innen. Exo: Vesikel verschmilzt mit Membran → Inhalt nach außen. Beide brauchen Energie."
+        }
+      ]
+    },
+    {
+      "key": "bio111-deck-b2",
+      "subject": "bio",
+      "topic": "Block 2: Proteine & Enzyme",
+      "title": "Karteikarten Block 2: Proteine & Enzyme",
+      "cards": [
+        {
+          "key": "bio111-card-061",
+          "front": "Aminosäure",
+          "back": "Aminogruppe (–NH₂) + Carboxylgruppe (–COOH) + Rest R am α-C-Atom. 20 Sorten, nur der Rest ist verschieden."
+        },
+        {
+          "key": "bio111-card-062",
+          "front": "Peptidbindung",
+          "back": "COOH einer Aminosäure + NH₂ der nächsten → –CO–NH– + H₂O (Kondensation). Kovalent und stabil."
+        },
+        {
+          "key": "bio111-card-070",
+          "front": "Exergonisch / endergonisch",
+          "back": "Exergonisch: ΔG < 0, Energie wird frei, läuft freiwillig. Endergonisch: ΔG > 0, braucht Energie, nicht freiwillig."
+        },
+        {
+          "key": "bio111-card-071",
+          "front": "Enthalpie (H)",
+          "back": "Energie in den Bindungen (Wärmeinhalt). ΔH < 0: Wärme wird frei (exotherm). ΔH > 0: Wärme wird aufgenommen (endotherm)."
+        },
+        {
+          "key": "bio111-card-072",
+          "front": "Entropie (S)",
+          "back": "Maß für Unordnung. ΔS > 0: wird unordentlicher (z. B. Diffusion). ΔS < 0: wird ordentlicher – braucht Energie."
+        },
+        {
+          "key": "bio111-card-073",
+          "front": "1. und 2. Hauptsatz",
+          "back": "1.: Energie wird nur umgewandelt, nie erzeugt oder vernichtet. 2.: Von selbst nimmt die Entropie zu; Wärme fließt von warm nach kalt."
+        },
+        {
+          "key": "bio111-card-081",
+          "front": "Enzym",
+          "back": "Protein, das als Biokatalysator die Aktivierungsenergie senkt. Wird nicht verbraucht, ändert ΔG nicht, ist substrat- und wirkungsspezifisch."
+        },
+        {
+          "key": "bio111-card-082",
+          "front": "Aktivierungsenergie",
+          "back": "Der „Hügel“, den eine Reaktion am Anfang überwinden muss. Enzyme machen ihn kleiner."
+        },
+        {
+          "key": "bio111-card-083",
+          "front": "Substrat / aktives Zentrum",
+          "back": "Substrat = Stoff, den das Enzym umwandelt. Aktives Zentrum = Tasche im Enzym, in der das Substrat bindet (H-Brücken, Ionenbindungen)."
+        },
+        {
+          "key": "bio111-card-084",
+          "front": "Substrat- / Wirkungsspezifität",
+          "back": "Substratspezifität: nur ein bestimmtes Substrat passt. Wirkungsspezifität: nur eine bestimmte Reaktion."
+        },
+        {
+          "key": "bio111-card-085",
+          "front": "Induced-Fit-Modell",
+          "back": "Das Enzym passt seine Form an, wenn das Substrat bindet (genauer als das starre Schlüssel-Schloss-Modell)."
+        },
+        {
+          "key": "bio111-card-086",
+          "front": "Cofaktor, Coenzym, Cosubstrat",
+          "back": "Cofaktor = Nicht-Protein-Helfer (Metall-Ion oder Coenzym). Apoenzym + Cofaktor = Holoenzym. Cosubstrat = Coenzym, das nur kurz bindet (z. B. NAD⁺)."
+        },
+        {
+          "key": "bio111-card-097",
+          "front": "Vmax",
+          "back": "Maximale Geschwindigkeit: alle aktiven Zentren besetzt. Mehr Substrat hilft nicht, nur mehr Enzym."
+        },
+        {
+          "key": "bio111-card-098",
+          "front": "Km (Michaelis-Menten-Konstante)",
+          "back": "Substratkonzentration bei ½ Vmax. Kleiner Km = hohe Affinität. Unabhängig von der Enzymmenge."
+        },
+        {
+          "key": "bio111-card-099",
+          "front": "Wechselzahl (kkat)",
+          "back": "Wie viele Substratmoleküle ein Enzym pro Sekunde umsetzt (Katalase: 10 Mio.)."
+        },
+        {
+          "key": "bio111-card-100",
+          "front": "Isoenzyme",
+          "back": "Enzyme mit gleicher Reaktion, aber anderer Aminosäuresequenz → anderer Km oder anderes Optimum (z. B. Hexokinase/Glucokinase)."
+        },
+        {
+          "key": "bio111-card-107",
+          "front": "RGT-Regel",
+          "back": "+10 °C → 2- bis 3-mal schneller, weil Teilchen schneller sind und öfter zusammenstoßen. Gilt bei Enzymen nur unter dem Optimum."
+        },
+        {
+          "key": "bio111-card-108",
+          "front": "Denaturierung",
+          "back": "Verlust der Raumstruktur (H-Brücken, Ionenbindungen brechen) durch Hitze, extremen pH, Schwermetalle. Aktives Zentrum passt nicht mehr. Meist irreversibel."
+        },
+        {
+          "key": "bio111-card-109",
+          "front": "Q₁₀-Wert",
+          "back": "Q₁₀ = v(T+10 °C) : v(T). Faktor, um den die Geschwindigkeit bei +10 °C steigt (RGT: ca. 2–3)."
+        },
+        {
+          "key": "bio111-card-115",
+          "front": "pH-Optimum",
+          "back": "pH-Wert, bei dem ein Enzym am besten arbeitet. Ein anderer pH-Wert ändert die Ladungen der Aminosäurereste → Raumstruktur ändert sich."
+        },
+        {
+          "key": "bio111-card-120",
+          "front": "Kompetitive Hemmung",
+          "back": "Hemmstoff ähnelt dem Substrat, bindet im aktiven Zentrum. Viel Substrat verdrängt ihn. Vmax gleich, Km steigt."
+        },
+        {
+          "key": "bio111-card-121",
+          "front": "Allosterische (nicht-kompetitive) Hemmung",
+          "back": "Hemmstoff bindet an anderer Stelle → Form verändert. Mehr Substrat hilft nicht. Vmax sinkt, Km gleich."
+        },
+        {
+          "key": "bio111-card-122",
+          "front": "Endprodukthemmung",
+          "back": "Das Endprodukt einer Reaktionskette hemmt das erste Enzym (negative Rückkopplung, wie ein Thermostat)."
+        },
+        {
+          "key": "bio111-card-123",
+          "front": "Irreversible Hemmung",
+          "back": "Hemmstoff bindet dauerhaft (z. B. Blei an SH-Gruppen, Penicillin). Enzym für immer kaputt."
+        }
+      ]
+    }
+  ]
+}

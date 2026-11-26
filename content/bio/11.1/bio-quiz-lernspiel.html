@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bio-Quiz Klasse 11 – Lernspiel</title>
+<style>
+:root{--bg:#f5f3ff;--card:#fff;--ink:#1a202c;--mut:#4a5568;--pri:#6b46c1;--b1:#2b6cb0;--b2:#2f855a;--ok:#38a169;--bad:#e53e3e;--line:#e2e8f0}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.5}
+.wrap{max-width:640px;margin:0 auto;padding:16px 14px 40px}
+h1{font-size:24px;margin:6px 0 2px}h2{font-size:19px;margin:18px 0 8px}
+.sub{color:var(--mut);margin:0 0 14px;font-size:15px}
+.opt{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;font-size:15px;font-weight:600;cursor:pointer;flex:1 1 auto;text-align:center}
+.chip.on{border-color:var(--pri);background:#ede9fe;color:#44337a}
+.mode{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;margin:8px 0;cursor:pointer;font-size:15px}
+.mode b{font-size:17px;display:block}
+.mode.on{border-color:var(--pri);background:#ede9fe}
+.big{display:block;width:100%;border:0;background:var(--pri);color:#fff;font-size:18px;font-weight:700;border-radius:14px;padding:15px;margin-top:16px;cursor:pointer}
+.big.alt{background:#fff;color:var(--pri);border:2px solid var(--pri)}
+.hud{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:14px;padding:10px 14px;margin-bottom:10px;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.bar{height:8px;background:var(--line);border-radius:5px;overflow:hidden;margin-bottom:12px}.bar i{display:block;height:100%;background:var(--pri);transition:width .3s}
+.qc{background:var(--card);border-radius:18px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.07);min-height:200px}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;color:#fff;margin-bottom:8px}
+.tag.b1{background:var(--b1)}.tag.b2{background:var(--b2)}
+.type{float:right;font-size:12px;color:var(--mut);font-weight:700}
+.q{font-size:19px;font-weight:700;margin:4px 0 14px}
+.ans{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;margin:8px 0;font-size:16px;cursor:pointer}
+.ans:disabled{color:var(--ink);opacity:1;cursor:default}
+.ans.ok{border-color:var(--ok);background:#f0fff4}.ans.bad{border-color:var(--bad);background:#fff5f5}
+.tf{display:flex;gap:10px}.tf .ans{text-align:center;font-weight:700;font-size:18px}
+.fb{margin-top:14px;padding:12px 14px;border-radius:12px;font-size:15px}
+.fb.ok{background:#f0fff4;border-left:5px solid var(--ok)}.fb.bad{background:#fff5f5;border-left:5px solid var(--bad)}
+input.fill{width:100%;font-size:18px;padding:12px;border:2px solid var(--line);border-radius:12px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.m{border:2px solid var(--line);background:#fff;border-radius:10px;padding:10px;font-size:14px;cursor:pointer;min-height:52px}
+.m.sel{border-color:var(--pri);background:#ede9fe}.m.done{border-color:var(--ok);background:#f0fff4;color:#276749;cursor:default}.m.err{border-color:var(--bad);background:#fff5f5}
+.seq{min-height:44px;border:2px dashed var(--line);border-radius:10px;padding:8px;margin-bottom:10px}
+.seq div{background:#ede9fe;border-radius:8px;padding:7px 10px;margin:4px 0;font-size:15px}
+.step{display:block;width:100%;text-align:left;border:2px solid var(--line);background:#fff;border-radius:10px;padding:10px 12px;margin:6px 0;font-size:15px;cursor:pointer}
+.step:disabled{opacity:.35}
+.flip{perspective:1000px;cursor:pointer}
+.fi{position:relative;min-height:260px;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .fi{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;padding:20px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.front{background:#fff}.back{background:#faf5ff;transform:rotateY(180deg);border:2px solid #d6bcfa;overflow:auto}
+.face .q{font-size:21px;text-align:center}.hint{text-align:center;color:var(--mut);font-size:13px;margin-top:10px}
+.row{display:flex;gap:10px}.row .big{flex:1}
+.ok-btn{background:var(--ok)!important}.bad-btn{background:#dd6b20!important}
+.pop{position:fixed;left:50%;top:30%;transform:translate(-50%,-50%);font-size:28px;font-weight:800;color:var(--pri);background:#fff;border-radius:16px;padding:14px 22px;box-shadow:0 6px 24px rgba(0,0,0,.18);animation:pop 1.1s forwards;pointer-events:none;z-index:9;text-align:center}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-70%)}}
+.stat{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.stat div{background:#fff;border-radius:12px;padding:12px;text-align:center}.stat b{display:block;font-size:26px;color:var(--pri)}
+.wrong{background:#fff;border-radius:12px;padding:10px 14px;margin:6px 0;font-size:14px;border-left:4px solid var(--bad)}
+.timer{font-size:22px}
+.hide{display:none}
+.mat{background:#faf5ff;border:1px solid #d6bcfa;border-radius:12px;padding:10px 12px;margin:6px 0 10px;font-size:15px}
+.mat:before{content:"📄 Material";display:block;font-weight:800;color:#6b46c1;font-size:13px;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+// ===================== DATEN =====================
+// t: card | mc | tf | fill | match | order ; b: 1/2
+const D=[
+// ---------- BLOCK 1 ----------
+{b:1,top:"Zelle",t:"card",q:"Prokaryot",a:"Zelle <b>ohne Zellkern</b>. DNA (ringförmig) frei im Cytoplasma, oft Plasmide, 70S-Ribosomen, keine Organellen mit Membran. Beispiel: Bakterien."},
+{b:1,top:"Zelle",t:"card",q:"Eukaryot",a:"Zelle <b>mit Zellkern</b> und Organellen mit Membran (Mitochondrien, ER, Golgi …), 80S-Ribosomen. Beispiel: Tiere, Pflanzen, Pilze."},
+{b:1,top:"Zelle",t:"card",q:"Kompartimentierung",a:"Die Zelle ist durch Membranen in <b>abgetrennte Räume</b> geteilt. So laufen viele Reaktionen gleichzeitig ab, ohne sich zu stören."},
+{b:1,top:"Zelle",t:"card",q:"Endosymbiontentheorie",a:"Mitochondrien und Chloroplasten waren früher <b>eigene Bakterien</b>. Belege: Doppelmembran, eigene ringförmige DNA, 70S-Ribosomen."},
+{b:1,top:"Zelle",t:"mc",q:"Was haben Prokaryoten NICHT?",o:["Zellkern","DNA","Ribosomen","Zellmembran"],c:0,ex:"Prokaryoten haben DNA, Ribosomen (70S) und eine Zellmembran – aber keinen Zellkern."},
+{b:1,top:"Zelle",t:"mc",q:"Welche Ribosomen haben Bakterien?",o:["70S","80S","90S","gar keine"],c:0,ex:"Bakterien: 70S (klein). Eukaryoten: 80S (groß). Antibiotika wie Streptomycin hemmen gezielt 70S."},
+{b:1,top:"Zelle",t:"tf",q:"Bakterien haben keine DNA.",c:false,ex:"Falsch! Sie haben DNA, nur keinen Zellkern."},
+{b:1,top:"Zelle",t:"tf",q:"Mitochondrien haben eigene DNA.",c:true,ex:"Richtig – ein Beleg für die Endosymbiontentheorie."},
+{b:1,top:"Zelle",t:"match",q:"Ordne die Organellen ihrer Aufgabe zu.",p:[["Mitochondrium","Zellatmung, ATP"],["Ribosom","baut Proteine"],["Golgi-Apparat","verpackt in Vesikel"],["Zellkern","enthält DNA"]]},
+{b:1,top:"Fette",t:"card",q:"Fett (Triglycerid)",a:"<b>1 Glycerin + 3 Fettsäuren</b>, verbunden durch Esterbindungen. Dabei werden 3 Wasser abgespalten."},
+{b:1,top:"Fette",t:"card",q:"Gesättigt / ungesättigt",a:"Gesättigt: <b>keine</b> C=C-Doppelbindung, gerade Kette → fest. Ungesättigt: Doppelbindung(en) → <b>Knick</b> → locker → flüssig."},
+{b:1,top:"Fette",t:"mc",q:"Was passiert bei der Veresterung?",o:["Wasser wird abgespalten","Wasser wird aufgenommen","ATP wird verbraucht","Sauerstoff wird frei"],c:0,ex:"OH vom Glycerin + COOH der Fettsäure → Esterbindung + H₂O (Kondensation)."},
+{b:1,top:"Fette",t:"mc",q:"Wie viele Doppelbindungen hat C₁₈H₃₂O₂ (Linolsäure)?",o:["0","1","2","3"],c:2,ex:"Gesättigt wäre H₃₆. Es fehlen 4 H → 4 : 2 = 2 Doppelbindungen."},
+{b:1,top:"Fette",t:"tf",q:"Ungesättigte Fettsäuren haben Knicke in der Kette.",c:true,ex:"Richtig – an jeder C=C-Doppelbindung."},
+{b:1,top:"Fette",t:"fill",q:"Bei der Veresterung wird ____ abgespalten.",acc:["wasser","h2o","h₂o"],a:"Wasser (H₂O)"},
+{b:1,top:"Membran",t:"card",q:"Phospholipid",a:"Glycerin + <b>2 Fettsäuren</b> + Phosphatgruppe. Kopf hydrophil, 2 Schwänze hydrophob → <b>amphiphil</b>."},
+{b:1,top:"Membran",t:"card",q:"Hydrophil / hydrophob",a:"Hydrophil = <b>liebt Wasser</b> (polar, geladen). Hydrophob = <b>meidet Wasser</b> (unpolar, wie Fett)."},
+{b:1,top:"Membran",t:"card",q:"Selektiv permeabel",a:"Die Membran ist nur für <b>manche Stoffe</b> durchlässig (z. B. Wasser, O₂), für andere nicht (Ionen, Zucker)."},
+{b:1,top:"Membran",t:"card",q:"Flüssig-Mosaik-Modell",a:"(Singer & Nicolson, 1972) Proteine stecken <b>in</b> der Lipid-Doppelschicht. Alles kann sich <b>seitlich bewegen</b> (flüssig), Proteine sind verteilt wie Mosaiksteine."},
+{b:1,top:"Membran",t:"mc",q:"Welcher Teil eines Phospholipids ist hydrophob?",o:["Die Fettsäure-Schwänze","Die Phosphatgruppe","Das Glycerin","Der ganze Kopf"],c:0,ex:"Die unpolaren Schwänze meiden Wasser und zeigen in der Doppelschicht nach innen."},
+{b:1,top:"Membran",t:"mc",q:"Warum kommt Glucose nicht einfach durch die Lipidschicht?",o:["Sie ist groß und polar","Sie ist zu klein","Sie ist fettlöslich","Sie ist ein Gas"],c:0,ex:"Das Membraninnere ist hydrophob und stößt polare Moleküle ab → Carrier nötig."},
+{b:1,top:"Membran",t:"tf",q:"Integrale Proteine können sich seitlich in der Membran bewegen.",c:true,ex:"Richtig – nur nach oben/unten können sie nicht heraus."},
+{b:1,top:"Membran",t:"tf",q:"Kanalproteine sind innen hydrophil.",c:true,ex:"Richtig – so können Ionen und Wasser hindurch, ohne die fettige Mitte zu berühren."},
+{b:1,top:"Membran",t:"fill",q:"Ein Molekül mit hydrophilem und hydrophobem Teil nennt man ____.",acc:["amphiphil"],a:"amphiphil"},
+{b:1,top:"Modelle",t:"match",q:"Ordne die Forscher ihrer Entdeckung zu.",p:[["Overton (1899)","Membran aus Lipiden"],["Gorter & Grendel (1925)","Doppelschicht"],["Danielli & Davson (1935)","Sandwich-Modell"],["Singer & Nicolson (1972)","Flüssig-Mosaik-Modell"]]},
+{b:1,top:"Modelle",t:"mc",q:"Welcher Versuch zeigte, dass Membranproteine beweglich sind?",o:["Zellfusion mit Farbstoffen (Frye & Edidin)","Overtons Versuch","Kaliumpermanganat-Versuch","Zwiebel-Versuch"],c:0,ex:"Grün und rot markierte Proteine waren nach ca. 40 min gemischt."},
+{b:1,top:"Modelle",t:"tf",q:"Das Sandwich-Modell ist heute noch gültig.",c:false,ex:"Falsch – es wurde vom Flüssig-Mosaik-Modell ersetzt, weil Proteine IN der Membran stecken."},
+{b:1,top:"Diffusion",t:"card",q:"Diffusion",a:"Ausgleich von Konzentrationsunterschieden <b>von selbst</b>, durch die zufällige Eigenbewegung der Teilchen. Von hoher zu niedriger Konzentration."},
+{b:1,top:"Diffusion",t:"card",q:"Brownsche Molekularbewegung",a:"Ständige, <b>zufällige</b> Bewegung aller Teilchen durch Wärme."},
+{b:1,top:"Diffusion",t:"tf",q:"Am Ende der Diffusion hören die Teilchen auf, sich zu bewegen.",c:false,ex:"Falsch – sie bewegen sich weiter (dynamisches Gleichgewicht)."},
+{b:1,top:"Diffusion",t:"tf",q:"Teilchen diffundieren, weil sie sich verteilen wollen.",c:false,ex:"Falsch – Teilchen wollen nichts. Die Bewegung ist zufällig, die Richtung entsteht statistisch."},
+{b:1,top:"Diffusion",t:"mc",q:"Was macht Diffusion SCHNELLER?",o:["Höhere Temperatur","Längere Strecke","Größere Teilchen","Kleinerer Konzentrationsunterschied"],c:0,ex:"Wärmer → schnellere Teilchen. Kurze Strecken, kleine Teilchen und große Unterschiede helfen auch."},
+{b:1,top:"Diffusion",t:"fill",q:"Die zufällige Bewegung aller Teilchen heißt ____ Molekularbewegung.",acc:["brownsche","brown'sche","brownische"],a:"Brownsche"},
+{b:1,top:"Osmose",t:"card",q:"Osmose",a:"Diffusion von <b>Wasser</b> durch eine <b>selektiv permeable Membran</b> zur Seite mit <b>mehr</b> gelösten Teilchen."},
+{b:1,top:"Osmose",t:"card",q:"Aquaporine",a:"Kanalproteine <b>nur für Wasser</b>. Hauptweg des Wassers durch die Membran bei der Osmose."},
+{b:1,top:"Osmose",t:"match",q:"Ordne zu.",p:[["hyperton","mehr gelöste Teilchen"],["hypoton","weniger gelöste Teilchen"],["isoton","gleich viel"],["Turgor","Druck gegen die Zellwand"]]},
+{b:1,top:"Osmose",t:"mc",q:"Rote Blutzelle in destilliertem Wasser – was passiert?",o:["Sie platzt","Sie schrumpft","Nichts","Plasmolyse"],c:0,ex:"Dest. Wasser ist hypoton → Wasser strömt ein → keine Zellwand → platzt."},
+{b:1,top:"Osmose",t:"mc",q:"Kaviar in 3 % Salzlösung: Masse von 50 g auf …",o:["45 g, weil Wasser austritt","63 g, weil Wasser eintritt","50 g, isoton","45 g, weil Salz austritt"],c:0,ex:"3 % ist hyperton → Wasser verlässt die Eier durch Osmose."},
+{b:1,top:"Osmose",t:"tf",q:"Bei der Osmose wandert das Salz durch die Membran.",c:false,ex:"Falsch – nur Wasser wandert. Das Salz kommt nicht durch."},
+{b:1,top:"Osmose",t:"tf",q:"Wasser wandert zur Seite mit MEHR gelösten Teilchen.",c:true,ex:"Richtig: „Wasser folgt dem Salz“."},
+{b:1,top:"Osmose",t:"fill",q:"Kanalproteine nur für Wasser heißen ____.",acc:["aquaporine","aquaporin"],a:"Aquaporine"},
+{b:1,top:"Plasmolyse",t:"card",q:"Plasmolyse / Deplasmolyse",a:"Plasmolyse: Pflanzenzelle in <b>hypertoner</b> Lösung → Wasser raus → Protoplast löst sich von der Zellwand. Deplasmolyse: in <b>hypotoner</b> Lösung → wieder groß."},
+{b:1,top:"Plasmolyse",t:"card",q:"Grenzplasmolyse",a:"Konzentration, bei der sich der Protoplast <b>gerade eben</b> ablöst (ca. 50 % der Zellen). Dort ist die Lösung etwa <b>isoton</b> zum Zellsaft."},
+{b:1,top:"Plasmolyse",t:"order",q:"Bringe die Plasmolyse in die richtige Reihenfolge.",s:["Zelle kommt in Salzlösung","Außenlösung ist hyperton","Wasser verlässt die Vakuole","Vakuole schrumpft","Protoplast löst sich von der Zellwand"]},
+{b:1,top:"Plasmolyse",t:"tf",q:"Pflanzenzellen platzen in destilliertem Wasser nicht.",c:true,ex:"Richtig – die Zellwand hält dagegen (Turgor)."},
+{b:1,top:"Plasmolyse",t:"mc",q:"Bei 0,4 mol/l Zucker sind 50 % der Zwiebelzellen plasmolysiert. Zellsaft-Konzentration?",o:["ca. 0,4 mol/l","0 mol/l","ca. 0,1 mol/l","ca. 1 mol/l"],c:0,ex:"Grenzplasmolyse ≈ isoton → Zellsaft ≈ 0,4 mol/l."},
+{b:1,top:"Plasmolyse",t:"fill",q:"Der Druck des Zellinhalts gegen die Zellwand heißt ____.",acc:["turgor"],a:"Turgor"},
+{b:1,top:"Transport",t:"card",q:"Passiver / aktiver Transport",a:"Passiv: <b>mit</b> dem Gefälle, ohne Energie (Diffusion, erleichterte Diffusion, Osmose). Aktiv: <b>gegen</b> das Gefälle, braucht Energie (ATP oder Ionengradient)."},
+{b:1,top:"Transport",t:"card",q:"Symport / Antiport",a:"Cotransport: Symport = zwei Stoffe in die <b>gleiche</b> Richtung (Na⁺ + Glucose). Antiport = in <b>entgegengesetzte</b> Richtungen."},
+{b:1,top:"Transport",t:"match",q:"Ordne die Transportproteine zu.",p:[["Kanal","offener Tunnel"],["Carrier","bindet und ändert Form"],["Pumpe","braucht ATP"],["Symport","zwei Stoffe, gleiche Richtung"]]},
+{b:1,top:"Transport",t:"mc",q:"Was macht die Natrium-Kalium-Pumpe pro ATP?",o:["3 Na⁺ raus, 2 K⁺ rein","2 Na⁺ raus, 3 K⁺ rein","3 Na⁺ rein, 2 K⁺ raus","1 Na⁺ raus, 1 K⁺ rein"],c:0,ex:"3 Na⁺ nach außen, 2 K⁺ nach innen – beide gegen ihr Gefälle."},
+{b:1,top:"Transport",t:"mc",q:"Aufnahmekurve steigt und wird dann waagerecht (Sättigung). Welcher Transport?",o:["Über Carrier-Proteine","Einfache Diffusion","Osmose","Durch die Lipidschicht"],c:0,ex:"Sättigung = alle Carrier besetzt. Einfache Diffusion steigt linear."},
+{b:1,top:"Transport",t:"mc",q:"Welcher Stoff geht durch einfache Diffusion durch die Membran?",o:["O₂","Na⁺","Glucose","Proteine"],c:0,ex:"Klein und unpolar → direkt durch die Lipidschicht."},
+{b:1,top:"Transport",t:"tf",q:"Erleichterte Diffusion braucht Energie.",c:false,ex:"Falsch – sie ist passiv. Das Protein hilft nur."},
+{b:1,top:"Transport",t:"tf",q:"Sekundär aktiver Transport nutzt direkt ATP.",c:false,ex:"Falsch – er nutzt einen Ionengradienten, den vorher eine ATP-Pumpe aufgebaut hat."},
+{b:1,top:"Transport",t:"tf",q:"Beim Symport bewegen sich die Stoffe in entgegengesetzte Richtungen.",c:false,ex:"Falsch – das ist Antiport. Symport = gleiche Richtung."},
+{b:1,top:"Transport",t:"order",q:"Ablauf der Natrium-Kalium-Pumpe:",s:["3 Na⁺ binden innen","ATP wird gespalten, Form ändert sich","Na⁺ wird außen abgegeben","2 K⁺ binden außen","Phosphat löst sich, K⁺ wird innen abgegeben"]},
+{b:1,top:"Vesikel",t:"card",q:"Endocytose / Exocytose",a:"Endo: Membran umschließt große Teilchen → Vesikel <b>nach innen</b>. Exo: Vesikel verschmilzt mit Membran → Inhalt <b>nach außen</b>. Beide brauchen Energie."},
+{b:1,top:"Vesikel",t:"order",q:"Wie kommt Insulin aus der Zelle (Exocytose)?",s:["Verpacken im Golgi-Apparat","Vesikel wandert zur Zellmembran","Vesikel verschmilzt mit der Membran","Insulin wird nach außen abgegeben"]},
+{b:1,top:"Vesikel",t:"tf",q:"Endo- und Exocytose brauchen Energie.",c:true,ex:"Richtig – sie sind aktive Vorgänge."},
+// ---------- BLOCK 2 ----------
+{b:2,top:"Proteine",t:"card",q:"Aminosäure",a:"Aminogruppe (–NH₂) + Carboxylgruppe (–COOH) + <b>Rest R</b> am α-C-Atom. 20 Sorten, nur der Rest ist verschieden."},
+{b:2,top:"Proteine",t:"card",q:"Peptidbindung",a:"COOH einer Aminosäure + NH₂ der nächsten → –CO–NH– + <b>H₂O</b> (Kondensation). Kovalent und stabil."},
+{b:2,top:"Proteine",t:"match",q:"Ordne die Proteinstrukturen zu.",p:[["Primärstruktur","Reihenfolge der Aminosäuren"],["Sekundärstruktur","Helix oder Faltblatt"],["Tertiärstruktur","3D-Form einer Kette"],["Quartärstruktur","mehrere Ketten"]]},
+{b:2,top:"Proteine",t:"mc",q:"Was hält die Sekundärstruktur zusammen?",o:["Wasserstoffbrücken im Rückgrat","Peptidbindungen","Disulfidbrücken zwischen Resten","ATP"],c:0,ex:"H-Brücken zwischen C=O und N–H des Rückgrats → α-Helix / β-Faltblatt."},
+{b:2,top:"Proteine",t:"mc",q:"Was bleibt bei der Denaturierung erhalten?",o:["Die Primärstruktur","Die Tertiärstruktur","Das aktive Zentrum","Die Quartärstruktur"],c:0,ex:"Peptidbindungen sind kovalent und bleiben. Nur die Faltung geht kaputt."},
+{b:2,top:"Proteine",t:"mc",q:"Wie viele verschiedene Peptide aus 7 Aminosäuren gibt es?",o:["20⁷","7²⁰","20 × 7","7"],c:0,ex:"20 Möglichkeiten an jeder der 7 Stellen → 20⁷ ≈ 1,28 Milliarden."},
+{b:2,top:"Proteine",t:"tf",q:"Disulfidbrücken sind kovalente Bindungen.",c:true,ex:"Richtig – deshalb sind sie besonders stabil (z. B. Dauerwelle, thermophile Enzyme)."},
+{b:2,top:"Proteine",t:"tf",q:"Bei der Denaturierung zerfällt ein Protein in einzelne Aminosäuren.",c:false,ex:"Falsch – die Kette bleibt, nur die Raumstruktur geht verloren."},
+{b:2,top:"Proteine",t:"order",q:"Ordne die Proteinstrukturen von einfach nach komplex.",s:["Primärstruktur","Sekundärstruktur","Tertiärstruktur","Quartärstruktur"]},
+{b:2,top:"Energie",t:"card",q:"Exergonisch / endergonisch",a:"Exergonisch: <b>ΔG &lt; 0</b>, Energie wird frei, läuft freiwillig. Endergonisch: <b>ΔG &gt; 0</b>, braucht Energie, nicht freiwillig."},
+{b:2,top:"Energie",t:"card",q:"Enthalpie (H)",a:"Energie in den Bindungen (<b>Wärmeinhalt</b>). ΔH &lt; 0: Wärme wird frei (exotherm). ΔH &gt; 0: Wärme wird aufgenommen (endotherm)."},
+{b:2,top:"Energie",t:"card",q:"Entropie (S)",a:"Maß für <b>Unordnung</b>. ΔS &gt; 0: wird unordentlicher (z. B. Diffusion). ΔS &lt; 0: wird ordentlicher – braucht Energie."},
+{b:2,top:"Energie",t:"card",q:"1. und 2. Hauptsatz",a:"1.: Energie wird <b>nur umgewandelt</b>, nie erzeugt oder vernichtet. 2.: Von selbst nimmt die <b>Entropie zu</b>; Wärme fließt von warm nach kalt."},
+{b:2,top:"Energie",t:"match",q:"Ordne zu.",p:[["ΔG < 0","exergonisch"],["ΔG > 0","endergonisch"],["ΔG = 0","Gleichgewicht"],["ΔS > 0","Unordnung nimmt zu"]]},
+{b:2,top:"Energie",t:"mc",q:"Was bedeutet ΔG < 0?",o:["Reaktion läuft freiwillig","Reaktion braucht Energie","Gleichgewicht","Wärme wird aufgenommen"],c:0,ex:"Negatives ΔG = exergonisch = freiwillig."},
+{b:2,top:"Energie",t:"mc",q:"Glucose + Fructose → Saccharose (ΔG = +23) gekoppelt mit ATP-Spaltung (ΔG = −30). Gesamt-ΔG?",o:["−7 kJ/mol","+53 kJ/mol","−53 kJ/mol","+7 kJ/mol"],c:0,ex:"+23 + (−30) = −7 → läuft freiwillig (energetische Kopplung)."},
+{b:2,top:"Energie",t:"tf",q:"Exotherm und exergonisch bedeuten immer dasselbe.",c:false,ex:"Falsch – exotherm = Wärme (ΔH), exergonisch = freiwillig (ΔG). Kältepack: endotherm, aber exergonisch."},
+{b:2,top:"Energie",t:"tf",q:"Wärme fließt von selbst von kalt nach warm.",c:false,ex:"Falsch – nur von warm nach kalt (2. Hauptsatz)."},
+{b:2,top:"Energie",t:"tf",q:"Die Entropie nimmt von selbst zu.",c:true,ex:"Richtig – 2. Hauptsatz (in abgeschlossenen Systemen)."},
+{b:2,top:"Energie",t:"fill",q:"ΔG = ΔH − T · ____",acc:["δs","ds","s","deltas","delta s","∆s"],a:"ΔS"},
+{b:2,top:"Enzyme",t:"card",q:"Enzym",a:"<b>Protein</b>, das als Biokatalysator die <b>Aktivierungsenergie senkt</b>. Wird nicht verbraucht, ändert ΔG nicht, ist substrat- und wirkungsspezifisch."},
+{b:2,top:"Enzyme",t:"card",q:"Aktivierungsenergie",a:"Der <b>„Hügel“</b>, den eine Reaktion am Anfang überwinden muss. Enzyme machen ihn kleiner."},
+{b:2,top:"Enzyme",t:"card",q:"Substrat / aktives Zentrum",a:"Substrat = Stoff, den das Enzym umwandelt. Aktives Zentrum = <b>Tasche</b> im Enzym, in der das Substrat bindet (H-Brücken, Ionenbindungen)."},
+{b:2,top:"Enzyme",t:"card",q:"Substrat- / Wirkungsspezifität",a:"Substratspezifität: nur <b>ein bestimmtes Substrat</b> passt. Wirkungsspezifität: nur <b>eine bestimmte Reaktion</b>."},
+{b:2,top:"Enzyme",t:"card",q:"Induced-Fit-Modell",a:"Das Enzym <b>passt seine Form an</b>, wenn das Substrat bindet (genauer als das starre Schlüssel-Schloss-Modell)."},
+{b:2,top:"Enzyme",t:"card",q:"Cofaktor, Coenzym, Cosubstrat",a:"Cofaktor = Nicht-Protein-Helfer (Metall-Ion oder Coenzym). Apoenzym + Cofaktor = Holoenzym. Cosubstrat = Coenzym, das nur kurz bindet (z. B. <b>NAD⁺</b>)."},
+{b:2,top:"Enzyme",t:"mc",q:"Was verändert ein Enzym?",o:["Die Aktivierungsenergie","ΔG der Reaktion","Die Produkte","Die Edukte"],c:0,ex:"Nur der Hügel wird kleiner – ΔG bleibt gleich."},
+{b:2,top:"Enzyme",t:"mc",q:"Saccharase spaltet Saccharose in …",o:["Glucose + Fructose","Glucose + Galactose","2 Glucose","Stärke"],c:0,ex:"Glucose + Galactose entsteht aus Lactose (Lactase)."},
+{b:2,top:"Enzyme",t:"mc",q:"H₂O₂ + gekochte Kartoffel: fast keine Bläschen. Warum?",o:["Katalase ist denaturiert","Es fehlt Substrat","Kartoffel hat kein Enzym","Reaktion ist endergonisch"],c:0,ex:"Hitze zerstört die Raumstruktur der Katalase → keine Katalyse."},
+{b:2,top:"Enzyme",t:"mc",q:"In welche Enzymklasse gehört die Lipase (spaltet Fett mit Wasser)?",o:["Hydrolasen","Ligasen","Isomerasen","Transferasen"],c:0,ex:"Spaltung mit Wasser = Hydrolyse → Hydrolasen."},
+{b:2,top:"Enzyme",t:"tf",q:"Enzyme liefern die Energie für die Reaktion.",c:false,ex:"Falsch – sie senken nur die Aktivierungsenergie."},
+{b:2,top:"Enzyme",t:"tf",q:"Enzyme werden bei der Reaktion verbraucht.",c:false,ex:"Falsch – sie gehen unverändert aus der Reaktion hervor."},
+{b:2,top:"Enzyme",t:"tf",q:"Enzymnamen enden meistens auf „-ase“.",c:true,ex:"Richtig: Lactase, Amylase, Saccharase …"},
+{b:2,top:"Enzyme",t:"fill",q:"E + S → ____ → EP → E + P",acc:["es","es-komplex","enzym-substrat-komplex"],a:"ES (Enzym-Substrat-Komplex)"},
+{b:2,top:"Enzyme",t:"fill",q:"Eine Spaltung mit Wasser heißt ____.",acc:["hydrolyse"],a:"Hydrolyse"},
+{b:2,top:"Enzyme",t:"order",q:"Ablauf einer Enzymreaktion:",s:["Enzym und Substrat treffen sich","Enzym-Substrat-Komplex entsteht","Substrat wird umgewandelt (EP)","Produkte werden frei, Enzym unverändert"]},
+{b:2,top:"Kinetik",t:"card",q:"Vmax",a:"Maximale Geschwindigkeit: <b>alle aktiven Zentren besetzt</b>. Mehr Substrat hilft nicht, nur mehr Enzym."},
+{b:2,top:"Kinetik",t:"card",q:"Km (Michaelis-Menten-Konstante)",a:"Substratkonzentration bei <b>½ Vmax</b>. Kleiner Km = <b>hohe Affinität</b>. Unabhängig von der Enzymmenge."},
+{b:2,top:"Kinetik",t:"card",q:"Wechselzahl (kkat)",a:"Wie viele Substratmoleküle <b>ein</b> Enzym pro Sekunde umsetzt (Katalase: 10 Mio.)."},
+{b:2,top:"Kinetik",t:"card",q:"Isoenzyme",a:"Enzyme mit <b>gleicher Reaktion</b>, aber anderer Aminosäuresequenz → anderer Km oder anderes Optimum (z. B. Hexokinase/Glucokinase)."},
+{b:2,top:"Kinetik",t:"mc",q:"Was ist Km?",o:["Substratkonzentration bei ½ Vmax","Die halbe Maximalgeschwindigkeit","Die Enzymmenge","Die Wechselzahl"],c:0,ex:"Km ist eine Konzentration (z. B. mmol/l), keine Geschwindigkeit!"},
+{b:2,top:"Kinetik",t:"mc",q:"Enzym A: Km = 0,1 mmol/l. Enzym B: Km = 10 mmol/l. Wer bindet das Substrat stärker?",o:["Enzym A","Enzym B","Beide gleich","Kann man nicht sagen"],c:0,ex:"Kleiner Km = hohe Affinität."},
+{b:2,top:"Kinetik",t:"mc",q:"Man verdoppelt die Enzymmenge. Was passiert?",o:["Vmax steigt, Km gleich","Km steigt, Vmax gleich","Beide sinken","Nichts"],c:0,ex:"Mehr Enzyme = mehr Kassen → höheres Vmax. Km hängt nicht von der Menge ab."},
+{b:2,top:"Kinetik",t:"mc",q:"Warum hilft Trinkalkohol bei Methanol-Vergiftung?",o:["Ethanol hemmt die ADH kompetitiv","Ethanol zerstört Methanol","Ethanol denaturiert die ADH","Ethanol erhöht Vmax"],c:0,ex:"Ethanol hat kleineren Km (1,7 statt 150) → verdrängt Methanol aus dem aktiven Zentrum."},
+{b:2,top:"Kinetik",t:"tf",q:"Großer Km bedeutet hohe Affinität.",c:false,ex:"Falsch – großer Km = niedrige Affinität."},
+{b:2,top:"Kinetik",t:"order",q:"So liest du Km aus dem Diagramm ab:",s:["Vmax ablesen","Vmax halbieren","Waagerecht bis zur Kurve","Senkrecht nach unten zur x-Achse","Wert = Km"]},
+{b:2,top:"Temperatur",t:"card",q:"RGT-Regel",a:"<b>+10 °C → 2- bis 3-mal schneller</b>, weil Teilchen schneller sind und öfter zusammenstoßen. Gilt bei Enzymen nur unter dem Optimum."},
+{b:2,top:"Temperatur",t:"card",q:"Denaturierung",a:"Verlust der <b>Raumstruktur</b> (H-Brücken, Ionenbindungen brechen) durch Hitze, extremen pH, Schwermetalle. Aktives Zentrum passt nicht mehr. Meist irreversibel."},
+{b:2,top:"Temperatur",t:"card",q:"Q₁₀-Wert",a:"Q₁₀ = v(T+10 °C) : v(T). Faktor, um den die Geschwindigkeit bei +10 °C steigt (RGT: ca. 2–3)."},
+{b:2,top:"Temperatur",t:"mc",q:"Um wie viel steigt die Reaktionsgeschwindigkeit laut RGT-Regel bei +10 °C?",o:["2- bis 3-fach","10-fach","halbiert sich","gar nicht"],c:0,ex:"Faustregel für chemische Reaktionen."},
+{b:2,top:"Temperatur",t:"mc",q:"Banane über der Flamme: Bereich 1 direkt darüber bleibt gelb. Warum?",o:["Das Enzym PPO ist denaturiert","Die Schale ist verbrannt","Es gibt dort kein Phenol","Die Temperatur war zu niedrig"],c:0,ex:"Zu heiß → Denaturierung → kein Chinon/Melanin."},
+{b:2,top:"Temperatur",t:"mc",q:"Siamkatze: Warum sind Ohren und Pfoten dunkel?",o:["Dort ist es kühler, die Tyrosinase arbeitet","Dort ist es wärmer","Dort gibt es mehr Substrat","Zufall"],c:0,ex:"Die Tyrosinase ist über ca. 33 °C inaktiv – nur an kühlen Stellen entsteht Melanin."},
+{b:2,top:"Temperatur",t:"tf",q:"Kälte denaturiert Enzyme.",c:false,ex:"Falsch – Kälte macht sie nur langsamer (reversibel)."},
+{b:2,top:"Temperatur",t:"tf",q:"Enzyme thermophiler Bakterien sind durch viele Disulfidbrücken besonders stabil.",c:true,ex:"Richtig – z. B. Taq-Polymerase, aktiv bei 95 °C."},
+{b:2,top:"pH",t:"card",q:"pH-Optimum",a:"pH-Wert, bei dem ein Enzym am besten arbeitet. Ein anderer pH-Wert ändert die <b>Ladungen</b> der Aminosäurereste → Raumstruktur ändert sich."},
+{b:2,top:"pH",t:"match",q:"Ordne die Enzyme ihrem pH-Optimum zu.",p:[["Pepsin (Magen)","pH 2"],["Amylase (Speichel)","pH 7"],["Trypsin (Dünndarm)","pH 8"]]},
+{b:2,top:"pH",t:"mc",q:"Warum wirkt Zitronensaft gegen braune Äpfel/Bananen?",o:["pH sinkt unter das Optimum der PPO","Er liefert Energie","Er erhöht die Temperatur","Er ist ein Katalysator"],c:0,ex:"Saurer pH → Ladungen im aktiven Zentrum ändern sich → PPO arbeitet nicht."},
+{b:2,top:"pH",t:"mc",q:"Was passiert mit der Speichel-Amylase im Magen (pH 1–2)?",o:["Sie wird denaturiert","Sie wird schneller","Nichts","Sie wird zu Pepsin"],c:0,ex:"Ihr Optimum ist pH 7 – im Magen wird sie irreversibel inaktiv."},
+{b:2,top:"pH",t:"fill",q:"Pepsin hat sein Optimum bei ungefähr pH ____.",acc:["2","1-2","1,5","2,0"],a:"2"},
+{b:2,top:"Hemmung",t:"card",q:"Kompetitive Hemmung",a:"Hemmstoff <b>ähnelt dem Substrat</b>, bindet im <b>aktiven Zentrum</b>. Viel Substrat verdrängt ihn. <b>Vmax gleich, Km steigt.</b>"},
+{b:2,top:"Hemmung",t:"card",q:"Allosterische (nicht-kompetitive) Hemmung",a:"Hemmstoff bindet an <b>anderer Stelle</b> → Form verändert. Mehr Substrat hilft nicht. <b>Vmax sinkt, Km gleich.</b>"},
+{b:2,top:"Hemmung",t:"card",q:"Endprodukthemmung",a:"Das <b>Endprodukt</b> einer Reaktionskette hemmt das <b>erste Enzym</b> (negative Rückkopplung, wie ein Thermostat)."},
+{b:2,top:"Hemmung",t:"card",q:"Irreversible Hemmung",a:"Hemmstoff bindet <b>dauerhaft</b> (z. B. Blei an SH-Gruppen, Penicillin). Enzym für immer kaputt."},
+{b:2,top:"Hemmung",t:"match",q:"Ordne die Hemmtypen zu.",p:[["kompetitiv","bindet im aktiven Zentrum"],["allosterisch","bindet an anderer Stelle"],["irreversibel","bindet für immer (Blei)"],["Endprodukthemmung","Produkt hemmt 1. Enzym"]]},
+{b:2,top:"Hemmung",t:"mc",q:"Kompetitive Hemmung: Was passiert mit Vmax und Km?",o:["Vmax gleich, Km steigt","Vmax sinkt, Km gleich","Beide sinken","Beide steigen"],c:0,ex:"Viel Substrat verdrängt den Hemmstoff → Vmax wird erreicht; für ½ Vmax braucht man mehr Substrat."},
+{b:2,top:"Hemmung",t:"mc",q:"Allosterische Hemmung: Was passiert mit Vmax und Km?",o:["Vmax sinkt, Km gleich","Vmax gleich, Km steigt","Beide gleich","Km sinkt"],c:0,ex:"Weniger aktive Enzyme → Vmax sinkt; die übrigen binden normal → Km gleich."},
+{b:2,top:"Hemmung",t:"mc",q:"Allopurinol gegen Gicht ähnelt dem Substrat Hypoxanthin. Welche Hemmung?",o:["Kompetitiv","Allosterisch","Irreversibel","Endprodukthemmung"],c:0,ex:"Ähnliche Struktur → konkurriert um das aktive Zentrum der Xanthinoxidase."},
+{b:2,top:"Hemmung",t:"mc",q:"Warum sollen Bleirohre ausgetauscht werden?",o:["Blei hemmt Enzyme irreversibel","Blei ist ein Katalysator","Blei senkt den pH","Blei ist ein Substrat"],c:0,ex:"Blei-Ionen binden dauerhaft an SH-Gruppen von Enzymen."},
+{b:2,top:"Hemmung",t:"tf",q:"Bei kompetitiver Hemmung hilft eine sehr hohe Substratkonzentration.",c:true,ex:"Richtig – der Hemmstoff wird statistisch verdrängt."},
+{b:2,top:"Hemmung",t:"tf",q:"Ein allosterischer Hemmstoff sitzt im aktiven Zentrum.",c:false,ex:"Falsch – er sitzt an einer anderen Stelle (allosterisches Zentrum)."},
+{b:2,top:"Hemmung",t:"tf",q:"Bei der Endprodukthemmung wird meistens das erste Enzym der Kette gehemmt.",c:true,ex:"Richtig – so entstehen auch keine unnötigen Zwischenprodukte."},
+// ---------- TRANSFERAUFGABEN ----------
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Kaviar (Fischeier) wird 15 min in Lösungen gelegt. 50 g werden zu: <b>3 % Salz: 45 g</b> · <b>0,2 % Salz: 50 g</b> · <b>dest. Wasser: 63 g, Eier teilweise geplatzt</b>.",q:"Welche Aussage erklärt die Werte richtig?",o:["3 % ist hyperton → Wasser verlässt die Eier; dest. Wasser ist hypoton → Wasser strömt ein, keine Zellwand → Platzen","3 % ist hypoton → Salz strömt in die Eier","In dest. Wasser strömt Salz aus den Eiern","0,2 % ist hyperton, deshalb bleibt die Masse gleich"],c:0,ex:"0,2 % ist etwa isoton zum Inneren der Eier → kein Netto-Wasserstrom. Bei Osmose wandert nur Wasser."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Meeresspaghetti sind Algen (Pflanzen) aus dem Atlantik (ca. 3 % Salz). Sie werden in destilliertes Wasser gelegt.",q:"Welche Hypothese ist am besten begründet?",o:["Masse nimmt zu, aber die Zellen platzen nicht – die Zellwand hält dagegen (Turgor)","Die Zellen platzen wie Kaviar","Masse nimmt ab, weil Wasser austritt","Nichts passiert, weil Algen keine Membran haben"],c:0,ex:"Dest. Wasser ist hypoton → Wasser strömt ein. Pflanzenzellen haben eine Zellwand → kein Platzen."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Meeresspaghetti (an 3 % Meerwasser angepasst) werden in eine 3 %ige Salzlösung gelegt.",q:"Was erwartest du?",o:["Masse bleibt etwa gleich (isoton)","Masse nimmt stark ab (hyperton)","Masse nimmt stark zu","Zellen platzen"],c:0,ex:"Die Algen sind an 3 % angepasst. Ihr Zellsaft ist ungefähr isoton dazu."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Kartoffelstäbchen (5,0 cm) in Zuckerlösungen. Länge danach: <b>0 mol/l: 5,4</b> · <b>0,2: 5,15</b> · <b>0,3: 5,0</b> · <b>0,4: 4,8</b> · <b>0,6: 4,6 cm</b>.",q:"Welche Konzentration hat der Zellsaft ungefähr?",o:["0,3 mol/l","0 mol/l","0,6 mol/l","5,0 mol/l"],c:0,ex:"Bei 0,3 mol/l ändert sich die Länge nicht → isoton → Zellsaft ≈ 0,3 mol/l."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Gibt man Salz auf geschnittene Gurken, steht nach 20 min viel Wasser in der Schüssel. Die Gurken werden weich.",q:"Warum?",o:["Außen entsteht eine hypertone Lösung → Wasser verlässt die Zellen (Osmose), Turgor sinkt","Das Salz zieht in die Zellen und drückt Wasser heraus","Das Salz denaturiert Enzyme","Die Zellwände lösen sich auf"],c:0,ex:"Salz löst sich auf der Oberfläche → hyperton → Wasser strömt aus den Zellen."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"An Straßen mit viel Streusalz im Winter sterben oft Bäume.",q:"Welche Hypothese passt?",o:["Bodenwasser wird hyperton → Wurzelzellen verlieren Wasser (Plasmolyse)","Salz ist ein Enzym-Hemmstoff für Fotosynthese","Bodenwasser wird hypoton → Wurzelzellen platzen","Salz macht den Boden zu warm"],c:0,ex:"Statt Wasser aufzunehmen, geben die Wurzeln Wasser ab."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Marmelade (ca. 60 % Zucker) und Salzfisch verderben kaum, auch ohne Kühlschrank.",q:"Warum wachsen dort kaum Bakterien?",o:["Die Umgebung ist stark hyperton → Bakterien verlieren durch Osmose Wasser","Zucker und Salz sind Antibiotika","Bakterien mögen keinen Geschmack","Die Bakterien platzen, weil es hypoton ist"],c:0,ex:"Ohne Wasser laufen ihre Enzyme nicht → keine Vermehrung."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Das Antibiotikum Streptomycin blockiert <b>70S-Ribosomen</b>.",q:"Warum schadet es Bakterien, aber kaum menschlichen Zellen?",o:["Bakterien haben 70S-, menschliche Zellen im Cytoplasma 80S-Ribosomen","Menschen haben keine Ribosomen","Bakterien haben keinen Zellkern, deshalb wirkt es","Streptomycin zerstört Zellwände"],c:0,ex:"Mögliche Nebenwirkung: Mitochondrien haben auch 70S-Ribosomen (Endosymbiontentheorie)."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Schmelztemperatur: Stearinsäure (0 Doppelbindungen) 69 °C · Ölsäure (1) 13 °C · Linolsäure (2) −5 °C. Fische aus eiskaltem Wasser haben viele mehrfach ungesättigte Fettsäuren in ihren Membranen.",q:"Welchen Vorteil hat das?",o:["Die Membran bleibt bei Kälte flüssig und beweglich","Die Membran wird fester und stabiler","Die Fische speichern mehr Energie","Wasser kann nicht mehr durch die Membran"],c:0,ex:"Knicke → lockere Packung → niedrige Schmelztemperatur → Membran bleibt flüssig."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Viele Viren haben eine Hülle aus einer Lipid-Doppelschicht. Seifen-Moleküle (Tenside) haben einen hydrophilen Kopf und einen hydrophoben Schwanz.",q:"Wie zerstört Seife die Virushülle?",o:["Die hydrophoben Schwänze lagern sich in die Lipidschicht ein und lösen sie heraus","Seife denaturiert die DNA","Seife ist hyperton und lässt das Virus schrumpfen","Seife spaltet Peptidbindungen"],c:0,ex:"Amphiphile Tenside zerstören die Doppelschicht. Reines Wasser kann das nicht."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Frye-Edidin-Versuch: Nach 40 min sind die markierten Membranproteine <b>bei 37 °C gemischt</b>, <b>bei 15 °C noch getrennt</b>.",q:"Welche Erklärung passt?",o:["Bei Kälte bewegen sich die Teilchen langsamer und die Membran wird zähflüssiger","Bei 15 °C sind die Proteine denaturiert","Bei 15 °C gibt es keine Membran","Bei 37 °C sind die Proteine kleiner"],c:0,ex:"Die Proteine sind trotzdem beweglich, nur langsamer (Flüssig-Mosaik-Modell)."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Diffusionszeit von O₂: 10 µm: 0,03 s · 100 µm: 3 s · 1 mm: 4 min · 1 cm: 7 Stunden.",q:"Welche Folgerung ist richtig?",o:["Diffusion ist nur über kurze Strecken schnell → Zellen sind klein, große Tiere brauchen einen Kreislauf","Diffusion ist über alle Strecken gleich schnell","Größere Zellen sind besser versorgt","Sauerstoff braucht ATP für die Diffusion"],c:0,ex:"10-fache Strecke → ca. 100-fache Zeit."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Bei <b>Mukoviszidose</b> ist ein Chlorid-Kanal (CFTR) defekt. Normalerweise strömen Cl⁻-Ionen durch ihn aus den Zellen in den Lungenschleim.",q:"Warum ist der Schleim bei Mukoviszidose zäh?",o:["Ohne Cl⁻ im Schleim folgt kaum Wasser durch Osmose → der Schleim bleibt wasserarm","Cl⁻ zerstört den Schleim","Der Kanal pumpt zu viel Wasser hinaus","Der Schleim wird hypoton und platzt"],c:0,ex:"Normal: Cl⁻ raus → Schleim hyperton → Wasser folgt → dünnflüssiger Schleim."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Stoff A: Aufnahme steigt linear mit der Konzentration, auch ohne ATP. Stoff B: Aufnahme erreicht ein Maximum und stoppt, wenn die ATP-Bildung blockiert wird.",q:"Welche Zuordnung stimmt?",o:["A: einfache Diffusion · B: aktiver Transport über Carrier","A: aktiver Transport · B: einfache Diffusion","A und B: Osmose","A: Endocytose · B: Kanal"],c:0,ex:"Sättigung = Carrier. Ohne ATP gestoppt = aktiv."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Insulin ist ein großes Protein. Es wird im Golgi-Apparat in Vesikel verpackt und bei hohem Blutzucker ins Blut abgegeben.",q:"Wie verlässt Insulin die Zelle?",o:["Durch Exocytose: Vesikel verschmilzt mit der Zellmembran","Durch einfache Diffusion","Durch einen Ionenkanal","Durch Endocytose"],c:0,ex:"Zu groß und zu polar für die Lipidschicht oder Kanäle."},
+{b:1,top:"Transfer",tr:1,t:"mc",mat:"Zwiebelzellen in Zuckerlösungen, Anteil plasmolysierter Zellen: 0,2 mol/l: 0 % · 0,3: 10 % · <b>0,4: 50 %</b> · 0,5: 90 % · 0,6: 100 %.",q:"Was bedeutet der Wert bei 0,4 mol/l?",o:["Grenzplasmolyse: Lösung etwa isoton zum Zellsaft","Alle Zellen sind tot","Die Lösung ist stark hypoton","Hier beginnt die Deplasmolyse"],c:0,ex:"Zellsaft-Konzentration ≈ 0,4 mol/l."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Banane: Sauerstoff + Phenol → (Enzym PPO) → Chinon → spontan → braunes Melanin. Die Banane wird 15 s über eine Flamme gehalten. <b>Direkt über der Flamme bleibt die Schale gelb.</b>",q:"Warum bleibt sie dort gelb?",o:["PPO ist durch die Hitze denaturiert → kein Chinon, kein Melanin","Die Schale ist verbrannt","Dort war es zu kalt","Dort fehlt das Phenol"],c:0,ex:"Zu heiß → Tertiärstruktur zerstört → aktives Zentrum passt nicht mehr."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Banane über der Flamme: <b>Etwas weiter weg</b> von der heißesten Stelle ist die Schale <b>braunschwarz</b>.",q:"Warum ist sie dort am dunkelsten?",o:["Temperatur nahe dem Optimum (RGT-Regel) + zerstörte Membranen → Enzym und Substrat kommen zusammen","Dort ist das Enzym denaturiert","Dort ist die Schale verbrannt","Dort ist es am kältesten"],c:0,ex:"Erhöhte Temperatur beschleunigt die Reaktion, ohne das Enzym zu zerstören."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Geschnittene Bananen im Obstsalat werden braun.",q:"Welche Maßnahme ist am besten begründet?",o:["Zitronensaft: pH sinkt unter das Optimum der PPO","Den Salat in die Sonne stellen: mehr Licht","Mehr Sauerstoff zuführen","Den Salat warm stellen (RGT-Regel)"],c:0,ex:"Auch gut: kühlen (langsamer), Sauerstoff fernhalten, kurz blanchieren (Denaturierung)."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"H₂O₂ zerfällt sehr langsam zu Wasser + O₂. Zugabe von: nichts → fast keine Bläschen · Braunstein → viele · <b>rohe Kartoffel → sehr viele</b> · <b>gekochte Kartoffel → fast keine</b>.",q:"Welche Erklärung passt zur gekochten Kartoffel?",o:["Die Katalase ist durch Hitze denaturiert","Gekochte Kartoffeln enthalten mehr Substrat","Die Reaktion ist endergonisch geworden","Braunstein fehlt"],c:0,ex:"Rohe Kartoffel: Katalase senkt die Aktivierungsenergie stark."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Mit frischer Ananas wird Götterspeise (Gelatine = Protein) nicht fest. Mit Dosenananas (erhitzt) schon.",q:"Warum?",o:["Frische Ananas enthält Bromelain, das Gelatine spaltet; in der Dose ist es durch Hitze denaturiert","Dosenananas enthält mehr Zucker","Frische Ananas ist zu sauer für Gelatine","Gelatine ist ein Hemmstoff"],c:0,ex:"Bromelain ist eine Protease (spaltet Peptidbindungen)."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Glucose-Teststreifen enthalten das Enzym Glucose-Oxidase. Fructose hat dieselbe Summenformel (C₆H₁₂O₆) wie Glucose, zeigt aber keine Farbe.",q:"Welche Eigenschaft von Enzymen erklärt das?",o:["Substratspezifität: nur Glucose passt räumlich ins aktive Zentrum","Wirkungsspezifität: das Enzym macht nur eine Reaktion","Denaturierung durch Fructose","Kompetitive Hemmung durch Fructose"],c:0,ex:"Gleiche Summenformel, aber andere räumliche Struktur."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Hexokinase (Muskel, Gehirn): Km = 0,1 mmol/l. Glucokinase (Leber): Km = 10 mmol/l. Blutzucker normal 5, nach dem Essen 10 mmol/l.",q:"Warum ist das sinnvoll?",o:["Muskel/Gehirn bekommen immer Glucose; die Leber nimmt nur bei hohem Blutzucker viel auf","Die Leber braucht immer am meisten Glucose","Hexokinase hat die niedrigere Affinität","Glucokinase ist bei 5 mmol/l gesättigt"],c:0,ex:"Kleiner Km = hohe Affinität → bei 5 mmol/l fast gesättigt."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Siamkatzen: Fell am warmen Rumpf hell, an Ohren, Pfoten, Schwanz dunkel. Ihr Enzym Tyrosinase (bildet Melanin) ist über ca. 33 °C inaktiv.",q:"Eine Stelle am Rücken wird rasiert und wochenlang gekühlt. Was wächst nach?",o:["Dunkles Fell, weil die Tyrosinase bei Kälte aktiv ist","Helles Fell, weil Kälte Enzyme denaturiert","Gar kein Fell","Weißes Fell, weil die RGT-Regel nicht gilt"],c:0,ex:"Unter 33 °C ist die Tyrosinase aktiv → Melanin."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Pepsin (Optimum pH 2) gelangt mit dem Speisebrei in den Dünndarm. Dort wird mit Hydrogencarbonat auf pH 7–8 neutralisiert.",q:"Was passiert mit dem Pepsin?",o:["Es wird inaktiv/denaturiert, weil sich die Ladungen im aktiven Zentrum ändern","Es arbeitet schneller","Es wird zu Trypsin","Es senkt den pH-Wert wieder"],c:0,ex:"pH weit über dem Optimum → Struktur verändert."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"v ohne Hemmstoff: 50 · 67 · 80 · 91 · 98. v mit Malonsäure: 20 · 33 · 50 · 71 · 91 (Substrat steigt von 0,5 bis 20 mmol/l). Malonsäure ähnelt dem Substrat.",q:"Welcher Hemmtyp liegt vor?",o:["Kompetitiv: Vmax wird fast erreicht, Km steigt","Allosterisch: Vmax sinkt","Irreversibel","Endprodukthemmung"],c:0,ex:"Bei viel Substrat wird der ähnliche Hemmstoff verdrängt."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Ein Hemmstoff wird zugegeben. Selbst bei sehr hoher Substratkonzentration erreicht v nur 60 % des normalen Vmax. Der Km-Wert ändert sich nicht.",q:"Welcher Hemmtyp?",o:["Allosterisch (nicht-kompetitiv)","Kompetitiv","Gar keine Hemmung","Substratspezifität"],c:0,ex:"Vmax sinkt, Km gleich → Hemmstoff bindet an anderer Stelle."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Waschmittel enthalten Proteasen und Lipasen. Die Packung empfiehlt 40 °C statt 90 °C.",q:"Warum?",o:["Bei 90 °C würden die Enzyme denaturieren","Bei 40 °C gilt die RGT-Regel nicht","Enzyme arbeiten nur bei Kälte","Bei 90 °C wird das Wasser zu sauer"],c:0,ex:"Lösung für heiße Wäsche: Enzyme aus thermophilen Bakterien."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Methanol wird von der Alkoholdehydrogenase (ADH) zu giftiger Ameisensäure abgebaut. Km der ADH: Ethanol 1,7 · Methanol 150 mmol/l. Patienten bekommen Trinkalkohol.",q:"Warum hilft das?",o:["Ethanol hat höhere Affinität und verdrängt Methanol aus dem aktiven Zentrum (kompetitiv)","Ethanol zerstört die ADH","Ethanol neutralisiert Ameisensäure","Ethanol erhöht die Wechselzahl"],c:0,ex:"Methanol wird kaum abgebaut und unverändert ausgeschieden."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Fieber über 42 °C ist lebensgefährlich. Eine Unterkühlung auf 30 °C wird oft ohne bleibende Schäden überlebt.",q:"Warum?",o:["Hitze denaturiert Enzyme irreversibel; Kälte macht sie nur langsamer","Kälte denaturiert Enzyme, Hitze nicht","Bei 42 °C gilt die RGT-Regel nicht","Bei 30 °C gibt es keine Enzyme"],c:0,ex:"RGT-Regel: 30 °C ist langsamer, aber reversibel."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Reaktion 1: Glucose + Fructose → Saccharose, ΔG = +23 kJ/mol. ATP-Spaltung: ΔG = −30 kJ/mol.",q:"Was gilt für die gekoppelte Reaktion?",o:["ΔG = −7 kJ/mol → exergonisch, läuft freiwillig","ΔG = +53 kJ/mol → endergonisch","Das Enzym liefert die fehlende Energie","Reaktion 1 läuft auch allein freiwillig"],c:0,ex:"+23 + (−30) = −7. Enzyme liefern keine Energie."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Im Kältepack löst sich ein Salz in Wasser. Der Beutel wird kalt (ΔH > 0), trotzdem läuft es von selbst ab.",q:"Warum?",o:["Die Entropie steigt stark (Kristall → verteilte Ionen), daher ΔG < 0","ΔH > 0 bedeutet immer freiwillig","Das Salz ist ein Enzym","Der 1. Hauptsatz gilt hier nicht"],c:0,ex:"ΔG = ΔH − T·ΔS. Großes ΔS macht ΔG negativ."},
+{b:2,top:"Transfer",tr:1,t:"mc",mat:"Sichelzellanämie: Im Hämoglobin ist eine Aminosäure mit <b>geladenem, hydrophilem</b> Rest durch eine mit <b>hydrophobem</b> Rest ersetzt. Die Moleküle verklumpen zu Fasern.",q:"Was zeigt dieses Beispiel?",o:["Eine Änderung der Primärstruktur verändert Struktur und Funktion","Nur die Quartärstruktur ist wichtig","Hydrophobe Reste stoßen sich immer ab","Denaturierung durch Hitze"],c:0,ex:"Hydrophobe Bereiche lagern sich aneinander → Fasern → Sichelform."}
+
+];
+
+// ===================== HILFEN =====================
+const $=s=>document.querySelector(s), app=$('#app');
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const norm=s=>s.toLowerCase().trim().replace(/[.\s]+$/,'').replace(/\s+/g,' ');
+const TYPE={card:"Karteikarte",mc:"Multiple Choice",tf:"Richtig/Falsch",fill:"Lückentext",match:"Zuordnen",order:"Reihenfolge"};
+function pop(t){const d=document.createElement('div');d.className='pop';d.innerHTML=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1150)}
+function answerText(it){if(it.t==='card')return it.a;if(it.t==='mc')return it.o[it.c];if(it.t==='tf')return it.c?'Richtig':'Falsch';if(it.t==='fill')return it.a;if(it.t==='match')return it.p.map(p=>p[0]+' → '+p[1]).join('<br>');if(it.t==='order')return it.s.map((x,i)=>(i+1)+'. '+x).join('<br>')}
+function asCardFront(it){if(it.mat)return '<div class="mat" style="text-align:left;font-weight:400;font-size:14px">'+it.mat+'</div>'+it.q;if(it.t==='card')return it.q;if(it.t==='tf')return 'Richtig oder falsch?<br><br>„'+it.q+'“';return it.q}
+
+let S={block:'all',mode:'quiz'};
+
+// ===================== START =====================
+function start(){
+  const hs=store.get('bioHS',{quiz:0,blitz:0});
+  app.innerHTML=`<h1>🧬 Bio-Quiz Klasse 11</h1><p class="sub">${D.length} Fragen · 6 Fragetypen + Transferaufgaben · Zelle, Membran, Proteine, Enzyme</p>
+  <h2>1. Was willst du lernen?</h2>
+  <div class="opt">
+   <button class="chip" data-b="1">Block 1<br><small>Zelle &amp; Membran</small></button>
+   <button class="chip" data-b="2">Block 2<br><small>Proteine &amp; Enzyme</small></button>
+   <button class="chip" data-b="all">Alles</button></div>
+  <h2>2. Wähle ein Spiel</h2>
+  <button class="mode" data-m="quiz"><b>🎮 Quiz-Spiel</b>15 Fragen pro Runde · alle Fragetypen gemischt · 3 Leben ❤️ · Serien-Bonus 🔥 · Rekord: ${hs.quiz} Punkte</button>
+  <button class="mode" data-m="transfer"><b>🧪 Transfer-Training</b>Klausur-Aufgaben mit Material · 10 Fälle pro Runde · 3 Leben ❤️</button>
+  <button class="mode" data-m="cards"><b>🃏 Karteikarten</b>Karte umdrehen, selbst bewerten · nicht gewusste Karten kommen wieder</button>
+  <button class="mode" data-m="blitz"><b>⚡ Blitzrunde</b>60 Sekunden Richtig/Falsch · so viele wie möglich · Rekord: ${hs.blitz}</button>
+  <button class="big" id="go">Los geht's!</button>`;
+  const upd=()=>{app.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.b==S.block));app.querySelectorAll('.mode').forEach(c=>c.classList.toggle('on',c.dataset.m==S.mode))};
+  app.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{S.block=c.dataset.b;upd()});
+  app.querySelectorAll('.mode').forEach(c=>c.onclick=()=>{S.mode=c.dataset.m;upd()});
+  upd();
+  $('#go').onclick=()=>{const pool=D.filter(x=>S.block==='all'||String(x.b)===S.block);
+    if(S.mode==='quiz')quiz(shuf(pool.filter(x=>x.t!=='card')).slice(0,15));else if(S.mode==='transfer')quiz(shuf(pool.filter(x=>x.tr)).slice(0,10));else if(S.mode==='cards')cards(shuf(pool));else blitz(shuf(pool.filter(x=>x.t==='tf')))};
+}
+
+// ===================== QUIZ-SPIEL =====================
+function quiz(deck,retry){
+  let i=0,pts=0,lives=3,streak=0,best=0,right=0,wrong=[];
+  const total=deck.length;
+  const hud=()=>`<div class="hud"><span>${'❤️'.repeat(lives)}${'🤍'.repeat(3-lives)}</span><span>🔥 ${streak}</span><span>⭐ ${pts}</span></div><div class="bar"><i style="width:${i/total*100}%"></i></div>`;
+  function next(){ if(i>=total||lives<=0) return end(); render(deck[i]); }
+  function done(ok,it){
+    if(ok){streak++;best=Math.max(best,streak);right++;const mult=streak>=6?3:streak>=3?2:1;const g=10*mult;const lvlBefore=Math.floor(pts/100);pts+=g;
+      if(streak===3)pop('🔥 Serie! ×2');else if(streak===6)pop('🔥🔥 Mega-Serie! ×3');else pop('+'+g);
+      if(Math.floor(pts/100)>lvlBefore)setTimeout(()=>pop('🏆 Level '+(Math.floor(pts/100)+1)+'!'),600);}
+    else{streak=0;lives--;wrong.push(it);pop(lives>0?'💔':'💀')}
+    const fb=document.createElement('div');fb.className='fb '+(ok?'ok':'bad');
+    fb.innerHTML=(ok?'<b>✅ Richtig!</b> ':'<b>❌ Leider falsch.</b> ')+(it.ex?it.ex:'')+(!ok&&(it.t==='fill'||it.t==='match'||it.t==='order')?'<br><b>Lösung:</b><br>'+answerText(it):'');
+    const q=$('.qc');q.appendChild(fb);
+    const b=document.createElement('button');b.className='big';b.textContent=(lives<=0)?'Ergebnis ansehen':'Weiter →';b.onclick=()=>{i++;next()};q.appendChild(b);
+    b.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  function render(it){
+    app.innerHTML=hud()+`<div class="qc"><span class="tag b${it.b}">Block ${it.b} · ${it.top}</span><span class="type">${it.tr?"🧪 Transfer":TYPE[it.t]}</span>${it.mat?`<div class="mat">${it.mat}</div>`:""}<div class="q">${it.q}</div><div id="area"></div></div>`;
+    const A=$('#area');
+    if(it.t==='mc'){const idx=shuf(it.o.map((_,k)=>k));idx.forEach(k=>{const b=document.createElement('button');b.className='ans';b.innerHTML=it.o[k];b.onclick=()=>{A.querySelectorAll('button').forEach(x=>x.disabled=true);const ok=k===it.c;b.classList.add(ok?'ok':'bad');if(!ok)A.querySelectorAll('button')[idx.indexOf(it.c)].classList.add('ok');done(ok,it)};A.appendChild(b)})}
+    else if(it.t==='tf'){A.innerHTML='<div class="tf"><button class="ans" data-v="1">✔ Richtig</button><button class="ans" data-v="0">✘ Falsch</button></div>';A.querySelectorAll('.ans').forEach(b=>b.onclick=()=>{A.querySelectorAll('button').forEach(x=>x.disabled=true);const ok=(b.dataset.v==='1')===it.c;b.classList.add(ok?'ok':'bad');done(ok,it)})}
+    else if(it.t==='fill'){A.innerHTML='<input class="fill" id="inp" placeholder="Antwort eintippen…" autocomplete="off" autocapitalize="off"><button class="big" id="chk">Prüfen</button>';const f=()=>{const v=norm($('#inp').value);if(!v)return;$('#inp').disabled=true;$('#chk').remove();done(it.acc.includes(v),it)};$('#chk').onclick=f;$('#inp').onkeydown=e=>{if(e.key==='Enter')f()};}
+    else if(it.t==='match'){let errs=0,sel=null,left=0;const L=shuf(it.p.map((p,k)=>({k,s:p[0]}))),R=shuf(it.p.map((p,k)=>({k,s:p[1]})));
+      A.innerHTML='<p class="sub">Tippe links, dann rechts. Fehler: <b id="er">0</b> (ab 2 Fehlern zählt es als falsch)</p><div class="cols"><div id="cl"></div><div id="cr"></div></div>';
+      L.forEach(x=>{const b=document.createElement('button');b.className='m';b.innerHTML=x.s;b.dataset.k=x.k;b.onclick=()=>{if(b.classList.contains('done'))return;$('#cl').querySelectorAll('.m').forEach(m=>m.classList.remove('sel'));b.classList.add('sel');sel=b};$('#cl').appendChild(b)});
+      R.forEach(x=>{const b=document.createElement('button');b.className='m';b.innerHTML=x.s;b.dataset.k=x.k;b.onclick=()=>{if(!sel||b.classList.contains('done'))return;if(sel.dataset.k===b.dataset.k){sel.classList.remove('sel');sel.classList.add('done');b.classList.add('done');sel=null;left++;if(left===it.p.length)done(errs<2,it)}else{errs++;$('#er').textContent=errs;b.classList.add('err');setTimeout(()=>b.classList.remove('err'),400)}};$('#cr').appendChild(b)});}
+    else if(it.t==='order'){const seq=[];A.innerHTML='<p class="sub">Tippe die Schritte in der richtigen Reihenfolge an.</p><div class="seq" id="seq"></div><div id="st"></div><div class="row"><button class="big alt" id="rs">Zurücksetzen</button><button class="big" id="ck">Prüfen</button></div>';
+      shuf(it.s).forEach(s=>{const b=document.createElement('button');b.className='step';b.innerHTML=s;b.onclick=()=>{seq.push(s);b.disabled=true;$('#seq').innerHTML=seq.map((x,n)=>`<div>${n+1}. ${x}</div>`).join('')};$('#st').appendChild(b)});
+      $('#rs').onclick=()=>{seq.length=0;$('#seq').innerHTML='';$('#st').querySelectorAll('button').forEach(b=>b.disabled=false)};
+      $('#ck').onclick=()=>{if(seq.length<it.s.length){pop('Alle Schritte antippen!');return}const ok=seq.every((x,n)=>x===it.s[n]);$('#rs').parentNode.remove();done(ok,it)};}
+  }
+  function end(){
+    const hs=store.get('bioHS',{quiz:0,blitz:0});let rec=false;if(!retry&&pts>hs.quiz){hs.quiz=pts;store.set('bioHS',hs);rec=true}
+    const msg=lives<=0?'💀 Keine Leben mehr!':'🎉 Geschafft!';
+    app.innerHTML=`<h1>${msg}</h1>${rec?'<p class="sub">🏆 <b>Neuer Rekord!</b></p>':''}
+    <div class="stat"><div><b>${pts}</b>Punkte</div><div><b>${right}/${Math.min(i,total)}</b>richtig</div><div><b>${best}</b>längste Serie</div><div><b>${wrong.length}</b>Fehler</div></div>
+    ${wrong.length?'<h2>Das solltest du wiederholen:</h2>'+wrong.map(w=>`<div class="wrong"><b>${w.q}</b><br>→ ${answerText(w)}</div>`).join('')+'<button class="big" id="rw">🔁 Nur meine Fehler üben</button>':''}
+    <button class="big" id="again">Nochmal spielen</button><button class="big alt" id="home">Zum Menü</button>`;
+    if(wrong.length)$('#rw').onclick=()=>quiz(shuf(wrong),true);
+    $('#again').onclick=()=>{const pl=D.filter(x=>S.block==='all'||String(x.b)===S.block);S.mode==='transfer'?quiz(shuf(pl.filter(x=>x.tr)).slice(0,10)):quiz(shuf(pl.filter(x=>x.t!=='card')).slice(0,15))};
+    $('#home').onclick=start;
+  }
+  next();
+}
+
+// ===================== KARTEIKARTEN =====================
+function cards(deck){
+  let q=deck.slice(),known=0,again=0;const total=deck.length;
+  function show(){
+    if(!q.length){app.innerHTML=`<h1>🎉 Alle Karten gelernt!</h1><div class="stat"><div><b>${total}</b>Karten</div><div><b>${again}</b>× wiederholt</div></div><button class="big" id="a">Nochmal</button><button class="big alt" id="h">Zum Menü</button>`;$('#a').onclick=()=>cards(shuf(deck));$('#h').onclick=start;return}
+    const it=q[0];
+    app.innerHTML=`<div class="hud"><span>🃏 ${known}/${total} gewusst</span><span>📚 noch ${q.length}</span></div><div class="bar"><i style="width:${known/total*100}%"></i></div>
+    <div class="flip" id="fl"><div class="fi"><div class="face front"><span class="tag b${it.b}" style="align-self:center">Block ${it.b} · ${it.top}</span><div class="q">${asCardFront(it)}</div><div class="hint">👆 Tippen zum Umdrehen</div></div><div class="face back"><div style="font-size:17px">${answerText(it)}${it.ex&&it.t!=='card'?'<br><br><small>'+it.ex+'</small>':''}</div></div></div></div>
+    <div class="row" id="rate" style="visibility:hidden"><button class="big bad-btn" id="no">🔁 Nochmal</button><button class="big ok-btn" id="yes">✅ Gewusst</button></div>`;
+    $('#fl').onclick=()=>{$('#fl').classList.toggle('on');$('#rate').style.visibility='visible'};
+    $('#yes').onclick=()=>{q.shift();known++;if(known%10===0)pop('💪 '+known+' Karten!');show()};
+    $('#no').onclick=()=>{const c=q.shift();again++;q.splice(Math.min(q.length,3),0,c);show()};
+  }
+  show();
+}
+
+// ===================== BLITZRUNDE =====================
+function blitz(pool){
+  let t=60,score=0,miss=0,k=0,deck=shuf(pool),timer;
+  function card(){if(k>=deck.length){deck=shuf(pool);k=0}const it=deck[k];
+    app.innerHTML=`<div class="hud"><span class="timer">⏱ ${t}s</span><span>✅ ${score}</span><span>❌ ${miss}</span></div>
+    <div class="qc"><span class="tag b${it.b}">Block ${it.b} · ${it.top}</span><div class="q" style="font-size:21px;text-align:center;margin:30px 0">„${it.q}“</div>
+    <div class="tf"><button class="ans" data-v="1" style="padding:22px">✔ Richtig</button><button class="ans" data-v="0" style="padding:22px">✘ Falsch</button></div></div>`;
+    app.querySelectorAll('.ans').forEach(b=>b.onclick=()=>{const ok=(b.dataset.v==='1')===it.c;if(ok){score++;}else{miss++;}b.classList.add(ok?'ok':'bad');setTimeout(()=>{k++;if(t>0)card()},ok?150:450)})}
+  function tick(){t--;const el=$('.timer');if(el)el.textContent='⏱ '+t+'s';if(t<=0){clearInterval(timer);end()}}
+  function end(){const hs=store.get('bioHS',{quiz:0,blitz:0});const rec=score>hs.blitz;if(rec){hs.blitz=score;store.set('bioHS',hs)}
+    app.innerHTML=`<h1>⚡ Zeit um!</h1>${rec?'<p class="sub">🏆 <b>Neuer Rekord!</b></p>':''}<div class="stat"><div><b>${score}</b>richtig</div><div><b>${miss}</b>falsch</div></div><button class="big" id="a">Nochmal</button><button class="big alt" id="h">Zum Menü</button>`;
+    $('#a').onclick=()=>blitz(pool);$('#h').onclick=start}
+  card();timer=setInterval(tick,1000);
+}
+start();
+</script>
+</body>
+</html>
