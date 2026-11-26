@@ -17,11 +17,12 @@ https://houdamechanical.github.io/Studyhub/.
 
 | Area | Page | What it does |
 |---|---|---|
-| Library | `/library` | Browse study pages by subject → half-year → topic, with search. Each page runs in a sandboxed iframe, so its own styles and scripts work but it can't touch your login. |
-| Exams | `/exams` | Exams with subject, date, time, type, room and status, plus a countdown to the next one. |
-| Grades | `/grades` | Grades as Note 1–6, Punkte 0–15 or %, with weights. Averages per subject and half-year, and a progress chart. |
-| Practice | `/practice` | Mock exams (with an optional timer), mini tests (5–10 questions) and flashcards with spaced repetition (SM-2). Results show the correct answer and a step-by-step explanation. |
-| Compare | `/compare` | Public nickname, leaderboards per test and per subject, and "you vs. average". Sharing grades is off by default and chosen per subject. |
+| Name | first start | New users pick the name shown on leaderboards and in "Welcome back, …". |
+| Home | `/` | "Welcome back, NAME", four big tiles (Grade 11, Grade 12, Grades & Exams, Leaderboard), the next exam and flashcards due. |
+| Subjects | `/grade/11` → `/grade/11/1` → `/grade/11/1/bio` | Pick a grade, then a half-year, then a subject. Every subject has the same page: study pages, mini tests, mock exams, flashcards and upcoming exams. Study pages run in a sandboxed iframe, so their own styles and scripts work but they can't touch your login. Grade 12 is locked until it's added to `OPEN_GRADES` in `lib/school.ts`. |
+| Grades & Exams | `/grades`, `/grades?tab=exams` | Grades as Note 1–6, Punkte 0–15 or %, with weights, averages and a chart; exams with countdown. |
+| Practice | from a subject | Mock exams (optional timer), mini tests and flashcards with spaced repetition (SM-2). Tests and decks have no half-year in the database yet, so they show up in the current one (`CURRENT_SEMESTER` in `lib/grades.ts`). |
+| Leaderboard | `/compare` | Podium and ranking per subject, "you vs. average", your name, and per-subject grade sharing (off by default). |
 | Admin | `/admin` | Add questions, build tests, add flashcards, or import everything from JSON. Admins only. |
 
 ## Run it locally

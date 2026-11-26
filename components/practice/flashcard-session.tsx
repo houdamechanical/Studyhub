@@ -10,6 +10,7 @@ import { todayISO } from "@/lib/format";
 import { useI18n } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
 import { RATINGS, type Rating } from "@/lib/practice";
+import { subjectHref } from "@/lib/school";
 import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
@@ -89,7 +90,7 @@ export function FlashcardSession({
   return (
     <div className="flex flex-1 flex-col gap-4">
       <div className="flex items-center gap-2">
-        <Link href="/practice" className="rounded-md p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground" aria-label={dict.quiz.backToPractice}>
+        <Link href={subjectHref(deck.subject) + "#cards"} className="rounded-md p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground" aria-label={dict.quiz.backToPractice}>
           <ArrowLeft size={18} className="rtl:rotate-180" />
         </Link>
         <div className="min-w-0 flex-1">

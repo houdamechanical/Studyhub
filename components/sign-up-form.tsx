@@ -44,12 +44,12 @@ export function SignUpForm({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/library/`,
+          emailRedirectTo: `${window.location.origin}${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/`,
         },
       });
       if (error) throw error;
       // With "Confirm email" turned off in Supabase you're signed in right away.
-      router.push(data.session ? "/library" : "/auth/sign-up-success");
+      router.push(data.session ? "/" : "/auth/sign-up-success");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

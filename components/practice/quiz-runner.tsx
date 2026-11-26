@@ -11,6 +11,7 @@ import { intlLocale } from "@/lib/format";
 import { useI18n } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
 import type { GivenAnswer, Question, Quiz } from "@/lib/practice";
+import { subjectHref } from "@/lib/school";
 import { SUBJECTS } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
@@ -82,11 +83,11 @@ export function QuizRunner({
   if (phase === "intro") {
     return (
       <div className="flex flex-col gap-6">
-        <Link href="/practice" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <Link href={subjectHref(quiz.subject) + (quiz.kind === "mock" ? "#mock" : "#mini")} className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft size={16} className="rtl:rotate-180" />
           {t.backToPractice}
         </Link>
-        <div className="rounded-xl border bg-card p-5">
+        <div className="rounded-3xl border bg-card p-5">
           <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             {quiz.kind === "mock" ? t.mock : t.mini} · {subject.emoji} {subject.label[locale]}
           </p>
@@ -127,7 +128,7 @@ export function QuizRunner({
         {attempts.length > 0 && (
           <section>
             <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.previousAttempts}</h2>
-            <ul className="divide-y rounded-xl border bg-card">
+            <ul className="divide-y rounded-3xl border bg-card">
               {attempts.map((a) => (
                 <li key={a.id}>
                   <Link href={`/practice/attempt?id=${a.id}`} className="flex items-center justify-between gap-3 px-4 py-3 text-sm hover:bg-accent">
@@ -171,7 +172,7 @@ export function QuizRunner({
 
       <ol className="flex flex-col gap-3">
         {questions.map((q, i) => (
-          <li key={q.id} className="rounded-xl border bg-card p-4">
+          <li key={q.id} className="rounded-3xl border bg-card p-4">
             <p className="mb-1 flex justify-between text-xs text-muted-foreground">
               <span>{fill(t.question, { n: i + 1 })}</span>
               <span>{fill(t.pointsShort, { n: q.points })}</span>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Noto_Sans_Arabic } from "next/font/google";
+import { Bricolage_Grotesque, Geist, Noto_Sans_Arabic } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { I18nProvider, LOCALE_BOOT_SCRIPT } from "@/lib/i18n/client";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
@@ -25,13 +25,20 @@ export const viewport: Viewport = {
   // padding itself so it stays clear of the home indicator.
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f8f7fe" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e0c14" },
   ],
 };
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  display: "swap",
+  subsets: ["latin"],
+});
+
+// Headings: bold, rounded, a bit playful.
+const display = Bricolage_Grotesque({
+  variable: "--font-display",
   display: "swap",
   subsets: ["latin"],
 });
@@ -54,7 +61,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOT_SCRIPT }} />
       </head>
-      <body className={`${geistSans.variable} ${notoArabic.variable} font-sans antialiased`}>
+      <body className={`${geistSans.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <I18nProvider>{children}</I18nProvider>
         </ThemeProvider>

@@ -53,7 +53,7 @@ export function NotFoundMessage() {
   return (
     <div className="flex flex-col items-center gap-3 py-16 text-center">
       <p className="text-lg font-semibold">{dict.notFound.title}</p>
-      <Link href="/library" className="text-sm underline underline-offset-4">
+      <Link href="/" className="text-sm underline underline-offset-4">
         {dict.notFound.back}
       </Link>
     </div>

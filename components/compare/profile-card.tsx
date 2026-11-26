@@ -6,6 +6,7 @@ import { saveNickname, setGradeShare } from "@/lib/mutations/compare";
 import { Button } from "@/components/ui/button";
 import { controlClass, FormError } from "@/components/ui/field";
 import { NICKNAME_PATTERN } from "@/lib/compare";
+import { useAuth } from "@/components/auth-gate";
 import { useI18n } from "@/lib/i18n/client";
 import { SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,7 @@ import { cn } from "@/lib/utils";
 export function ProfileCard({ nickname, shared }: { nickname: string; shared: SubjectId[] }) {
   const { locale, dict } = useI18n();
   const t = dict.compare;
+  const { setNickname } = useAuth();
   const [nick, setNick] = useState(nickname);
   const [saved, setSaved] = useState(false);
   const [shares, setShares] = useState(new Set(shared));
@@ -27,7 +29,10 @@ export function ProfileCard({ nickname, shared }: { nickname: string; shared: Su
     setSaved(false);
     startTransition(async () => {
       const r = await saveNickname(nick);
-      if (r.ok) setSaved(true);
+      if (r.ok) {
+        setSaved(true);
+        setNickname(nick.trim());
+      }
       else setError(dict.common.error[r.error]);
     });
   }
@@ -49,9 +54,9 @@ export function ProfileCard({ nickname, shared }: { nickname: string; shared: Su
   }
 
   return (
-    <section className="flex flex-col gap-5 rounded-xl border bg-card p-4">
+    <section id="name" className="flex scroll-mt-24 flex-col gap-5 rounded-3xl border bg-card p-5">
       <form onSubmit={save} className="flex flex-col gap-1.5">
-        <label htmlFor="nickname" className="text-sm font-medium">
+        <label htmlFor="nickname" className="font-display text-lg font-bold">
           {t.nicknameTitle}
         </label>
         <div className="flex gap-2">
@@ -91,8 +96,8 @@ export function ProfileCard({ nickname, shared }: { nickname: string; shared: Su
                 aria-checked={on}
                 onClick={() => toggle(id)}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors",
-                  on ? "border-foreground bg-foreground text-background" : "text-muted-foreground hover:bg-accent",
+                  "flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors",
+                  on ? "border-transparent bg-brand text-white shadow-md shadow-fuchsia-500/25" : "text-muted-foreground hover:bg-accent",
                 )}
               >
                 {on && <Check size={14} />}
