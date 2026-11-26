@@ -10,9 +10,20 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: { default: "Study Hub", template: "%s · Study Hub" },
   description: "Study pages, exams, grades and practice in one place.",
+  applicationName: "Study Hub",
+  // "Add to Home Screen" on iPhone/iPad: open full-screen, without Safari's bars.
+  // The icon comes from app/apple-icon.png, the rest from app/manifest.ts.
+  appleWebApp: { capable: true, title: "Study Hub", statusBarStyle: "default" },
+  formatDetection: { telephone: false },
+  // Next only emits the newer "mobile-web-app-capable"; iOS before 17.4 still
+  // needs the Apple-prefixed tag to open the home-screen app full-screen.
+  other: { "apple-mobile-web-app-capable": "yes" },
 };
 
 export const viewport: Viewport = {
+  // Lets content use the whole screen; the bottom tab bar adds the safe-area
+  // padding itself so it stays clear of the home indicator.
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
