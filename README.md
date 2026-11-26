@@ -129,6 +129,22 @@ every visitor's browser anyway. Never put the database password
 The same `out/` folder also works on any other static host (Netlify, Vercel,
 Cloudflare Pages, …): build with `npm run build` and upload `out/`.
 
+## Install as an app (iPhone, iPad, Android)
+
+Study Hub can be added to the home screen and then opens full-screen with its
+own icon, like a normal app:
+
+- **iPhone / iPad (Safari):** Share button → **Add to Home Screen**.
+- **Android (Chrome):** menu ⋮ → **Install app** (or **Add to Home screen**).
+- **Computer (Chrome / Edge):** the install icon at the right of the address bar.
+
+On phones and iPads in portrait the tabs sit at the bottom of the screen; on
+iPads in landscape and on computers they're in the top bar. The fullscreen
+button on study pages also works on iPhone, where it fills the window.
+
+The app's name, colours and icons are in `app/manifest.ts`, `app/apple-icon.png`
+and `public/icons/` (the PNGs are rendered from the two SVGs there).
+
 ## Adding study pages
 
 1. Put the HTML file in `content/{subject}/{half-year}/`, e.g.

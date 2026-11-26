@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" aria-label={dict.nav.language}>
+        <Button variant="ghost" size="sm" className="h-10 min-w-10" aria-label={dict.nav.language}>
           <Languages size={16} className="text-muted-foreground" />
           <span className="text-xs font-medium uppercase">{locale}</span>
         </Button>

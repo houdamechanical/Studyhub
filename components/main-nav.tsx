@@ -22,12 +22,15 @@ function useActive() {
   return (href: string) => pathname === href || pathname.startsWith(href + "/");
 }
 
-/** Inline links in the header, shown from the md breakpoint up. */
+/**
+ * Inline links in the header, from the lg breakpoint up (laptops, iPad in
+ * landscape). Below that – phones and iPads in portrait – the tab bar is used.
+ */
 export function DesktopNav() {
   const { dict } = useI18n();
   const isActive = useActive();
   return (
-    <nav className="hidden md:flex items-center gap-1">
+    <nav className="hidden lg:flex items-center gap-1">
       {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
         <Link
           key={href}
@@ -47,23 +50,23 @@ export function DesktopNav() {
   );
 }
 
-/** Fixed tab bar at the bottom on phones. */
+/** Fixed tab bar at the bottom on phones and iPads in portrait. */
 export function BottomNav() {
   const { dict } = useI18n();
   const isActive = useActive();
   return (
-    <nav className="md:hidden fixed inset-x-0 bottom-0 z-40 border-t bg-background/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
-      <ul className="flex">
+    <nav className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t bg-background/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
+      <ul className="mx-auto flex max-w-2xl">
         {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
           <li key={href} className="flex-1">
             <Link
               href={href}
               className={cn(
-                "flex flex-col items-center gap-0.5 py-2 text-[11px]",
+                "flex flex-col items-center gap-0.5 py-2 text-[11px] md:py-2.5 md:text-xs",
                 isActive(href) ? "text-foreground font-medium" : "text-muted-foreground",
               )}
             >
-              <Icon size={20} />
+              <Icon className="size-5 md:size-[22px]" />
               {dict.nav[label]}
             </Link>
           </li>

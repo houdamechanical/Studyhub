@@ -71,3 +71,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Touch devices (iPhone, iPad) */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    /* No grey flash when tapping links and buttons. */
+    -webkit-tap-highlight-color: transparent;
+    /* With viewport-fit=cover, keep content clear of the notch in landscape. */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  /* No double-tap-to-zoom delay on controls. */
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+}

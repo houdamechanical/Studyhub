@@ -36,7 +36,7 @@ export function AccountMenu({ signedIn, isAdmin = false }: { signedIn: boolean; 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" aria-label={dict.nav.account}>
+        <Button variant="ghost" size="sm" className="h-10 min-w-10" aria-label={dict.nav.account}>
           <CircleUser size={18} className="text-muted-foreground" />
         </Button>
       </DropdownMenuTrigger>

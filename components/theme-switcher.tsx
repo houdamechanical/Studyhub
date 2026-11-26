@@ -26,7 +26,7 @@ const ThemeSwitcher = () => {
   }, []);
 
   if (!mounted) {
-    return <div className="size-9" aria-hidden />;
+    return <div className="size-10" aria-hidden />;
   }
 
   const Icon = theme === "light" ? Sun : theme === "dark" ? Moon : Laptop;
@@ -34,7 +34,7 @@ const ThemeSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" aria-label={dict.nav.theme}>
+        <Button variant="ghost" size="sm" className="h-10 min-w-10" aria-label={dict.nav.theme}>
           <Icon size={ICON_SIZE} className="text-muted-foreground" />
         </Button>
       </DropdownMenuTrigger>

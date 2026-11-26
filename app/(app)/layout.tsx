@@ -22,7 +22,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </header>
-        <main className="flex-1 flex flex-col pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">{children}</main>
+        <main className="flex-1 flex flex-col pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0">{children}</main>
         <BottomNav />
       </div>
     </AuthGate>
