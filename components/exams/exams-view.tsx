@@ -35,10 +35,6 @@ export function ExamsView({ exams }: { exams: Exam[] }) {
         </Button>
       )}
 
-      {exams.length === 0 && !adding && (
-        <p className="text-sm text-muted-foreground">{dict.exams.empty}</p>
-      )}
-
       {[
         { heading: dict.exams.upcoming, list: upcoming },
         { heading: dict.exams.done, list: done },
@@ -93,7 +89,7 @@ function ExamRow({ exam, onEdit }: { exam: Exam; onEdit: () => void }) {
 
   return (
     <li
-      className={cn("rounded-xl border bg-card p-4", pending && "opacity-60", isDone && "bg-muted/40")}
+      className={cn("rounded-3xl border bg-card p-4", pending && "opacity-60", isDone && "bg-muted/40")}
       style={{ "--subject": subject.color } as React.CSSProperties}
     >
       <div className="flex items-start gap-3">

@@ -1,5 +1,8 @@
 "use client";
 
+import { subjectHref } from "@/lib/school";
+import type { SubjectId } from "@/lib/subjects";
+
 import { ArrowLeft, CircleCheck, CircleX, RotateCcw, TriangleAlert, Trophy } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -45,7 +48,7 @@ function AttemptLoader() {
     const attempt = must(
       await createClient()
         .from("attempts")
-        .select("id, quiz_id, submitted_at, over_time, score, max_score, review, quizzes(title, kind)")
+        .select("id, quiz_id, submitted_at, over_time, score, max_score, review, quizzes(title, kind, subject)")
         .eq("id", id)
         .maybeSingle(),
     ) as AttemptRow | null;
@@ -67,7 +70,7 @@ function AttemptLoader() {
 
 function AttemptView({ attempt, dict }: { attempt: AttemptRow; dict: Dictionary }) {
   const t = dict.quiz;
-  const quiz = attempt.quizzes as unknown as { title: string; kind: "mock" | "mini" } | null;
+  const quiz = attempt.quizzes as unknown as { title: string; kind: "mock" | "mini"; subject: SubjectId } | null;
   const review = (attempt.review ?? []) as ReviewItem[];
   const score = Number(attempt.score);
   const max = Number(attempt.max_score);
@@ -76,12 +79,12 @@ function AttemptView({ attempt, dict }: { attempt: AttemptRow; dict: Dictionary 
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6">
-      <Link href="/practice" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+      <Link href={quiz ? subjectHref(quiz.subject) + (quiz.kind === "mock" ? "#mock" : "#mini") : "/"} className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft size={16} className="rtl:rotate-180" />
         {t.backToPractice}
       </Link>
 
-      <section className="rounded-xl border bg-card p-5">
+      <section className="rounded-3xl border bg-card p-5">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
           {t.result} · {quiz?.kind === "mock" ? t.mock : t.mini}
         </p>
@@ -132,7 +135,7 @@ function ReviewCard({ item, index, dict }: { item: ReviewItem; index: number; di
   const t = dict.quiz;
   const Icon = item.correct ? CircleCheck : CircleX;
   return (
-    <li className="rounded-xl border bg-card p-4">
+    <li className="rounded-3xl border bg-card p-4">
       <div className="flex items-start gap-3">
         <Icon
           size={20}

@@ -3,11 +3,19 @@
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import { AUTO_NICKNAME, NameOnboarding } from "@/components/name-onboarding";
 import { createClient } from "@/lib/supabase/client";
 import { hasEnvVars } from "@/lib/utils";
 
-type Auth = { userId: string; isAdmin: boolean };
-const AuthContext = createContext<Auth>({ userId: "", isAdmin: false });
+type Auth = {
+  userId: string;
+  isAdmin: boolean;
+  /** Public name (profiles.nickname), shown on leaderboards and the home page. */
+  nickname: string;
+  setNickname: (name: string) => void;
+};
+const noop = () => {};
+const AuthContext = createContext<Auth>({ userId: "", isAdmin: false, nickname: "", setNickname: noop });
 
 /** Signed-in user (inside <AuthGate>). */
 export const useAuth = () => useContext(AuthContext);
@@ -19,7 +27,9 @@ export const useAuth = () => useContext(AuthContext);
  */
 export function AuthGate({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const [auth, setAuth] = useState<Auth | null>(hasEnvVars ? null : { userId: "", isAdmin: false });
+  const [auth, setAuth] = useState<Omit<Auth, "setNickname"> | null>(
+    hasEnvVars ? null : { userId: "", isAdmin: false, nickname: "" },
+  );
 
   useEffect(() => {
     if (!hasEnvVars) return;
@@ -33,9 +43,13 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
         router.replace("/auth/login");
         return;
       }
-      // Fails harmlessly (→ false) if the migrations aren't applied yet.
-      const { data } = await supabase.rpc("is_admin");
-      if (alive) setAuth({ userId, isAdmin: data === true });
+      // Both fail harmlessly if the migrations aren't applied yet.
+      const [admin, profile] = await Promise.all([
+        supabase.rpc("is_admin"),
+        supabase.from("profiles").select("nickname").eq("user_id", userId).maybeSingle(),
+      ]);
+      const nickname = (profile.data as { nickname: string } | null)?.nickname ?? "";
+      if (alive) setAuth({ userId, isAdmin: admin.data === true, nickname });
     }
 
     supabase.auth.getSession().then(({ data }) => apply(data.session?.user.id));
@@ -55,5 +69,11 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
       </div>
     );
   }
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+  const setNickname = (nickname: string) => setAuth((a) => (a ? { ...a, nickname } : a));
+  // New accounts get a generated name ("Student-k3f9a"): ask for a real one first.
+  // (No profiles table yet → empty nickname → skip, the app still works.)
+  if (hasEnvVars && AUTO_NICKNAME.test(auth.nickname)) {
+    return <NameOnboarding onDone={setNickname} />;
+  }
+  return <AuthContext.Provider value={{ ...auth, setNickname }}>{children}</AuthContext.Provider>;
 }

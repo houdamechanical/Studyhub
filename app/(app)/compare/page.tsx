@@ -7,7 +7,8 @@ import { useAuth } from "@/components/auth-gate";
 import { Leaderboard } from "@/components/compare/leaderboard";
 import { MeVsAverage } from "@/components/compare/me-vs-average";
 import { ProfileCard } from "@/components/compare/profile-card";
-import { Loaded, PageShell } from "@/components/page-shell";
+import { Loaded } from "@/components/page-shell";
+import { PageHero } from "@/components/page-hero";
 import { normaliseBoard, type SubjectBoard } from "@/lib/compare";
 import { must, useLoad } from "@/lib/data";
 import { intlLocale } from "@/lib/format";
@@ -15,7 +16,7 @@ import { CURRENT_SEMESTER, formatScore } from "@/lib/grades";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatSemester } from "@/lib/i18n/dictionaries";
 import { getDisplayScale } from "@/lib/mutations/grades";
-import { isSubjectId, SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
+import { isSubjectId, SUBJECT_IDS, SUBJECTS, subjectGradient, type SubjectId } from "@/lib/subjects";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -60,9 +61,12 @@ function CompareLoader() {
   const { dict } = useI18n();
   const state = useLoad(() => loadCompare(asked, userId), `compare:${asked}`);
   return (
-    <PageShell title={dict.compare.title} subtitle={dict.compare.subtitle}>
-      <Loaded state={state}>{(data) => <CompareView {...data} />}</Loaded>
-    </PageShell>
+    <div className="mx-auto w-full max-w-4xl px-4 pb-12 pt-6 sm:pt-8">
+      <PageHero back={{ href: "/", label: dict.school.backHome }} title={dict.compare.title} subtitle={dict.compare.subtitle} />
+      <div className="mt-6">
+        <Loaded state={state}>{(data) => <CompareView {...data} />}</Loaded>
+      </div>
+    </div>
   );
 }
 
@@ -81,16 +85,14 @@ function CompareView({ subject, nickname, shared, board, scale }: Awaited<Return
     mine: q.mine === null ? null : Number(q.mine),
   }));
 
+  const takenQuizzes = quizzes.filter((q) => q.participants > 0);
   const nf = intlLocale(locale);
   const pct = (v: number) => `${Math.round(v * 100)} %`;
   const gradeFmt = (v: number) => formatScore(v, scale, nf);
   const labels = { you: t.you, average: t.average, people: t.people };
 
   return (
-    <div className="flex flex-col gap-6">
-
-      <ProfileCard nickname={nickname} shared={sharedSubjects} />
-
+    <div className="flex flex-col gap-8">
       <nav className="-mx-4 overflow-x-auto px-4" aria-label={dict.grades.subject}>
         <div className="flex w-max gap-1.5 md:w-auto md:flex-wrap">
           {SUBJECT_IDS.map((id) => (
@@ -99,9 +101,10 @@ function CompareView({ subject, nickname, shared, board, scale }: Awaited<Return
               href={`/compare?subject=${id}`}
               aria-current={id === subject ? "page" : undefined}
               className={cn(
-                "whitespace-nowrap rounded-full border px-3 py-1 text-sm transition-colors",
-                id === subject ? "border-foreground bg-foreground text-background" : "hover:bg-accent",
+                "whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-semibold transition-all",
+                id === subject ? "border-transparent text-white shadow-md" : "bg-card hover:bg-accent",
               )}
+              style={id === subject ? { backgroundImage: subjectGradient(id) } : undefined}
             >
               {SUBJECTS[id].emoji} {SUBJECTS[id].label[locale]}
             </Link>
@@ -110,7 +113,7 @@ function CompareView({ subject, nickname, shared, board, scale }: Awaited<Return
       </nav>
 
       <section>
-        <h2 className="mb-1 font-semibold">
+        <h2 className="mb-3 font-display text-2xl font-extrabold tracking-tight">
           {t.tests} · {SUBJECTS[subject].label[locale]}
         </h2>
         <Leaderboard
@@ -122,11 +125,12 @@ function CompareView({ subject, nickname, shared, board, scale }: Awaited<Return
         />
       </section>
 
-      {quizzes.length > 0 && (
+      {/* Only tests somebody has taken: the rest would just say "0 people". */}
+      {takenQuizzes.length > 0 && (
         <section>
-          <h2 className="mb-2 font-semibold">{t.meVsAverage}</h2>
+          <h2 className="mb-3 font-display text-2xl font-extrabold tracking-tight">{t.meVsAverage}</h2>
           <MeVsAverage
-            quizzes={quizzes}
+            quizzes={takenQuizzes}
             labels={{
               you: t.you,
               average: t.average,
@@ -138,7 +142,7 @@ function CompareView({ subject, nickname, shared, board, scale }: Awaited<Return
       )}
 
       <section>
-        <h2 className="mb-1 font-semibold">
+        <h2 className="mb-3 font-display text-2xl font-extrabold tracking-tight">
           {t.grades} · {SUBJECTS[subject].label[locale]} · {formatSemester(CURRENT_SEMESTER, dict)}
         </h2>
         {myGrade !== null && (
@@ -155,6 +159,8 @@ function CompareView({ subject, nickname, shared, board, scale }: Awaited<Return
           note={t.gradesHint}
         />
       </section>
+
+      <ProfileCard nickname={nickname} shared={sharedSubjects} />
     </div>
   );
 }

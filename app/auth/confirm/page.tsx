@@ -25,7 +25,7 @@ function Confirm() {
     const type = params.get("type") as EmailOtpType | null;
     const next = params.get("next");
     // Only allow in-app paths as the target.
-    const target = next && next.startsWith("/") && !next.startsWith("//") ? next : "/library";
+    const target = next && next.startsWith("/") && !next.startsWith("//") ? next : "/";
     if (!token_hash || !type) {
       router.replace("/auth/error?error=No token hash or type");
       return;

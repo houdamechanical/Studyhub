@@ -30,7 +30,7 @@ export function MeVsAverage({
       <ul className="flex flex-col gap-2">
         {quizzes.map((q) => (
           <li key={q.id}>
-            <Link href={`/compare/quiz?id=${q.id}`} className="group block rounded-xl border bg-card p-3 transition-colors hover:bg-accent">
+            <Link href={`/compare/quiz?id=${q.id}`} className="group block rounded-3xl border bg-card p-3 transition-colors hover:bg-accent">
               <div className="flex items-center gap-2">
                 <span className="min-w-0 flex-1 truncate text-sm font-medium" dir="auto">
                   {q.title}
