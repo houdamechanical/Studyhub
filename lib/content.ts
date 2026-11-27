@@ -1,7 +1,7 @@
 import rawIndex from "@/content/index.json";
 import { isSubjectId, type SubjectId } from "@/lib/subjects";
 
-export type ContentKind = "notes" | "quiz" | "interactive";
+export type ContentKind = "notes" | "quiz" | "interactive" | "exercises";
 
 export type ContentItem = {
   id: string;

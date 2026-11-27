@@ -12,6 +12,7 @@ import {
   ListChecks,
   Moon,
   MousePointerClick,
+  PencilLine,
   Search,
   Sun,
   Timer,
@@ -52,7 +53,7 @@ type Item = {
 type Practice = { id: string; title: string; subject: string; kind?: "mini" | "mock" };
 
 const norm = (s: string) => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
-const KIND_ICON: Record<ContentKind, LucideIcon> = { notes: FileText, quiz: Gamepad2, interactive: MousePointerClick };
+const KIND_ICON: Record<ContentKind, LucideIcon> = { notes: FileText, quiz: Gamepad2, interactive: MousePointerClick, exercises: PencilLine };
 
 /** ⌘K / Ctrl+K or the search button: full-screen search over pages, subjects, topics, study pages, tests and communities. */
 export function CommandMenu() {
@@ -147,7 +148,7 @@ function SearchScreen({ onClose }: { onClose: () => void }) {
         group: t.studyPages,
         label: c.title,
         meta: `${SUBJECTS[c.subject].label[locale]} · ${c.topic}`,
-        keywords: `${allNames(c.subject)} ${c.topic} ${dict.kind[c.kind]}`,
+        keywords: `${allNames(c.subject)} ${c.topic} ${dict.kind[c.kind]} ${c.tags.join(" ")}`,
         icon: subjectBadge(c.subject, KIND_ICON[c.kind]),
         run: go(`/library/${c.subject}/${c.id}`),
       })),

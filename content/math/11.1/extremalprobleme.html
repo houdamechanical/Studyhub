@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Extremalprobleme – Erklärung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow"><span class="dot"></span>Mathematik · 11.1 · Thema 1</span>
+  <h1>Extremal&shy;probleme <em>einfach erklärt</em></h1>
+  <p class="lead">Wie groß, wie klein, wie günstig geht es? Bei Extremalproblemen suchst du die <b>beste</b> Lösung – die größte Fläche, den kleinsten Materialverbrauch, die höchste Tragfähigkeit. Hier lernst du das Schema, mit dem jede dieser Aufgaben klappt, genau so, wie es im Unterricht aufgeschrieben wird.</p>
+  <nav class="toc" aria-label="Inhalt">
+    <a href="#idee"><b>1</b> Die Idee</a>
+    <a href="#begriffe"><b>2</b> HB · NB · ZF</a>
+    <a href="#schema"><b>3</b> Das Schema</a>
+    <a href="#dido"><b>4</b> Beispiel Dido</a>
+    <a href="#dose"><b>5</b> Beispiel Dose</a>
+    <a href="#geometrie"><b>6</b> Geometrische NB</a>
+    <a href="#flaechen"><b>7</b> Flächen unter Graphen</a>
+    <a href="#pruefen"><b>8</b> Prüfen &amp; Ränder</a>
+    <a href="#fehler"><b>9</b> Typische Fehler</a>
+    <a href="#check"><b>10</b> Kurz-Check</a>
+  </nav>
+</header>
+
+<!-- 1 -->
+<section class="block" id="idee">
+  <h2><span class="num">1</span>Die Idee</h2>
+  <p>Die phönizische Prinzessin <b>Dido</b> bekam „nur so viel Land, wie eine Ochsenhaut umfasst“. Sie schnitt die Haut in schmale Streifen und knotete daraus ein etwa <b>800 m</b> langes Band. Die Frage ist jetzt: <i>Welche Form muss das Landstück haben, damit es möglichst groß wird?</i></p>
+  <p>Genau das ist ein <b>Extremalproblem</b> (auch: Extremwertaufgabe): Eine Größe soll <b>maximal</b> (so groß wie möglich) oder <b>minimal</b> (so klein wie möglich) werden – und dabei gibt es eine <b>Einschränkung</b>, z.&nbsp;B. „das Band ist nur 800 m lang“ oder „die Dose muss 330 ml fassen“.</p>
+  <div class="rule"><b>Merke</b>Ein Extremalproblem löst du mit der Differentialrechnung: Du stellst eine Funktion für die gesuchte Größe auf und suchst ihr Maximum oder Minimum mit der Ableitung: \(f'(x) \overset{!}{=} 0\).</div>
+  <div class="card">
+    <b>Woran erkennst du ein Extremalproblem?</b> An Wörtern wie
+    <span class="muted">möglichst groß · möglichst klein · maximal · minimal · optimal · möglichst wenig Material · größtmöglich · am günstigsten</span>.
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="block" id="begriffe">
+  <h2><span class="num">2</span>Die drei Begriffe: HB, NB, ZF</h2>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th>Begriff</th><th>Was ist das?</th><th>Bei der Dose</th></tr>
+    <tr><td><b>Hauptbedingung (HB)</b></td><td>Die Formel für die Größe, die <b>extremal</b> werden soll. Sie hat am Anfang meistens <b>zwei</b> Variablen.</td><td>\(A(r,h) = 2\pi r h + 2\pi r^2\)</td></tr>
+    <tr><td><b>Nebenbedingung (NB)</b></td><td>Der Zusammenhang zwischen den Variablen – die <b>Einschränkung</b> aus dem Text (fester Umfang, festes Volumen, Pythagoras, Punkt liegt auf dem Graphen …).</td><td>\(\pi r^2 h = 330\)</td></tr>
+    <tr><td><b>Zielfunktion (ZF)</b></td><td>Die Hauptbedingung, nachdem du die NB nach einer Variablen umgestellt und eingesetzt hast. Sie hat nur noch <b>eine</b> Variable – jetzt kannst du ableiten.</td><td>\(A(r) = 660\cdot\frac{1}{r} + 2\pi r^2\)</td></tr>
+  </table>
+  </div>
+  <div class="tip"><b>Eselsbrücke</b>HB = <i>was</i> soll extrem werden? · NB = <i>womit</i> hängen die Variablen zusammen? · ZF = HB mit nur noch <i>einer</i> Variablen.</div>
+</section>
+
+<!-- 3 -->
+<section class="block" id="schema">
+  <h2><span class="num">3</span>Das Lösungsschema</h2>
+  <p>Mit diesen Schritten löst du <b>jede</b> Extremwertaufgabe. Schreib sie in der Arbeit immer in dieser Reihenfolge auf – so gibt es auch für Teilschritte Punkte.</p>
+  <ol class="steps">
+    <li><b>Skizze und Variablen</b>Zeichne eine Skizze und gib den unbekannten Größen Namen (z.&nbsp;B. Länge \(a\), Breite \(b\), Radius \(r\), Höhe \(h\)).</li>
+    <li><b>Hauptbedingung (HB) aufstellen</b>Formel für die Größe, die extremal werden soll, z.&nbsp;B. \(A(a,b) = a\cdot b\).</li>
+    <li><b>Nebenbedingung (NB) aufstellen und umstellen</b>Gleichung aus dem Text, die die Variablen verbindet, z.&nbsp;B. \(2a + 2b = 800\). Nach einer Variablen auflösen: \(b = 400 - a\).</li>
+    <li><b>Zielfunktion (ZF) bilden</b>NB in die HB einsetzen und vereinfachen: \(A(a) = a(400-a) = 400a - a^2\).</li>
+    <li><b>Definitionsbereich angeben</b>Welche Werte sind sinnvoll? Längen sind positiv: \(D = \;]0;\,400[\).</li>
+    <li><b>Extremalrechnung</b>Ableiten und Null setzen: \(A'(a) = 400 - 2a \overset{!}{=} 0 \Rightarrow a = 200\). Mit der 2. Ableitung prüfen, ob Maximum oder Minimum: \(A''(a) = -2 &lt; 0 \Rightarrow\) Maximum.</li>
+    <li><b>Restliche Größen berechnen und Antwortsatz</b>In die umgestellte NB einsetzen: \(b = 400-200 = 200\). Antwortsatz mit Einheit schreiben.</li>
+  </ol>
+  <div class="rule"><b>Notwendige und hinreichende Bedingung</b>
+    Notwendig: \(f'(x_E) = 0\) (waagerechte Tangente).<br>
+    Hinreichend: \(f''(x_E) &lt; 0\) → <b>Maximum</b> (Graph ist rechtsgekrümmt, „Berg“) · \(f''(x_E) &gt; 0\) → <b>Minimum</b> (linksgekrümmt, „Tal“).
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="block" id="dido">
+  <h2><span class="num">4</span>Einführungsbeispiel: Didos Rechteck</h2>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Es ist nicht genau bekannt, welche Form Dido dem Landstück gab, das sie mit dem ca. 800 m langen Ochsenhautband abgrenzte. Nehmen wir einmal an, dass sie die Form eines Rechteckes wählte. Welche Länge und welche Breite hätte Dido dem Rechteck wohl geben müssen, wenn sie dessen Flächeninhalt möglichst groß gestalten wollte?</div>
+  <p class="loesung-head">Lösung:</p>
+  <div class="two">
+    <div class="txt">
+      <p>Der Flächeninhalt \(A\) des Rechtecks hängt von der Länge \(a\) und der Breite \(b\) ab (1).</p>
+      <p>\(a\) und \(b\) stehen über den vorgegebenen Umfang \(U = 800\) miteinander in Beziehung (2).</p>
+      <p>Durch Auflösen von (2) nach \(b\) und Einsetzen in (1) erhalten wir die Zielfunktion \(A\) des Extremalproblems (3).</p>
+      <p>Sinnvoll sind nur Längen zwischen 0 und 400 m.</p>
+      <p>Die Extremalrechnung zeigt, dass \(A\) ein Maximum bei \(a = 200\) besitzt. Für die zugehörige Breite erhalten wir durch Einsetzen \(b = 200\).</p>
+      <p class="answer">Das optimale Rechteck ist also ein <b>Quadrat</b> mit 200 m Seitenlänge und dem Flächeninhalt \(40\,000\ \text{m}^2 = 4\ \text{ha}\).</p>
+    </div>
+    <div class="math">
+      <h4>Zielfunktion:</h4>
+      <div class="eqs">
+        <span class="l">(1)</span><span>\(A(a,b) = a\cdot b\)</span><span class="t">(HB)</span>
+        <span class="l">(2)</span><span>\(2a + 2b = 800\)</span><span class="t">(NB)</span>
+        <span></span><span>\(b = 400 - a\)</span><span></span>
+        <span class="l">(3)</span><span>\(A(a) = 400a - a^2\)</span><span class="t">(ZF)</span>
+      </div>
+      <p>\(D = \;]0;\,400[\)</p>
+      <h4>Extremalrechnung:</h4>
+      <p>\(A'(a) = 400 - 2a \overset{!}{=} 0\)</p>
+      <p>Auflösen: \(a = 200\)</p>
+      <p>\(A''(a) = -2 &lt; 0 \Rightarrow\) Maximum</p>
+      <p>Einsetzen: \(b = 200\)</p>
+    </div>
+  </div>
+  <div class="tip"><b>Gut zu wissen</b>Unter allen Rechtecken mit gleichem Umfang hat immer das <b>Quadrat</b> die größte Fläche. (Didos echtes Land war übrigens ein Halbkreis an der Küste – der ist sogar noch größer.)</div>
+</section>
+
+<!-- 5 -->
+<section class="block" id="dose">
+  <h2><span class="num">5</span>Beispiel: Die optimale Dose</h2>
+  <p>Wird zur Verpackung ein hochwertiges Material verwendet, das den Preis merklich beeinflusst, so besteht ein Interesse, mit möglichst wenig Material pro Artikel auszukommen. Dies gelingt oft durch eine optimale Formgebung. So ist es kein Zufall, dass die Getränkedosen diverser Hersteller in der Regel ähnliche Maße aufweisen.</p>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Ein Erfrischungsgetränk soll in zylindrischen Dosen aus Weißblech angeboten werden. Das Volumen einer Dose soll 330 ml betragen (0,33 l). Aus Kostengründen und der Umwelt zuliebe soll der Materialbedarf pro Dose durch eine günstige Formgebung möglichst niedrig gehalten werden. Berechnen Sie Radius und Höhe einer solchen „optimalen Dose“.</div>
+  <p class="loesung-head">Lösung:</p>
+  <div class="two">
+    <div class="txt">
+      <p>Der Oberflächeninhalt \(A\) der Dose hängt vom Dosenradius \(r\) und der Dosenhöhe \(h\) ab (1).</p>
+      <p class="small muted">(Netz der Dose: Mantel = Rechteck mit den Seiten \(2\pi r\) und \(h\), dazu Deckel und Boden = zwei Kreise mit \(\pi r^2\).)</p>
+      <p>\(r\) und \(h\) stehen über das vorgegebene Volumen \(V = 330\) der Dose miteinander in Beziehung (2).</p>
+      <p>Durch Auflösen von (2) nach \(h\) und Einsetzen der resultierenden Gleichung in (1) erhalten wir die Zielfunktion \(A\) des Extremalproblems (3).</p>
+      <p>Die Extremalrechnung zeigt, dass \(A\) ein Minimum bei \(r \approx 3{,}74\) besitzt. Für die zugehörige Höhe erhalten wir durch Einsetzen \(h \approx 7{,}49\).</p>
+      <p class="answer">Die optimale Dose hat also quadratischen Querschnitt: Ihr Durchmesser entspricht ihrer Höhe.</p>
+    </div>
+    <div class="math">
+      <h4>Zielfunktion:</h4>
+      <div class="eqs">
+        <span class="l">(1)</span><span>\(A(r,h) = 2\pi r h + 2\pi r^2\)</span><span class="t">(HB)</span>
+        <span class="l">(2)</span><span>\(\pi r^2 h = 330\)</span><span class="t">(NB)</span>
+        <span></span><span>\(h = \dfrac{330}{\pi r^2}\)</span><span></span>
+        <span class="l">(3)</span><span>\(A(r) = 660\cdot\dfrac{1}{r} + 2\pi r^2\)</span><span class="t">(ZF)</span>
+      </div>
+      <h4>Extremalrechnung:</h4>
+      <p>\(A'(r) = -660\cdot\dfrac{1}{r^2} + 4\pi r \overset{!}{=} 0\)</p>
+      <p>Auflösen: \(r = \sqrt[3]{\dfrac{660}{4\pi}} \approx 3{,}74\)</p>
+      <p>Einsetzen: \(h \approx 7{,}49\)</p>
+    </div>
+  </div>
+  <details class="sol"><summary>Zwischenschritte ausführlich</summary><div class="inner">
+    <p><b>Einsetzen der NB:</b> \(A(r) = 2\pi r \cdot \dfrac{330}{\pi r^2} + 2\pi r^2 = \dfrac{660}{r} + 2\pi r^2\) (das \(\pi\) und ein \(r\) kürzen sich).</p>
+    <p><b>Ableiten:</b> \(\dfrac{660}{r} = 660\, r^{-1}\), also \(\big(660\,r^{-1}\big)' = -660\, r^{-2} = -\dfrac{660}{r^2}\).</p>
+    <p><b>Auflösen:</b> \(4\pi r = \dfrac{660}{r^2} \;\big|\cdot r^2 \;\Rightarrow\; 4\pi r^3 = 660 \;\Rightarrow\; r^3 = \dfrac{660}{4\pi} \approx 52{,}52 \;\Rightarrow\; r \approx 3{,}74\ \text{cm}\).</p>
+    <p><b>Hinreichende Bedingung:</b> \(A''(r) = \dfrac{1320}{r^3} + 4\pi &gt; 0\) für alle \(r &gt; 0 \Rightarrow\) Minimum.</p>
+    <p><b>Höhe:</b> \(h = \dfrac{330}{\pi\cdot 3{,}745^2} \approx 7{,}49\ \text{cm} \approx 2r\).</p>
+    <p><b>Minimaler Materialverbrauch:</b> \(A_{\min} = \dfrac{660}{3{,}745} + 2\pi\cdot 3{,}745^2 \approx 264{,}36\ \text{cm}^2\).</p>
+  </div></details>
+
+  <h3>Ausprobieren: Wie verändert sich der Materialverbrauch?</h3>
+  <div class="lab" id="doseLab">
+    <svg viewBox="0 0 640 300" role="img" aria-label="Graph der Zielfunktion A(r)">
+      <g id="dGrid"></g>
+      <path id="dCurve" class="curve"></path>
+      <line id="dOpt" class="grid" stroke-dasharray="4 4"></line>
+      <circle id="dPt" class="pt" r="8"></circle>
+    </svg>
+    <label for="dR" class="small muted">Radius \(r\) verschieben</label>
+    <input id="dR" type="range" min="1.5" max="8" step="0.01" value="5.5">
+    <div class="readout">
+      <div><small>Radius r</small><b id="oR">–</b></div>
+      <div><small>Höhe h</small><b id="oH">–</b></div>
+      <div><small>Material A</small><b id="oA">–</b></div>
+      <div><small>mehr als optimal</small><b id="oP">–</b></div>
+    </div>
+  </div>
+
+  <h3>Nachbetrachtung</h3>
+  <p>Nun kann man die Frage stellen, weshalb die berühmten Cola-Dosen in der Praxis etwas schmaler (Radius ca. 3,3 cm) gebaut werden. Betrachtet man den Graphen der Zielfunktion, so löst sich das Rätsel: Die Kurve verläuft in der Nähe des optimalen Wertes \(r = 3{,}74\) <b>sehr flach</b>. Für \(r = 3{,}2\) bzw. für \(r = 4{,}3\) ist der Materialverbrauch gegenüber dem optimalen Verbrauch \(A_{\min} = 264{,}36\ \text{cm}^2\) nur geringfügig erhöht, nämlich um ca. 2 %. Diese Tatsache eröffnet den Designern Spielraum, besonders handliche Dosen zu schaffen, ohne wesentlich vom Optimum abzuweichen.</p>
+</section>
+
+<!-- 6 -->
+<section class="block" id="geometrie">
+  <h2><span class="num">6</span>Geometrische Nebenbedingungen</h2>
+  <p>Der wichtigste Schritt bei der Lösung eines Extremalproblems ist das Aufstellen des Lösungsansatzes, d.&nbsp;h. der beschreibenden Hauptbedingung. Aber auch das Erschließen der Nebenbedingung bereitet oft Mühe, da es kein allgemein gültiges Schema gibt. Diese Formeln brauchst du am häufigsten:</p>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th>Situation im Text</th><th>Nebenbedingung</th></tr>
+    <tr><td>Fester Umfang / feste Zaunlänge</td><td>\(2a + 2b = U\) (an einer Mauer nur 3 Seiten: \(2a + b = U\))</td></tr>
+    <tr><td>Festes Volumen (Quader, Zylinder)</td><td>\(V = a\cdot b\cdot c\) · \(V = \pi r^2 h\)</td></tr>
+    <tr><td>Rechteck im Kreis (Diagonale = Durchmesser)</td><td>Pythagoras: \(b^2 + h^2 = d^2\)</td></tr>
+    <tr><td>Ecke liegt auf einem Graphen</td><td>Punkt \(P(u\,|\,f(u))\): die Höhe ist \(f(u)\)</td></tr>
+    <tr><td>Kreis und Quadrat aus einer Länge</td><td>\(2\pi r + 4x = L\)</td></tr>
+    <tr><td>Fester Flächeninhalt</td><td>\(a\cdot b = A\) bzw. \(\pi r^2 = A\)</td></tr>
+  </table>
+  </div>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Aus einem Stamm mit nahezu kreisförmigem Querschnitt soll ein rechteckiger Balken geschnitten werden. Die Tragfähigkeit eines Balkens ist proportional zur Breite sowie zum Quadrat der Höhe des Balkens. Die von der Holzart abhängige Proportionalitätskonstante sei \(C\). Der Durchmesser des Stamms betrage 40 cm. Welche Höhe \(h\) und welche Breite \(b\) muss der Balken erhalten, damit seine Tragfähigkeit maximal wird?</div>
+  <p>Hier kommt die NB aus der Geometrie: Die Diagonale des Rechtecks ist der Durchmesser, also gilt nach Pythagoras \(b^2 + h^2 = 40^2\). Die HB lautet \(T(b,h) = C\cdot b\cdot h^2\). Die vollständige Lösung findest du im Ordner <b>Schulaufgaben</b> (Aufgabe 3).</p>
+</section>
+
+<!-- 7 -->
+<section class="block" id="flaechen">
+  <h2><span class="num">7</span>Extremwertaufgaben zu Flächen unter Funktionen</h2>
+  <p>Oft soll ein Rechteck oder Dreieck <b>unter einem Graphen</b> möglichst groß werden. Der Trick: Eine Ecke liegt <b>auf dem Graphen</b>. Nenne ihre x-Koordinate \(u\) (oder \(x\)) – dann ist ihre y-Koordinate einfach \(f(u)\). Das ist deine Nebenbedingung.</p>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Unter dem Graphen von \(f(x) = -x^2 + 3\) soll ein zur y-Achse symmetrisches Rechteck mit möglichst großem Flächeninhalt liegen, dessen untere Seite auf der x-Achse liegt.</div>
+  <p class="loesung-head">Lösung:</p>
+  <div class="two">
+    <div class="txt">
+      <p>Die rechte obere Ecke liegt im Punkt \(P(u\,|\,f(u))\) auf dem Graphen. Wegen der Symmetrie ist das Rechteck \(2u\) breit und \(f(u)\) hoch (1), (2).</p>
+      <p>Sinnvoll ist \(0 &lt; u &lt; \sqrt{3}\) (dort ist \(f(u) &gt; 0\)).</p>
+      <p>Die Extremalrechnung liefert ein Maximum bei \(u = 1\).</p>
+      <p class="answer">Das Rechteck ist 2 LE breit, 2 LE hoch und hat den maximalen Flächeninhalt 4 FE.</p>
+    </div>
+    <div class="math">
+      <h4>Zielfunktion:</h4>
+      <div class="eqs">
+        <span class="l">(1)</span><span>\(A(g,h) = g\cdot h\)</span><span class="t">(HB)</span>
+        <span class="l">(2)</span><span>\(g = 2u,\; h = f(u) = -u^2+3\)</span><span class="t">(NB)</span>
+        <span class="l">(3)</span><span>\(A(u) = 2u(-u^2+3) = -2u^3 + 6u\)</span><span class="t">(ZF)</span>
+      </div>
+      <h4>Extremalrechnung:</h4>
+      <p>\(A'(u) = -6u^2 + 6 \overset{!}{=} 0\)</p>
+      <p>Auflösen: \(u^2 = 1 \Rightarrow u = 1\) \((u = -1 \notin D)\)</p>
+      <p>\(A''(u) = -12u;\; A''(1) = -12 &lt; 0 \Rightarrow\) Maximum</p>
+      <p>Einsetzen: \(A(1) = 4\)</p>
+    </div>
+  </div>
+  <div class="tip"><b>Tipp</b>Bei Dreiecken ist \(A = \tfrac12\cdot g\cdot h\). Liegt eine Ecke fest (z.&nbsp;B. bei \((2|0)\)), ist die Grundseite \(g = 2 - x\). Zwei Aufgaben dazu stehen im Ordner <b>Schulaufgaben</b>.</div>
+</section>
+
+<!-- 8 -->
+<section class="block" id="pruefen">
+  <h2><span class="num">8</span>Prüfen: Maximum oder Minimum? Und die Ränder!</h2>
+  <p>Nach \(f'(x) = 0\) hast du nur einen <i>Kandidaten</i>. Du musst zeigen, dass dort wirklich das gesuchte Extremum liegt:</p>
+  <ol class="steps">
+    <li><b>2. Ableitung</b>Setze den Kandidaten in \(f''\) ein: negativ → Maximum, positiv → Minimum.</li>
+    <li><b>Randwerte vergleichen</b>Ist der Definitionsbereich ein geschlossenes Intervall \([a;b]\), berechne auch \(f(a)\) und \(f(b)\). Das absolute Extremum kann am Rand liegen (Randextremum)!</li>
+    <li><b>Sinnvoll?</b>Negative Längen, \(x = 0\) (Fläche 0) oder Werte außerhalb von \(D\) fallen weg.</li>
+  </ol>
+  <div class="card"><b>Beispiel Gärtner (Schulaufgaben, Aufgabe 2):</b> Die Zielfunktion \(A(r)\) hat im Inneren ein <b>Minimum</b> bei \(r \approx 0{,}70\). Die Randwerte \(A(0) = 6{,}25\) (nur Quadrat) und \(A(1{,}59) \approx 7{,}96\) (nur Kreis) sind größer – also ist \(r \approx 0{,}70\) wirklich das absolute Minimum. Bei der Frage nach der <i>größten</i> Fläche wäre das Ergebnis dagegen ein Randwert: nur ein Kreis!</div>
+</section>
+
+<!-- 9 -->
+<section class="block" id="fehler">
+  <h2><span class="num">9</span>Typische Fehler</h2>
+  <div class="warn"><b>1. HB und NB verwechselt</b>Die HB ist immer die Größe, die <b>extremal</b> werden soll (z.&nbsp;B. Material). Die gegebene Zahl (z.&nbsp;B. 330 ml) gehört in die NB.</div>
+  <div class="warn"><b>2. Mit zwei Variablen abgeleitet</b>Erst wenn die ZF nur noch <b>eine</b> Variable hat, darfst du ableiten.</div>
+  <div class="warn"><b>3. Falsch abgeleitet bei Brüchen</b>\(\frac{660}{r} = 660\,r^{-1}\) → Ableitung \(-660\,r^{-2}\). Nicht \(\frac{660}{1}\)!</div>
+  <div class="warn"><b>4. Hinreichende Bedingung vergessen</b>Ohne \(f''\) oder Randvergleich ist nicht gezeigt, dass es ein Maximum/Minimum ist.</div>
+  <div class="warn"><b>5. Nur eine Größe angegeben</b>Gefragt sind meist <b>alle</b> Maße (z.&nbsp;B. Radius <i>und</i> Höhe) – und ein Antwortsatz mit Einheiten.</div>
+</section>
+
+<!-- 10 -->
+<section class="block" id="check">
+  <h2><span class="num">10</span>Kurz-Check</h2>
+  <div class="card">
+    <p><b>1.</b> Ein Rechteck hat den Umfang 60 cm. Was ist die Hauptbedingung, wenn die Fläche maximal werden soll?</p>
+    <div class="check">
+      <button>\(2a + 2b = 60\)</button>
+      <button data-ok="1">\(A(a,b) = a\cdot b\)</button>
+      <button>\(A(a) = 30a - a^2\)</button>
+      <p class="why">Die HB ist die Formel für die Fläche. \(2a+2b=60\) ist die NB, \(A(a) = 30a - a^2\) die Zielfunktion.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p><b>2.</b> \(A'(x) = 0\) bei \(x = 5\) und \(A''(5) = 3\). Was liegt vor?</p>
+    <div class="check">
+      <button>Maximum</button>
+      <button data-ok="1">Minimum</button>
+      <button>Wendepunkt</button>
+      <p class="why">\(A''(5) &gt; 0\): Der Graph ist linksgekrümmt („Tal“) → Minimum.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p><b>3.</b> Die Ecke eines Rechtecks liegt auf dem Graphen von \(f(x) = 9 - x^2\) bei \(x = u\). Wie hoch ist das Rechteck?</p>
+    <div class="check">
+      <button>\(u\)</button>
+      <button>\(9\)</button>
+      <button data-ok="1">\(9 - u^2\)</button>
+      <p class="why">Der Punkt liegt auf dem Graphen: \(P(u\,|\,f(u))\), die Höhe ist also \(f(u) = 9-u^2\).</p>
+    </div>
+  </div>
+  <p class="muted">Übung mit allen Aufgaben aus dem Unterricht und Lösungen: Ordner <b>Schulaufgaben → Schulaufgabe Extremalprobleme</b>.</p>
+</section>
+
+<p class="foot">Study Hub · Mathematik 11.1 · Extremalprobleme</p>
+</div>
+
+<script>
+// Dose: A(r) = 660/r + 2πr², shown for r in [1.5; 8]
+(function () {
+  var W = 640, H = 300, L = 48, R = 20, T = 16, B = 36;
+  var r0 = 1.5, r1 = 8, a0 = 200, a1 = 520;
+  var X = function (r) { return L + (r - r0) / (r1 - r0) * (W - L - R); };
+  var Y = function (a) { return T + (1 - (a - a0) / (a1 - a0)) * (H - T - B); };
+  var A = function (r) { return 660 / r + 2 * Math.PI * r * r; };
+  var rOpt = Math.cbrt(660 / (4 * Math.PI)), aMin = A(rOpt);
+  var g = document.getElementById("dGrid"), ns = "http://www.w3.org/2000/svg", s = "";
+  for (var a = 200; a <= 500; a += 100) s += '<line class="grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(a) + '" y2="' + Y(a) + '"/><text class="lbl" x="6" y="' + (Y(a) + 4) + '">' + a + '</text>';
+  for (var r = 2; r <= 8; r += 1) s += '<text class="lbl" x="' + (X(r) - 4) + '" y="' + (H - 12) + '">' + r + '</text>';
+  s += '<line class="axis" x1="' + L + '" x2="' + (W - R) + '" y1="' + (H - B) + '" y2="' + (H - B) + '"/><line class="axis" x1="' + L + '" x2="' + L + '" y1="' + T + '" y2="' + (H - B) + '"/>';
+  s += '<text class="lbl" x="' + (W - R - 30) + '" y="' + (H - B - 8) + '">r in cm</text><text class="lbl" x="' + (L + 8) + '" y="' + (T + 10) + '">A in cm²</text>';
+  s += '<circle class="opt" r="5" cx="' + X(rOpt) + '" cy="' + Y(aMin) + '"/><text class="lbl" x="' + (X(rOpt) + 8) + '" y="' + (Y(aMin) + 18) + '">Minimum (3,74 | 264,36)</text>';
+  g.innerHTML = s;
+  var d = "";
+  for (var i = 0; i <= 200; i++) { var rr = r0 + (r1 - r0) * i / 200, aa = Math.min(A(rr), a1); d += (i ? "L" : "M") + X(rr).toFixed(1) + " " + Y(aa).toFixed(1); }
+  document.getElementById("dCurve").setAttribute("d", d);
+  var opt = document.getElementById("dOpt");
+  opt.setAttribute("x1", X(rOpt)); opt.setAttribute("x2", X(rOpt)); opt.setAttribute("y1", Y(aMin)); opt.setAttribute("y2", H - B);
+  var input = document.getElementById("dR"), pt = document.getElementById("dPt");
+  var fmt = function (v, n) { return v.toFixed(n).replace(".", ","); };
+  function update() {
+    var r = parseFloat(input.value), a = A(r), h = 330 / (Math.PI * r * r);
+    pt.setAttribute("cx", X(r)); pt.setAttribute("cy", Y(Math.min(a, a1)));
+    document.getElementById("oR").textContent = fmt(r, 2) + " cm";
+    document.getElementById("oH").textContent = fmt(h, 2) + " cm";
+    document.getElementById("oA").textContent = fmt(a, 1) + " cm²";
+    document.getElementById("oP").textContent = "+" + fmt((a / aMin - 1) * 100, 1) + " %";
+  }
+  input.addEventListener("input", update);
+  update();
+})();
+</script>
+</body>
+</html>

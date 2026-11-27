@@ -49,6 +49,7 @@ const en = {
     half2: "2nd",
   },
   kind: {
+    exercises: "Exercises with solutions",
     notes: "Notes",
     quiz: "Quiz",
     interactive: "Interactive",
@@ -536,6 +537,7 @@ const de: Dictionary = {
     half2: "2.",
   },
   kind: {
+    exercises: "Übungen mit Lösungen",
     notes: "Lernseite",
     quiz: "Quiz",
     interactive: "Interaktiv",
@@ -1021,6 +1023,7 @@ const ar: Dictionary = {
     half2: "الثاني",
   },
   kind: {
+    exercises: "تمارين مع الحلول",
     notes: "ملخص",
     quiz: "اختبار",
     interactive: "تفاعلي",

@@ -1,12 +1,104 @@
 [
   {
+    "id": "mathe-extremalprobleme",
+    "title": "Extremalprobleme – Erklärung",
+    "subject": "math",
+    "semester": "11.1",
+    "topic": "Extremalprobleme",
+    "kind": "notes",
+    "tags": [
+      "Extremwertaufgaben",
+      "Hauptbedingung",
+      "Nebenbedingung",
+      "Zielfunktion",
+      "Dido",
+      "Dose",
+      "Optimierung",
+      "Maximum",
+      "Minimum",
+      "Flächen unter Funktionen"
+    ],
+    "file": "math/11.1/extremalprobleme.html"
+  },
+  {
+    "id": "mathe-funktionsgleichungen-gesucht",
+    "title": "Funktionsgleichungen gesucht – Erklärung",
+    "subject": "math",
+    "semester": "11.1",
+    "topic": "Funktionsgleichungen gesucht (Rekonstruktion)",
+    "kind": "notes",
+    "tags": [
+      "Rekonstruktion",
+      "Steckbriefaufgaben",
+      "Wendepunkt",
+      "Extrempunkt",
+      "Symmetrie",
+      "LGS",
+      "Gleichungssystem",
+      "Skateboard",
+      "Basketball",
+      "Tangente"
+    ],
+    "file": "math/11.1/funktionsgleichungen-gesucht.html"
+  },
+  {
+    "id": "mathe-schulaufgabe-extremalprobleme",
+    "title": "Schulaufgabe – Extremalprobleme",
+    "subject": "math",
+    "semester": "11.1",
+    "topic": "Schulaufgaben",
+    "kind": "exercises",
+    "tags": [
+      "Übung",
+      "Lösungen",
+      "Extremalprobleme",
+      "Gärtner",
+      "Balken",
+      "Milchkarton",
+      "Streichholzschachtel",
+      "Rechteck unter Parabel",
+      "Dreieck"
+    ],
+    "file": "math/11.1/schulaufgabe-extremalprobleme.html"
+  },
+  {
+    "id": "mathe-schulaufgabe-funktionsgleichungen",
+    "title": "Schulaufgabe – Funktionsgleichungen gesucht",
+    "subject": "math",
+    "semester": "11.1",
+    "topic": "Schulaufgaben",
+    "kind": "exercises",
+    "tags": [
+      "Übung",
+      "Lösungen",
+      "Rekonstruktion",
+      "Steckbrief",
+      "Abwasserbecken",
+      "Sattelpunkt",
+      "Scheitelpunkt"
+    ],
+    "file": "math/11.1/schulaufgabe-funktionsgleichungen.html"
+  },
+  {
     "id": "bio-klausur-zelle-enzyme",
     "title": "Bio-Klausur Klasse 11 – einfach erklärt",
     "subject": "bio",
     "semester": "11.1",
     "topic": "Zellbiologie & Enzyme",
     "kind": "notes",
-    "tags": ["Zellbiologie", "Biomembran", "Osmose", "Diffusion", "Transport", "Proteine", "Enzyme", "Enzymkinetik", "Enzymhemmung", "Transferaufgaben", "Probeklausur"],
+    "tags": [
+      "Zellbiologie",
+      "Biomembran",
+      "Osmose",
+      "Diffusion",
+      "Transport",
+      "Proteine",
+      "Enzyme",
+      "Enzymkinetik",
+      "Enzymhemmung",
+      "Transferaufgaben",
+      "Probeklausur"
+    ],
     "file": "bio/11.1/bio-klausur-zelle-enzyme.html"
   },
   {
@@ -16,7 +108,14 @@
     "semester": "11.1",
     "topic": "Zellbiologie & Enzyme",
     "kind": "quiz",
-    "tags": ["Quiz", "Zellbiologie", "Membran", "Proteine", "Enzyme", "Karteikarten"],
+    "tags": [
+      "Quiz",
+      "Zellbiologie",
+      "Membran",
+      "Proteine",
+      "Enzyme",
+      "Karteikarten"
+    ],
     "file": "bio/11.1/bio-quiz-lernspiel.html"
   },
   {
@@ -26,7 +125,16 @@
     "semester": "11.1",
     "topic": "Elektrizität",
     "kind": "interactive",
-    "tags": ["Elektrizität", "Stromstärke", "Ampere", "Ladung", "Stromkreis", "Amperemeter", "Reihenschaltung", "Parallelschaltung"],
+    "tags": [
+      "Elektrizität",
+      "Stromstärke",
+      "Ampere",
+      "Ladung",
+      "Stromkreis",
+      "Amperemeter",
+      "Reihenschaltung",
+      "Parallelschaltung"
+    ],
     "file": "physik/11.1/elektrische-stromstaerke.html"
   },
   {
@@ -36,7 +144,15 @@
     "semester": "11.1",
     "topic": "Was ist Religion?",
     "kind": "notes",
-    "tags": ["Religionsdefinition", "substanziell", "funktional", "Tillich", "Schleiermacher", "Durkheim", "Religionskritik"],
+    "tags": [
+      "Religionsdefinition",
+      "substanziell",
+      "funktional",
+      "Tillich",
+      "Schleiermacher",
+      "Durkheim",
+      "Religionskritik"
+    ],
     "file": "religion/11.1/religion-klausur-was-ist-religion.html"
   }
 ]
