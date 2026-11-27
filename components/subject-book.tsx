@@ -66,18 +66,21 @@ export function SubjectBook({
     ref.current?.style.removeProperty("--rx");
   }
   function open(e: React.MouseEvent) {
-    if (!href || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    if (!href || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
-    if (reducedMotion()) return router.push(href);
-    router.prefetch(href);
+    if (opening) return;
+    const el = ref.current;
+    if (reducedMotion() || !el) return router.push(href);
     setOpening(true);
-    setTimeout(() => router.push(href), 520);
+    zoomInto(el, theme);
+    // Navigate while the book fills the screen; the overlay fades once the new page is there.
+    setTimeout(() => router.push(href), 330);
   }
 
   const book = (
     <div
       ref={ref}
-      className={cn("book3d", size === "sm" && "book3d-sm", opening && "is-opening", className)}
+      className={cn("book3d", size === "sm" ? "book3d-sm w-[4.5rem]" : "w-full", opening && "invisible", className)}
       style={{ "--from": theme.from, "--to": theme.to, "--ink": theme.ink } as React.CSSProperties}
       onPointerMove={href ? onMove : undefined}
       onPointerLeave={href ? onLeave : undefined}
@@ -110,4 +113,47 @@ export function SubjectBook({
       {book}
     </Link>
   );
+}
+
+/**
+ * The tapped book grows from where it is to fill the screen (its cover colour
+ * and icon), then fades away once the next page has loaded.
+ */
+function zoomInto(el: HTMLElement, theme: { from: string; to: string; ink: string }) {
+  const r = el.getBoundingClientRect();
+  const from = window.location.pathname;
+  const ov = document.createElement("div");
+  ov.className = "book-zoom";
+  ov.style.setProperty("--from", theme.from);
+  ov.style.setProperty("--to", theme.to);
+  ov.style.setProperty("--ink", theme.ink);
+  const icon = el.querySelector(".book3d-icon")?.cloneNode(true) as HTMLElement | undefined;
+  if (icon) ov.appendChild(icon);
+  document.body.appendChild(ov);
+
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  ov.animate(
+    [
+      { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px`, borderRadius: "6px 14px 14px 6px" },
+      { left: "0px", top: "0px", width: `${vw}px`, height: `${vh}px`, borderRadius: "0px" },
+    ],
+    { duration: 420, easing: "cubic-bezier(0.65, 0, 0.25, 1)", fill: "forwards" },
+  );
+  icon?.animate([{ opacity: 1, transform: "scale(1)" }, { opacity: 0, transform: "scale(1.6)" }], {
+    duration: 420,
+    easing: "ease-out",
+    fill: "forwards",
+  });
+
+  // Fade out when the URL has changed (or after 2.5 s at the latest).
+  const started = performance.now();
+  const check = () => {
+    if (window.location.pathname !== from || performance.now() - started > 2500) {
+      setTimeout(() => {
+        ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 320, easing: "ease-out", fill: "forwards" }).onfinish = () => ov.remove();
+      }, 120);
+    } else requestAnimationFrame(check);
+  };
+  requestAnimationFrame(check);
 }

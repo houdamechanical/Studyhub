@@ -112,7 +112,7 @@ function ExamRow({ exam, past }: { exam: SchoolExam; past: boolean }) {
         <div className="font-display text-xl leading-none tabular-nums">
           {formatDate(exam.exam_date, locale, { day: "numeric" })}
         </div>
-        <div className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">
+        <div className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
           {formatDate(exam.exam_date, locale, { month: "short" })}
         </div>
       </div>

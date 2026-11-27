@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ArrowLeft,
   CalendarClock,
   Check,
   ChevronRight,
@@ -14,7 +15,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Breadcrumb } from "@/components/breadcrumb";
 import { ProgressBar } from "@/components/progress-bar";
 import { SubjectBook } from "@/components/subject-book";
 import { subjectProgress } from "@/lib/progress";
@@ -24,7 +24,7 @@ import { formatDate, todayISO } from "@/lib/format";
 import { useI18n, useTitle } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
 import { daysUntil, dueCount, loadPractice, loadSchoolExams } from "@/lib/loaders";
-import { gradeHref, PRACTICE_SEMESTER, semesterHref, splitSemester } from "@/lib/school";
+import { PRACTICE_SEMESTER, semesterHref, splitSemester } from "@/lib/school";
 import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
@@ -88,18 +88,19 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6 sm:pt-8">
-      <Breadcrumb
-        items={[
-          { label: fill(dict.school.grade, { grade }), href: gradeHref(grade) },
-          { label: halfLabel, href: semesterHref(semester) },
-          { label: info.label[locale] },
-        ]}
-      />
+      {/* Big, obvious way back to all subjects */}
+      <Link
+        href={semesterHref(semester)}
+        className="press inline-flex h-11 items-center gap-2 rounded-xl border bg-card pe-4 ps-3 font-semibold hover:bg-secondary"
+      >
+        <ArrowLeft size={20} className="rtl:rotate-180" />
+        {dict.school.subjects}
+      </Link>
 
-      <header className="enter mt-5 flex items-center gap-4 sm:gap-6">
-        <SubjectBook subject={subject} label={info.label[locale]} size="sm" className="shrink-0 sm:w-20" />
+      <header className="enter mt-6 flex items-center gap-5 sm:gap-7">
+        <SubjectBook subject={subject} label={info.label[locale]} size="sm" className="w-20 shrink-0 sm:w-28" />
         <div className="min-w-0 flex-1">
-          <h1 className="truncate text-3xl font-semibold tracking-tight sm:text-4xl">{info.label[locale]}</h1>
+          <h1 className="truncate text-4xl font-extrabold tracking-tight sm:text-5xl">{info.label[locale]}</h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {fill(dict.school.grade, { grade })} · {halfLabel}
           </p>
@@ -144,12 +145,12 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
               aria-selected={tab === id}
               onClick={() => choose(id)}
               className={cn(
-                "relative -mb-px flex items-center gap-1.5 whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium transition-colors",
+                "relative -mb-px flex items-center gap-2 whitespace-nowrap border-b-[3px] px-4 py-3.5 text-base font-semibold transition-colors",
                 tab === id ? "border-[var(--c-amber)] text-foreground" : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
               {labels[id]}
-              <span className="rounded-md bg-secondary px-1.5 text-[11px] tabular-nums text-muted-foreground">
+              <span className="rounded-md bg-secondary px-1.5 text-xs tabular-nums text-muted-foreground">
                 {id !== "pages" && state.loading ? "·" : counts[id]}
               </span>
             </button>
@@ -254,12 +255,12 @@ function Row({
 }) {
   return (
     <li>
-      <Link href={href} className="group flex items-center gap-3.5 px-4 py-3 transition-colors hover:bg-secondary/60">
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
-          <Icon size={16} strokeWidth={2} />
+      <Link href={href} className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-secondary/60">
+        <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground">
+          <Icon size={20} strokeWidth={2} />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="truncate font-medium" lang={lang} dir="auto">
+          <p className="truncate text-lg font-semibold" lang={lang} dir="auto">
             {title}
           </p>
           <p className="truncate text-sm text-muted-foreground" lang={lang} dir="auto">
