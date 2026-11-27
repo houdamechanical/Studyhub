@@ -2,7 +2,7 @@
 
 import { Check } from "lucide-react";
 import { useState, useTransition } from "react";
-import { saveNickname, setGradeShare } from "@/lib/mutations/compare";
+import { saveNickname, setAllGradeShares, setGradeShare } from "@/lib/mutations/compare";
 import { Button } from "@/components/ui/button";
 import { controlClass, FormError } from "@/components/ui/field";
 import { NICKNAME_PATTERN } from "@/lib/compare";
@@ -55,6 +55,21 @@ export function ProfileCard({ nickname, shared }: { nickname: string; shared: Su
     });
   }
 
+  const all = shares.size === SUBJECT_IDS.length;
+  function toggleAll() {
+    const before = shares;
+    setShares(new Set(all ? [] : SUBJECT_IDS)); // optimistic
+    setError(null);
+    startTransition(async () => {
+      const r = await setAllGradeShares(!all);
+      if (r.ok) toast(all ? t.shareNone : t.shared);
+      else {
+        setShares(new Set(before));
+        setError(dict.common.error[r.error]);
+      }
+    });
+  }
+
   return (
     <section id="name" className="flex scroll-mt-24 flex-col gap-5 rounded-xl border bg-card p-5">
       <form onSubmit={save} className="flex flex-col gap-1.5">
@@ -85,8 +100,18 @@ export function ProfileCard({ nickname, shared }: { nickname: string; shared: Su
       </form>
 
       <fieldset>
-        <legend className="text-sm font-medium">{t.shareTitle}</legend>
-        <p className="mb-3 text-xs text-muted-foreground">{t.shareHint}</p>
+        <div className="flex items-center justify-between gap-3">
+          <legend className="text-sm font-medium">{t.shareTitle}</legend>
+          <button
+            type="button"
+            onClick={toggleAll}
+            disabled={pending}
+            className="press hit rounded-full text-sm font-medium text-primary hover:underline disabled:opacity-50"
+          >
+            {all ? t.shareNone : t.shareAll}
+          </button>
+        </div>
+        <p className="mb-3 mt-1 text-xs text-muted-foreground">{t.shareHint}</p>
         <div className="flex flex-wrap gap-1.5">
           {SUBJECT_IDS.map((id) => {
             const on = shares.has(id);

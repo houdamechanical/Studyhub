@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, ChartNoAxesColumn, LayoutDashboard, Trophy, type LucideIcon } from "lucide-react";
+import { BookOpen, ChartNoAxesColumn, House, Trophy, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HeaderAccount } from "@/components/account-menu";
@@ -23,7 +23,7 @@ export function Sidebar() {
   const is = (prefixes: string[]) => prefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 
   const main: { href: string; label: string; icon: LucideIcon; active: boolean }[] = [
-    { href: "/", label: dict.nav.home, icon: LayoutDashboard, active: pathname === "/" },
+    { href: "/", label: dict.nav.home, icon: House, active: pathname === "/" },
     { href: "/grades", label: dict.nav.gradesExams, icon: ChartNoAxesColumn, active: is(["/grades", "/exams"]) },
     { href: "/compare", label: dict.nav.leaderboard, icon: Trophy, active: is(["/compare"]) },
   ];

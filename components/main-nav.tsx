@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, ChartNoAxesColumn, LayoutDashboard, Trophy, type LucideIcon } from "lucide-react";
+import { BookOpen, ChartNoAxesColumn, House, Trophy, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SlidingIndicator } from "@/components/sliding-indicator";
@@ -18,7 +18,7 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { href: "/", label: "home", icon: LayoutDashboard, match: [] },
+  { href: "/", label: "home", icon: House, match: [] },
   { href: semesterHref(), label: "subjects", icon: BookOpen, match: ["/grade", "/library", "/practice"] },
   { href: "/grades", label: "gradesExams", icon: ChartNoAxesColumn, match: ["/grades", "/exams"] },
   { href: "/compare", label: "leaderboard", icon: Trophy, match: ["/compare"] },

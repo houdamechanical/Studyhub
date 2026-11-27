@@ -11,21 +11,8 @@ export type Board = {
   rows: BoardRow[];
 };
 
-export type QuizComparison = {
-  id: string;
-  title: string;
-  kind: "mock" | "mini";
-  participants: number;
-  average: number | null;
-  mine: number | null;
-};
-
-export type SubjectBoard = {
-  tests: Board;
-  grades: Board;
-  my_grade: number | null;
-  quizzes: QuizComparison[];
-};
+/** What get_grade_board returns: the ranking plus your own average (only you see it). */
+export type GradeBoard = { board: Board; my_score: number | null };
 
 /** Postgres numerics arrive as strings or numbers; normalise a board. */
 export function normaliseBoard(b: Board): Board {
