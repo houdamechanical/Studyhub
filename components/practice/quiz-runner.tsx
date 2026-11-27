@@ -246,7 +246,7 @@ export function QuizRunner({
                 <span
                   className={cn(
                     "block size-2.5 rounded-full transition-colors duration-200 group-hover/dot:scale-125",
-                    isAnswered(answers[item.id]) ? "bg-[var(--c-amber)]" : "bg-[#4a443c]",
+                    isAnswered(answers[item.id]) ? "bg-[var(--c-amber)]" : "bg-[var(--c-border-strong)]",
                     i === index && "ring-2 ring-primary/60 ring-offset-2 ring-offset-background",
                   )}
                 />
@@ -305,7 +305,7 @@ function AnswerInput({
               key={index}
               className={cn(
                 "flex cursor-pointer items-center gap-4 rounded-xl border px-4 py-3.5 transition-colors duration-200",
-                checked ? "border-[var(--c-amber)] bg-[rgb(201_164_106/0.08)]" : "hover:border-[#4a443c] hover:bg-secondary/50",
+                checked ? "border-[var(--c-amber)] bg-[color-mix(in_srgb,var(--c-amber)_8%,transparent)]" : "hover:border-[var(--c-border-strong)] hover:bg-secondary/50",
                 disabled && "cursor-default opacity-70",
               )}
             >
@@ -326,7 +326,7 @@ function AnswerInput({
                 className={cn(
                   "flex size-7 shrink-0 items-center justify-center border text-xs font-medium transition-colors duration-200",
                   multi ? "rounded-md" : "rounded-full",
-                  checked ? "border-transparent bg-[var(--c-amber)] text-[#1c1a17]" : "text-muted-foreground",
+                  checked ? "border-transparent bg-[var(--c-amber)] text-[var(--c-on-amber)]" : "text-muted-foreground",
                 )}
               >
                 {String.fromCharCode(65 + index)}

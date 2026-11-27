@@ -25,9 +25,11 @@ export const viewport: Viewport = {
   // Lets content use the whole screen; the bottom tab bar adds the safe-area
   // padding itself so it stays clear of the home indicator.
   viewportFit: "cover",
-  // Always dark.
-  themeColor: "#1c1a17",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f2ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d0c0b" },
+  ],
+  colorScheme: "dark light",
 };
 
 // Body and UI: clean, very readable sans.
@@ -59,12 +61,12 @@ export default function RootLayout({
   return (
     // lang/dir are set in the browser (the site is static); the inline script
     // applies the saved language before the first paint.
-    <html lang={DEFAULT_LOCALE} dir="ltr" className="dark" suppressHydrationWarning>
+    <html lang={DEFAULT_LOCALE} dir="ltr" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOT_SCRIPT }} />
       </head>
       <body className={`${inter.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" forcedTheme="dark" disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <I18nProvider>
             {children}
             <Toaster />

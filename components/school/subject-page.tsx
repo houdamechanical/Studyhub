@@ -16,9 +16,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { MeasuredIndicator } from "@/components/sliding-indicator";
-import { ProgressBar } from "@/components/dashboard/cards";
+import { ProgressBar } from "@/components/progress-bar";
 import { SubjectIcon } from "@/components/subject-icon";
-import { subjectProgress } from "@/lib/dashboard";
+import { subjectProgress } from "@/lib/progress";
 import { getContentForSubject, type ContentKind } from "@/lib/content";
 import { useLoad } from "@/lib/data";
 import { formatDate, todayISO } from "@/lib/format";
@@ -118,15 +118,15 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
         {withPractice && progress && (
           <div className="mt-6 rounded-xl border bg-card p-4 sm:p-5">
             <div className="flex items-baseline justify-between gap-2">
-              <p className="text-sm font-medium">{dict.dash.progress}</p>
+              <p className="text-sm font-medium">{dict.subject.progress}</p>
               <p className="text-sm tabular-nums text-muted-foreground">{Math.round(progress.progress * 100)} %</p>
             </div>
             <ProgressBar value={progress.progress} className="mt-2.5" />
             <p className="mt-2 text-xs text-muted-foreground">
               {[
-                progress.tests ? fill(dict.dash.testsTaken, { a: progress.testsTaken, n: progress.tests }) : "",
-                progress.avgBest !== null ? fill(dict.dash.avg, { p: `${Math.round(progress.avgBest * 100)} %` }) : "",
-                progress.cards ? fill(dict.dash.cardsLearned, { a: progress.cardsLearned, n: progress.cards }) : "",
+                progress.tests ? fill(dict.subject.testsTaken, { a: progress.testsTaken, n: progress.tests }) : "",
+                progress.avgBest !== null ? fill(dict.subject.avg, { p: `${Math.round(progress.avgBest * 100)} %` }) : "",
+                progress.cards ? fill(dict.subject.cardsLearned, { a: progress.cardsLearned, n: progress.cards }) : "",
               ]
                 .filter(Boolean)
                 .join(" · ")}
@@ -139,7 +139,7 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
       <div className="sticky top-14 z-30 -mx-4 mt-8 lg:top-0 bg-background/85 px-4 py-2 backdrop-blur-xl">
         <div className="overflow-x-auto [scrollbar-width:none]">
           <div role="tablist" className="relative flex w-max gap-1 rounded-full border bg-card p-1">
-            <MeasuredIndicator activeKey={tab} className="rounded-full bg-[#38332c]" />
+            <MeasuredIndicator activeKey={tab} className="rounded-full bg-[var(--c-pill)]" />
             {TABS.map((id) => (
               <button
                 key={id}

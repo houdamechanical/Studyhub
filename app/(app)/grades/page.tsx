@@ -37,13 +37,13 @@ function GradesAndExams() {
   return (
     <div className="mx-auto w-full max-w-4xl px-4 pb-12 pt-6 sm:pt-8">
       <PageHero
-        back={{ href: "/", label: dict.school.backHome }}
+        back={{ href: "/home", label: dict.school.backHome }}
         title={dict.nav.gradesExams}
         subtitle={tab === "grades" ? dict.grades.subtitle : dict.exams.subtitle}
       />
       <nav className="relative mt-6 grid grid-cols-2 rounded-full border bg-card p-1.5 sm:inline-grid sm:min-w-80">
         <span className="absolute inset-1.5">
-          <SlidingIndicator count={2} index={tab === "grades" ? 0 : 1} className="inset-0 rounded-full bg-[#38332c]" />
+          <SlidingIndicator count={2} index={tab === "grades" ? 0 : 1} className="inset-0 rounded-full bg-[var(--c-pill)]" />
         </span>
         {tabs.map((t) => {
           const active = t.id === tab;

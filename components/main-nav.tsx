@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, ChartNoAxesColumn, LayoutDashboard, Trophy, type LucideIcon } from "lucide-react";
+import { BookOpen, CalendarCheck, House, Settings, Trophy, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SlidingIndicator } from "@/components/sliding-indicator";
@@ -17,26 +17,38 @@ type NavItem = {
   match: string[];
 };
 
-const NAV_ITEMS: NavItem[] = [
-  { href: "/", label: "home", icon: LayoutDashboard, match: [] },
+/** The five places in the app, in the sidebar and the bottom tab bar. */
+export const NAV_ITEMS: NavItem[] = [
+  { href: "/home", label: "home", icon: House, match: ["/home"] },
   { href: semesterHref(), label: "subjects", icon: BookOpen, match: ["/grade", "/library", "/practice"] },
-  { href: "/grades", label: "gradesExams", icon: ChartNoAxesColumn, match: ["/grades", "/exams"] },
   { href: "/compare", label: "leaderboard", icon: Trophy, match: ["/compare"] },
+  { href: "/grades", label: "exams", icon: CalendarCheck, match: ["/grades", "/exams"] },
+  { href: "/settings", label: "settings", icon: Settings, match: ["/settings", "/admin"] },
 ];
 
-function useActive() {
+export function useActiveNav() {
   const pathname = usePathname().replace(/\/$/, "") || "/";
-  return (item: NavItem) =>
-    item.href === "/" ? pathname === "/" : item.match.some((p) => pathname === p || pathname.startsWith(p + "/"));
+  return (item: NavItem) => item.match.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
-/** Logo: gradient app mark + name. */
+/** App mark: copper square with an open book. */
+export function LogoMark({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        "flex size-9 items-center justify-center rounded-xl bg-gradient-to-b from-[var(--c-amber-hi)] to-[var(--c-amber)] text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.25)]",
+        className,
+      )}
+    >
+      <BookOpen size={18} strokeWidth={2.25} />
+    </span>
+  );
+}
+
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold">
-      <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-        <BookOpen size={17} strokeWidth={2.5} />
-      </span>
+    <Link href="/home" className="flex items-center gap-2.5 font-display text-lg font-semibold">
+      <LogoMark className="size-8" />
       <span>Study Hub</span>
     </Link>
   );
@@ -45,15 +57,15 @@ export function Logo() {
 /** Fixed tab bar at the bottom on phones and iPads in portrait. */
 export function BottomNav() {
   const { dict } = useI18n();
-  const isActive = useActive();
+  const isActive = useActiveNav();
   const activeIndex = NAV_ITEMS.findIndex(isActive);
   return (
-    <nav className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t bg-background/85 backdrop-blur-xl pb-[env(safe-area-inset-bottom)]">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-background/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
       <ul className="relative mx-auto flex max-w-2xl">
         <SlidingIndicator
           count={NAV_ITEMS.length}
           index={activeIndex}
-          className="inset-x-0 top-2 mx-auto h-8 w-14 rounded-lg bg-secondary md:top-2.5"
+          className="inset-x-0 top-2 mx-auto h-8 w-12 rounded-lg bg-secondary md:top-2.5"
         />
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
@@ -68,13 +80,8 @@ export function BottomNav() {
                   active ? "text-foreground" : "text-muted-foreground",
                 )}
               >
-                <span
-                  className={cn(
-                    "flex h-8 w-14 items-center justify-center rounded-lg transition-colors duration-200",
-                    active && "text-primary",
-                  )}
-                >
-                  <Icon className="size-5" strokeWidth={2.25} />
+                <span className={cn("flex h-8 w-12 items-center justify-center rounded-lg", active && "text-primary")}>
+                  <Icon className="size-5" strokeWidth={2.1} />
                 </span>
                 <span className="max-w-full truncate px-1">{dict.nav[item.label]}</span>
               </Link>

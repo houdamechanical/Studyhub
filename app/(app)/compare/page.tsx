@@ -1,27 +1,32 @@
 "use client";
 
-import { SubjectIcon } from "@/components/subject-icon";
+import { Check, Crown } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useTransition } from "react";
 import { useAuth } from "@/components/auth-gate";
 import { Leaderboard } from "@/components/compare/leaderboard";
 import { ProfileCard } from "@/components/compare/profile-card";
 import { Loaded } from "@/components/page-shell";
 import { PageHero } from "@/components/page-hero";
-import { SlidingIndicator } from "@/components/sliding-indicator";
-import { normaliseBoard, type SubjectBoard } from "@/lib/compare";
+import { SetupNotice } from "@/components/setup-notice";
+import { SubjectIcon } from "@/components/subject-icon";
+import { toast } from "@/components/toast";
+import { Button } from "@/components/ui/button";
+import { normaliseBoard, type GradeBoard } from "@/lib/compare";
 import { must, useLoad } from "@/lib/data";
 import { intlLocale } from "@/lib/format";
 import { CURRENT_SEMESTER, formatScore } from "@/lib/grades";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatSemester } from "@/lib/i18n/dictionaries";
+import { setAllGradeShares, setGradeShare } from "@/lib/mutations/compare";
 import { getDisplayScale } from "@/lib/mutations/grades";
 import { isSubjectId, SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
-// /compare?subject=bio
+// /compare            -> overall grade leaderboard
+// /compare?subject=bio -> one subject
 export default function ComparePage() {
   return (
     <Suspense>
@@ -32,26 +37,23 @@ export default function ComparePage() {
 
 async function loadCompare(asked: string, userId: string) {
   const supabase = createClient();
-  // Default subject: the one asked for, else the first subject that has tests.
-  let subject: SubjectId;
-  if (isSubjectId(asked)) {
-    subject = asked;
-  } else {
-    const first = must(await supabase.from("quizzes").select("subject").order("subject").limit(1).maybeSingle()) as {
-      subject: string;
-    } | null;
-    subject = first && isSubjectId(first.subject) ? first.subject : SUBJECT_IDS[0];
-  }
+  const subject: SubjectId | null = isSubjectId(asked) ? asked : null;
   const [profile, shares, board] = await Promise.all([
     supabase.from("profiles").select("nickname").eq("user_id", userId).maybeSingle(),
     supabase.from("grade_shares").select("subject"),
-    supabase.rpc("get_subject_board", { p_subject: subject, p_semester: CURRENT_SEMESTER }),
+    supabase.rpc("get_grade_board", { p_subject: subject, p_semester: CURRENT_SEMESTER }),
   ]);
+  // The leaderboard function comes with a migration; until it's applied, say so instead of failing.
+  const missing = board.error?.code === "PGRST202" || board.error?.code === "42883";
+  if (board.error && !missing) throw board.error;
+  const data = missing ? null : (board.data as GradeBoard);
   return {
     subject,
+    missing,
     nickname: (must(profile) as { nickname: string } | null)?.nickname ?? "",
     shared: must(shares).map((s) => s.subject as SubjectId),
-    board: must(board) as SubjectBoard,
+    board: normaliseBoard(data?.board ?? { participants: 0, average: null, mine: null, rows: [] }),
+    myScore: data?.my_score === null || data?.my_score === undefined ? null : Number(data.my_score),
     scale: getDisplayScale(),
   };
 }
@@ -63,7 +65,7 @@ function CompareLoader() {
   const state = useLoad(() => loadCompare(asked, userId), `compare:${asked}`);
   return (
     <div className="mx-auto w-full max-w-4xl px-4 pb-12 pt-6 sm:pt-8">
-      <PageHero back={{ href: "/", label: dict.school.backHome }} title={dict.compare.title} subtitle={dict.compare.subtitle} />
+      <PageHero back={{ href: "/home", label: dict.school.backHome }} title={dict.compare.title} subtitle={dict.compare.subtitle} />
       <div className="mt-6">
         <Loaded state={state}>{(data) => <CompareView {...data} />}</Loaded>
       </div>
@@ -71,95 +73,93 @@ function CompareLoader() {
   );
 }
 
-function CompareView({ subject, nickname, shared, board, scale }: Awaited<ReturnType<typeof loadCompare>>) {
+function CompareView({ subject, missing, nickname, shared, board, myScore, scale }: Awaited<ReturnType<typeof loadCompare>>) {
   const { locale, dict } = useI18n();
   const t = dict.compare;
-  const data = board;
-  const tests = normaliseBoard(data.tests);
-  const grades = normaliseBoard(data.grades);
-  const sharedSubjects = shared;
-  const sharesThis = sharedSubjects.includes(subject);
-  const myGrade = data.my_grade === null ? null : Number(data.my_grade);
+  const [pending, startTransition] = useTransition();
 
   const nf = intlLocale(locale);
-  const pct = (v: number) => `${Math.round(v * 100)} %`;
   const gradeFmt = (v: number) => formatScore(v, scale, nf);
-  const labels = { you: t.you, average: t.average, people: t.people };
-  const [view, setView] = useState<"tests" | "grades">("tests");
+  const onBoard = subject ? shared.includes(subject) : shared.length > 0;
+
+  function shareNow() {
+    startTransition(async () => {
+      const r = subject ? await setGradeShare(subject, true) : await setAllGradeShares(true);
+      toast(r.ok ? t.shared : dict.common.error[r.error], r.ok ? "success" : "error");
+    });
+  }
+
+  const tabs: { id: SubjectId | null; label: string }[] = [
+    { id: null, label: t.overall },
+    ...SUBJECT_IDS.map((id) => ({ id, label: SUBJECTS[id].label[locale] })),
+  ];
 
   return (
     <div className="flex flex-col gap-8">
       <nav className="-mx-4 overflow-x-auto px-4" aria-label={dict.grades.subject}>
         <div className="flex w-max gap-1.5 md:w-auto md:flex-wrap">
-          {SUBJECT_IDS.map((id) => (
-            <Link
-              key={id}
-              href={`/compare?subject=${id}`}
-              aria-current={id === subject ? "page" : undefined}
-              className={cn(
-                "press whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-medium",
-                id === subject ? "border-transparent bg-foreground text-background" : "bg-card text-muted-foreground hover:text-foreground",
-              )}
-            >
-              <SubjectIcon subject={id} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{SUBJECTS[id].label[locale]}
-            </Link>
-          ))}
+          {tabs.map(({ id, label }) => {
+            const active = id === subject;
+            return (
+              <Link
+                key={id ?? "overall"}
+                href={id ? `/compare?subject=${id}` : "/compare"}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "press whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-medium",
+                  active ? "border-transparent bg-primary text-primary-foreground" : "bg-card text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {id ? (
+                  <SubjectIcon subject={id} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />
+                ) : (
+                  <Crown className="-mt-0.5 me-1 inline size-[1.05em] align-middle" aria-hidden />
+                )}
+                {label}
+              </Link>
+            );
+          })}
         </div>
       </nav>
 
-      {/* One ranking at a time */}
-      <section>
-        <div className="relative grid grid-cols-2 rounded-full border bg-card p-1 sm:inline-grid sm:min-w-80">
-          <span className="absolute inset-1">
-            <SlidingIndicator count={2} index={view === "tests" ? 0 : 1} className="inset-0 rounded-full bg-[#38332c]" />
-          </span>
-          {(["tests", "grades"] as const).map((v) => (
-            <button
-              key={v}
-              type="button"
-              onClick={() => setView(v)}
-              aria-pressed={view === v}
-              className={cn(
-                "press relative rounded-full px-4 py-2 text-sm font-medium",
-                view === v ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {v === "tests" ? dict.subject.mockExams : t.grades}
-            </button>
-          ))}
-        </div>
+      <section key={subject ?? "overall"} className="enter">
+        <p className="eyebrow">{subject ? SUBJECTS[subject].label[locale] : t.overall}</p>
+        <h2 className="mt-2 font-display text-2xl">{formatSemester(CURRENT_SEMESTER, dict)}</h2>
 
-        <div key={view} className="enter mt-5">
-          {view === "tests" ? (
-            <Leaderboard
-              board={tests}
-              format={pct}
-              extra={(n) => (n === 1 ? t.oneTest : fill(t.testsCount, { n }))}
-              labels={{ ...labels, empty: t.noResults }}
-            />
-          ) : (
-            <>
-              {!sharesThis && <p className="mb-3 text-sm text-muted-foreground">{t.notShared}</p>}
+        {missing ? (
+          <div className="mt-5">
+            <SetupNotice problem="no-table" />
+          </div>
+        ) : (
+          <>
+            {!onBoard && (
+              <div className="mt-5 flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm text-muted-foreground">{subject ? t.notShared : t.notSharedAny}</p>
+                <Button onClick={shareNow} disabled={pending} className="shrink-0">
+                  <Check size={16} />
+                  {t.shareNow}
+                </Button>
+              </div>
+            )}
+            <div className="mt-5">
               <Leaderboard
-                board={grades}
+                board={board}
                 format={gradeFmt}
                 extra={(n) => (n === 1 ? dict.grades.oneGrade : fill(t.gradesCount, { n }))}
-                labels={{ ...labels, empty: t.noShares }}
+                labels={{ you: t.you, average: t.average, people: t.people, empty: subject ? t.noShares : t.noSharesOverall }}
               />
-              {myGrade !== null && (
-                <p className="mt-3 text-sm text-muted-foreground">
-                  {t.myGrade}: <span className="font-semibold text-foreground tabular-nums">{gradeFmt(myGrade)}</span>
-                </p>
-              )}
-            </>
-          )}
-          <p className="mt-3 text-xs text-muted-foreground">
-            {view === "tests" ? t.testsHint : `${t.gradesHint} ${formatSemester(CURRENT_SEMESTER, dict)}.`}
-          </p>
-        </div>
+            </div>
+            {myScore !== null && (
+              <p className="mt-3 text-sm text-muted-foreground">
+                {t.myScore}: <span className="font-semibold tabular-nums text-foreground">{gradeFmt(myScore)}</span>
+              </p>
+            )}
+            <p className="mt-3 text-xs text-muted-foreground">{subject ? t.subjectHint : t.overallHint}</p>
+          </>
+        )}
       </section>
 
-      <ProfileCard nickname={nickname} shared={sharedSubjects} />
+      <ProfileCard key={shared.join(",")} nickname={nickname} shared={shared} part="share" />
     </div>
   );
 }

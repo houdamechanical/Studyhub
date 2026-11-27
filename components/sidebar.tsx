@@ -1,98 +1,67 @@
 "use client";
 
-import { BookOpen, ChartNoAxesColumn, LayoutDashboard, Trophy, type LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { HeaderAccount } from "@/components/account-menu";
-import { LanguageSwitcher } from "@/components/language-switcher";
-import { SubjectIcon } from "@/components/subject-icon";
-import { CURRENT_SEMESTER } from "@/lib/grades";
+import { LogoMark, NAV_ITEMS, useActiveNav } from "@/components/main-nav";
 import { useI18n } from "@/lib/i18n/client";
-import { formatSemester } from "@/lib/i18n/dictionaries";
-import { semesterHref, subjectHref } from "@/lib/school";
-import { SUBJECT_IDS, SUBJECTS } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
 /**
- * Left sidebar from the lg breakpoint up (computers, iPad in landscape):
- * main sections, then the subjects of the current half-year.
+ * Slim icon rail from the lg breakpoint up (computers, iPad in landscape):
+ * the app mark, then the five sections. Labels show as tooltips.
  */
 export function Sidebar() {
-  const { locale, dict } = useI18n();
-  const pathname = usePathname().replace(/\/$/, "") || "/";
-  const is = (prefixes: string[]) => prefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
-
-  const main: { href: string; label: string; icon: LucideIcon; active: boolean }[] = [
-    { href: "/", label: dict.nav.home, icon: LayoutDashboard, active: pathname === "/" },
-    { href: "/grades", label: dict.nav.gradesExams, icon: ChartNoAxesColumn, active: is(["/grades", "/exams"]) },
-    { href: "/compare", label: dict.nav.leaderboard, icon: Trophy, active: is(["/compare"]) },
-  ];
+  const { dict } = useI18n();
+  const isActive = useActiveNav();
+  const main = NAV_ITEMS.slice(0, 4);
+  const settings = NAV_ITEMS[4];
 
   return (
-    <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-e bg-card/60 lg:flex">
-      <Link href="/" className="flex items-center gap-2.5 px-5 pb-5 pt-6">
-        <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          <BookOpen size={17} strokeWidth={2.25} />
-        </span>
-        <span className="font-display text-xl font-semibold">Study Hub</span>
+    <aside className="sticky top-0 hidden h-dvh w-[76px] shrink-0 flex-col items-center border-e bg-card/50 py-5 lg:flex">
+      <Link href="/home" aria-label="Study Hub" className="press">
+        <LogoMark />
       </Link>
 
-      <nav className="flex flex-1 flex-col gap-6 overflow-y-auto px-3 pb-4 pt-1">
-        <ul className="flex flex-col gap-0.5">
-          {main.map((item) => (
-            <li key={item.href}>
-              <SideLink href={item.href} active={item.active}>
-                <item.icon size={17} strokeWidth={2} />
-                {item.label}
-              </SideLink>
-            </li>
-          ))}
-        </ul>
-
-        <div>
-          <Link
-            href={semesterHref()}
-            className="mb-1 flex items-baseline justify-between px-3 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground"
-          >
-            {dict.nav.subjects}
-            <span className="normal-case tracking-normal">{formatSemester(CURRENT_SEMESTER, dict)}</span>
-          </Link>
-          <ul className="flex flex-col gap-0.5">
-            {SUBJECT_IDS.map((id) => {
-              const href = subjectHref(id);
-              return (
-                <li key={id}>
-                  <SideLink href={href} active={pathname === href || pathname.endsWith(`/${id}`)}>
-                    <SubjectIcon subject={id} className="size-[17px]" strokeWidth={2} />
-                    {SUBJECTS[id].label[locale]}
-                  </SideLink>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      <nav className="mt-10 flex flex-1 flex-col items-center gap-2" aria-label="Main">
+        {main.map((item) => (
+          <RailLink key={item.label} href={item.href} label={dict.nav[item.label]} icon={item.icon} active={isActive(item)} />
+        ))}
       </nav>
 
-      <div className="flex items-center justify-between border-t px-4 py-3">
-        <LanguageSwitcher />
-        <HeaderAccount />
-      </div>
+      <RailLink href={settings.href} label={dict.nav[settings.label]} icon={settings.icon} active={isActive(settings)} />
     </aside>
   );
 }
 
-function SideLink({ href, active, children }: { href: string; active: boolean; children: React.ReactNode }) {
+function RailLink({
+  href,
+  label,
+  icon: Icon,
+  active,
+}: {
+  href: string;
+  label: string;
+  icon: (typeof NAV_ITEMS)[number]["icon"];
+  active: boolean;
+}) {
   return (
     <Link
       href={href}
+      aria-label={label}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "relative flex items-center gap-3 rounded-lg px-3 py-2 text-[0.94rem] transition-colors duration-200",
-        active ? "bg-secondary text-foreground" : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground",
+        "press group/rail relative flex size-11 items-center justify-center rounded-xl",
+        active ? "bg-secondary text-primary" : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground",
       )}
     >
-      {active && <span className="absolute inset-y-2 start-0 w-0.5 rounded-full bg-primary" aria-hidden />}
-      {children}
+      {active && <span className="absolute inset-y-2.5 -start-[16px] w-[3px] rounded-full bg-primary" aria-hidden />}
+      <Icon className="size-[20px]" strokeWidth={2} />
+      {/* Tooltip (hover intent: shows after a short pause) */}
+      <span
+        role="tooltip"
+        className="pointer-events-none absolute start-full z-50 ms-3 whitespace-nowrap rounded-lg border bg-popover px-2.5 py-1 text-xs font-medium text-popover-foreground opacity-0 shadow-lg transition-opacity duration-150 group-hover/rail:opacity-100 group-hover/rail:delay-300 group-focus-visible/rail:opacity-100"
+      >
+        {label}
+      </span>
     </Link>
   );
 }
