@@ -3,13 +3,11 @@
 import { useAuth } from "@/components/auth-gate";
 import Link from "next/link";
 import { SubjectBook } from "@/components/subject-book";
-import { PageHero } from "@/components/page-hero";
-import { SlidingIndicator } from "@/components/sliding-indicator";
 import { getAllContent } from "@/lib/content";
 import { must, useLoad } from "@/lib/data";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatPageCount, type Dictionary } from "@/lib/i18n/dictionaries";
-import { CURRENT, gradeHref, HALVES, PRACTICE_SEMESTER, semesterHref, splitSemester, subjectHref } from "@/lib/school";
+import { CURRENT, HALVES, OPEN_GRADES, PRACTICE_SEMESTER, SCHOOL_GRADES, semesterHref, splitSemester, subjectHref } from "@/lib/school";
 import { SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -38,7 +36,7 @@ function summary(pages: number, tests: number, decks: number, dict: Dictionary) 
   return parts.length > 0 ? parts.join(" · ") : t.nothingYet;
 }
 
-/** /grade/11/1 – all subjects of a half-year, every one with the same tile. */
+/** /grade/11/1 – pick the year and half-year, then a subject from the shelf of books. */
 export function SemesterView({ semester }: { semester: string }) {
   const { subjects } = useAuth();
   const { locale, dict } = useI18n();
@@ -51,67 +49,96 @@ export function SemesterView({ semester }: { semester: string }) {
   const counts = hasPractice ? state.data : null;
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 pb-12 pt-6 sm:pt-8">
-      <PageHero
-        back={{ href: gradeHref(grade), label: fill(t.grade, { grade }) }}
-        eyebrow={`${fill(t.grade, { grade })} · ${half === "1" ? t.half1 : t.half2}`}
-        title={t.pickSubject}
-        aside={
-          <div className="relative grid grid-cols-2 rounded-full border bg-card p-1" role="group">
-            <span className="absolute inset-1">
-              <SlidingIndicator count={2} index={half === "1" ? 0 : 1} className="inset-0 rounded-full bg-[var(--c-pill)]" />
-            </span>
-            {HALVES.map((h) => {
-              const active = h === half;
-              return (
-                <Link
-                  key={h}
-                  href={semesterHref(`${grade}.${h}`)}
-                  aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "press relative rounded-full px-4 py-2 text-center text-sm font-bold",
-                    active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {grade}.{h}
-                  {grade === CURRENT.grade && h === CURRENT.half && !active && (
-                    <span className="ms-1.5 inline-block size-1.5 rounded-full bg-primary align-middle" />
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-        }
-      />
+    <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-6 sm:pt-10">
+      <header className="enter flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+        <div>
+          <p className="text-sm font-medium text-muted-foreground">
+            {fill(t.grade, { grade })} · {half === "1" ? t.half1 : t.half2}
+          </p>
+          <h1 className="mt-1 text-4xl font-extrabold tracking-tight sm:text-5xl">{t.shelfTitle}</h1>
+        </div>
+        <YearPicker grade={grade} half={half} />
+      </header>
 
-      {/* Every subject as a book on a shelf */}
-      <ul className="mt-10 grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-6">
+      {/* The shelf: every subject is a 3D book */}
+      <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-3 sm:gap-x-8 md:grid-cols-4 xl:grid-cols-5">
         {subjects.map((id, i) => {
           const info = SUBJECTS[id];
           const pages = content.filter((c) => c.subject === id).length;
           const c = counts?.[id] ?? { tests: 0, decks: 0 };
           const label = info.label[locale];
           return (
-            <li key={id} className="enter" style={{ animationDelay: `${30 + i * 35}ms` }}>
-              <Link href={subjectHref(id, semester)} className="group block outline-none" aria-label={label}>
-                <SubjectBook
-                  subject={id}
-                  label={label}
-                  className="transition-transform duration-300 ease-out group-hover:-translate-y-1.5 group-hover:-rotate-1 group-focus-visible:-translate-y-1.5 group-active:scale-[0.98]"
-                />
-                <span className="mt-2.5 block truncate text-sm font-medium group-hover:text-[var(--c-amber)]">{label}</span>
-                <span className="block truncate text-xs text-muted-foreground">
-                  {hasPractice && state.loading ? (
-                    <span className="inline-block h-3 w-16 animate-pulse rounded bg-muted align-middle" />
-                  ) : (
-                    summary(pages, c.tests, c.decks, dict) || "\u00a0"
-                  )}
-                </span>
-              </Link>
+            <li key={id} className="enter" style={{ animationDelay: `${30 + i * 40}ms` }}>
+              <SubjectBook subject={id} label={label} href={subjectHref(id, semester)} />
+              <p className="mt-5 truncate font-semibold">{label}</p>
+              <p className="truncate text-sm text-muted-foreground">
+                {hasPractice && state.loading ? (
+                  <span className="inline-block h-3 w-16 animate-pulse rounded bg-muted align-middle" />
+                ) : (
+                  summary(pages, c.tests, c.decks, dict)
+                )}
+              </p>
             </li>
           );
         })}
       </ul>
     </div>
+  );
+}
+
+/** Pick the year (grade 11 / 12) and the half-year. */
+function YearPicker({ grade, half }: { grade: string; half: string }) {
+  const { dict } = useI18n();
+  const t = dict.school;
+  return (
+    <div className="flex flex-wrap gap-3">
+      <Switch label={t.year}>
+        {SCHOOL_GRADES.map((g) => {
+          const open = OPEN_GRADES.includes(g);
+          return (
+            <SwitchItem key={g} href={open ? semesterHref(`${g}.${half}`) : undefined} active={g === grade} title={open ? undefined : t.locked}>
+              {g}
+              {!open && <span className="ms-1 text-[11px] font-normal opacity-70">{t.soon}</span>}
+            </SwitchItem>
+          );
+        })}
+      </Switch>
+      <Switch label={t.halfYear}>
+        {HALVES.map((h) => (
+          <SwitchItem key={h} href={semesterHref(`${grade}.${h}`)} active={h === half}>
+            {grade}.{h}
+            {grade === CURRENT.grade && h === CURRENT.half && (
+              <span className="ms-1.5 inline-block size-1.5 rounded-full bg-[var(--c-gold)] align-middle" aria-label={t.now} />
+            )}
+          </SwitchItem>
+        ))}
+      </Switch>
+    </div>
+  );
+}
+
+function Switch({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div role="group" aria-label={label} className="flex items-center gap-1 rounded-2xl border bg-card p-1">
+      <span className="px-2.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</span>
+      {children}
+    </div>
+  );
+}
+
+function SwitchItem({ href, active, title, children }: { href?: string; active: boolean; title?: string; children: React.ReactNode }) {
+  const cls = cn(
+    "press flex h-10 min-w-12 items-center justify-center rounded-xl px-3.5 text-base font-bold tabular-nums",
+    active ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:bg-secondary hover:text-foreground",
+    !href && "cursor-not-allowed opacity-50 hover:bg-transparent hover:text-muted-foreground",
+  );
+  return href ? (
+    <Link href={href} aria-current={active ? "page" : undefined} className={cls}>
+      {children}
+    </Link>
+  ) : (
+    <span className={cls} title={title} aria-disabled>
+      {children}
+    </span>
   );
 }

@@ -97,7 +97,7 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
       />
 
       <header className="enter mt-5 flex items-center gap-4 sm:gap-6">
-        <SubjectBook subject={subject} size="sm" className="w-16 shrink-0 sm:w-20" />
+        <SubjectBook subject={subject} label={info.label[locale]} size="sm" className="shrink-0 sm:w-20" />
         <div className="min-w-0 flex-1">
           <h1 className="truncate text-3xl font-semibold tracking-tight sm:text-4xl">{info.label[locale]}</h1>
           <p className="mt-1 text-sm text-muted-foreground">

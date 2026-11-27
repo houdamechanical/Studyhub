@@ -3,112 +3,112 @@
 @tailwind utilities;
 
 @layer base {
-  /* Warm: ivory (light) and near-black (dark) with an orange accent; muted sage (--c-gold) as the quiet third colour.
+  /* Study-friendly: paper + sage (light), deep forest + mint (dark), coral (--c-gold) as the small pop colour.
      --c-amber is the accent used for text/rings (name kept from earlier themes).
      Hex first as a fallback, then the same colour in OKLCH. */
   :root {
-    --background: 38 44% 96.5%;
-    --foreground: 34 14% 9.6%;
-    --card: 40 100% 98.8%;
-    --card-foreground: 34 14% 9.6%;
-    --popover: 40 100% 98.8%;
-    --popover-foreground: 34 14% 9.6%;
-    --primary: 22 74% 41.6%;
+    --background: 51 26% 94.7%;
+    --foreground: 150 18% 11.0%;
+    --card: 0 0% 100.0%;
+    --card-foreground: 150 18% 11.0%;
+    --popover: 0 0% 100.0%;
+    --popover-foreground: 150 18% 11.0%;
+    --primary: 156 42% 32.0%;
     --primary-foreground: 0 0% 100.0%;
-    --secondary: 37 33% 92.4%;
-    --secondary-foreground: 34 14% 9.6%;
-    --muted: 37 33% 92.4%;
-    --muted-foreground: 33 9% 38.4%;
-    --accent: 37 33% 92.4%;
-    --accent-foreground: 34 14% 9.6%;
+    --secondary: 48 21% 90.6%;
+    --secondary-foreground: 150 18% 11.0%;
+    --muted: 48 21% 90.6%;
+    --muted-foreground: 145 7% 36.1%;
+    --accent: 48 21% 90.6%;
+    --accent-foreground: 150 18% 11.0%;
     --destructive: 6 63% 46.1%;
     --destructive-foreground: 0 0% 100.0%;
-    --border: 37 27% 87.1%;
-    --input: 36 22% 82.4%;
-    --ring: 21 74% 40.6%;
+    --border: 50 16% 85.5%;
+    --input: 48 15% 79.8%;
+    --ring: 156 44% 30.0%;
     --radius: 0.5rem;
-    --chart-accent: #b4511b;
-    --chart-muted: #cfc6b8;
-    --c-bg: #faf7f2;
-    --c-bg: oklch(97.7% 0.007 80.7);
-    --c-surface: #fffdf9;
-    --c-surface: oklch(99.4% 0.006 84.6);
-    --c-raised: #f2ede5;
-    --c-raised: oklch(94.8% 0.012 79.8);
-    --c-border: #e7e0d5;
-    --c-border: oklch(90.9% 0.017 79.3);
-    --c-text: #1c1915;
-    --c-text: oklch(21.5% 0.009 75.1);
-    --c-text-2: #6b6359;
-    --c-text-2: oklch(50.4% 0.019 73.5);
-    --c-amber: #b4511b;
-    --c-amber: oklch(55.3% 0.144 45.0);
-    --c-gold: #4f7a5a;
-    --c-gold: oklch(53.9% 0.069 151.6);
-    --c-sage: #4f7a5a;
-    --c-sage: oklch(53.9% 0.069 151.6);
-    --c-rose: #a24a4a;
-    --c-rose: oklch(52.2% 0.117 22.0);
-    --c-slate: #4a5f7a;
-    --c-slate: oklch(47.9% 0.051 254.9);
-    --c-amber-hi: #b8541c;
+    --chart-accent: #2b6e53;
+    --chart-muted: #c5c2b4;
+    --c-bg: #f5f4ee;
+    --c-bg: oklch(96.6% 0.008 98.9);
+    --c-surface: #ffffff;
+    --c-surface: oklch(100.0% 0.000 89.9);
+    --c-raised: #eceae2;
+    --c-raised: oklch(93.6% 0.011 95.2);
+    --c-border: #e0ded4;
+    --c-border: oklch(89.9% 0.014 97.5);
+    --c-text: #17211c;
+    --c-text: oklch(23.6% 0.017 163.1);
+    --c-text-2: #56625b;
+    --c-text-2: oklch(48.4% 0.018 160.1);
+    --c-amber: #2b6e53;
+    --c-amber: oklch(48.7% 0.081 163.9);
+    --c-gold: #b5482a;
+    --c-gold: oklch(54.3% 0.149 36.1);
+    --c-sage: #2f7458;
+    --c-sage: oklch(50.7% 0.083 163.9);
+    --c-rose: #b5482a;
+    --c-rose: oklch(54.3% 0.149 36.1);
+    --c-slate: #3f5f86;
+    --c-slate: oklch(47.8% 0.074 254.0);
+    --c-amber-hi: #2f7458;
     --c-on-amber: #ffffff;
-    --c-pill: #ece6dc;
-    --c-border-strong: #cfc6b8;
-    --c-side: #f5f1ea;
+    --c-pill: #e6e4da;
+    --c-border-strong: #c5c2b4;
+    --c-side: #efeee7;
     --grain-opacity: 0;
     color-scheme: light;
   }
   .dark {
-    --background: 30 8% 4.7%;
-    --foreground: 32 37% 93.1%;
-    --card: 30 11% 7.5%;
-    --card-foreground: 32 37% 93.1%;
-    --popover: 30 12% 10.2%;
-    --popover-foreground: 32 37% 93.1%;
-    --primary: 24 79% 57.8%;
-    --primary-foreground: 26 47% 5.9%;
-    --secondary: 30 12% 10.2%;
-    --secondary-foreground: 32 37% 93.1%;
-    --muted: 30 12% 10.2%;
-    --muted-foreground: 33 10% 60.0%;
-    --accent: 30 12% 10.2%;
-    --accent-foreground: 32 37% 93.1%;
-    --destructive: 3 68% 61.6%;
+    --background: 158 22% 7.1%;
+    --foreground: 142 19% 91.8%;
+    --card: 156 20% 9.8%;
+    --card-foreground: 142 19% 91.8%;
+    --popover: 155 18% 13.3%;
+    --popover-foreground: 142 19% 91.8%;
+    --primary: 155 47% 57.5%;
+    --primary-foreground: 150 44% 7.1%;
+    --secondary: 155 18% 13.3%;
+    --secondary-foreground: 142 19% 91.8%;
+    --muted: 155 18% 13.3%;
+    --muted-foreground: 148 8% 62.5%;
+    --accent: 155 18% 13.3%;
+    --accent-foreground: 142 19% 91.8%;
+    --destructive: 5 82% 65.5%;
     --destructive-foreground: 0 0% 100.0%;
-    --border: 30 11% 14.9%;
-    --input: 33 9% 18.6%;
-    --ring: 24 80% 60.8%;
+    --border: 152 15% 17.5%;
+    --input: 152 14% 21.4%;
+    --ring: 154 53% 63.1%;
     --radius: 0.5rem;
-    --chart-accent: #eb8b4b;
-    --chart-muted: #3d3831;
-    --c-bg: #0d0c0b;
-    --c-bg: oklch(15.5% 0.003 67.6);
-    --c-surface: #151311;
-    --c-surface: oklch(18.8% 0.005 67.5);
-    --c-raised: #1d1a17;
-    --c-raised: oklch(22.0% 0.007 67.4);
-    --c-border: #2a2622;
-    --c-border: oklch(27.2% 0.009 67.4);
-    --c-text: #f4eee7;
-    --c-text: oklch(95.2% 0.011 71.9);
-    --c-text-2: #a39a8f;
-    --c-text-2: oklch(69.1% 0.019 73.0);
-    --c-amber: #eb8b4b;
-    --c-amber: oklch(72.7% 0.141 52.3);
-    --c-gold: #8fb89a;
-    --c-gold: oklch(74.4% 0.062 153.0);
-    --c-sage: #8fb89a;
-    --c-sage: oklch(74.4% 0.062 153.0);
-    --c-rose: #d48f8f;
-    --c-rose: oklch(71.9% 0.084 19.3);
-    --c-slate: #8a9bb3;
-    --c-slate: oklch(68.4% 0.040 257.0);
-    --c-amber-hi: #e8823f;
-    --c-on-amber: #160e08;
-    --c-pill: #25211c;
-    --c-border-strong: #3d3831;
-    --c-side: #100f0d;
+    --chart-accent: #6fd3a8;
+    --chart-muted: #38483f;
+    --c-bg: #0e1613;
+    --c-bg: oklch(19.1% 0.013 169.8);
+    --c-surface: #141e1a;
+    --c-surface: oklch(22.4% 0.016 168.3);
+    --c-raised: #1c2823;
+    --c-raised: oklch(26.4% 0.019 167.4);
+    --c-border: #26332d;
+    --c-border: oklch(30.7% 0.021 165.2);
+    --c-text: #e6eee9;
+    --c-text: oklch(94.2% 0.011 158.8);
+    --c-text-2: #98a79f;
+    --c-text-2: oklch(71.4% 0.020 162.7);
+    --c-amber: #6fd3a8;
+    --c-amber: oklch(79.4% 0.114 163.8);
+    --c-gold: #ff8a65;
+    --c-gold: oklch(75.5% 0.151 38.3);
+    --c-sage: #6fd3a8;
+    --c-sage: oklch(79.4% 0.114 163.8);
+    --c-rose: #ff8a65;
+    --c-rose: oklch(75.5% 0.151 38.3);
+    --c-slate: #8fb3e0;
+    --c-slate: oklch(75.7% 0.076 254.3);
+    --c-amber-hi: #5fc69b;
+    --c-on-amber: #0a1a12;
+    --c-pill: #22302a;
+    --c-border-strong: #38483f;
+    --c-side: #111a16;
     --grain-opacity: 0;
     color-scheme: dark;
   }
@@ -160,7 +160,7 @@
 
 @layer base {
   html {
-    font-size: 15px;
+    font-size: 17px;
   }
   /* iOS zooms into inputs under 16px */
   @media (max-width: 640px) {
@@ -181,9 +181,13 @@
     background-image: var(--grain);
     opacity: var(--grain-opacity);
   }
-  /* Headings: Inter, tight like Linear */
+  /* Headings: Bricolage Grotesque – friendly, a bit playful, still clean */
+  h1,
+  h2,
   .font-display {
-    letter-spacing: -0.022em;
+    font-family: var(--font-display), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
   }
   h1, h2, h3 {
     line-height: 1.2;
@@ -438,5 +442,172 @@
   }
   a {
     text-decoration: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   3D subject books (components/subject-book.tsx)
+   --------------------------------------------------------------------------- */
+.book3d {
+  --d: 18px; /* thickness */
+  --rx: 4deg;
+  --ry: -24deg;
+  --gx: 30%;
+  --gy: 20%;
+  position: relative;
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  perspective: 1100px;
+}
+.book3d-sm {
+  --d: 9px;
+  width: 4.5rem;
+}
+.book3d-body {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 500ms var(--ease-out);
+}
+a:hover > .book3d .book3d-body,
+a:focus-visible > .book3d .book3d-body {
+  transform: translateY(-10px) translateZ(30px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition-duration: 160ms;
+}
+a:active > .book3d .book3d-body {
+  transform: translateY(-4px) scale(0.98) rotateX(var(--rx)) rotateY(var(--ry));
+}
+.book3d-cover,
+.book3d-inside,
+.book3d-pages,
+.book3d-spine {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px 10px 10px 3px;
+  backface-visibility: hidden;
+}
+/* Cover: gradient + subtle pattern + icon + title */
+.book3d-cover {
+  transform: translateZ(calc(var(--d) / 2));
+  transform-origin: left center;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgb(0 0 0 / 0.28), rgb(255 255 255 / 0.18) 4%, transparent 9%),
+    linear-gradient(150deg, var(--from), var(--to) 78%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14), inset 0 -40px 60px -30px rgb(0 0 0 / 0.25);
+  transition: transform 520ms cubic-bezier(0.6, 0, 0.2, 1);
+}
+.book3d-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image: radial-gradient(currentColor 1px, transparent 1.4px);
+  background-size: 14px 14px;
+  mask-image: linear-gradient(160deg, black, transparent 65%);
+}
+.book3d-icon {
+  position: absolute;
+  inset-inline-start: 18%;
+  top: 14%;
+  width: 34%;
+  aspect-ratio: 1;
+  filter: drop-shadow(0 2px 6px rgb(0 0 0 / 0.25));
+}
+.book3d-title {
+  position: absolute;
+  inset-inline: 14% 10%;
+  bottom: 11%;
+  font-family: var(--font-display), var(--font-arabic), sans-serif;
+  font-weight: 800;
+  font-size: clamp(0.95rem, 3.6vw, 1.35rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 0.12);
+}
+.book3d-sm .book3d-icon {
+  inset-inline-start: 26%;
+  top: 26%;
+  width: 52%;
+}
+/* Light following the pointer */
+.book3d-glare {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: radial-gradient(circle at var(--gx) var(--gy), rgb(255 255 255 / 0.45), transparent 45%),
+    linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 0.18) 48%, transparent 60%);
+  mix-blend-mode: soft-light;
+  transition: opacity 250ms ease;
+}
+a:hover > .book3d .book3d-glare {
+  opacity: 1;
+}
+/* Page block on the right edge + top */
+.book3d-pages {
+  inset-block: 3px;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  width: var(--d);
+  border-radius: 2px;
+  transform: rotateY(90deg) translateX(calc(var(--d) / 2));
+  transform-origin: right center;
+  background: repeating-linear-gradient(90deg, #f4efe3 0 1px, #ddd5c3 1px 2px);
+}
+.book3d-spine {
+  width: var(--d);
+  inset-inline-end: auto;
+  border-radius: 3px 0 0 3px;
+  transform: rotateY(-90deg) translateZ(0) translateX(calc(var(--d) / -2));
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--to), color-mix(in srgb, var(--to) 70%, black));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.book3d-spine span {
+  display: none;
+}
+/* What you see when the cover swings open */
+.book3d-inside {
+  transform: translateZ(calc(var(--d) / 2 - 1px));
+  background: linear-gradient(90deg, #ddd5c3, #f7f2e7 12%, #fbf8f1);
+  color: #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+}
+.book3d.is-opening .book3d-body {
+  transform: translateY(-10px) translateZ(60px) rotateX(0deg) rotateY(-6deg);
+  transition-duration: 300ms;
+}
+.book3d.is-opening .book3d-cover {
+  transform: translateZ(calc(var(--d) / 2)) rotateY(-150deg);
+}
+/* Soft contact shadow under the book */
+.book3d-shadow {
+  position: absolute;
+  inset-inline: 10% 4%;
+  bottom: -14px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.35), transparent);
+  filter: blur(4px);
+  transition: transform 500ms var(--ease-out), opacity 500ms var(--ease-out);
+}
+a:hover > .book3d .book3d-shadow {
+  transform: scale(0.88);
+  opacity: 0.6;
+}
+@media (prefers-reduced-motion: reduce) {
+  .book3d-body,
+  .book3d-cover {
+    transition: none;
   }
 }

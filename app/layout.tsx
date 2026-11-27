@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Noto_Sans_Arabic } from "next/font/google";
+import { Bricolage_Grotesque, Inter, Noto_Sans_Arabic } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/toast";
 import { I18nProvider, LOCALE_BOOT_SCRIPT } from "@/lib/i18n/client";
@@ -26,8 +26,8 @@ export const viewport: Viewport = {
   // padding itself so it stays clear of the home indicator.
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf7f2" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0c0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f4ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1613" },
   ],
   colorScheme: "dark light",
 };
@@ -37,6 +37,14 @@ const inter = Inter({
   variable: "--font-geist-sans",
   display: "swap",
   subsets: ["latin"],
+});
+
+// Headings: expressive grotesque with optical sizes.
+const display = Bricolage_Grotesque({
+  variable: "--font-display",
+  display: "swap",
+  subsets: ["latin"],
+  axes: ["opsz", "wdth"],
 });
 
 const notoArabic = Noto_Sans_Arabic({
@@ -57,7 +65,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOT_SCRIPT }} />
       </head>
-      <body className={`${inter.variable} ${notoArabic.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <I18nProvider>
             {children}

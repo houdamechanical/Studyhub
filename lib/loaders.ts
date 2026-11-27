@@ -4,7 +4,6 @@ import { isMissingTable } from "@/components/setup-notice";
 import { must } from "@/lib/data";
 import { sortByDate, type SchoolExam } from "@/lib/exams";
 import { todayISO } from "@/lib/format";
-import type { Grade } from "@/lib/grades";
 import type { QuizKind } from "@/lib/practice";
 import type { SubjectId } from "@/lib/subjects";
 import { createClient } from "@/lib/supabase/client";
@@ -104,15 +103,6 @@ export async function loadSchoolExams(subjects: readonly SubjectId[], opts: { su
     throw error;
   }
   return sortByDate(data as SchoolExam[]);
-}
-
-export async function loadGrades(semester?: string) {
-  let query = createClient()
-    .from("grades")
-    .select("id, subject, semester, title, scale, value, weight, graded_on")
-    .order("graded_on");
-  if (semester) query = query.eq("semester", semester);
-  return (must(await query) as Grade[]).map((g) => ({ ...g, value: Number(g.value), weight: Number(g.weight) }));
 }
 
 /** Whole days from today until a YYYY-MM-DD date (0 = today). */

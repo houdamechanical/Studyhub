@@ -11,21 +11,23 @@ import { loadMyCommunities, type Community } from "@/lib/communities";
 import { useLoad } from "@/lib/data";
 import { formatPeriods, type SchoolExam } from "@/lib/exams";
 import { formatDate, intlLocale, todayISO } from "@/lib/format";
-import { CURRENT_SEMESTER, formatNC, halfYearNC } from "@/lib/grades";
+import { formatPoints, loadGradeBook, ncFromResults, subjectResults } from "@/lib/gradebook";
+import { CURRENT_SEMESTER, formatNC } from "@/lib/grades";
 import { useI18n, useTitle } from "@/lib/i18n/client";
 import { fill, formatSemester, type Dictionary } from "@/lib/i18n/dictionaries";
-import { daysUntil, loadGrades, loadSchoolExams } from "@/lib/loaders";
+import { daysUntil } from "@/lib/loaders";
 import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
 async function loadHome(subjects: SubjectId[]) {
-  const [exams, grades, communities] = await Promise.all([
-    loadSchoolExams(subjects, { all: true }),
-    loadGrades(CURRENT_SEMESTER),
+  const [book, communities] = await Promise.all([
+    loadGradeBook(subjects, CURRENT_SEMESTER),
     loadMyCommunities().then((r) => r.list),
   ]);
+  const exams = book.exams;
+  const nc = ncFromResults(subjectResults(subjects, exams, book.examGrades, book.oral));
   const today = todayISO();
-  return { exams, next: exams.find((e) => e.exam_date >= today) ?? null, nc: halfYearNC(grades), communities };
+  return { exams, next: exams.find((e) => e.exam_date >= today) ?? null, nc, communities };
 }
 
 /** Home: what's next. The next exam first, then your NC, a small exam calendar and your communities. */
@@ -132,7 +134,7 @@ function NextExam({ exam }: { exam: SchoolExam | null }) {
   );
 }
 
-function NcCard({ nc }: { nc: ReturnType<typeof halfYearNC> }) {
+function NcCard({ nc }: { nc: ReturnType<typeof ncFromResults> }) {
   const { locale, dict } = useI18n();
   const nf = intlLocale(locale);
   const t = dict.home;
@@ -143,7 +145,7 @@ function NcCard({ nc }: { nc: ReturnType<typeof halfYearNC> }) {
           <>
             <p className="font-display text-5xl font-semibold tabular-nums tracking-tight">{formatNC(nc.nc, nf)}</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              {fill(t.ncHint, { p: new Intl.NumberFormat(nf, { maximumFractionDigits: 1 }).format(nc.points), n: nc.subjects })}
+              {fill(t.ncHint, { p: formatPoints(nc.points, nf), n: nc.subjects })}
             </p>
             <p className="mt-3 text-xs text-muted-foreground/80">{t.ncFormula}</p>
           </>

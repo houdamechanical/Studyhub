@@ -23,10 +23,10 @@ import {
 } from "@/lib/communities";
 import { useLoad } from "@/lib/data";
 import { intlLocale } from "@/lib/format";
-import { CURRENT_SEMESTER, formatNC, formatScore, ncFromScore } from "@/lib/grades";
+import { formatPoints } from "@/lib/gradebook";
+import { CURRENT_SEMESTER, formatNC, ncFromScore, toPoints } from "@/lib/grades";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatSemester } from "@/lib/i18n/dictionaries";
-import { getDisplayScale } from "@/lib/mutations/grades";
 import { SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -333,8 +333,7 @@ function CommunityBoard({ communityId }: { communityId: string }) {
     `community-board:${communityId}:${subject ?? "nc"}`,
   );
   const nf = intlLocale(locale);
-  const scale = getDisplayScale();
-  const format = (v: number) => (subject ? formatScore(v, scale, nf) : formatNC(ncFromScore(v), nf));
+  const format = (v: number) => (subject ? `${formatPoints(toPoints(v), nf)} P` : formatNC(ncFromScore(v), nf));
   const chips: { id: SubjectId | null; label: string }[] = [
     { id: null, label: "NC" },
     ...SUBJECT_IDS.map((id) => ({ id, label: SUBJECTS[id].label[locale] })),

@@ -13,7 +13,7 @@ export default {
     extend: {
       fontFamily: {
         display: [
-          "var(--font-geist-sans)",
+          "var(--font-display)",
           "var(--font-arabic)",
           "ui-sans-serif",
           "system-ui",
