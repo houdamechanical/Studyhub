@@ -87,10 +87,10 @@ export const SUBJECTS: Record<SubjectId, SubjectInfo> = {
   },
 };
 
-/** Everyone picks one of these … */
+/** Everyone picks one of these … (Chemistry is for everyone) */
 export const ARTS = ["kunst", "musik"] as const satisfies readonly SubjectId[];
 /** … and two of these. */
-export const SCIENCES = ["bio", "chemie", "arabisch"] as const satisfies readonly SubjectId[];
+export const SCIENCES = ["physik", "arabisch", "bio"] as const satisfies readonly SubjectId[];
 const ELECTIVES: readonly SubjectId[] = [...ARTS, ...SCIENCES];
 
 /** A valid choice: exactly one of ARTS and two different SCIENCES. */
