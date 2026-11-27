@@ -60,7 +60,7 @@ export function MiniCalendar({ exams, onOpen }: { exams: SchoolExam[]; onOpen: (
       className="enter group flex h-full w-full flex-col rounded-xl border bg-card text-start transition-colors hover:border-[var(--c-border-strong)]"
     >
       <span className="flex w-full items-center justify-between border-b px-4 py-2.5">
-        <span className="text-[13px] font-medium text-muted-foreground">{dict.home.calendar}</span>
+        <span className="text-sm font-medium text-muted-foreground">{dict.home.calendar}</span>
         <ChevronRight size={14} className="text-muted-foreground transition-transform group-hover:translate-x-0.5 rtl:rotate-180" />
       </span>
       <span className="flex w-full flex-1 flex-col px-4 py-3">
@@ -72,7 +72,7 @@ export function MiniCalendar({ exams, onOpen }: { exams: SchoolExam[]; onOpen: (
             {count === 0 ? dict.home.noExamsMonth : count === 1 ? dict.home.oneExamThisMonth : fill(dict.home.examsThisMonth, { n: count })}
           </span>
         </span>
-        <span className="mt-2 grid grid-cols-7 gap-y-0.5 text-center text-[11px]">
+        <span className="mt-2 grid grid-cols-7 gap-y-0.5 text-center text-xs">
           {wd.map((d, i) => (
             <span key={i} className="pb-1 text-muted-foreground">
               {d}
@@ -174,7 +174,7 @@ export function CalendarDialog({ exams, onClose }: { exams: SchoolExam[]; onClos
 
           <div className="grid grid-cols-7 gap-1 px-3 pt-3 sm:px-4">
             {wd.map((d) => (
-              <span key={d} className="pb-1 text-center text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+              <span key={d} className="pb-1 text-center text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 {d}
               </span>
             ))}
@@ -204,7 +204,7 @@ export function CalendarDialog({ exams, onClose }: { exams: SchoolExam[]; onClos
                     {day.map((e) => (
                       <span
                         key={e.id}
-                        className="flex items-center gap-1 truncate rounded bg-[color-mix(in_srgb,var(--c-amber)_14%,transparent)] px-1 py-0.5 text-[10px] font-medium text-[var(--c-amber)] sm:text-[11px]"
+                        className="flex items-center gap-1 truncate rounded bg-[color-mix(in_srgb,var(--c-amber)_14%,transparent)] px-1 py-0.5 text-xs font-medium text-[var(--c-amber)] sm:text-xs"
                       >
                         <SubjectIcon subject={e.subject} className="size-3 shrink-0" />
                         <span className="hidden truncate sm:inline">{SUBJECTS[e.subject].label[locale]}</span>

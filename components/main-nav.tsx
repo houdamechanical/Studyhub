@@ -76,7 +76,7 @@ export function BottomNav() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "press relative flex flex-col items-center gap-1 pb-2 pt-2 text-[11px] font-semibold md:pt-2.5 md:text-xs",
+                  "press relative flex flex-col items-center gap-1 pb-2 pt-2 text-xs font-semibold md:pt-2.5 md:text-xs",
                   active ? "text-foreground" : "text-muted-foreground",
                 )}
               >

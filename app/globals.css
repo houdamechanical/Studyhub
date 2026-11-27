@@ -3,112 +3,112 @@
 @tailwind utilities;
 
 @layer base {
-  /* Study-friendly: paper + sage (light), deep forest + mint (dark), coral (--c-gold) as the small pop colour.
+  /* Notebook: warm cream + deep red (light), warm dark + coral red (dark); ink blue (--c-gold) as the small third colour.
      --c-amber is the accent used for text/rings (name kept from earlier themes).
      Hex first as a fallback, then the same colour in OKLCH. */
   :root {
-    --background: 51 26% 94.7%;
-    --foreground: 150 18% 11.0%;
+    --background: 40 60% 96.1%;
+    --foreground: 33 17% 10.4%;
     --card: 0 0% 100.0%;
-    --card-foreground: 150 18% 11.0%;
+    --card-foreground: 33 17% 10.4%;
     --popover: 0 0% 100.0%;
-    --popover-foreground: 150 18% 11.0%;
-    --primary: 156 42% 32.0%;
+    --popover-foreground: 33 17% 10.4%;
+    --primary: 14 85% 39.0%;
     --primary-foreground: 0 0% 100.0%;
-    --secondary: 48 21% 90.6%;
-    --secondary-foreground: 150 18% 11.0%;
-    --muted: 48 21% 90.6%;
-    --muted-foreground: 145 7% 36.1%;
-    --accent: 48 21% 90.6%;
-    --accent-foreground: 150 18% 11.0%;
-    --destructive: 6 63% 46.1%;
+    --secondary: 39 45% 91.4%;
+    --secondary-foreground: 33 17% 10.4%;
+    --muted: 39 45% 91.4%;
+    --muted-foreground: 31 13% 37.1%;
+    --accent: 39 45% 91.4%;
+    --accent-foreground: 33 17% 10.4%;
+    --destructive: 357 67% 45.1%;
     --destructive-foreground: 0 0% 100.0%;
-    --border: 50 16% 85.5%;
-    --input: 48 15% 79.8%;
-    --ring: 156 44% 30.0%;
+    --border: 38 34% 86.3%;
+    --input: 38 29% 78.4%;
+    --ring: 14 85% 39.0%;
     --radius: 0.5rem;
-    --chart-accent: #2b6e53;
-    --chart-muted: #c5c2b4;
-    --c-bg: #f5f4ee;
-    --c-bg: oklch(96.6% 0.008 98.9);
+    --chart-accent: #b8360f;
+    --chart-muted: #cdbfa8;
+    --c-bg: #fbf7ef;
+    --c-bg: oklch(97.7% 0.011 84.6);
     --c-surface: #ffffff;
     --c-surface: oklch(100.0% 0.000 89.9);
-    --c-raised: #eceae2;
-    --c-raised: oklch(93.6% 0.011 95.2);
-    --c-border: #e0ded4;
-    --c-border: oklch(89.9% 0.014 97.5);
-    --c-text: #17211c;
-    --c-text: oklch(23.6% 0.017 163.1);
-    --c-text-2: #56625b;
-    --c-text-2: oklch(48.4% 0.018 160.1);
-    --c-amber: #2b6e53;
-    --c-amber: oklch(48.7% 0.081 163.9);
-    --c-gold: #b5482a;
-    --c-gold: oklch(54.3% 0.149 36.1);
-    --c-sage: #2f7458;
-    --c-sage: oklch(50.7% 0.083 163.9);
-    --c-rose: #b5482a;
-    --c-rose: oklch(54.3% 0.149 36.1);
-    --c-slate: #3f5f86;
-    --c-slate: oklch(47.8% 0.074 254.0);
-    --c-amber-hi: #2f7458;
+    --c-raised: #f3ecdf;
+    --c-raised: oklch(94.5% 0.019 83.1);
+    --c-border: #e8dfd0;
+    --c-border: oklch(90.7% 0.022 80.7);
+    --c-text: #1f1b16;
+    --c-text: oklch(22.5% 0.011 73.3);
+    --c-text-2: #6b5f52;
+    --c-text-2: oklch(49.3% 0.025 69.4);
+    --c-amber: #b8360f;
+    --c-amber: oklch(52.4% 0.173 35.5);
+    --c-gold: #2b5c8a;
+    --c-gold: oklch(46.3% 0.092 249.2);
+    --c-sage: #3f7a4f;
+    --c-sage: oklch(52.7% 0.092 151.0);
+    --c-rose: #b8360f;
+    --c-rose: oklch(52.4% 0.173 35.5);
+    --c-slate: #2b5c8a;
+    --c-slate: oklch(46.3% 0.092 249.2);
+    --c-amber-hi: #b8360f;
     --c-on-amber: #ffffff;
-    --c-pill: #e6e4da;
-    --c-border-strong: #c5c2b4;
-    --c-side: #efeee7;
+    --c-pill: #efe6d6;
+    --c-border-strong: #cdbfa8;
+    --c-side: #f6f0e4;
     --grain-opacity: 0;
     color-scheme: light;
   }
   .dark {
-    --background: 158 22% 7.1%;
-    --foreground: 142 19% 91.8%;
-    --card: 156 20% 9.8%;
-    --card-foreground: 142 19% 91.8%;
-    --popover: 155 18% 13.3%;
-    --popover-foreground: 142 19% 91.8%;
-    --primary: 155 47% 57.5%;
-    --primary-foreground: 150 44% 7.1%;
-    --secondary: 155 18% 13.3%;
-    --secondary-foreground: 142 19% 91.8%;
-    --muted: 155 18% 13.3%;
-    --muted-foreground: 148 8% 62.5%;
-    --accent: 155 18% 13.3%;
-    --accent-foreground: 142 19% 91.8%;
-    --destructive: 5 82% 65.5%;
+    --background: 30 21% 7.5%;
+    --foreground: 35 46% 92.7%;
+    --card: 27 21% 10.4%;
+    --card-foreground: 35 46% 92.7%;
+    --popover: 28 19% 13.5%;
+    --popover-foreground: 35 46% 92.7%;
+    --primary: 14 87% 62.0%;
+    --primary-foreground: 17 53% 6.7%;
+    --secondary: 28 19% 13.5%;
+    --secondary-foreground: 35 46% 92.7%;
+    --muted: 28 19% 13.5%;
+    --muted-foreground: 31 13% 62.2%;
+    --accent: 28 19% 13.5%;
+    --accent-foreground: 35 46% 92.7%;
+    --destructive: 3 83% 65.1%;
     --destructive-foreground: 0 0% 100.0%;
-    --border: 152 15% 17.5%;
-    --input: 152 14% 21.4%;
-    --ring: 154 53% 63.1%;
+    --border: 28 20% 19.0%;
+    --input: 29 20% 22.9%;
+    --ring: 14 88% 64.5%;
     --radius: 0.5rem;
-    --chart-accent: #6fd3a8;
-    --chart-muted: #38483f;
-    --c-bg: #0e1613;
-    --c-bg: oklch(19.1% 0.013 169.8);
-    --c-surface: #141e1a;
-    --c-surface: oklch(22.4% 0.016 168.3);
-    --c-raised: #1c2823;
-    --c-raised: oklch(26.4% 0.019 167.4);
-    --c-border: #26332d;
-    --c-border: oklch(30.7% 0.021 165.2);
-    --c-text: #e6eee9;
-    --c-text: oklch(94.2% 0.011 158.8);
-    --c-text-2: #98a79f;
-    --c-text-2: oklch(71.4% 0.020 162.7);
-    --c-amber: #6fd3a8;
-    --c-amber: oklch(79.4% 0.114 163.8);
-    --c-gold: #ff8a65;
-    --c-gold: oklch(75.5% 0.151 38.3);
-    --c-sage: #6fd3a8;
-    --c-sage: oklch(79.4% 0.114 163.8);
-    --c-rose: #ff8a65;
-    --c-rose: oklch(75.5% 0.151 38.3);
-    --c-slate: #8fb3e0;
-    --c-slate: oklch(75.7% 0.076 254.3);
-    --c-amber-hi: #5fc69b;
-    --c-on-amber: #0a1a12;
-    --c-pill: #22302a;
-    --c-border-strong: #38483f;
-    --c-side: #111a16;
+    --chart-accent: #f47a55;
+    --chart-muted: #4d4034;
+    --c-bg: #17130f;
+    --c-bg: oklch(19.0% 0.010 67.1);
+    --c-surface: #201a15;
+    --c-surface: oklch(22.3% 0.013 61.9);
+    --c-raised: #29221c;
+    --c-raised: oklch(25.8% 0.015 62.7);
+    --c-border: #3a3027;
+    --c-border: oklch(31.7% 0.021 63.9);
+    --c-text: #f5eee4;
+    --c-text: oklch(95.2% 0.015 77.1);
+    --c-text-2: #ab9f92;
+    --c-text-2: oklch(70.9% 0.023 69.7);
+    --c-amber: #f47a55;
+    --c-amber: oklch(71.3% 0.159 37.6);
+    --c-gold: #8fb8e3;
+    --c-gold: oklch(76.9% 0.076 250.0);
+    --c-sage: #8fc79e;
+    --c-sage: oklch(78.0% 0.082 152.5);
+    --c-rose: #f47a55;
+    --c-rose: oklch(71.3% 0.159 37.6);
+    --c-slate: #8fb8e3;
+    --c-slate: oklch(76.9% 0.076 250.0);
+    --c-amber-hi: #f2704a;
+    --c-on-amber: #1a0d08;
+    --c-pill: #2f2720;
+    --c-border-strong: #4d4034;
+    --c-side: #1b1612;
     --grain-opacity: 0;
     color-scheme: dark;
   }
@@ -160,7 +160,7 @@
 
 @layer base {
   html {
-    font-size: 17px;
+    font-size: 18px;
   }
   /* iOS zooms into inputs under 16px */
   @media (max-width: 640px) {
@@ -456,12 +456,10 @@
   --gy: 20%;
   position: relative;
   aspect-ratio: 3 / 4;
-  width: 100%;
   perspective: 1100px;
 }
 .book3d-sm {
   --d: 9px;
-  width: 4.5rem;
 }
 .book3d-body {
   position: absolute;
@@ -583,12 +581,20 @@ a:hover > .book3d .book3d-glare {
   font-family: var(--font-display), sans-serif;
   font-weight: 700;
 }
-.book3d.is-opening .book3d-body {
-  transform: translateY(-10px) translateZ(60px) rotateX(0deg) rotateY(-6deg);
-  transition-duration: 300ms;
+/* Tapping a book: it grows to fill the screen, then fades into the subject page */
+.book-zoom {
+  position: fixed;
+  z-index: 80;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(150deg, var(--from), var(--to) 78%);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
 }
-.book3d.is-opening .book3d-cover {
-  transform: translateZ(calc(var(--d) / 2)) rotateY(-150deg);
+.book-zoom .book3d-icon {
+  position: static;
+  width: min(28vw, 9rem);
 }
 /* Soft contact shadow under the book */
 .book3d-shadow {
@@ -609,5 +615,27 @@ a:hover > .book3d .book3d-shadow {
   .book3d-body,
   .book3d-cover {
     transition: none;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Full-screen search slides in */
+.search-in {
+  animation: search-in 220ms var(--ease-out) both;
+}
+@keyframes search-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .search-in {
+    animation: none;
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { Info } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
 import { SetupNotice } from "@/components/setup-notice";
 import { BOOK_COLORS } from "@/components/subject-book";
@@ -181,78 +181,54 @@ export function GradeBook({
   );
 }
 
-/** A points button (0–15); tapping it opens a grid to pick or clear. */
+/**
+ * Type the points (0–15). Saves when you leave the field or press Enter;
+ * empty clears it; anything else outside 0–15 is refused and reset.
+ */
 function PointsPicker({ value, label, onChange }: { value: number | null; label: string; onChange: (p: number | null) => void }) {
   const { dict } = useI18n();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [draft, setDraft] = useState(value === null ? "" : String(value));
+  const [bad, setBad] = useState(false);
+  useEffect(() => setDraft(value === null ? "" : String(value)), [value]);
 
-  useEffect(() => {
-    if (!open) return;
-    const onDown = (e: PointerEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    window.addEventListener("pointerdown", onDown);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("pointerdown", onDown);
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
-
-  function pick(p: number | null) {
-    setOpen(false);
-    if (p !== value) onChange(p);
+  function commit() {
+    const text = draft.trim();
+    if (text === "") {
+      if (value !== null) onChange(null);
+      return;
+    }
+    const n = Number(text);
+    if (!Number.isInteger(n) || n < 0 || n > 15) {
+      setBad(true);
+      toast(dict.grades.range, "error");
+      setDraft(value === null ? "" : String(value));
+      setTimeout(() => setBad(false), 600);
+      return;
+    }
+    if (n !== value) onChange(n);
   }
 
   return (
-    <div ref={ref} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-label={label}
-        aria-haspopup="dialog"
-        aria-expanded={open}
+    <label className={cn("relative flex items-center", bad && "animate-[shake_0.3s]")}>
+      <span className="sr-only">{label}</span>
+      <input
+        type="text"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        maxLength={2}
+        value={draft}
+        placeholder="–"
+        onChange={(e) => setDraft(e.target.value.replace(/[^0-9]/g, ""))}
+        onBlur={commit}
+        onKeyDown={(e) => e.key === "Enter" && (e.currentTarget as HTMLInputElement).blur()}
+        aria-invalid={bad || undefined}
         className={cn(
-          "press flex h-9 min-w-[4.5rem] items-center justify-center gap-1 rounded-lg border px-2.5 text-sm font-semibold tabular-nums",
-          value === null
-            ? "border-dashed text-muted-foreground hover:border-[var(--c-amber)] hover:text-foreground"
-            : "border-transparent bg-[color-mix(in_srgb,var(--subject)_16%,transparent)] text-foreground",
+          "h-12 w-[5.5rem] rounded-xl border-2 bg-background pe-8 ps-3 text-center text-xl font-bold tabular-nums outline-none transition-colors placeholder:font-normal placeholder:text-muted-foreground/60 focus:border-[var(--c-amber)]",
+          value !== null && "border-transparent bg-[color-mix(in_srgb,var(--subject)_14%,transparent)]",
+          bad && "border-destructive",
         )}
-      >
-        {value === null ? `+ ${dict.grades.addPoints}` : (
-          <>
-            {value}
-            <span className="text-xs font-normal text-muted-foreground">{dict.grades.points}</span>
-          </>
-        )}
-      </button>
-      {open && (
-        <div role="dialog" aria-label={label} className="dialog-panel absolute end-0 top-full z-40 mt-1.5 w-56 rounded-xl border bg-popover p-2 shadow-xl">
-          <div className="grid grid-cols-4 gap-1">
-            {Array.from({ length: 16 }, (_, i) => 15 - i).map((p) => (
-              <button
-                key={p}
-                type="button"
-                onClick={() => pick(p)}
-                aria-pressed={p === value}
-                className={cn(
-                  "press flex h-10 items-center justify-center rounded-lg text-sm font-semibold tabular-nums",
-                  p === value ? "bg-primary text-primary-foreground" : "hover:bg-secondary",
-                  p >= 13 && p !== value && "text-[var(--c-sage)]",
-                  p <= 4 && p !== value && "text-[var(--c-rose)]",
-                )}
-              >
-                {p}
-              </button>
-            ))}
-          </div>
-          {value !== null && (
-            <button type="button" onClick={() => pick(null)} className="mt-1 w-full rounded-lg py-2 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground">
-              {dict.grades.clear}
-            </button>
-          )}
-        </div>
-      )}
-    </div>
+      />
+      <span className="pointer-events-none absolute end-3 text-sm font-medium text-muted-foreground">{dict.grades.points}</span>
+    </label>
   );
 }

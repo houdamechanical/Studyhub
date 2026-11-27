@@ -98,7 +98,7 @@ function YearPicker({ grade, half }: { grade: string; half: string }) {
           return (
             <SwitchItem key={g} href={open ? semesterHref(`${g}.${half}`) : undefined} active={g === grade} title={open ? undefined : t.locked}>
               {g}
-              {!open && <span className="ms-1 text-[11px] font-normal opacity-70">{t.soon}</span>}
+              {!open && <span className="ms-1 text-xs font-normal opacity-70">{t.soon}</span>}
             </SwitchItem>
           );
         })}

@@ -30,7 +30,7 @@ export function AuthHero({ children }: { children: React.ReactNode }) {
         >
           Study Hub
         </h1>
-        <p className="hero-in absolute inset-x-0 top-[calc(13svh+min(15vw,19vh)+2.2vh)] z-[1] mx-auto flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-1 px-6 text-[13px] text-muted-foreground [--d:850ms] lg:top-[calc(9vh+min(15vw,19vh)+2.6vh)]">
+        <p className="hero-in absolute inset-x-0 top-[calc(13svh+min(15vw,19vh)+2.2vh)] z-[1] mx-auto flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-1 px-6 text-sm text-muted-foreground [--d:850ms] lg:top-[calc(9vh+min(15vw,19vh)+2.6vh)]">
           {SUBJECT_IDS.map((id) => (
             <span key={id}>{SUBJECTS[id].label[locale]}</span>
           ))}

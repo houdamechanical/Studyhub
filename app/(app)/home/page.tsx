@@ -61,7 +61,7 @@ function Panel({ title, action, children, className }: { title: string; action?:
   return (
     <section className={cn("enter rounded-xl border bg-card", className)}>
       <header className="flex items-center justify-between gap-2 border-b px-4 py-2.5">
-        <h2 className="text-[13px] font-medium text-muted-foreground">{title}</h2>
+        <h2 className="text-sm font-medium text-muted-foreground">{title}</h2>
         {action}
       </header>
       {children}
@@ -71,7 +71,7 @@ function Panel({ title, action, children, className }: { title: string; action?:
 
 function PanelLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className="hit flex items-center gap-0.5 text-[13px] text-muted-foreground hover:text-foreground">
+    <Link href={href} className="hit flex items-center gap-0.5 text-sm text-muted-foreground hover:text-foreground">
       {children}
       <ChevronRight size={14} className="rtl:rotate-180" />
     </Link>
@@ -100,7 +100,7 @@ function NextExam({ exam }: { exam: SchoolExam | null }) {
     >
       {/* A whisper of the accent, top right */}
       <div aria-hidden className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--c-amber)_14%,transparent),transparent)]" />
-      <p className="relative flex items-center gap-2 text-[13px] font-medium text-muted-foreground">
+      <p className="relative flex items-center gap-2 text-sm font-medium text-muted-foreground">
         <span className="size-1.5 rounded-full bg-[var(--c-gold)]" aria-hidden />
         {dict.home.nextExam}
       </p>
@@ -126,7 +126,7 @@ function NextExam({ exam }: { exam: SchoolExam | null }) {
           {when(exam.exam_date, dict)}
         </p>
       </div>
-      <span className="relative mt-4 flex items-center gap-1 text-[13px] text-muted-foreground group-hover:text-foreground">
+      <span className="relative mt-4 flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground">
         {dict.home.allExams}
         <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5 rtl:rotate-180" />
       </span>
