@@ -30,14 +30,14 @@ export function Sidebar() {
 
   return (
     <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-e bg-card/60 lg:flex">
-      <Link href="/" className="flex items-center gap-2.5 px-5 pb-6 pt-6">
+      <Link href="/" className="flex items-center gap-2.5 px-5 pb-5 pt-6">
         <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
           <BookOpen size={17} strokeWidth={2.25} />
         </span>
         <span className="font-display text-xl font-semibold">Study Hub</span>
       </Link>
 
-      <nav className="flex flex-1 flex-col gap-6 overflow-y-auto px-3 pb-4">
+      <nav className="flex flex-1 flex-col gap-6 overflow-y-auto px-3 pb-4 pt-1">
         <ul className="flex flex-col gap-0.5">
           {main.map((item) => (
             <li key={item.href}>
