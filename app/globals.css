@@ -247,28 +247,35 @@
   .hairline {
     border-top: 1px solid var(--c-border);
   }
-  /* Soft warm light that slowly "breathes" behind a focal element. */
+  /* Faint, still warm light behind a focal element (ambient, never "the visual"). */
   .glow-orb {
-    background:
-      radial-gradient(closest-side at 45% 45%, rgb(201 164 106 / 0.34), transparent 70%),
-      radial-gradient(closest-side at 62% 60%, rgb(184 138 138 / 0.22), transparent 75%),
-      radial-gradient(closest-side at 40% 65%, rgb(125 143 166 / 0.12), transparent 80%);
-    filter: blur(28px);
-    animation: breathe 9s ease-in-out infinite;
+    background: radial-gradient(closest-side, rgb(201 164 106 / 0.10), transparent 72%);
   }
 }
-@keyframes breathe {
-  0%, 100% {
-    transform: scale(0.94);
-    opacity: 0.75;
+/* Start screen entrance: nav → wordmark → card → subjects (done by ~1.6s) */
+.hero-in {
+  animation: hero-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.wordmark-in {
+  animation: wordmark-in 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) 150ms both;
+}
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.2vh);
   }
-  50% {
-    transform: scale(1.06);
-    opacity: 1;
+}
+@keyframes wordmark-in {
+  from {
+    opacity: 0;
+    transform: translateY(4vh);
+    filter: blur(14px);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .glow-orb {
-    animation: none;
+  .hero-in,
+  .wordmark-in {
+    animation: fade-only 300ms ease both;
   }
 }

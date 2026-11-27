@@ -1,18 +1,6 @@
-import { BookOpen } from "lucide-react";
+import { AuthHero } from "@/components/auth/auth-hero";
 
-/** Login, sign-up and password pages: logo above a single card. */
+/** Login, sign-up and password pages share the 3D bookshelf start screen. */
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="relative isolate flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 py-8">
-      {/* soft warm light behind the card */}
-      <div aria-hidden className="glow-orb pointer-events-none absolute inset-0 -z-10 m-auto size-[520px]" />
-      <div className="enter flex items-center gap-2.5">
-        <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          <BookOpen size={19} strokeWidth={2.25} />
-        </span>
-        <span className="font-display text-3xl font-normal">Study Hub</span>
-      </div>
-      <div className="enter w-full [animation-delay:60ms] [&>div]:min-h-0 [&>div]:p-0 [&>div]:py-6">{children}</div>
-    </div>
-  );
+  return <AuthHero>{children}</AuthHero>;
 }
