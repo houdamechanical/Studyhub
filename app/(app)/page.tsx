@@ -10,6 +10,7 @@ import { FocusMode } from "@/components/dashboard/focus-mode";
 import { TimerControls, TimerFace } from "@/components/dashboard/timer-card";
 import { useFocusTimer, type TimerMode } from "@/components/dashboard/use-focus-timer";
 import { SubjectIcon } from "@/components/subject-icon";
+import { toast } from "@/components/toast";
 import { computeAwards } from "@/lib/awards";
 import {
   localDay,
@@ -71,7 +72,10 @@ export default function Dashboard() {
     setFocusTotal(Object.values(log).reduce((s, n) => s + n, 0));
   }, []);
   useEffect(refreshSessions, [refreshSessions]);
-  const timer = useFocusTimer(refreshSessions);
+  const timer = useFocusTimer((finished) => {
+    refreshSessions();
+    toast(finished === "focus" ? t.focusDone : t.breakDone, "info");
+  });
 
   const [focusOpen, setFocusOpen] = useState(false);
   const [currentId, setCurrentId] = useState<string | null>(null);

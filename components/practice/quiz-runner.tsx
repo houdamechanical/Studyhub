@@ -3,6 +3,7 @@
 import { ArrowLeft, ArrowRight, Clock, Play } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { startAttempt, submitAttempt } from "@/lib/mutations/practice";
 import { Button } from "@/components/ui/button";
@@ -97,10 +98,13 @@ export function QuizRunner({
   if (phase === "intro") {
     return (
       <div className="flex flex-col gap-6">
-        <Link href={subjectHref(quiz.subject) + (quiz.kind === "mock" ? "#mock" : "#mini")} className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-          <ArrowLeft size={16} className="rtl:rotate-180" />
-          {t.backToPractice}
-        </Link>
+        <Breadcrumb
+          items={[
+            { label: subject.label[locale], href: subjectHref(quiz.subject) },
+            { label: quiz.kind === "mock" ? dict.subject.mockExams : dict.subject.miniTests, href: subjectHref(quiz.subject) + (quiz.kind === "mock" ? "#mock" : "#mini") },
+            { label: quiz.title },
+          ]}
+        />
         <section className="relative isolate py-8 text-center sm:py-12">
           <div aria-hidden className="glow-orb pointer-events-none absolute inset-0 -z-10 m-auto size-[320px] sm:size-[420px]" />
           <p className="eyebrow">
@@ -229,7 +233,7 @@ export function QuizRunner({
           <ArrowLeft size={16} className="rtl:rotate-180" />
           {t.previous}
         </Button>
-        <ol className="flex min-w-0 flex-1 flex-wrap justify-center gap-1.5" aria-label={t.questionOf}>
+        <ol className="flex min-w-0 flex-1 flex-wrap justify-center" aria-label={t.questionOf}>
           {questions.map((item, i) => (
             <li key={item.id}>
               <button
@@ -237,12 +241,16 @@ export function QuizRunner({
                 onClick={() => go(i)}
                 aria-label={fill(t.question, { n: i + 1 })}
                 aria-current={i === index ? "step" : undefined}
-                className={cn(
-                  "block size-2.5 rounded-full transition-colors duration-200",
-                  isAnswered(answers[item.id]) ? "bg-[var(--c-amber)]" : "bg-[#4a443c]",
-                  i === index && "ring-2 ring-primary/60 ring-offset-2 ring-offset-background",
-                )}
-              />
+                className="hit group/dot flex size-6 items-center justify-center rounded-full"
+              >
+                <span
+                  className={cn(
+                    "block size-2.5 rounded-full transition-colors duration-200 group-hover/dot:scale-125",
+                    isAnswered(answers[item.id]) ? "bg-[var(--c-amber)]" : "bg-[#4a443c]",
+                    i === index && "ring-2 ring-primary/60 ring-offset-2 ring-offset-background",
+                  )}
+                />
+              </button>
             </li>
           ))}
         </ol>

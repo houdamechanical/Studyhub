@@ -100,17 +100,28 @@
 /* Dark & sleek */
 :root {
   color-scheme: dark;
-  /* Warm night palette (hex, for places that need exact colours) */
+  /* Warm night palette. Hex first as a fallback, then the same colour in OKLCH
+     (perceptually even: the accents share lightness ~64–74% and low chroma). */
   --c-bg: #1c1a17;
+  --c-bg: oklch(21.9% 0.007 78.2);
   --c-surface: #25221e;
+  --c-surface: oklch(25.4% 0.009 75.2);
   --c-raised: #2e2a25;
+  --c-raised: oklch(28.8% 0.011 73.5);
   --c-border: #3a352f;
+  --c-border: oklch(33.2% 0.012 72.4);
   --c-text: #e8e1d6;
+  --c-text: oklch(91.2% 0.017 79.3);
   --c-text-2: #a69c8e;
+  --c-text-2: oklch(69.7% 0.023 76.5);
   --c-amber: #c9a46a;
+  --c-amber: oklch(73.9% 0.087 78.0);
   --c-sage: #8fa382;
+  --c-sage: oklch(69.1% 0.052 133.2);
   --c-rose: #b88a8a;
-  --c-slate: #7d8fa6; /* info – not as text on raised surfaces (contrast 4.3) */
+  --c-rose: oklch(67.8% 0.056 18.6);
+  --c-slate: #7d8fa6;
+  --c-slate: oklch(64.4% 0.040 254.7); /* info – not as text on raised surfaces (contrast 4.3) */
   /* Fine film grain over the background */
   --grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 0.9  0 0 0 0 0.75  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   /* Motion tokens (Emil Kowalski): UI stays under 300ms, never ease-in. */
@@ -125,6 +136,8 @@
   }
   body {
     line-height: 1.6;
+    /* Baseline grid: snap the line height to the 4px spacing rhythm where supported */
+    line-height: round(nearest, 1.6em, 4px);
   }
   /* Faint grain over everything, fixed so it doesn't scroll */
   body::before {
@@ -277,5 +290,95 @@
   .hero-in,
   .wordmark-in {
     animation: fade-only 300ms ease both;
+  }
+}
+
+
+/* Typography & interaction details */
+@layer base {
+  body {
+    /* Kerning + standard ligatures on; optical sizes for Fraunces */
+    font-kerning: normal;
+    font-feature-settings: "kern", "liga", "calt";
+    font-optical-sizing: auto;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* No orphans: balanced headings, "pretty" paragraphs */
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  p, li, label, dd {
+    text-wrap: pretty;
+  }
+  /* Numbers that change or line up never jump */
+  .tabular-nums, [role="timer"], time, td {
+    font-variant-numeric: tabular-nums;
+  }
+  /* One visible focus ring for keyboard users, everywhere */
+  :focus-visible {
+    outline: 2px solid var(--c-amber);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline-offset: 0;
+  }
+}
+
+@layer components {
+  /* Hit area: keep the small visual, but give fingers a 44×44 target */
+  .hit {
+    position: relative;
+  }
+  .hit::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+  /* Hover intent: reveal row actions only after the pointer rests ~120ms */
+  .reveal {
+    transition: opacity 200ms ease 0ms;
+  }
+  .group:hover .reveal,
+  .reveal:focus-visible {
+    transition-delay: 120ms;
+  }
+}
+
+/* Toasts */
+.toast-in {
+  animation: toast-in 260ms var(--ease-out) both;
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast-in {
+    animation: fade-only 200ms ease both;
+  }
+}
+
+/* Micro-interaction: the tick pops in when a task is done */
+.check-pop {
+  animation: check-pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes check-pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .check-pop {
+    animation: none;
   }
 }

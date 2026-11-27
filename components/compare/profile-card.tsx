@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { controlClass, FormError } from "@/components/ui/field";
 import { NICKNAME_PATTERN } from "@/lib/compare";
 import { useAuth } from "@/components/auth-gate";
+import { toast } from "@/components/toast";
 import { useI18n } from "@/lib/i18n/client";
 import { SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
@@ -32,6 +33,7 @@ export function ProfileCard({ nickname, shared }: { nickname: string; shared: Su
       if (r.ok) {
         setSaved(true);
         setNickname(nick.trim());
+        toast(t.nameSaved);
       }
       else setError(dict.common.error[r.error]);
     });

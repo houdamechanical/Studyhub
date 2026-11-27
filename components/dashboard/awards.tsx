@@ -1,5 +1,7 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 import type { AwardState } from "@/lib/awards";
 import { useI18n } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
@@ -48,6 +50,10 @@ export function AwardsSection({ awards }: { awards: AwardState[] | null }) {
   const earned = awards?.filter((a) => a.earned).length ?? 0;
   // Earned first, then the closest to unlocking.
   const sorted = awards ? [...awards].sort((a, b) => Number(b.earned) - Number(a.earned) || b.value / b.target - a.value / a.target) : [];
+  // Progressive disclosure: earned awards + the next three to unlock; the rest on request.
+  const [all, setAll] = useState(false);
+  const preview = earned + 3;
+  const shown = all ? sorted : sorted.slice(0, preview);
   return (
     <section className="hairline pt-6">
       <div className="mb-6 flex items-baseline justify-between gap-2">
@@ -58,10 +64,21 @@ export function AwardsSection({ awards }: { awards: AwardState[] | null }) {
         <div className="h-28 animate-pulse rounded-xl bg-secondary" />
       ) : (
         <ul className="grid grid-cols-3 gap-x-3 gap-y-7 sm:grid-cols-5 lg:grid-cols-9">
-          {sorted.map((a) => (
+          {shown.map((a) => (
             <Medallion key={a.id} award={a} />
           ))}
         </ul>
+      )}
+      {awards && sorted.length > preview && (
+        <button
+          type="button"
+          onClick={() => setAll((v) => !v)}
+          aria-expanded={all}
+          className="mt-6 inline-flex items-center gap-1.5 rounded-md py-1 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+        >
+          {all ? dict.dash.showLess : `${dict.dash.showAll} (${sorted.length})`}
+          <ChevronDown size={15} className={cn("transition-transform duration-300", all && "rotate-180")} />
+        </button>
       )}
     </section>
   );
