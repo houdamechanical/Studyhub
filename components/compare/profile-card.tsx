@@ -137,7 +137,7 @@ export function ProfileCard({
               type="button"
               onClick={toggleAll}
               disabled={pending}
-              className="press hit rounded-full text-sm font-medium text-primary hover:underline disabled:opacity-50"
+              className="press hit rounded-full text-sm font-medium text-[var(--c-amber)] hover:underline disabled:opacity-50"
             >
               {all ? t.shareNone : t.shareAll}
             </button>

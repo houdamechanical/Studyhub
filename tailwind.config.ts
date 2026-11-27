@@ -13,7 +13,7 @@ export default {
     extend: {
       fontFamily: {
         display: [
-          "var(--font-display)",
+          "var(--font-geist-sans)",
           "var(--font-arabic)",
           "ui-sans-serif",
           "system-ui",
@@ -76,6 +76,8 @@ export default {
       },
       borderRadius: {
         "4xl": "2rem",
+        "2xl": "calc(var(--radius) + 6px)",
+        xl: "calc(var(--radius) + 2px)",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",

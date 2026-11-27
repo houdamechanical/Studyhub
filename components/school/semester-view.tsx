@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/components/auth-gate";
 import Link from "next/link";
 import { BigTile } from "@/components/big-tile";
 import { PageHero } from "@/components/page-hero";
@@ -40,6 +41,7 @@ function summary(pages: number, tests: number, decks: number, dict: Dictionary) 
 
 /** /grade/11/1 – all subjects of a half-year, every one with the same tile. */
 export function SemesterView({ semester }: { semester: string }) {
+  const { subjects } = useAuth();
   const { locale, dict } = useI18n();
   const t = dict.school;
   const { grade, half } = splitSemester(semester);
@@ -84,7 +86,7 @@ export function SemesterView({ semester }: { semester: string }) {
       />
 
       <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {SUBJECT_IDS.map((id, i) => {
+        {subjects.map((id, i) => {
           const info = SUBJECTS[id];
           const pages = content.filter((c) => c.subject === id).length;
           const c = counts?.[id] ?? { tests: 0, decks: 0 };

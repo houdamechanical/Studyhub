@@ -24,7 +24,7 @@ import { useLoad } from "@/lib/data";
 import { formatDate, todayISO } from "@/lib/format";
 import { useI18n, useTitle } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
-import { daysUntil, dueCount, loadPractice, loadUpcomingExams } from "@/lib/loaders";
+import { daysUntil, dueCount, loadPractice, loadSchoolExams } from "@/lib/loaders";
 import { gradeHref, PRACTICE_SEMESTER, semesterHref, splitSemester } from "@/lib/school";
 import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
@@ -42,7 +42,7 @@ const isTab = (v: string): v is Tab => (TABS as readonly string[]).includes(v);
 async function loadSubject(subject: SubjectId, withPractice: boolean) {
   const [practice, exams] = await Promise.all([
     withPractice ? loadPractice(subject) : Promise.resolve({ quizList: [], deckList: [] }),
-    loadUpcomingExams(subject),
+    loadSchoolExams([subject], { subject }),
   ]);
   return { ...practice, exams };
 }
@@ -112,7 +112,7 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
             <CalendarClock size={15} className="text-muted-foreground" />
             <span className="text-muted-foreground">{dict.home.nextExam}:</span>
             <span className="font-medium">{formatDate(nextExam.exam_date, locale, { day: "numeric", month: "short" })}</span>
-            <span className="font-semibold text-primary">{whenLabel(nextExam.exam_date, dict)}</span>
+            <span className="font-semibold text-[var(--c-amber)]">{whenLabel(nextExam.exam_date, dict)}</span>
           </Link>
         )}
         {withPractice && progress && (
@@ -216,7 +216,7 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
                   meta={d.cardCount === 1 ? p.oneCard : fill(p.cards, { n: d.cardCount })}
                   aside={
                     due === null ? null : due > 0 ? (
-                      <span className="text-sm font-semibold tabular-nums text-primary">{fill(p.due, { n: due })}</span>
+                      <span className="text-sm font-semibold tabular-nums text-[var(--c-amber)]">{fill(p.due, { n: due })}</span>
                     ) : (
                       <Check size={16} className="text-muted-foreground" aria-label={t.allDone} />
                     )

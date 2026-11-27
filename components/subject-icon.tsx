@@ -3,9 +3,13 @@ import {
   BookOpenText,
   Church,
   Dna,
+  Dumbbell,
   FlaskConical,
   Landmark,
   Languages,
+  Music,
+  Palette,
+  ScrollText,
   Sigma,
   type LucideIcon,
 } from "lucide-react";
@@ -21,6 +25,10 @@ export const SUBJECT_ICONS: Record<SubjectId, LucideIcon> = {
   bio: Dna,
   geschichte: Landmark,
   religion: Church,
+  arabisch: ScrollText,
+  kunst: Palette,
+  musik: Music,
+  sport: Dumbbell,
 };
 
 export function SubjectIcon({ subject, className, strokeWidth = 2.25 }: { subject: SubjectId; className?: string; strokeWidth?: number }) {

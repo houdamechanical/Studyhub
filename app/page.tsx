@@ -69,7 +69,7 @@ function HopIn({ nickname }: { nickname: string }) {
       <CardContent className="flex flex-col gap-5 p-6">
         <div>
           <p className="eyebrow">{t.welcome}</p>
-          <p className="mt-2 break-words font-display text-4xl font-light leading-tight">
+          <p className="mt-2 break-words font-display text-3xl font-semibold leading-tight">
             <bdi>{nickname || "…"}</bdi>
           </p>
         </div>

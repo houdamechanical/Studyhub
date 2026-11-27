@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { normaliseBoard, type GradeBoard } from "@/lib/compare";
 import { must, useLoad } from "@/lib/data";
 import { intlLocale } from "@/lib/format";
-import { CURRENT_SEMESTER, formatScore } from "@/lib/grades";
+import { CURRENT_SEMESTER, formatNC, formatScore, ncFromScore } from "@/lib/grades";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatSemester } from "@/lib/i18n/dictionaries";
 import { setAllGradeShares, setGradeShare } from "@/lib/mutations/compare";
@@ -65,7 +65,7 @@ function CompareLoader() {
   const state = useLoad(() => loadCompare(asked, userId), `compare:${asked}`);
   return (
     <div className="mx-auto w-full max-w-4xl px-4 pb-12 pt-6 sm:pt-8">
-      <PageHero back={{ href: "/home", label: dict.school.backHome }} title={dict.compare.title} subtitle={dict.compare.subtitle} />
+      <PageHero back={{ href: "/communities", label: dict.communities.title }} title={dict.compare.title} subtitle={dict.compare.subtitle} />
       <div className="mt-6">
         <Loaded state={state}>{(data) => <CompareView {...data} />}</Loaded>
       </div>
@@ -79,7 +79,8 @@ function CompareView({ subject, missing, nickname, shared, board, myScore, scale
   const [pending, startTransition] = useTransition();
 
   const nf = intlLocale(locale);
-  const gradeFmt = (v: number) => formatScore(v, scale, nf);
+  // NC tab: the school's NC formula; subject tabs: the grade on your chosen scale.
+  const gradeFmt = (v: number) => (subject ? formatScore(v, scale, nf) : formatNC(ncFromScore(v), nf));
   const onBoard = subject ? shared.includes(subject) : shared.length > 0;
 
   function shareNow() {

@@ -46,7 +46,7 @@ export function QuizBoardDialog({ quizId, title, onClose }: { quizId: string; ti
               {title}
             </h2>
             {me && board && (
-              <p className="mt-0.5 text-sm font-semibold text-primary">
+              <p className="mt-0.5 text-sm font-semibold text-[var(--c-amber)]">
                 {me.rank === 1 ? dict.quiz.firstPlace : fill(dict.quiz.yourRank, { rank: me.rank, n: board.participants })}
               </p>
             )}
