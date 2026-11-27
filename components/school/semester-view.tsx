@@ -58,7 +58,7 @@ export function SemesterView({ semester }: { semester: string }) {
         aside={
           <div className="relative grid grid-cols-2 rounded-full border bg-card p-1" role="group">
             <span className="absolute inset-1">
-              <SlidingIndicator count={2} index={half === "1" ? 0 : 1} className="inset-0 rounded-full bg-[#25211c]" />
+              <SlidingIndicator count={2} index={half === "1" ? 0 : 1} className="inset-0 rounded-full bg-[var(--c-pill)]" />
             </span>
             {HALVES.map((h) => {
               const active = h === half;

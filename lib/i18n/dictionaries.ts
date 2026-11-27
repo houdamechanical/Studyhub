@@ -6,6 +6,7 @@ const en = {
     tagline: "Your study pages, exams and grades in one place.",
   },
   nav: {
+    settings: "Settings",
     home: "Home",
     subjects: "Subjects",
     gradesExams: "Grades & Exams",
@@ -250,6 +251,15 @@ const en = {
     decksList: "Decks",
     questionType: { single: "Single choice", multi: "Multiple choice", numeric: "Number", text: "Text answer" },
   },
+  settings: {
+    title: "Settings",
+    subtitle: "Your name, how the app looks and your account.",
+    profile: "Profile",
+    appearance: "Appearance",
+    language: "Language",
+    account: "Account",
+    admin: "Admin tools",
+  },
   compare: {
     overall: "NC",
     overallHint: "Each person's average over the subjects they share, this half-year. Grades only – mock exams don't count.",
@@ -305,6 +315,8 @@ const en = {
   },
   home: {
     welcome: "Welcome back,",
+    hopIn: "Hop in",
+    notYou: "Not you?",
     subtitle: "What are we studying today?",
     grade: "Grade {grade}",
     nowIn: "Now: {half}",
@@ -372,6 +384,7 @@ const de: Dictionary = {
     tagline: "Deine Lernseiten, Klausuren und Noten an einem Ort.",
   },
   nav: {
+    settings: "Einstellungen",
     home: "Start",
     subjects: "Fächer",
     gradesExams: "Noten & Klausuren",
@@ -616,6 +629,15 @@ const de: Dictionary = {
     decksList: "Stapel",
     questionType: { single: "Einfachauswahl", multi: "Mehrfachauswahl", numeric: "Zahl", text: "Textantwort" },
   },
+  settings: {
+    title: "Einstellungen",
+    subtitle: "Dein Name, wie die App aussieht und dein Konto.",
+    profile: "Profil",
+    appearance: "Darstellung",
+    language: "Sprache",
+    account: "Konto",
+    admin: "Admin-Werkzeuge",
+  },
   compare: {
     overall: "NC",
     overallHint: "Schnitt jeder Person über die Fächer, die sie teilt, in diesem Halbjahr. Nur Noten – Probeklausuren zählen nicht.",
@@ -671,6 +693,8 @@ const de: Dictionary = {
   },
   home: {
     welcome: "Willkommen zurück,",
+    hopIn: "Los geht's",
+    notYou: "Nicht du?",
     subtitle: "Was lernen wir heute?",
     grade: "Klasse {grade}",
     nowIn: "Jetzt: {half}",
@@ -736,6 +760,7 @@ const ar: Dictionary = {
     tagline: "صفحات الدراسة والامتحانات والدرجات في مكان واحد.",
   },
   nav: {
+    settings: "الإعدادات",
     home: "الرئيسية",
     subjects: "المواد",
     gradesExams: "الدرجات والامتحانات",
@@ -980,6 +1005,15 @@ const ar: Dictionary = {
     decksList: "المجموعات",
     questionType: { single: "اختيار واحد", multi: "اختيار متعدد", numeric: "رقم", text: "إجابة نصية" },
   },
+  settings: {
+    title: "الإعدادات",
+    subtitle: "اسمك وشكل التطبيق وحسابك.",
+    profile: "الملف الشخصي",
+    appearance: "المظهر",
+    language: "اللغة",
+    account: "الحساب",
+    admin: "أدوات المشرف",
+  },
   compare: {
     overall: "NC",
     overallHint: "معدل كل شخص في المواد التي يشاركها، لهذا النصف الدراسي. الدرجات فقط – الامتحانات التجريبية لا تُحسب.",
@@ -1035,6 +1069,8 @@ const ar: Dictionary = {
   },
   home: {
     welcome: "مرحبًا بعودتك،",
+    hopIn: "ادخل",
+    notYou: "لست أنت؟",
     subtitle: "ماذا سندرس اليوم؟",
     grade: "الصف {grade}",
     nowIn: "الآن: {half}",

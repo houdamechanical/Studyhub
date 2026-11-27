@@ -139,7 +139,7 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
       <div className="sticky top-14 z-30 -mx-4 mt-8 lg:top-0 bg-background/85 px-4 py-2 backdrop-blur-xl">
         <div className="overflow-x-auto [scrollbar-width:none]">
           <div role="tablist" className="relative flex w-max gap-1 rounded-full border bg-card p-1">
-            <MeasuredIndicator activeKey={tab} className="rounded-full bg-[#25211c]" />
+            <MeasuredIndicator activeKey={tab} className="rounded-full bg-[var(--c-pill)]" />
             {TABS.map((id) => (
               <button
                 key={id}

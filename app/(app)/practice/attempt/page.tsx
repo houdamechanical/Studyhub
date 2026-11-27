@@ -89,7 +89,7 @@ function AttemptView({ attempt, dict, justFinished }: { attempt: AttemptRow; dic
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6">
-      <Link href={quiz ? subjectHref(quiz.subject) + (quiz.kind === "mock" ? "#mock" : "#mini") : "/"} className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+      <Link href={quiz ? subjectHref(quiz.subject) + (quiz.kind === "mock" ? "#mock" : "#mini") : "/home"} className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft size={16} className="rtl:rotate-180" />
         {t.backToPractice}
       </Link>

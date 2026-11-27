@@ -98,8 +98,8 @@ export function Leaderboard({
 // Neutral podium; only first place gets the accent colour.
 const MEDAL = [
   { block: "h-24 sm:h-28 border-primary/40 bg-primary/15", avatar: "bg-primary text-primary-foreground" },
-  { block: "h-16 sm:h-20 bg-secondary", avatar: "bg-[#25211c] text-foreground" },
-  { block: "h-12 sm:h-14 bg-secondary", avatar: "bg-[#25211c] text-foreground" },
+  { block: "h-16 sm:h-20 bg-secondary", avatar: "bg-[var(--c-pill)] text-foreground" },
+  { block: "h-12 sm:h-14 bg-secondary", avatar: "bg-[var(--c-pill)] text-foreground" },
 ];
 
 /** Top three on a podium: 2nd – 1st – 3rd. */

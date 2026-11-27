@@ -49,7 +49,7 @@ export function SignUpForm({
       });
       if (error) throw error;
       // With "Confirm email" turned off in Supabase you're signed in right away.
-      router.push(data.session ? "/" : "/auth/sign-up-success");
+      router.push(data.session ? "/home" : "/auth/sign-up-success");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

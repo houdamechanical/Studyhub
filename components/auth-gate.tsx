@@ -40,7 +40,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
       if (!alive) return;
       if (!userId) {
         setAuth(null);
-        router.replace("/auth/login");
+        router.replace("/");
         return;
       }
       // Both fail harmlessly if the migrations aren't applied yet.

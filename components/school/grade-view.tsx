@@ -18,7 +18,7 @@ export function GradeView({ grade }: { grade: SchoolGrade }) {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 pb-12 pt-6 sm:pt-8">
       <PageHero
-        back={{ href: "/", label: t.backHome }}
+        back={{ href: "/home", label: t.backHome }}
         title={fill(t.grade, { grade })}
         subtitle={open ? t.pickHalf : t.locked}
       />

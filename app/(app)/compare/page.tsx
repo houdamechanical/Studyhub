@@ -65,7 +65,7 @@ function CompareLoader() {
   const state = useLoad(() => loadCompare(asked, userId), `compare:${asked}`);
   return (
     <div className="mx-auto w-full max-w-4xl px-4 pb-12 pt-6 sm:pt-8">
-      <PageHero back={{ href: "/", label: dict.school.backHome }} title={dict.compare.title} subtitle={dict.compare.subtitle} />
+      <PageHero back={{ href: "/home", label: dict.school.backHome }} title={dict.compare.title} subtitle={dict.compare.subtitle} />
       <div className="mt-6">
         <Loaded state={state}>{(data) => <CompareView {...data} />}</Loaded>
       </div>
@@ -159,7 +159,7 @@ function CompareView({ subject, missing, nickname, shared, board, myScore, scale
         )}
       </section>
 
-      <ProfileCard key={shared.join(",")} nickname={nickname} shared={shared} />
+      <ProfileCard key={shared.join(",")} nickname={nickname} shared={shared} part="share" />
     </div>
   );
 }
