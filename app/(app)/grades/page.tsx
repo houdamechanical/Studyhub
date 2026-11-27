@@ -6,14 +6,15 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { useAuth } from "@/components/auth-gate";
 import { ExamsView } from "@/components/exams/exams-view";
-import { GradesView } from "@/components/grades/grades-view";
+import { GradeBook } from "@/components/grades/grade-book";
 import { Loaded } from "@/components/page-shell";
 import { PageHero } from "@/components/page-hero";
 import { SlidingIndicator } from "@/components/sliding-indicator";
 import { useLoad } from "@/lib/data";
 import { useI18n } from "@/lib/i18n/client";
-import { loadGrades, loadSchoolExams } from "@/lib/loaders";
-import { getDisplayScale } from "@/lib/mutations/grades";
+import { loadGradeBook } from "@/lib/gradebook";
+import { CURRENT_SEMESTER } from "@/lib/grades";
+import { loadSchoolExams } from "@/lib/loaders";
 import { cn } from "@/lib/utils";
 
 // /grades (grades) and /grades?tab=exams (exams): one page, two tabs.
@@ -38,7 +39,7 @@ function GradesAndExams() {
       <PageHero
         back={{ href: "/home", label: dict.school.backHome }}
         title={dict.nav.gradesExams}
-        subtitle={tab === "grades" ? dict.grades.subtitle : dict.exams.subtitle}
+        subtitle={tab === "grades" ? dict.grades.bookSubtitle : dict.exams.subtitle}
       />
       <nav className="relative mt-6 grid grid-cols-2 rounded-full border bg-card p-1.5 sm:inline-grid sm:min-w-80">
         <span className="absolute inset-1.5">
@@ -70,8 +71,9 @@ function GradesAndExams() {
 }
 
 function GradesTab() {
-  const state = useLoad(async () => ({ grades: await loadGrades(), scale: getDisplayScale() }), "grades");
-  return <Loaded state={state}>{({ grades, scale }) => <GradesView grades={grades} initialScale={scale} />}</Loaded>;
+  const { subjects } = useAuth();
+  const state = useLoad(() => loadGradeBook(subjects, CURRENT_SEMESTER), `gradebook:${subjects.join(",")}`);
+  return <Loaded state={state}>{(data) => <GradeBook {...data} />}</Loaded>;
 }
 
 function ExamsTab() {

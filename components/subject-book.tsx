@@ -1,81 +1,113 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { SubjectIcon } from "@/components/subject-icon";
 import type { SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
-/** Leather colour of each subject's book (distinct, muted, readable with cream foil). */
-export const BOOK_COLORS: Record<SubjectId, string> = {
-  math: "#2d4775",
-  deutsch: "#7a2e2e",
-  englisch: "#2c5d56",
-  chemie: "#a4611f",
-  physik: "#3b3f72",
-  bio: "#3f6a39",
-  geschichte: "#6a4a2c",
-  religion: "#5b3a67",
-  arabisch: "#1e5a68",
-  kunst: "#a0442a",
-  musik: "#4a2e5d",
-  sport: "#8a3a52",
+/** Cover gradient (light → deep) and text colour of each subject's book. */
+export const BOOK_THEME: Record<SubjectId, { from: string; to: string; ink: string }> = {
+  math: { from: "#7c89ff", to: "#3341c9", ink: "#ffffff" },
+  deutsch: { from: "#ff7b7b", to: "#c92a2a", ink: "#ffffff" },
+  englisch: { from: "#4dd4c0", to: "#0f766e", ink: "#ffffff" },
+  chemie: { from: "#ffe066", to: "#e67700", ink: "#2b1a00" },
+  physik: { from: "#5cb6ff", to: "#1864ab", ink: "#ffffff" },
+  bio: { from: "#8ce99a", to: "#2b8a3e", ink: "#0b2512" },
+  geschichte: { from: "#e6bb88", to: "#8a5a2b", ink: "#ffffff" },
+  religion: { from: "#f78fb3", to: "#a61e4d", ink: "#ffffff" },
+  arabisch: { from: "#3bc9db", to: "#0b7285", ink: "#ffffff" },
+  kunst: { from: "#ffa94d", to: "#d9480f", ink: "#ffffff" },
+  musik: { from: "#b8a2ff", to: "#6741d9", ink: "#ffffff" },
+  sport: { from: "#c0eb75", to: "#5c940d", ink: "#172600" },
 };
 
+/** One solid colour per subject (for small badges). */
+export const BOOK_COLORS = Object.fromEntries(Object.entries(BOOK_THEME).map(([k, v]) => [k, v.to])) as Record<SubjectId, string>;
+
+const reducedMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 /**
- * A subject drawn as a book: leather cover in the subject's colour, a spine on
- * the left, page edges on the right, a cream foil frame with the icon and name.
+ * A subject as a real-looking 3D book: cover, spine, page block. With `href`
+ * it follows the pointer (tilt + light glare), and on click the cover swings
+ * open before the subject opens.
  */
 export function SubjectBook({
   subject,
   label,
+  href,
   size = "md",
   className,
 }: {
   subject: SubjectId;
-  label?: string;
+  label: string;
+  href?: string;
   size?: "sm" | "md";
   className?: string;
 }) {
-  const color = BOOK_COLORS[subject];
-  return (
-    <span
-      className={cn("relative block aspect-[3/4] select-none", size === "sm" ? "w-14" : "w-full", className)}
-      style={{ "--book": color } as React.CSSProperties}
-      aria-hidden={!label}
+  const theme = BOOK_THEME[subject];
+  const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
+  const [opening, setOpening] = useState(false);
+
+  function onMove(e: React.PointerEvent) {
+    if (e.pointerType !== "mouse" || !ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width; // 0..1
+    const y = (e.clientY - r.top) / r.height;
+    ref.current.style.setProperty("--ry", `${-22 + x * 30}deg`);
+    ref.current.style.setProperty("--rx", `${(0.5 - y) * 14}deg`);
+    ref.current.style.setProperty("--gx", `${x * 100}%`);
+    ref.current.style.setProperty("--gy", `${y * 100}%`);
+  }
+  function onLeave() {
+    ref.current?.style.removeProperty("--ry");
+    ref.current?.style.removeProperty("--rx");
+  }
+  function open(e: React.MouseEvent) {
+    if (!href || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    if (reducedMotion()) return router.push(href);
+    router.prefetch(href);
+    setOpening(true);
+    setTimeout(() => router.push(href), 520);
+  }
+
+  const book = (
+    <div
+      ref={ref}
+      className={cn("book3d", size === "sm" && "book3d-sm", opening && "is-opening", className)}
+      style={{ "--from": theme.from, "--to": theme.to, "--ink": theme.ink } as React.CSSProperties}
+      onPointerMove={href ? onMove : undefined}
+      onPointerLeave={href ? onLeave : undefined}
     >
-      {/* page block peeking out on the right */}
-      <span className="absolute inset-y-[3%] end-0 w-[6%] rounded-e-sm bg-[repeating-linear-gradient(90deg,#efe7d6_0_1px,#d9cfbb_1px_2px)] shadow-[inset_0_0_2px_rgb(0_0_0/0.25)]" />
-      {/* cover */}
-      <span
-        className="absolute inset-y-0 start-0 end-[4%] overflow-hidden rounded-e-md rounded-s-[3px] shadow-[0_10px_24px_-12px_rgb(0_0_0/0.55),0_2px_4px_rgb(0_0_0/0.18)]"
-        style={{
-          background:
-            "linear-gradient(155deg, color-mix(in srgb, var(--book) 82%, white) 0%, var(--book) 38%, color-mix(in srgb, var(--book) 78%, black) 100%)",
-        }}
-      >
-        {/* spine with a highlight and a crease */}
-        <span className="absolute inset-y-0 start-0 w-[11%] bg-[linear-gradient(90deg,rgb(0_0_0/0.35),rgb(255_255_255/0.12)_45%,rgb(0_0_0/0.25))]" />
-        {/* soft leather sheen */}
-        <span className="absolute inset-0 bg-[radial-gradient(120%_80%_at_30%_10%,rgb(255_255_255/0.14),transparent_55%)]" />
-        {/* foil frame */}
-        <span
-          className={cn(
-            "absolute inset-y-[7%] end-[8%] start-[18%] flex flex-col items-center justify-between rounded-[2px] border border-[#e9d9b5]/55 text-[#f3e6c8]",
-            size === "sm" ? "py-1.5" : "px-1 py-[12%]",
-          )}
-        >
-          <span
-            className={cn(
-              "flex items-center justify-center rounded-full border border-[#e9d9b5]/50",
-              size === "sm" ? "size-6" : "aspect-square w-[46%]",
-            )}
-          >
-            <SubjectIcon subject={subject} className={size === "sm" ? "size-3.5" : "size-[45%]"} strokeWidth={1.75} />
-          </span>
-          {label && size !== "sm" && (
-            <span className="w-full truncate text-center text-[clamp(0.62rem,2.6vw,0.82rem)] font-semibold tracking-wide [text-shadow:0_1px_0_rgb(0_0_0/0.35)]">
-              {label}
-            </span>
-          )}
-        </span>
-      </span>
-    </span>
+      <div className="book3d-body">
+        <div className="book3d-pages" />
+        <div className="book3d-spine">
+          <span>{label}</span>
+        </div>
+        <div className="book3d-inside">
+          <SubjectIcon subject={subject} className="size-6 opacity-70" />
+          <span>{label}</span>
+        </div>
+        <div className="book3d-cover">
+          <div className="book3d-pattern" />
+          <div className="book3d-icon">
+            <SubjectIcon subject={subject} className="size-full" strokeWidth={1.6} />
+          </div>
+          {size !== "sm" && <p className="book3d-title">{label}</p>}
+          <div className="book3d-glare" />
+        </div>
+      </div>
+      <div className="book3d-shadow" />
+    </div>
+  );
+
+  if (!href) return book;
+  return (
+    <Link href={href} onClick={open} aria-label={label} className="group block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      {book}
+    </Link>
   );
 }

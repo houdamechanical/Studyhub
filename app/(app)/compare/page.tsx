@@ -16,11 +16,11 @@ import { Button } from "@/components/ui/button";
 import { normaliseBoard, type GradeBoard } from "@/lib/compare";
 import { must, useLoad } from "@/lib/data";
 import { intlLocale } from "@/lib/format";
-import { CURRENT_SEMESTER, formatNC, formatScore, ncFromScore } from "@/lib/grades";
+import { formatPoints } from "@/lib/gradebook";
+import { CURRENT_SEMESTER, formatNC, ncFromScore, toPoints } from "@/lib/grades";
 import { useI18n } from "@/lib/i18n/client";
 import { fill, formatSemester } from "@/lib/i18n/dictionaries";
 import { setAllGradeShares, setGradeShare } from "@/lib/mutations/compare";
-import { getDisplayScale } from "@/lib/mutations/grades";
 import { isSubjectId, SUBJECT_IDS, SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -54,7 +54,6 @@ async function loadCompare(asked: string, userId: string) {
     shared: must(shares).map((s) => s.subject as SubjectId),
     board: normaliseBoard(data?.board ?? { participants: 0, average: null, mine: null, rows: [] }),
     myScore: data?.my_score === null || data?.my_score === undefined ? null : Number(data.my_score),
-    scale: getDisplayScale(),
   };
 }
 
@@ -73,14 +72,14 @@ function CompareLoader() {
   );
 }
 
-function CompareView({ subject, missing, nickname, shared, board, myScore, scale }: Awaited<ReturnType<typeof loadCompare>>) {
+function CompareView({ subject, missing, nickname, shared, board, myScore }: Awaited<ReturnType<typeof loadCompare>>) {
   const { locale, dict } = useI18n();
   const t = dict.compare;
   const [pending, startTransition] = useTransition();
 
   const nf = intlLocale(locale);
-  // NC tab: the school's NC formula; subject tabs: the grade on your chosen scale.
-  const gradeFmt = (v: number) => (subject ? formatScore(v, scale, nf) : formatNC(ncFromScore(v), nf));
+  // NC tab: the school's NC formula; subject tabs: points (0–15).
+  const gradeFmt = (v: number) => (subject ? `${formatPoints(toPoints(v), nf)} P` : formatNC(ncFromScore(v), nf));
   const onBoard = subject ? shared.includes(subject) : shared.length > 0;
 
   function shareNow() {
