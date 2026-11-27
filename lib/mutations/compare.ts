@@ -1,7 +1,7 @@
 import { dataChanged } from "@/lib/data";
 import { requireUser, type ActionResult } from "@/lib/actions";
 import { NICKNAME_PATTERN } from "@/lib/compare";
-import { isSubjectId, SUBJECT_IDS } from "@/lib/subjects";
+import { isSubjectId, isValidElectives, SUBJECT_IDS } from "@/lib/subjects";
 
 export async function saveNickname(nickname: string): Promise<ActionResult> {
   const auth = await requireUser();
@@ -47,6 +47,17 @@ export async function setAllGradeShares(shared: boolean): Promise<ActionResult> 
       )
     : await auth.supabase.from("grade_shares").delete().eq("user_id", auth.userId);
   if (error) return { ok: false, error: "failed" };
+  dataChanged();
+  return { ok: true };
+}
+
+/** Save your subject choices (one of Art / Music, two of Biology / Chemistry / Arabic). */
+export async function saveElectives(electives: string[]): Promise<ActionResult> {
+  const auth = await requireUser();
+  if (!auth) return { ok: false, error: "unauthorized" };
+  if (!isValidElectives(electives)) return { ok: false, error: "invalid" };
+  const { error } = await auth.supabase.from("profiles").update({ electives }).eq("user_id", auth.userId);
+  if (error) return { ok: false, error: error.code === "23514" ? "invalid" : "failed" };
   dataChanged();
   return { ok: true };
 }

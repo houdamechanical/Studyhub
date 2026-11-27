@@ -1,8 +1,8 @@
 "use client";
 
+import { isMissingTable } from "@/components/setup-notice";
 import { must } from "@/lib/data";
-import type { Exam } from "@/lib/exams";
-import { sortByDate } from "@/lib/exams";
+import { sortByDate, type SchoolExam } from "@/lib/exams";
 import { todayISO } from "@/lib/format";
 import type { Grade } from "@/lib/grades";
 import type { QuizKind } from "@/lib/practice";
@@ -87,16 +87,23 @@ export async function loadPractice(subject?: SubjectId) {
   return { quizList, deckList };
 }
 
-/** Upcoming exams (today or later, not marked done), soonest first; optionally one subject. */
-export async function loadUpcomingExams(subject?: SubjectId) {
+/**
+ * The school's exam plan for the given subjects, soonest first. From today on
+ * unless `all`. Empty (instead of an error) until the exam plan migration is applied.
+ */
+export async function loadSchoolExams(subjects: readonly SubjectId[], opts: { subject?: SubjectId; all?: boolean } = {}) {
   let query = createClient()
-    .from("exams")
-    .select("id, subject, title, type, exam_date, start_time, room, status, notes")
-    .eq("status", "upcoming")
-    .gte("exam_date", todayISO())
+    .from("school_exams")
+    .select("id, subject, exam_date, periods, classes, title")
+    .in("subject", opts.subject ? [opts.subject] : [...subjects])
     .order("exam_date");
-  if (subject) query = query.eq("subject", subject);
-  return sortByDate(must(await query) as Exam[]);
+  if (!opts.all) query = query.gte("exam_date", todayISO());
+  const { data, error } = await query;
+  if (error) {
+    if (isMissingTable(error)) return [];
+    throw error;
+  }
+  return sortByDate(data as SchoolExam[]);
 }
 
 export async function loadGrades(semester?: string) {

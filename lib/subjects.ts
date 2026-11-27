@@ -9,6 +9,9 @@ export const SUBJECT_IDS = [
   "bio",
   "geschichte",
   "religion",
+  "arabisch",
+  "kunst",
+  "musik",
 ] as const;
 
 export type SubjectId = (typeof SUBJECT_IDS)[number];
@@ -61,7 +64,43 @@ export const SUBJECTS: Record<SubjectId, SubjectInfo> = {
     color: "#ec4899",
     label: { en: "Religion", de: "Religion", ar: "الدين" },
   },
+  arabisch: {
+    emoji: "✍️",
+    color: "#14b8a6",
+    label: { en: "Arabic", de: "Arabisch", ar: "اللغة العربية" },
+  },
+  kunst: {
+    emoji: "🎨",
+    color: "#e11d48",
+    label: { en: "Art", de: "Kunst", ar: "الفن" },
+  },
+  musik: {
+    emoji: "🎵",
+    color: "#a855f7",
+    label: { en: "Music", de: "Musik", ar: "الموسيقى" },
+  },
 };
+
+/** Everyone picks one of these … */
+export const ARTS = ["kunst", "musik"] as const satisfies readonly SubjectId[];
+/** … and two of these. */
+export const SCIENCES = ["bio", "chemie", "arabisch"] as const satisfies readonly SubjectId[];
+const ELECTIVES: readonly SubjectId[] = [...ARTS, ...SCIENCES];
+
+/** A valid choice: exactly one of ARTS and two different SCIENCES. */
+export function isValidElectives(list: readonly string[] | null | undefined): list is SubjectId[] {
+  if (!list || list.length !== 3 || new Set(list).size !== 3) return false;
+  return (
+    list.filter((s) => (ARTS as readonly string[]).includes(s)).length === 1 &&
+    list.filter((s) => (SCIENCES as readonly string[]).includes(s)).length === 2
+  );
+}
+
+/** The subjects a student takes: all core subjects plus their electives (everything if not chosen yet). */
+export function mySubjects(electives: readonly SubjectId[] | null): SubjectId[] {
+  if (!isValidElectives(electives)) return [...SUBJECT_IDS];
+  return SUBJECT_IDS.filter((s) => !ELECTIVES.includes(s) || electives.includes(s));
+}
 
 export function isSubjectId(value: string): value is SubjectId {
   return (SUBJECT_IDS as readonly string[]).includes(value);

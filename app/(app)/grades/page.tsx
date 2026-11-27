@@ -4,17 +4,16 @@ import { CalendarClock, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { useAuth } from "@/components/auth-gate";
 import { ExamsView } from "@/components/exams/exams-view";
 import { GradesView } from "@/components/grades/grades-view";
 import { Loaded } from "@/components/page-shell";
 import { PageHero } from "@/components/page-hero";
 import { SlidingIndicator } from "@/components/sliding-indicator";
-import { must, useLoad } from "@/lib/data";
-import type { Exam } from "@/lib/exams";
+import { useLoad } from "@/lib/data";
 import { useI18n } from "@/lib/i18n/client";
-import { loadGrades } from "@/lib/loaders";
+import { loadGrades, loadSchoolExams } from "@/lib/loaders";
 import { getDisplayScale } from "@/lib/mutations/grades";
-import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 // /grades (grades) and /grades?tab=exams (exams): one page, two tabs.
@@ -76,15 +75,7 @@ function GradesTab() {
 }
 
 function ExamsTab() {
-  const state = useLoad(
-    async () =>
-      must(
-        await createClient()
-          .from("exams")
-          .select("id, subject, title, type, exam_date, start_time, room, status, notes")
-          .order("exam_date"),
-      ) as Exam[],
-    "exams",
-  );
+  const { subjects } = useAuth();
+  const state = useLoad(() => loadSchoolExams(subjects, { all: true }), `exams:${subjects.join(",")}`);
   return <Loaded state={state}>{(exams) => <ExamsView exams={exams} />}</Loaded>;
 }

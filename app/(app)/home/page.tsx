@@ -10,23 +10,23 @@ import { formatDate, intlLocale } from "@/lib/format";
 import { CURRENT_SEMESTER, formatScore, semesterScore } from "@/lib/grades";
 import { useI18n, useTitle } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
-import { daysUntil, loadGrades, loadUpcomingExams } from "@/lib/loaders";
+import { daysUntil, loadGrades, loadSchoolExams } from "@/lib/loaders";
 import { getDisplayScale } from "@/lib/mutations/grades";
 import { CURRENT, gradeHref, OPEN_GRADES, SCHOOL_GRADES } from "@/lib/school";
-import { SUBJECTS } from "@/lib/subjects";
+import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 
-async function loadHome() {
-  const [exams, grades] = await Promise.all([loadUpcomingExams(), loadGrades(CURRENT_SEMESTER)]);
+async function loadHome(subjects: SubjectId[]) {
+  const [exams, grades] = await Promise.all([loadSchoolExams(subjects), loadGrades(CURRENT_SEMESTER)]);
   return { exam: exams[0] ?? null, grades, scale: getDisplayScale() };
 }
 
 /** Home screen: "Welcome back, NAME" and the four ways in. */
 export default function HomePage() {
-  const { nickname } = useAuth();
+  const { nickname, subjects } = useAuth();
   const { locale, dict } = useI18n();
   const t = dict.home;
   useTitle(dict.nav.home);
-  const { data } = useLoad(loadHome, "home");
+  const { data } = useLoad(() => loadHome(subjects), `home:${subjects.join(",")}`);
 
   const avg = data ? semesterScore(data.grades) : null;
   const halfLabel = CURRENT.half === "1" ? dict.school.half1 : dict.school.half2;
@@ -81,7 +81,7 @@ export default function HomePage() {
           <SubjectIcon subject={data.exam.subject} className="size-[18px] shrink-0 text-muted-foreground" />
           <span className="min-w-0 flex-1 truncate text-sm">
             <span className="text-muted-foreground">{t.nextExam}: </span>
-            <span className="font-medium">{data.exam.title || SUBJECTS[data.exam.subject].label[locale]}</span>
+            <span className="font-medium">{SUBJECTS[data.exam.subject].label[locale]}</span>
             <span className="text-muted-foreground">
               {" "}
               · {formatDate(data.exam.exam_date, locale, { day: "numeric", month: "short" })}

@@ -7,11 +7,13 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
 import { ProfileCard } from "@/components/compare/profile-card";
+import { ElectivesPicker, useSaveElectives } from "@/components/electives";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import { useI18n, useTitle } from "@/lib/i18n/client";
 import { isLocale, LOCALE_NAMES, LOCALES } from "@/lib/i18n/config";
 import { createClient } from "@/lib/supabase/client";
+import { isValidElectives, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
 export default function SettingsPage() {
@@ -43,6 +45,10 @@ export default function SettingsPage() {
       <div className="mt-8 flex flex-col">
         <Section title={t.profile}>
           <ProfileCard nickname={nickname} shared={[]} part="name" />
+        </Section>
+
+        <Section title={dict.electives.yourSubjects}>
+          <SubjectsChoice />
         </Section>
 
         <Section title={t.appearance}>
@@ -88,6 +94,23 @@ export default function SettingsPage() {
           </div>
         </Section>
       </div>
+    </div>
+  );
+}
+
+function SubjectsChoice() {
+  const { dict } = useI18n();
+  const { electives, setElectives } = useAuth();
+  const [value, setValue] = useState<SubjectId[]>(electives ?? []);
+  const { save, saving, error } = useSaveElectives(setElectives);
+  const changed = [...value].sort().join() !== [...(electives ?? [])].sort().join();
+  return (
+    <div className="flex flex-col gap-4">
+      <ElectivesPicker value={value} onChange={setValue} />
+      {error && <p className="text-sm text-destructive">{error}</p>}
+      <Button onClick={() => save(value)} disabled={!changed || !isValidElectives(value) || saving} className="self-start">
+        {dict.common.save}
+      </Button>
     </div>
   );
 }
