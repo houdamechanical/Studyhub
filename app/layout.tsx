@@ -26,8 +26,8 @@ export const viewport: Viewport = {
   // padding itself so it stays clear of the home indicator.
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbf7ef" },
-    { media: "(prefers-color-scheme: dark)", color: "#17130f" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
   ],
   colorScheme: "dark light",
 };
