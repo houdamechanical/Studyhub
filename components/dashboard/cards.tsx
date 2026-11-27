@@ -2,7 +2,8 @@
 
 import { Check, Crosshair, Flame, Plus, X } from "lucide-react";
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "@/components/toast";
 import { SubjectIcon } from "@/components/subject-icon";
 import { shiftDay, type SubjectProgress, type Task } from "@/lib/dashboard";
 import { intlLocale } from "@/lib/format";
@@ -15,9 +16,9 @@ import { cn } from "@/lib/utils";
 
 export function Card({ title, aside, children, className }: { title: string; aside?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
-    <section className={cn("soft flex flex-col rounded-xl border bg-card p-5 sm:p-6", className)}>
-      <div className="mb-4 flex items-baseline justify-between gap-2">
-        <h2 className="font-display text-lg font-semibold">{title}</h2>
+    <section className={cn("hairline flex flex-col pt-6", className)}>
+      <div className="mb-5 flex items-baseline justify-between gap-2">
+        <h2 className="eyebrow">{title}</h2>
         {aside}
       </div>
       {children}
@@ -46,32 +47,68 @@ export function TasksCard({
   const t = dict.dash;
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState<SubjectId | "">("");
-  const [error, setError] = useState<string | null>(null);
-  const [pending, start] = useTransition();
+  // Progressive disclosure: the subject picker only shows while you write a task.
+  const [composing, setComposing] = useState(false);
 
-  const open = (tasks ?? []).filter((x) => !x.done_at);
-  const done = (tasks ?? []).filter((x) => x.done_at);
+  // Optimistic updates: change the list right away, roll back if saving fails.
+  const [items, setItems] = useState<Task[] | null>(tasks);
+  useEffect(() => setItems(tasks), [tasks]);
 
-  function add(e: React.FormEvent) {
+  const fail = (code: keyof typeof dict.common.error, rollback: () => void) => {
+    rollback();
+    toast(dict.common.error[code], "error");
+  };
+
+  async function add(e: React.FormEvent) {
     e.preventDefault();
     const text = title.trim();
     if (!text) return;
-    setError(null);
-    start(async () => {
-      const r = await addTask(text, today, subject || null);
-      if (r.ok) setTitle("");
-      else setError(dict.common.error[r.error]);
+    const temp: Task = { id: `temp-${Date.now()}`, title: text, subject: subject || null, due_on: today, done_at: null };
+    const before = items;
+    setItems((list) => [...(list ?? []), temp]);
+    setTitle("");
+    const r = await addTask(text, today, subject || null);
+    if (r.ok) toast(t.taskAdded);
+    else fail(r.error, () => {
+      setItems(before);
+      setTitle(text);
     });
   }
 
-  const count = tasks ? `${done.length}/${tasks.length}` : "";
+  async function toggle(task: Task) {
+    const done = !task.done_at;
+    const before = items;
+    setItems((list) => list?.map((x) => (x.id === task.id ? { ...x, done_at: done ? new Date().toISOString() : null } : x)) ?? null);
+    const r = await setTaskDone(task.id, done);
+    if (!r.ok) fail(r.error, () => setItems(before));
+    else if (done) toast(t.taskDone);
+  }
+
+  async function remove(task: Task) {
+    const before = items;
+    setItems((list) => list?.filter((x) => x.id !== task.id) ?? null);
+    const r = await deleteTask(task.id);
+    if (!r.ok) fail(r.error, () => setItems(before));
+    else toast(t.taskDeleted, "info");
+  }
+
+  const open = (items ?? []).filter((x) => !x.done_at);
+  const done = (items ?? []).filter((x) => x.done_at);
+  const count = items ? `${done.length}/${items.length}` : "";
   return (
-    <Card title={t.tasks} aside={tasks && tasks.length > 0 && <span className="text-sm tabular-nums text-muted-foreground">{count}</span>}>
+    <Card title={t.tasks} aside={items && items.length > 0 && <span className="text-sm tabular-nums text-muted-foreground">{count}</span>}>
       {missing ? (
         <p className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">{t.tasksSetup}</p>
       ) : (
         <>
-          <form onSubmit={add} className="flex gap-2">
+          <form
+            onSubmit={add}
+            onFocus={() => setComposing(true)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null) && !title.trim()) setComposing(false);
+            }}
+            className="flex gap-2"
+          >
             <label htmlFor="new-task" className="sr-only">
               {t.addPlaceholder}
             </label>
@@ -82,48 +119,53 @@ export function TasksCard({
               placeholder={t.addPlaceholder}
               maxLength={200}
               autoComplete="off"
-              className="h-10 min-w-0 flex-1 rounded-lg border bg-background px-3 text-[0.95rem] outline-none transition-colors duration-200 placeholder:text-muted-foreground focus:border-primary/60"
+              className="h-11 min-w-0 flex-1 rounded-lg border bg-background px-3 text-[0.95rem] outline-none transition-colors duration-200 placeholder:text-muted-foreground focus:border-primary/60 focus-visible:outline-none"
             />
-            <select
-              value={subject}
-              onChange={(e) => setSubject(e.target.value as SubjectId | "")}
-              aria-label={dict.grades.subject}
-              className="hidden h-10 rounded-lg border bg-background px-2 text-sm text-muted-foreground outline-none focus:border-primary/60 sm:block"
-            >
-              <option value="">{t.noSubject}</option>
-              {SUBJECT_IDS.map((id) => (
-                <option key={id} value={id}>
-                  {SUBJECTS[id].label[locale]}
-                </option>
-              ))}
-            </select>
+            {(composing || title) && (
+              <select
+                value={subject}
+                onChange={(e) => setSubject(e.target.value as SubjectId | "")}
+                aria-label={dict.grades.subject}
+                className="enter h-11 max-w-[9.5rem] rounded-lg border bg-background px-2 text-sm text-muted-foreground outline-none focus:border-primary/60"
+              >
+                <option value="">{t.noSubject}</option>
+                {SUBJECT_IDS.map((id) => (
+                  <option key={id} value={id}>
+                    {SUBJECTS[id].label[locale]}
+                  </option>
+                ))}
+              </select>
+            )}
             <button
               type="submit"
-              disabled={pending || !title.trim()}
+              disabled={!title.trim()}
               aria-label={t.add}
-              className="press inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-40"
+              className="press inline-flex size-11 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-40"
             >
               <Plus size={18} />
             </button>
           </form>
-          {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
 
-          {tasks === null ? (
-            <div className="mt-4 space-y-2">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="h-10 animate-pulse rounded-lg bg-secondary" />
-              ))}
-            </div>
-          ) : tasks.length === 0 ? (
+          {items === null ? (
+            <TaskSkeleton />
+          ) : items.length === 0 ? (
             <p className="mt-6 text-center text-sm text-muted-foreground">{t.noTasks}</p>
           ) : (
             <ul className="mt-3 flex flex-col">
               {[...open, ...done].map((task) => (
-                <TaskRow key={task.id} task={task} current={task.id === currentId} today={today} onFocus={() => onFocus(task)} />
+                <TaskRow
+                  key={task.id}
+                  task={task}
+                  current={task.id === currentId}
+                  today={today}
+                  onFocus={() => onFocus(task)}
+                  onToggle={() => toggle(task)}
+                  onDelete={() => remove(task)}
+                />
               ))}
             </ul>
           )}
-          {tasks && tasks.length > 0 && open.length === 0 && (
+          {items && items.length > 0 && open.length === 0 && (
             <p className="mt-3 text-sm text-[var(--c-sage)]">{t.allDone}</p>
           )}
         </>
@@ -132,11 +174,39 @@ export function TasksCard({
   );
 }
 
-function TaskRow({ task, current, today, onFocus }: { task: Task; current: boolean; today: string; onFocus: () => void }) {
+/** Skeleton shaped like task rows (circle + line + tag). */
+function TaskSkeleton() {
+  return (
+    <ul className="mt-3 flex flex-col" aria-busy>
+      {[72, 56, 64].map((w, i) => (
+        <li key={i} className="flex items-center gap-3 px-2 py-2.5">
+          <span className="size-5 shrink-0 animate-pulse rounded-full bg-secondary" />
+          <span className="h-3.5 animate-pulse rounded bg-secondary" style={{ width: `${w}%` }} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function TaskRow({
+  task,
+  current,
+  today,
+  onFocus,
+  onToggle,
+  onDelete,
+}: {
+  task: Task;
+  current: boolean;
+  today: string;
+  onFocus: () => void;
+  onToggle: () => void;
+  onDelete: () => void;
+}) {
   const { locale, dict } = useI18n();
   const t = dict.dash;
-  const [pending, start] = useTransition();
   const done = task.done_at !== null;
+  const pending = task.id.startsWith("temp-");
   const overdue = !done && task.due_on < today;
 
   return (
@@ -152,13 +222,14 @@ function TaskRow({ task, current, today, onFocus }: { task: Task; current: boole
         role="checkbox"
         aria-checked={done}
         aria-label={task.title}
-        onClick={() => start(async () => void (await setTaskDone(task.id, !done)))}
+        disabled={pending}
+        onClick={onToggle}
         className={cn(
-          "flex size-5 shrink-0 items-center justify-center rounded-full border transition-colors duration-200",
+          "hit flex size-5 shrink-0 items-center justify-center rounded-full border transition-colors duration-200",
           done ? "border-[var(--c-sage)] bg-[var(--c-sage)] text-background" : "border-[#5a5247] hover:border-[var(--c-sage)]",
         )}
       >
-        {done && <Check size={12} strokeWidth={3} />}
+        {done && <Check size={12} strokeWidth={3} className="check-pop" />}
       </button>
       <span className={cn("min-w-0 flex-1 truncate", done && "text-muted-foreground line-through decoration-1")} dir="auto">
         {task.title}
@@ -170,7 +241,7 @@ function TaskRow({ task, current, today, onFocus }: { task: Task; current: boole
           {SUBJECTS[task.subject].label[locale]}
         </span>
       )}
-      {done ? (
+      {done || pending ? (
         <span className="size-6 shrink-0" aria-hidden />
       ) : (
         <button
@@ -178,17 +249,18 @@ function TaskRow({ task, current, today, onFocus }: { task: Task; current: boole
           onClick={onFocus}
           aria-label={t.focusOn}
           title={t.focusOn}
-          className="shrink-0 rounded-md p-1 text-muted-foreground opacity-0 transition-opacity duration-200 hover:text-primary focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-100"
+          className="reveal hit shrink-0 rounded-md p-1 text-muted-foreground opacity-0 hover:text-primary focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-100"
         >
           <Crosshair size={16} />
         </button>
       )}
       <button
         type="button"
-        onClick={() => start(async () => void (await deleteTask(task.id)))}
+        onClick={onDelete}
+        disabled={pending}
         aria-label={t.deleteTask}
         title={t.deleteTask}
-        className="shrink-0 rounded-md p-1 text-muted-foreground opacity-0 transition-opacity duration-200 hover:text-foreground focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-60"
+        className="reveal hit shrink-0 rounded-md p-1 text-muted-foreground opacity-0 hover:text-foreground focus-visible:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-60"
       >
         <X size={16} />
       </button>
@@ -214,7 +286,7 @@ export function StreakCard({ days, streak, today }: { days: Set<string> | null; 
       <div className="flex items-center gap-3">
         <Flame size={28} strokeWidth={1.75} className={streak > 0 ? "text-primary" : "text-muted-foreground"} />
         <div>
-          <p className="font-display text-4xl font-medium tabular-nums leading-none">{days ? streak : "–"}</p>
+          <p className="font-display text-5xl font-medium tabular-nums leading-none">{days ? streak : "–"}</p>
           <p className="mt-1 text-sm text-muted-foreground">
             {streak === 0 ? t.streakZero : streak === 1 ? t.streakOne : fill(t.streakDays, { n: streak })}
           </p>

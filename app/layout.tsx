@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter, Noto_Sans_Arabic } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/toast";
 import { I18nProvider, LOCALE_BOOT_SCRIPT } from "@/lib/i18n/client";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import "./globals.css";
@@ -64,7 +65,10 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" forcedTheme="dark" disableTransitionOnChange>
-          <I18nProvider>{children}</I18nProvider>
+          <I18nProvider>
+            {children}
+            <Toaster />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

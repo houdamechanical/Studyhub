@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BackPill } from "@/components/page-hero";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { MeasuredIndicator } from "@/components/sliding-indicator";
 import { ProgressBar } from "@/components/dashboard/cards";
 import { SubjectIcon } from "@/components/subject-icon";
@@ -25,7 +25,7 @@ import { formatDate, todayISO } from "@/lib/format";
 import { useI18n, useTitle } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
 import { daysUntil, dueCount, loadPractice, loadUpcomingExams } from "@/lib/loaders";
-import { PRACTICE_SEMESTER, semesterHref, splitSemester } from "@/lib/school";
+import { gradeHref, PRACTICE_SEMESTER, semesterHref, splitSemester } from "@/lib/school";
 import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
@@ -89,13 +89,16 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6 sm:pt-8">
-      <BackPill href={semesterHref(semester)} label={dict.nav.subjects} />
+      <Breadcrumb
+        items={[
+          { label: fill(dict.school.grade, { grade }), href: gradeHref(grade) },
+          { label: halfLabel, href: semesterHref(semester) },
+          { label: info.label[locale] },
+        ]}
+      />
 
       <header className="enter mt-6">
-        <p className="text-sm text-muted-foreground">
-          {fill(dict.school.grade, { grade })} · {halfLabel}
-        </p>
-        <h1 className="mt-2 flex items-center gap-3 font-display text-3xl font-semibold sm:text-4xl">
+        <h1 className="flex items-center gap-3 font-display text-3xl font-semibold sm:text-4xl">
           <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-secondary sm:size-12">
             <SubjectIcon subject={subject} className="size-5 sm:size-6" strokeWidth={2} />
           </span>

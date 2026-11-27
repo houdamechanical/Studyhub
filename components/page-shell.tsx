@@ -1,6 +1,5 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { isMissingTable, SetupNotice } from "@/components/setup-notice";
 import type { LoadState } from "@/lib/data";
@@ -38,9 +37,18 @@ export function Loaded<T>({ state, children }: { state: LoadState<T>; children: 
     return <SetupNotice problem={missing ? "no-table" : "error"} />;
   }
   if (state.loading || state.data === null) {
+    // Skeleton loader: the rough shape of a page (summary + list) instead of a spinner.
     return (
-      <div className="flex justify-center py-16 text-muted-foreground" aria-busy>
-        <Loader2 className="animate-spin" size={24} />
+      <div className="flex flex-col gap-4" aria-busy aria-label="Loading">
+        <div className="h-28 animate-pulse rounded-xl bg-secondary" />
+        <div className="overflow-hidden rounded-xl border">
+          {[68, 52, 60, 44].map((w, i) => (
+            <div key={i} className="flex items-center gap-4 border-b px-4 py-4 last:border-b-0">
+              <span className="size-5 shrink-0 animate-pulse rounded-md bg-secondary" />
+              <span className="h-3.5 animate-pulse rounded bg-secondary" style={{ width: `${w}%` }} />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

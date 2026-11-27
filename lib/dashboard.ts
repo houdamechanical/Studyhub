@@ -70,7 +70,7 @@ export function logFocusSession() {
  * Days you studied: submitted tests, reviewed flashcards, finished tasks
  * (from the database) and focus sessions (this browser).
  */
-export async function loadStudyDays(): Promise<Set<string>> {
+export async function loadStudyDays(): Promise<{ days: Set<string>; tasksDone: number }> {
   const supabase = createClient();
   const [attempts, reviews, tasks] = await Promise.all([
     supabase.from("attempts").select("submitted_at").not("submitted_at", "is", null).order("submitted_at", { ascending: false }).limit(500),
@@ -82,7 +82,23 @@ export async function loadStudyDays(): Promise<Set<string>> {
   for (const r of reviews.data ?? []) days.add(localDay(r.last_reviewed_at as string));
   for (const t of tasks.data ?? []) days.add(localDay(t.done_at as string)); // fine if the table doesn't exist yet
   for (const [day, n] of Object.entries(readFocusLog())) if (n > 0) days.add(day);
-  return days;
+  return { days, tasksDone: (tasks.data ?? []).length };
+}
+
+/** Longest run of consecutive study days ever. */
+export function longestStreak(days: Set<string>) {
+  let best = 0;
+  for (const day of days) {
+    if (days.has(shiftDay(day, -1))) continue; // not the start of a run
+    let n = 0;
+    let d = day;
+    while (days.has(d)) {
+      n++;
+      d = shiftDay(d, 1);
+    }
+    best = Math.max(best, n);
+  }
+  return best;
 }
 
 /** Days in a row ending today – or yesterday, so a streak isn't lost before you've studied today. */
