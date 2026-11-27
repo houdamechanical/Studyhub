@@ -3,48 +3,48 @@
 @tailwind utilities;
 
 @layer base {
-  /* White + royal blue (light), black + orange (dark). The other mode's accent is the small third colour
+  /* Cream + royal blue (light), black + orange (dark). The other mode's accent is the small third colour
      (--c-gold): orange in light, blue in dark. --c-amber is the accent used for text/rings (name kept). */
   :root {
-    --background: 0 0% 100.0%;
-    --foreground: 222 46% 11.0%;
-    --card: 0 0% 100.0%;
-    --card-foreground: 222 46% 11.0%;
-    --popover: 0 0% 100.0%;
-    --popover-foreground: 222 46% 11.0%;
+    --background: 40 55% 95.7%;
+    --foreground: 240 28% 14.1%;
+    --card: 43 100% 98.6%;
+    --card-foreground: 240 28% 14.1%;
+    --popover: 43 100% 98.6%;
+    --popover-foreground: 240 28% 14.1%;
     --primary: 225 72% 49.2%;
     --primary-foreground: 0 0% 100.0%;
-    --secondary: 222 42% 95.3%;
-    --secondary-foreground: 222 46% 11.0%;
-    --muted: 222 42% 95.3%;
-    --muted-foreground: 220 16% 39.4%;
-    --accent: 222 42% 95.3%;
-    --accent-foreground: 222 46% 11.0%;
+    --secondary: 40 43% 90.4%;
+    --secondary-foreground: 240 28% 14.1%;
+    --muted: 40 43% 90.4%;
+    --muted-foreground: 240 6% 37.6%;
+    --accent: 40 43% 90.4%;
+    --accent-foreground: 240 28% 14.1%;
     --destructive: 0 74% 45.1%;
     --destructive-foreground: 0 0% 100%;
-    --border: 222 30% 91.6%;
-    --input: 222 32% 85.7%;
+    --border: 39 34% 85.1%;
+    --input: 39 28% 77.6%;
     --ring: 225 72% 49.2%;
     --radius: 0.5rem;
     --chart-accent: #2350d8;
-    --chart-muted: #c5cde0;
-    --c-bg: #ffffff;
-    --c-surface: #ffffff;
-    --c-raised: #f3f5fa;
-    --c-border: #e3e7f0;
-    --c-text: #0f1729;
-    --c-text-2: #545f75;
+    --chart-muted: #cfc3ab;
+    --c-bg: #faf6ee;
+    --c-surface: #fffdf8;
+    --c-raised: #f1eadc;
+    --c-border: #e6ddcc;
+    --c-text: #1a1a2e;
+    --c-text-2: #5a5a66;
     --c-amber: #2350d8;
     --c-gold: #c2410c;
-    --c-sage: #2f7a46;
+    --c-sage: #276b3c;
     --c-rose: #2350d8;
     --c-slate: #c2410c;
     --c-amber-hi: #2350d8;
     --c-on-amber: #ffffff;
-    --c-pill: #eef1f8;
-    --c-border-strong: #c5cde0;
-    --c-side: #f7f8fb;
-    --shadow-rest: 0 1px 2px rgb(15 23 41 / 0.05), 0 8px 24px -16px rgb(30 50 120 / 0.28);
+    --c-pill: #efe7d7;
+    --c-border-strong: #cfc3ab;
+    --c-side: #f5efe3;
+    --shadow-rest: 0 1px 2px rgb(40 30 10 / 0.05), 0 8px 24px -16px rgb(60 45 20 / 0.28);
     --grain-opacity: 0;
     color-scheme: light;
   }

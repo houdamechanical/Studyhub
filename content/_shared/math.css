@@ -1,21 +1,21 @@
 /* Study Hub – shared look for the math study pages (same palette and fonts as the app).
    Light/dark comes from the app (?theme=… and postMessage), falling back to the system. */
 :root {
-  --bg: #ffffff;
-  --card: #ffffff;
-  --raised: #f3f5fa;
-  --border: #e3e7f0;
-  --text: #0f1729;
-  --text2: #545f75;
+  --bg: #faf6ee;
+  --card: #fffdf8;
+  --raised: #f1eadc;
+  --border: #e6ddcc;
+  --text: #1a1a2e;
+  --text2: #5a5a66;
   --accent: #2350d8;
   --blue: #c2410c;
-  --green: #2f7a46;
+  --green: #276b3c;
   --math: #3341c9;
   --math2: #7c89ff;
   --mathbg: #eceeff;
   --okbg: #e7f1ea;
   --warnbg: #fbe9e3;
-  --shadow: 0 1px 2px rgb(15 23 41 / 0.05), 0 8px 24px -16px rgb(30 50 120 / 0.28);
+  --shadow: 0 1px 2px rgb(40 30 10 / 0.05), 0 8px 24px -16px rgb(60 45 20 / 0.28);
   color-scheme: light;
 }
 :root[data-theme="dark"] {

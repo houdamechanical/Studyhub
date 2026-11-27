@@ -2,17 +2,17 @@
 name: Study Hub
 description: The class planner for Grade 11 – explanations, practice, exams and grades in one place.
 colors:
-  page-white: "#ffffff"
-  sheet: "#ffffff"
-  raised-mist: "#f3f5fa"
-  pill-mist: "#eef1f8"
-  hairline: "#e3e7f0"
-  hairline-strong: "#c5cde0"
-  ink: "#0f1729"
-  slate-grey: "#545f75"
+  paper-cream: "#faf6ee"
+  sheet: "#fffdf8"
+  margin-cream: "#f1eadc"
+  pill-cream: "#efe7d7"
+  hairline: "#e6ddcc"
+  hairline-strong: "#cfc3ab"
+  ink: "#1a1a2e"
+  slate-grey: "#5a5a66"
   royal-blue: "#2350d8"
   ember-orange: "#c2410c"
-  check-green: "#2f7a46"
+  check-green: "#276b3c"
   error-red: "#c81e1e"
   pure-black: "#0a0a0a"
   black-sheet: "#141414"
@@ -94,13 +94,13 @@ components:
   button-primary-hover:
     backgroundColor: "#a4300d"
   button-outline:
-    backgroundColor: "{colors.page-white}"
+    backgroundColor: "{colors.paper-cream}"
     textColor: "{colors.ink}"
     rounded: "{rounded.lg}"
     padding: "8px 16px"
     height: "36px"
   input:
-    backgroundColor: "{colors.page-white}"
+    backgroundColor: "{colors.paper-cream}"
     textColor: "{colors.ink}"
     rounded: "{rounded.lg}"
     padding: "8px 12px"
@@ -110,7 +110,7 @@ components:
     rounded: "{rounded.xl}"
     padding: "16px"
   chip:
-    backgroundColor: "{colors.raised-mist}"
+    backgroundColor: "{colors.margin-cream}"
     textColor: "{colors.ink}"
     rounded: "{rounded.pill}"
     padding: "4px 12px"
@@ -120,12 +120,12 @@ components:
     rounded: "{rounded.lg}"
     padding: "6px 12px"
   nav-rail-item-active:
-    backgroundColor: "{colors.raised-mist}"
+    backgroundColor: "{colors.margin-cream}"
     textColor: "{colors.royal-blue}"
     rounded: "{rounded.lg}"
     size: "40px"
   grade-field:
-    backgroundColor: "{colors.page-white}"
+    backgroundColor: "{colors.paper-cream}"
     textColor: "{colors.ink}"
     rounded: "{rounded.xl}"
     width: "88px"
@@ -138,14 +138,14 @@ components:
 
 **Creative North Star: "The Class Planner"**
 
-Study Hub is the planner a well-organised student keeps for the whole school year: clean white pages (or a black desk at night), one bright pen for what matters, and a shelf of coloured subject books. Everything has its place – the next exam on top, every subject in its own book, every grade in its row – so a student between lessons finds what they need in one tap. Order comes first; personality lives in the details you touch.
+Study Hub is the planner a well-organised student keeps for the whole school year: cream paper (or a black desk at night), one bright pen for what matters, and a shelf of coloured subject books. Everything has its place – the next exam on top, every subject in its own book, every grade in its row – so a student between lessons finds what they need in one tap. Order comes first; personality lives in the details you touch.
 
 Components are **tactile and friendly**. Surfaces sit on the paper with soft shadows, buttons give a small press, and the subject books are real objects: they tilt toward the pointer, catch the light and grow to fill the screen when opened. Study content switches to a printed-page serif with margin line numbers, so a Musterlösung looks like the worksheet it came from.
 
 Light mode is paper on a desk; dark mode is the same planner at night (warm brown-black, chalk text, coral instead of red). Both are first-class; the user picks Light, Dark or System.
 
 **Key Characteristics:**
-- White and royal blue by day, black and orange by night – one strong accent per mode.
+- Cream and royal blue by day, black and orange by night – one strong accent per mode.
 - Every subject has a fixed book colour and icon; colour signals the subject, not decoration.
 - Soft shadows lift cards gently off the page; pop-ups and books lift further.
 - Large, readable text (18px base) with a friendly grotesque for headings.
@@ -153,7 +153,7 @@ Light mode is paper on a desk; dark mode is the same planner at night (warm brow
 
 ## Colors
 
-Two modes with their own accent: light is crisp white with **royal blue**, dark is true black with **signal orange**. Each mode borrows the other's accent as a small third colour. Twelve saturated book colours stay reserved for subjects.
+Two modes with their own accent: light is warm cream paper with **royal blue**, dark is true black with **signal orange**. Each mode borrows the other's accent as a small third colour. Twelve saturated book colours stay reserved for subjects.
 
 ### Primary
 - **Royal Blue** (#2350d8, light mode) / **Signal Orange** (#ff7a1a, dark mode): primary buttons, the active tab underline, active nav item, links, the next-exam countdown, focus rings. White text on filled blue; near-black text (#170800) on filled orange.
@@ -162,13 +162,13 @@ Two modes with their own accent: light is crisp white with **royal blue**, dark 
 - **Ember Orange** (#c2410c, light) / **Night Royal** (#7c9cff, dark): small secondary signals only – the "next exam" dot, crowns on leaderboards, quiet info states.
 
 ### Tertiary
-- **Check Green** (#2f7a46; dark #6fcf8f): success only – correct answers, written exams in the calendar, saved states.
+- **Check Green** (#276b3c; dark #6fcf8f): success only – correct answers, written exams in the calendar, saved states.
 
 ### Neutral
-- **Page White / Sheet** (#ffffff): page background and cards (light); cards separate by hairline and soft shadow.
-- **Raised Mist** (#f3f5fa) and **Pill Mist** (#eef1f8): secondary buttons, active rail items, count badges.
-- **Hairline** (#e3e7f0) / **Hairline Strong** (#c5cde0): borders and dividers.
-- **Ink** (#0f1729): text. **Slate Grey** (#545f75): secondary text (≥6:1 on white).
+- **Paper Cream** (#faf6ee): page background (light). **Sheet** (#fffdf8): cards and dialogs, separated by hairline and soft shadow.
+- **Margin Cream** (#f1eadc) and **Pill Cream** (#efe7d7): secondary buttons, active rail items, count badges.
+- **Hairline** (#e6ddcc) / **Hairline Strong** (#cfc3ab): borders and dividers.
+- **Ink** (#1a1a2e): text. **Slate Grey** (#5a5a66): secondary text (≥6:1 on cream).
 - **Pure Black / Black Sheet / Black Raised / Black Line** (#0a0a0a / #141414 / #1c1c1c / #2a2a2a) with **Snow** (#f5f5f5) and **Ash Grey** (#a3a3a3): the dark-mode equivalents.
 
 ### Subject Book Colours
@@ -210,7 +210,7 @@ Navigation: on large screens (≥1024px) a 64px icon rail on the left (logo, sea
 
 ## Elevation & Depth
 
-Depth comes from **soft shadows on top of tonal layering**: Paper → Sheet → Raised Mist. Cards rest slightly lifted from the page; dialogs, menus, toasts and the subject books lift clearly. Dark mode uses deeper, darker shadows and relies more on the tonal steps (Night Desk → Night Sheet → Night Raised).
+Depth comes from **soft shadows on top of tonal layering**: Paper → Sheet → Margin Cream. Cards rest slightly lifted from the page; dialogs, menus, toasts and the subject books lift clearly. Dark mode uses deeper, darker shadows and relies more on the tonal steps (Night Desk → Night Sheet → Night Raised).
 
 ### Shadow Vocabulary
 - **Resting card** (`box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -16px rgb(60 40 20 / 0.25)`): cards, study-page boxes, the grade book.
@@ -231,12 +231,12 @@ Gently rounded everything: controls 8px, cards 10–16px, large panels 16px, pil
 Tactile and friendly – they press down slightly (scale 0.985) when tapped.
 - **Shape:** gently rounded (8px), 36–48px tall; 44px minimum touch target.
 - **Primary:** the accent fill, white label (dark mode: coral fill, near-black label), soft bevel shadow. Hover darkens by 10%.
-- **Outline / Secondary:** Paper or Raised Mist with a Ruled Line border; hover turns the surface Raised Mist.
+- **Outline / Secondary:** Paper or Margin Cream with a Ruled Line border; hover turns the surface Margin Cream.
 - **Focus:** 2px the accent outline with 2px offset (all focusable elements).
 
 ### Chips
-- **Subject / filter chips:** Raised Mist pills; the selected one turns into a the accent filled rounded-rectangle with white text.
-- **Count badges:** small Raised Mist rounded tags with tabular numbers.
+- **Subject / filter chips:** Margin Cream pills; the selected one turns into a the accent filled rounded-rectangle with white text.
+- **Count badges:** small Margin Cream rounded tags with tabular numbers.
 
 ### Cards / Containers
 - **Corner Style:** 10–16px.
@@ -252,8 +252,8 @@ Tactile and friendly – they press down slightly (scale 0.985) when tapped.
 - **Error:** destructive red border and message.
 
 ### Navigation
-- **Rail (desktop):** 64px wide, 40px icon buttons; the active item gets Raised Mist fill, a red icon and a 3px red bar on the outer edge; labels appear as tooltips after a short hover delay.
-- **Bottom bar (phone):** five icons with labels, sliding Raised Mist indicator behind the active one.
+- **Rail (desktop):** 64px wide, 40px icon buttons; the active item gets Margin Cream fill, a red icon and a 3px red bar on the outer edge; labels appear as tooltips after a short hover delay.
+- **Bottom bar (phone):** five icons with labels, sliding Margin Cream indicator behind the active one.
 - **Search:** full-screen overlay with a large 24px input; results grouped (Pages, Subjects, Topics, Study pages, Tests, Communities) with subject-coloured badges.
 
 ### Subject Book (signature component)
