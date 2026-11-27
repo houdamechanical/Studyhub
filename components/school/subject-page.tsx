@@ -15,9 +15,8 @@ import {
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Breadcrumb } from "@/components/breadcrumb";
-import { MeasuredIndicator } from "@/components/sliding-indicator";
 import { ProgressBar } from "@/components/progress-bar";
-import { SubjectIcon } from "@/components/subject-icon";
+import { SubjectBook } from "@/components/subject-book";
 import { subjectProgress } from "@/lib/progress";
 import { getContentForSubject, type ContentKind } from "@/lib/content";
 import { useLoad } from "@/lib/data";
@@ -97,32 +96,29 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
         ]}
       />
 
-      <header className="enter mt-6">
-        <h1 className="flex items-center gap-3 font-display text-3xl font-semibold sm:text-4xl">
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-secondary sm:size-12">
-            <SubjectIcon subject={subject} className="size-5 sm:size-6" strokeWidth={2} />
-          </span>
-          {info.label[locale]}
-        </h1>
-        {nextExam && (
-          <Link
-            href="/grades?tab=exams"
-            className="mt-4 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm hover:bg-accent"
-          >
-            <CalendarClock size={15} className="text-muted-foreground" />
-            <span className="text-muted-foreground">{dict.home.nextExam}:</span>
-            <span className="font-medium">{formatDate(nextExam.exam_date, locale, { day: "numeric", month: "short" })}</span>
-            <span className="font-semibold text-[var(--c-amber)]">{whenLabel(nextExam.exam_date, dict)}</span>
-          </Link>
-        )}
-        {withPractice && progress && (
-          <div className="mt-6 rounded-xl border bg-card p-4 sm:p-5">
-            <div className="flex items-baseline justify-between gap-2">
-              <p className="text-sm font-medium">{dict.subject.progress}</p>
-              <p className="text-sm tabular-nums text-muted-foreground">{Math.round(progress.progress * 100)} %</p>
-            </div>
-            <ProgressBar value={progress.progress} className="mt-2.5" />
-            <p className="mt-2 text-xs text-muted-foreground">
+      <header className="enter mt-5 flex items-center gap-4 sm:gap-6">
+        <SubjectBook subject={subject} size="sm" className="w-16 shrink-0 sm:w-20" />
+        <div className="min-w-0 flex-1">
+          <h1 className="truncate text-3xl font-semibold tracking-tight sm:text-4xl">{info.label[locale]}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {fill(dict.school.grade, { grade })} · {halfLabel}
+          </p>
+          {nextExam && (
+            <Link href="/grades?tab=exams" className="group mt-2 inline-flex items-center gap-1.5 text-sm">
+              <CalendarClock size={15} className="text-muted-foreground" aria-hidden />
+              <span className="text-muted-foreground">{dict.home.nextExam}</span>
+              <span className="font-medium">{formatDate(nextExam.exam_date, locale, { weekday: "short", day: "numeric", month: "short" })}</span>
+              <span className="font-semibold text-[var(--c-amber)]">· {whenLabel(nextExam.exam_date, dict)}</span>
+            </Link>
+          )}
+        </div>
+      </header>
+
+      {withPractice && progress && (
+        <div className="enter mt-6">
+          <div className="flex items-baseline justify-between gap-3 text-sm">
+            <span className="font-medium">{dict.subject.progress}</span>
+            <span className="truncate text-xs text-muted-foreground">
               {[
                 progress.tests ? fill(dict.subject.testsTaken, { a: progress.testsTaken, n: progress.tests }) : "",
                 progress.avgBest !== null ? fill(dict.subject.avg, { p: `${Math.round(progress.avgBest * 100)} %` }) : "",
@@ -130,40 +126,38 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
               ]
                 .filter(Boolean)
                 .join(" · ")}
-            </p>
+            </span>
+            <span className="tabular-nums text-muted-foreground">{Math.round(progress.progress * 100)} %</span>
           </div>
-        )}
-      </header>
+          <ProgressBar value={progress.progress} className="mt-2" />
+        </div>
+      )}
 
-      {/* Tabs */}
-      <div className="sticky top-14 z-30 -mx-4 mt-8 lg:top-0 bg-background/85 px-4 py-2 backdrop-blur-xl">
-        <div className="overflow-x-auto [scrollbar-width:none]">
-          <div role="tablist" className="relative flex w-max gap-1 rounded-full border bg-card p-1">
-            <MeasuredIndicator activeKey={tab} className="rounded-full bg-[var(--c-pill)]" />
-            {TABS.map((id) => (
-              <button
-                key={id}
-                type="button"
-                role="tab"
-                data-key={id}
-                aria-selected={tab === id}
-                onClick={() => choose(id)}
-                className={cn(
-                  "press relative flex items-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium",
-                  tab === id ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {labels[id]}
-                <span className="text-xs tabular-nums text-muted-foreground">
-                  {id !== "pages" && state.loading ? "·" : counts[id]}
-                </span>
-              </button>
-            ))}
-          </div>
+      {/* Tabs: one quiet underline row, sticky while scrolling */}
+      <div className="sticky top-14 z-30 -mx-4 mt-8 bg-background/90 px-4 backdrop-blur-xl lg:top-0">
+        <div role="tablist" className="flex gap-1 overflow-x-auto border-b [scrollbar-width:none]">
+          {TABS.map((id) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              aria-selected={tab === id}
+              onClick={() => choose(id)}
+              className={cn(
+                "relative -mb-px flex items-center gap-1.5 whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium transition-colors",
+                tab === id ? "border-[var(--c-amber)] text-foreground" : "border-transparent text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {labels[id]}
+              <span className="rounded-md bg-secondary px-1.5 text-[11px] tabular-nums text-muted-foreground">
+                {id !== "pages" && state.loading ? "·" : counts[id]}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
 
-      <div key={tab} className="enter mt-4" role="tabpanel">
+      <div key={tab} className="enter mt-5" role="tabpanel">
         {tab !== "pages" && state.loading ? (
           <div className="h-48 animate-pulse rounded-xl border bg-card" />
         ) : tab === "pages" ? (
@@ -260,8 +254,10 @@ function Row({
 }) {
   return (
     <li>
-      <Link href={href} className="group flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-secondary sm:px-5">
-        <Icon size={18} className="shrink-0 text-muted-foreground" strokeWidth={2} />
+      <Link href={href} className="group flex items-center gap-3.5 px-4 py-3 transition-colors hover:bg-secondary/60">
+        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+          <Icon size={16} strokeWidth={2} />
+        </span>
         <div className="min-w-0 flex-1">
           <p className="truncate font-medium" lang={lang} dir="auto">
             {title}

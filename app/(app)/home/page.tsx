@@ -2,13 +2,15 @@
 
 import { ArrowRight, ChevronRight, Clock, Users } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { useAuth } from "@/components/auth-gate";
 import { CommunityAvatar } from "@/components/communities/avatar";
+import { CalendarDialog, MiniCalendar } from "@/components/exams/exam-calendar";
 import { SubjectIcon } from "@/components/subject-icon";
 import { loadMyCommunities, type Community } from "@/lib/communities";
 import { useLoad } from "@/lib/data";
 import { formatPeriods, type SchoolExam } from "@/lib/exams";
-import { formatDate, intlLocale } from "@/lib/format";
+import { formatDate, intlLocale, todayISO } from "@/lib/format";
 import { CURRENT_SEMESTER, formatNC, halfYearNC } from "@/lib/grades";
 import { useI18n, useTitle } from "@/lib/i18n/client";
 import { fill, formatSemester, type Dictionary } from "@/lib/i18n/dictionaries";
@@ -18,19 +20,21 @@ import { cn } from "@/lib/utils";
 
 async function loadHome(subjects: SubjectId[]) {
   const [exams, grades, communities] = await Promise.all([
-    loadSchoolExams(subjects),
+    loadSchoolExams(subjects, { all: true }),
     loadGrades(CURRENT_SEMESTER),
     loadMyCommunities().then((r) => r.list),
   ]);
-  return { exams, nc: halfYearNC(grades), communities };
+  const today = todayISO();
+  return { exams, next: exams.find((e) => e.exam_date >= today) ?? null, nc: halfYearNC(grades), communities };
 }
 
-/** Home: what's next. The next exam first, then your NC, what's coming up and your communities. */
+/** Home: what's next. The next exam first, then your NC, a small exam calendar and your communities. */
 export default function HomePage() {
   const { subjects } = useAuth();
   const { dict } = useI18n();
   useTitle(dict.nav.home);
   const { data } = useLoad(() => loadHome(subjects), `home:${subjects.join(",")}`);
+  const [calendar, setCalendar] = useState(false);
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 pb-12 pt-6 sm:pt-10">
@@ -38,14 +42,15 @@ export default function HomePage() {
         <HomeSkeleton />
       ) : (
         <div className="flex flex-col gap-4">
-          <NextExam exam={data.exams[0] ?? null} />
-          <div className="grid gap-4 md:grid-cols-[1fr_1.4fr]">
+          <NextExam exam={data.next} />
+          <div className="grid gap-4 sm:grid-cols-2">
             <NcCard nc={data.nc} />
-            <ComingUp exams={data.exams.slice(1, 5)} />
+            <MiniCalendar exams={data.exams} onOpen={() => setCalendar(true)} />
           </div>
           <CommunitiesCard list={data.communities} />
         </div>
       )}
+      {calendar && data && <CalendarDialog exams={data.exams} onClose={() => setCalendar(false)} />}
     </div>
   );
 }
@@ -150,32 +155,6 @@ function NcCard({ nc }: { nc: ReturnType<typeof halfYearNC> }) {
   );
 }
 
-function ComingUp({ exams }: { exams: SchoolExam[] }) {
-  const { locale, dict } = useI18n();
-  return (
-    <Panel title={dict.home.comingUp} action={<PanelLink href="/grades?tab=exams">{dict.home.allExams}</PanelLink>}>
-      {exams.length === 0 ? (
-        <p className="px-4 py-8 text-center text-sm text-muted-foreground">{dict.home.noExamsLeft}</p>
-      ) : (
-        <ul className="divide-y">
-          {exams.map((e) => (
-            <li key={e.id} className="flex items-center gap-3 px-4 py-2.5 text-sm">
-              <SubjectIcon subject={e.subject} className="size-4 shrink-0 text-muted-foreground" />
-              <span className="min-w-0 flex-1 truncate font-medium">
-                {SUBJECTS[e.subject].label[locale]}
-                {e.title && <span className="font-normal text-muted-foreground"> · {e.title}</span>}
-              </span>
-              <span className="shrink-0 tabular-nums text-muted-foreground">
-                {formatDate(e.exam_date, locale, { weekday: "short", day: "numeric", month: "short" })}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </Panel>
-  );
-}
-
 function CommunitiesCard({ list }: { list: Community[] }) {
   const { dict } = useI18n();
   const t = dict.communities;
@@ -209,7 +188,7 @@ function HomeSkeleton() {
   return (
     <div className="flex flex-col gap-4" aria-busy>
       <div className="h-44 animate-pulse rounded-xl border bg-card" />
-      <div className="grid gap-4 md:grid-cols-[1fr_1.4fr]">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div className="h-48 animate-pulse rounded-xl border bg-card" />
         <div className="h-48 animate-pulse rounded-xl border bg-card" />
       </div>

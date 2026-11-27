@@ -2,10 +2,9 @@
 
 import { useAuth } from "@/components/auth-gate";
 import Link from "next/link";
-import { BigTile } from "@/components/big-tile";
+import { SubjectBook } from "@/components/subject-book";
 import { PageHero } from "@/components/page-hero";
 import { SlidingIndicator } from "@/components/sliding-indicator";
-import { SUBJECT_ICONS } from "@/components/subject-icon";
 import { getAllContent } from "@/lib/content";
 import { must, useLoad } from "@/lib/data";
 import { useI18n } from "@/lib/i18n/client";
@@ -85,30 +84,34 @@ export function SemesterView({ semester }: { semester: string }) {
         }
       />
 
-      <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+      {/* Every subject as a book on a shelf */}
+      <ul className="mt-10 grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-6">
         {subjects.map((id, i) => {
           const info = SUBJECTS[id];
           const pages = content.filter((c) => c.subject === id).length;
           const c = counts?.[id] ?? { tests: 0, decks: 0 };
+          const label = info.label[locale];
           return (
-            <BigTile
-              key={id}
-              size="md"
-              href={subjectHref(id, semester)}
-              icon={SUBJECT_ICONS[id]}
-              title={info.label[locale]}
-              subtitle={
-                hasPractice && state.loading ? (
-                  <span className="inline-block h-3 w-20 animate-pulse rounded bg-muted align-middle" />
-                ) : (
-                  summary(pages, c.tests, c.decks, dict)
-                )
-              }
-              delay={40 + i * 50}
-            />
+            <li key={id} className="enter" style={{ animationDelay: `${30 + i * 35}ms` }}>
+              <Link href={subjectHref(id, semester)} className="group block outline-none" aria-label={label}>
+                <SubjectBook
+                  subject={id}
+                  label={label}
+                  className="transition-transform duration-300 ease-out group-hover:-translate-y-1.5 group-hover:-rotate-1 group-focus-visible:-translate-y-1.5 group-active:scale-[0.98]"
+                />
+                <span className="mt-2.5 block truncate text-sm font-medium group-hover:text-[var(--c-amber)]">{label}</span>
+                <span className="block truncate text-xs text-muted-foreground">
+                  {hasPractice && state.loading ? (
+                    <span className="inline-block h-3 w-16 animate-pulse rounded bg-muted align-middle" />
+                  ) : (
+                    summary(pages, c.tests, c.decks, dict) || "\u00a0"
+                  )}
+                </span>
+              </Link>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 }
