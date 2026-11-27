@@ -136,7 +136,7 @@ function Segmented({
   options: { value: string; label: React.ReactNode }[];
 }) {
   return (
-    <div role="radiogroup" aria-label={label} className="grid auto-cols-fr grid-flow-col gap-1 rounded-xl border bg-card p-1">
+    <div role="radiogroup" aria-label={label} className="grid auto-cols-fr grid-flow-col gap-1 rounded-xl border bg-card shadow-card p-1">
       {options.map((o) => {
         const on = o.value === value;
         return (

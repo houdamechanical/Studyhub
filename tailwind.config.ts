@@ -11,6 +11,7 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: { card: "var(--shadow-rest)" },
       fontFamily: {
         display: [
           "var(--font-display)",

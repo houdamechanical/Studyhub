@@ -125,7 +125,7 @@ export function SubjectPage({
       {/* Big, obvious way back to all subjects */}
       <Link
         href={semesterHref(semester)}
-        className="press inline-flex h-11 items-center gap-2 rounded-xl border bg-card pe-4 ps-3 font-semibold hover:bg-secondary"
+        className="press inline-flex h-11 items-center gap-2 rounded-xl border bg-card shadow-card pe-4 ps-3 font-semibold hover:bg-secondary"
       >
         <ArrowLeft size={20} className="rtl:rotate-180" />
         {dict.school.subjects}
@@ -239,7 +239,7 @@ export function SubjectPage({
 
       <div key={tab} className="enter mt-5" role="tabpanel">
         {tab !== "pages" && state.loading ? (
-          <div className="h-48 animate-pulse rounded-xl border bg-card" />
+          <div className="h-48 animate-pulse rounded-xl border bg-card shadow-card" />
         ) : tab === "pages" ? (
           pages.length === 0 ? (
             <List empty={t.emptyPages}>{[]}</List>
@@ -371,7 +371,7 @@ function List({
     );
   }
   return (
-    <ul className="divide-y overflow-hidden rounded-xl border bg-card">
+    <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
       {children}
     </ul>
   );

@@ -133,7 +133,7 @@ function CompareView({ subject, missing, nickname, shared, board, myScore }: Awa
         ) : (
           <>
             {!onBoard && (
-              <div className="mt-5 flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mt-5 flex flex-col gap-3 rounded-xl border bg-card shadow-card p-4 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-muted-foreground">{subject ? t.notShared : t.notSharedAny}</p>
                 <Button onClick={shareNow} disabled={pending} className="shrink-0">
                   <Check size={16} />

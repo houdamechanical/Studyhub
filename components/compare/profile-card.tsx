@@ -85,7 +85,7 @@ export function ProfileCard({
   return (
     <section
       id="name"
-      className="flex scroll-mt-24 flex-col gap-5 rounded-xl border bg-card p-5"
+      className="flex scroll-mt-24 flex-col gap-5 rounded-xl border bg-card shadow-card p-5"
     >
       {part !== "share" && (
         <form onSubmit={save} className="flex flex-col gap-1.5">

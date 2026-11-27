@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-27T19:32:35.915Z",
+        "reason": "DESIGN.md pins Inter as the body face beside Bricolage Grotesque"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "content/**/*.html"
+        ],
+        "createdAt": "2026-11-27T19:32:39.589Z",
+        "reason": "DESIGN.md: Notebook cream paper is the committed light background"
+      }
+    ]
+  }
+}

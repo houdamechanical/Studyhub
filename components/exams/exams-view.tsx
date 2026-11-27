@@ -17,7 +17,7 @@ export function ExamsView({ exams }: { exams: SchoolExam[] }) {
   // "Today" needs the browser's date, so only after mount.
   const [today, setToday] = useState<string | null>(null);
   useEffect(() => setToday(todayISO()), []);
-  if (today === null) return <div className="h-40 animate-pulse rounded-xl border bg-card" aria-hidden />;
+  if (today === null) return <div className="h-40 animate-pulse rounded-xl border bg-card shadow-card" aria-hidden />;
 
   const upcoming = sortByDate(exams.filter((e) => e.exam_date >= today));
   const written = sortByDate(exams.filter((e) => e.exam_date < today), -1);
@@ -39,7 +39,7 @@ export function ExamsView({ exams }: { exams: SchoolExam[] }) {
         list.length === 0 ? null : (
           <section key={heading}>
             <h2 className="eyebrow mb-3">{heading}</h2>
-            <ul className="divide-y overflow-hidden rounded-xl border bg-card">
+            <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
               {list.map((exam) => (
                 <ExamRow key={exam.id} exam={exam} past={exam.exam_date < today} />
               ))}
@@ -85,7 +85,7 @@ function NextExam({ exam }: { exam: SchoolExam | null }) {
   }
   const days = daysUntil(exam.exam_date);
   return (
-    <section aria-label={t.next} className="relative overflow-hidden rounded-xl border bg-card p-5 sm:p-6">
+    <section aria-label={t.next} className="relative overflow-hidden rounded-xl border bg-card shadow-card p-5 sm:p-6">
       <div aria-hidden className="glow-orb pointer-events-none absolute -end-20 -top-24 size-72" />
       <p className="eyebrow relative">{t.next}</p>
       <h2 className="relative mt-2 font-display text-2xl font-semibold sm:text-3xl">

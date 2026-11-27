@@ -110,10 +110,9 @@ export function ElectivesOnboarding({ onDone }: { onDone: (list: SubjectId[]) =>
           e.preventDefault();
           if (valid) save(value);
         }}
-        className="enter w-full max-w-md rounded-xl border bg-card p-7 sm:p-9"
+        className="enter w-full max-w-md rounded-xl border bg-card shadow-card p-7 sm:p-9"
       >
-        <p className="eyebrow">{t.hello}</p>
-        <h1 className="mt-2 font-display text-3xl font-semibold leading-tight sm:text-4xl">{t.title}</h1>
+        <h1 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">{t.title}</h1>
         <p className="mt-2 text-muted-foreground">{t.subtitle}</p>
         <div className="mt-6">
           <ElectivesPicker value={value} onChange={setValue} />

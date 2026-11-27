@@ -75,7 +75,7 @@ export function GradeBook({
   return (
     <div className="flex flex-col gap-6">
       {/* NC summary */}
-      <section className="relative overflow-hidden rounded-2xl border bg-card p-5 sm:p-6">
+      <section className="relative overflow-hidden rounded-2xl border bg-card shadow-card p-5 sm:p-6">
         <div aria-hidden className="pointer-events-none absolute -end-16 -top-20 size-64 rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--c-amber)_18%,transparent),transparent)]" />
         <div className="relative flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -98,7 +98,7 @@ export function GradeBook({
         {results.map((r) => {
           const subjectExams = semesterExams.filter((e) => e.subject === r.subject).sort((a, b) => a.exam_date.localeCompare(b.exam_date));
           return (
-            <section key={r.subject} className="overflow-hidden rounded-2xl border bg-card" style={{ "--subject": BOOK_COLORS[r.subject] } as React.CSSProperties}>
+            <section key={r.subject} className="overflow-hidden rounded-2xl border bg-card shadow-card" style={{ "--subject": BOOK_COLORS[r.subject] } as React.CSSProperties}>
               <header className="flex items-center gap-3 border-b px-4 py-3">
                 <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[var(--subject)] text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.2)]">
                   <SubjectIcon subject={r.subject} className="size-[18px]" />

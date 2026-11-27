@@ -174,5 +174,114 @@
       "Religionskritik"
     ],
     "file": "religion/11.1/religion-klausur-was-ist-religion.html"
+  },
+  {
+    "id": "deutsch-lyrik-epochen",
+    "title": "Barock, Sturm und Drang, Weimarer Klassik – Erklärung und Zusammenfassung",
+    "subject": "deutsch",
+    "semester": "11.1",
+    "topic": "Lyrik: Epochen",
+    "kind": "notes",
+    "tags": [
+      "Barock",
+      "Sturm und Drang",
+      "Weimarer Klassik",
+      "Gryphius",
+      "Goethe",
+      "Schiller",
+      "Vanitas",
+      "Geniekult",
+      "Humanitätsideal",
+      "Epochen"
+    ],
+    "file": "deutsch/11.1/lyrik-epochen.html"
+  },
+  {
+    "id": "deutsch-lyrik-aufbau-gedichtinterpretation",
+    "title": "Aufbau der Gedichtinterpretation",
+    "subject": "deutsch",
+    "semester": "11.1",
+    "topic": "Lyrik: Gedichtinterpretation schreiben",
+    "kind": "notes",
+    "tags": [
+      "Gedichtinterpretation",
+      "Aufbau",
+      "Einleitung",
+      "Hauptteil",
+      "Schluss",
+      "Deutungshypothese",
+      "Zitieren",
+      "Aufgabenblatt"
+    ],
+    "file": "deutsch/11.1/lyrik-aufbau-gedichtinterpretation.html"
+  },
+  {
+    "id": "deutsch-lyrik-stilmittel-formulierungen",
+    "title": "Stilmittel und Formulierungshilfen",
+    "subject": "deutsch",
+    "semester": "11.1",
+    "topic": "Lyrik: Gedichtinterpretation schreiben",
+    "kind": "notes",
+    "tags": [
+      "Stilmittel",
+      "rhetorische Figuren",
+      "Metrum",
+      "Reim",
+      "Kadenz",
+      "Formulierungshilfen",
+      "Überleitungen"
+    ],
+    "file": "deutsch/11.1/lyrik-stilmittel-formulierungen.html"
+  },
+  {
+    "id": "deutsch-lyrik-beispiel-barock-gryphius",
+    "title": "Barock: Gryphius „Es ist alles eitel“ – Musterlösung",
+    "subject": "deutsch",
+    "semester": "11.1",
+    "topic": "Lyrik: Gedichtbeispiele mit Musterlösung",
+    "kind": "notes",
+    "tags": [
+      "Barock",
+      "Gryphius",
+      "Es ist alles eitel",
+      "Sonett",
+      "Vanitas",
+      "Musterlösung"
+    ],
+    "file": "deutsch/11.1/lyrik-beispiel-barock-gryphius.html"
+  },
+  {
+    "id": "deutsch-lyrik-beispiel-sturm-und-drang-prometheus",
+    "title": "Sturm und Drang: Goethe „Prometheus“ – Musterlösung",
+    "subject": "deutsch",
+    "semester": "11.1",
+    "topic": "Lyrik: Gedichtbeispiele mit Musterlösung",
+    "kind": "notes",
+    "tags": [
+      "Sturm und Drang",
+      "Goethe",
+      "Prometheus",
+      "Hymne",
+      "freie Rhythmen",
+      "Musterlösung"
+    ],
+    "file": "deutsch/11.1/lyrik-beispiel-sturm-und-drang-prometheus.html"
+  },
+  {
+    "id": "deutsch-lyrik-beispiel-klassik-das-goettliche",
+    "title": "Weimarer Klassik: Goethe „Das Göttliche“ – Musterlösung",
+    "subject": "deutsch",
+    "semester": "11.1",
+    "topic": "Lyrik: Gedichtbeispiele mit Musterlösung",
+    "kind": "notes",
+    "tags": [
+      "Weimarer Klassik",
+      "Goethe",
+      "Das Göttliche",
+      "Hymne",
+      "Humanität",
+      "Musterlösung"
+    ],
+    "file": "deutsch/11.1/lyrik-beispiel-klassik-das-goettliche.html"
   }
 ]

@@ -47,7 +47,7 @@ export function MiniCalendar({ exams, onOpen }: { exams: SchoolExam[]; onOpen: (
   const wd = useWeekdays("narrow");
   const [today, setToday] = useState<string | null>(null);
   useEffect(() => setToday(todayISO()), []);
-  if (!today) return <div className="h-full min-h-48 animate-pulse rounded-xl border bg-card" aria-hidden />;
+  if (!today) return <div className="h-full min-h-48 animate-pulse rounded-xl border bg-card shadow-card" aria-hidden />;
 
   const month = monthOf(today);
   const map = byDate(exams);
@@ -57,7 +57,7 @@ export function MiniCalendar({ exams, onOpen }: { exams: SchoolExam[]; onOpen: (
       type="button"
       onClick={onOpen}
       aria-label={dict.home.openCalendar}
-      className="enter group flex h-full w-full flex-col rounded-xl border bg-card text-start transition-colors hover:border-[var(--c-border-strong)]"
+      className="enter group flex h-full w-full flex-col rounded-xl border bg-card shadow-card text-start transition-colors hover:border-[var(--c-border-strong)]"
     >
       <span className="flex w-full items-center justify-between border-b px-4 py-2.5">
         <span className="text-sm font-medium text-muted-foreground">{dict.home.calendar}</span>
@@ -85,17 +85,20 @@ export function MiniCalendar({ exams, onOpen }: { exams: SchoolExam[]; onOpen: (
               const date = iso(month.y, month.m, d);
               const has = map.has(date);
               const isToday = date === today;
+              const done = has && date < today;
               return (
                 <span key={i} className="flex justify-center py-0.5">
                   <span
                     className={cn(
                       "relative flex size-6 items-center justify-center rounded-md tabular-nums",
-                      has && "bg-[color-mix(in_srgb,var(--c-amber)_16%,transparent)] font-semibold text-[var(--c-amber)]",
+                      has && !done && "bg-[color-mix(in_srgb,var(--c-amber)_16%,transparent)] font-semibold text-[var(--c-amber)]",
+                      done && "font-semibold text-muted-foreground",
                       isToday && "ring-1 ring-foreground/40",
                       !has && date < today && "text-muted-foreground/60",
                     )}
                   >
                     {d}
+                    {done && <PastMark />}
                   </span>
                 </span>
               );
@@ -104,6 +107,11 @@ export function MiniCalendar({ exams, onOpen }: { exams: SchoolExam[]; onOpen: (
       </span>
     </button>
   );
+}
+
+/** Hand-drawn style cross over a day whose exam is already written. */
+function PastMark() {
+  return <X className="pointer-events-none absolute inset-0 m-auto size-6 text-foreground/75" strokeWidth={2.25} aria-hidden />;
 }
 
 /** Full calendar in a dialog: month by month, every exam on its day, and the month's list below. */
@@ -192,22 +200,25 @@ export function CalendarDialog({ exams, onClose }: { exams: SchoolExam[]; onClos
                     disabled={day.length === 0}
                     onClick={() => setPicked((p) => (p === date ? null : date))}
                     aria-pressed={picked === date}
-                    aria-label={day.length ? `${formatDate(date, locale)}: ${day.map((e) => SUBJECTS[e.subject].label[locale]).join(", ")}` : undefined}
+                    aria-label={day.length ? `${formatDate(date, locale)}: ${day.map((e) => SUBJECTS[e.subject].label[locale]).join(", ")}${past ? ` (${t.pastExam})` : ""}` : undefined}
                     className={cn(
                       "flex min-h-14 flex-col items-stretch gap-0.5 rounded-lg border p-1 text-start sm:min-h-20 sm:p-1.5",
                       day.length ? "bg-card hover:border-[var(--c-border-strong)]" : "border-transparent",
                       picked === date && "border-[var(--c-amber)]",
-                      past && "opacity-55",
+                      past && day.length === 0 && "opacity-55",
                     )}
                   >
                     <span className={cn("text-xs tabular-nums", date === today ? "font-bold text-[var(--c-amber)]" : "text-muted-foreground")}>{d}</span>
                     {day.map((e) => (
                       <span
                         key={e.id}
-                        className="flex items-center gap-1 truncate rounded bg-[color-mix(in_srgb,var(--c-amber)_14%,transparent)] px-1 py-0.5 text-xs font-medium text-[var(--c-amber)] sm:text-xs"
+                        className={cn(
+                          "flex items-center gap-1 truncate rounded px-1 py-0.5 text-xs font-medium",
+                          past ? "bg-secondary text-muted-foreground" : "bg-[color-mix(in_srgb,var(--c-amber)_14%,transparent)] text-[var(--c-amber)]",
+                        )}
                       >
-                        <SubjectIcon subject={e.subject} className="size-3 shrink-0" />
-                        <span className="hidden truncate sm:inline">{SUBJECTS[e.subject].label[locale]}</span>
+                        {past ? <X className="size-3 shrink-0 text-foreground" strokeWidth={3} aria-hidden /> : <SubjectIcon subject={e.subject} className="size-3 shrink-0" />}
+                        <span className={cn("hidden truncate sm:inline", past && "line-through")}>{SUBJECTS[e.subject].label[locale]}</span>
                       </span>
                     ))}
                   </button>
@@ -215,12 +226,18 @@ export function CalendarDialog({ exams, onClose }: { exams: SchoolExam[]; onClos
               })}
           </div>
 
-          <ul className="m-4 divide-y rounded-xl border bg-card">
+          <ul className="m-4 divide-y rounded-xl border bg-card shadow-card">
             {list.length === 0 && <li className="px-4 py-6 text-center text-sm text-muted-foreground">{t.noExamsMonth}</li>}
             {list.map((e) => (
-              <li key={e.id} className={cn("flex items-center gap-3 px-4 py-2.5 text-sm", e.exam_date < today && "opacity-60")}>
-                <SubjectIcon subject={e.subject} className="size-4 shrink-0 text-muted-foreground" />
-                <span className="min-w-0 flex-1 truncate font-medium">
+              <li key={e.id} className={cn("flex items-center gap-3 px-4 py-2.5 text-sm", e.exam_date < today && "text-muted-foreground")}>
+                {e.exam_date < today ? (
+                  <span className="flex size-4 shrink-0 items-center justify-center" title={t.pastExam}>
+                    <X className="size-4 text-foreground" strokeWidth={3} aria-label={t.pastExam} />
+                  </span>
+                ) : (
+                  <SubjectIcon subject={e.subject} className="size-4 shrink-0 text-muted-foreground" />
+                )}
+                <span className={cn("min-w-0 flex-1 truncate font-medium", e.exam_date < today && "line-through decoration-foreground/50")}>
                   {SUBJECTS[e.subject].label[locale]}
                   {e.title && <span className="font-normal text-muted-foreground"> · {e.title}</span>}
                 </span>
