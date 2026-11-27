@@ -1,7 +1,6 @@
 "use client";
 
-import { SubjectIcon } from "@/components/subject-icon";
-import { ArrowLeft, Clock, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, Play } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -49,6 +48,11 @@ export function QuizRunner({
   const questionCount = quiz.draw_count ?? pool.length;
 
   const answeredCount = questions.filter((q) => isAnswered(answers[q.id])).length;
+  const [index, setIndex] = useState(0);
+  function go(i: number) {
+    setIndex(Math.max(0, Math.min(questions.length - 1, i)));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   async function start() {
     setError(null);
@@ -97,27 +101,37 @@ export function QuizRunner({
           <ArrowLeft size={16} className="rtl:rotate-180" />
           {t.backToPractice}
         </Link>
-        <div className="rounded-xl border bg-card p-5">
-          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            {quiz.kind === "mock" ? t.mock : t.mini} · <SubjectIcon subject={quiz.subject} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />{subject.label[locale]}
+        <section className="relative isolate py-8 text-center sm:py-12">
+          <div aria-hidden className="glow-orb pointer-events-none absolute inset-0 -z-10 m-auto size-[320px] sm:size-[420px]" />
+          <p className="eyebrow">
+            {quiz.kind === "mock" ? t.mock : t.mini} · {subject.label[locale]}
           </p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight" dir="auto">{quiz.title}</h1>
-          {quiz.description && <p className="mt-2 whitespace-pre-line text-sm text-muted-foreground" dir="auto">{quiz.description}</p>}
-          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+          <h1 className="mx-auto mt-4 max-w-xl font-display text-4xl font-normal leading-tight sm:text-5xl" dir="auto">
+            {quiz.title}
+          </h1>
+          {quiz.description && (
+            <p className="mx-auto mt-3 max-w-md whitespace-pre-line text-muted-foreground" dir="auto">
+              {quiz.description}
+            </p>
+          )}
+          <p className="mx-auto mt-8 flex max-w-sm items-center justify-center gap-6 border-y py-4 font-display text-xl">
             <span>{fill(dict.practice.questions, { n: questionCount })}</span>
             {quiz.duration_minutes && (
-              <span className="flex items-center gap-1">
-                <Clock size={14} />
-                {fill(dict.practice.minutes, { n: quiz.duration_minutes })}
-              </span>
+              <>
+                <span className="h-5 w-px bg-border" aria-hidden />
+                <span className="flex items-center gap-2">
+                  <Clock size={16} className="text-muted-foreground" />
+                  {fill(dict.practice.minutes, { n: quiz.duration_minutes })}
+                </span>
+              </>
             )}
           </p>
 
           {quiz.duration_minutes && (
-            <label className="mt-4 flex items-start gap-3 rounded-lg border p-3 text-sm">
+            <label className="mx-auto mt-6 flex max-w-sm cursor-pointer items-start gap-3 text-start text-sm">
               <input
                 type="checkbox"
-                className="mt-0.5 size-4 accent-[var(--chart-accent)]"
+                className="mt-0.5 size-4 shrink-0 accent-[var(--c-amber)]"
                 checked={timed}
                 onChange={(e) => setTimed(e.target.checked)}
               />
@@ -129,19 +143,19 @@ export function QuizRunner({
           )}
 
           <FormError message={error} />
-          <Button className="mt-4" size="lg" onClick={start} disabled={pool.length === 0}>
+          <Button className="mt-8 h-12 min-w-44 rounded-lg text-base" onClick={start} disabled={pool.length === 0}>
             <Play size={16} />
             {t.start}
           </Button>
-        </div>
+        </section>
 
         {attempts.length > 0 && (
           <section>
-            <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.previousAttempts}</h2>
+            <h2 className="eyebrow mb-3">{t.previousAttempts}</h2>
             <ul className="divide-y rounded-xl border bg-card">
               {attempts.map((a) => (
                 <li key={a.id}>
-                  <Link href={`/practice/attempt?id=${a.id}`} className="flex items-center justify-between gap-3 px-4 py-3 text-sm hover:bg-accent">
+                  <Link href={`/practice/attempt?id=${a.id}`} className="flex items-center justify-between gap-3 px-4 py-3 text-sm transition-colors duration-200 hover:bg-secondary">
                     <span className="text-muted-foreground">
                       {new Intl.DateTimeFormat(intlLocale(locale), {
                         dateStyle: "medium",
@@ -164,43 +178,85 @@ export function QuizRunner({
     );
   }
 
+  const q = questions[Math.min(index, Math.max(0, questions.length - 1))];
+  const last = index >= questions.length - 1;
+  const busy = phase === "submitting";
+
   return (
-    <div className="flex flex-col gap-4">
-      {/* Sticky status bar under the app header */}
-      <div className="sticky top-14 z-30 -mx-4 flex lg:top-0 items-center gap-3 border-b bg-background/95 px-4 py-2 backdrop-blur">
-        {endsAt && <Countdown endsAt={endsAt} onElapsed={() => submit(true)} />}
-        <span className="text-sm text-muted-foreground tabular-nums">
-          {fill(t.answered, { a: answeredCount, n: questions.length })}
-        </span>
-        <Button className="ms-auto" size="sm" onClick={() => submit()} disabled={phase === "submitting"}>
-          {phase === "submitting" ? dict.common.saving : t.submit}
-        </Button>
+    <div className="flex flex-col">
+      {/* Status bar + thin progress line */}
+      <div className="sticky top-14 z-30 -mx-4 bg-background/90 px-4 backdrop-blur lg:top-0">
+        <div className="flex items-center gap-3 py-3">
+          {endsAt && <Countdown endsAt={endsAt} onElapsed={() => submit(true)} />}
+          <span className="eyebrow">{fill(t.questionOf, { n: index + 1, total: questions.length })}</span>
+          <span className="ms-auto text-sm tabular-nums text-muted-foreground">
+            {fill(t.answered, { a: answeredCount, n: questions.length })}
+          </span>
+        </div>
+        <div className="h-px bg-border">
+          <div
+            className="h-px bg-[var(--c-amber)] transition-[width] duration-300 ease-out"
+            style={{ width: `${((index + 1) / Math.max(1, questions.length)) * 100}%` }}
+          />
+        </div>
       </div>
 
-      <h1 className="text-lg font-semibold" dir="auto">{quiz.title}</h1>
       <FormError message={error} />
 
-      <ol className="flex flex-col gap-3">
-        {questions.map((q, i) => (
-          <li key={q.id} className="rounded-xl border bg-card p-4">
-            <p className="mb-1 flex justify-between text-xs text-muted-foreground">
-              <span>{fill(t.question, { n: i + 1 })}</span>
-              <span>{fill(t.pointsShort, { n: q.points })}</span>
-            </p>
-            <p className="mb-3 whitespace-pre-line font-medium" dir="auto">{q.prompt}</p>
+      {q && (
+        <div key={q.id} className="enter py-10 sm:py-14">
+          <p className="eyebrow flex justify-between">
+            <span>{fill(t.question, { n: index + 1 })}</span>
+            <span>{fill(t.pointsShort, { n: q.points })}</span>
+          </p>
+          <p className="mt-4 max-w-[65ch] whitespace-pre-line font-display text-2xl font-normal leading-snug sm:text-[1.7rem]" dir="auto">
+            {q.prompt}
+          </p>
+          <div className="mt-8">
             <AnswerInput
               question={q}
               value={answers[q.id] ?? null}
               onChange={(v) => setAnswers((prev) => ({ ...prev, [q.id]: v }))}
-              disabled={phase === "submitting"}
+              disabled={busy}
             />
-          </li>
-        ))}
-      </ol>
+          </div>
+        </div>
+      )}
 
-      <Button size="lg" onClick={() => submit()} disabled={phase === "submitting"} className="self-end">
-        {phase === "submitting" ? dict.common.saving : t.submit}
-      </Button>
+      {/* Back · question dots · Next / Submit */}
+      <div className="hairline flex items-center gap-3 pt-5">
+        <Button variant="ghost" onClick={() => go(index - 1)} disabled={index === 0 || busy} className="rounded-lg">
+          <ArrowLeft size={16} className="rtl:rotate-180" />
+          {t.previous}
+        </Button>
+        <ol className="flex min-w-0 flex-1 flex-wrap justify-center gap-1.5" aria-label={t.questionOf}>
+          {questions.map((item, i) => (
+            <li key={item.id}>
+              <button
+                type="button"
+                onClick={() => go(i)}
+                aria-label={fill(t.question, { n: i + 1 })}
+                aria-current={i === index ? "step" : undefined}
+                className={cn(
+                  "block size-2.5 rounded-full transition-colors duration-200",
+                  isAnswered(answers[item.id]) ? "bg-[var(--c-amber)]" : "bg-[#4a443c]",
+                  i === index && "ring-2 ring-primary/60 ring-offset-2 ring-offset-background",
+                )}
+              />
+            </li>
+          ))}
+        </ol>
+        {last ? (
+          <Button onClick={() => submit()} disabled={busy} className="rounded-lg">
+            {busy ? dict.common.saving : t.submit}
+          </Button>
+        ) : (
+          <Button onClick={() => go(index + 1)} disabled={busy} className="rounded-lg">
+            {t.next}
+            <ArrowRight size={16} className="rtl:rotate-180" />
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
@@ -232,7 +288,7 @@ function AnswerInput({
     const multi = question.type === "multi";
     const selected = multi ? ((value as number[] | null) ?? []) : value;
     return (
-      <div className="flex flex-col gap-2" role={multi ? "group" : "radiogroup"}>
+      <div className="flex flex-col gap-2.5" role={multi ? "group" : "radiogroup"}>
         {multi && <p className="text-xs text-muted-foreground">{t.multiHint}</p>}
         {question.options.map((option, index) => {
           const checked = multi ? (selected as number[]).includes(index) : selected === index;
@@ -240,14 +296,15 @@ function AnswerInput({
             <label
               key={index}
               className={cn(
-                "flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2.5 text-sm transition-colors",
-                checked ? "border-[var(--chart-accent)] bg-[color-mix(in_srgb,var(--chart-accent)_10%,transparent)]" : "hover:bg-accent",
+                "flex cursor-pointer items-center gap-4 rounded-xl border px-4 py-3.5 transition-colors duration-200",
+                checked ? "border-[var(--c-amber)] bg-[rgb(201_164_106/0.08)]" : "hover:border-[#4a443c] hover:bg-secondary/50",
+                disabled && "cursor-default opacity-70",
               )}
             >
               <input
                 type={multi ? "checkbox" : "radio"}
                 name={question.id}
-                className="mt-0.5 size-4 shrink-0 accent-[var(--chart-accent)]"
+                className="sr-only"
                 checked={checked}
                 disabled={disabled}
                 onChange={() => {
@@ -256,6 +313,16 @@ function AnswerInput({
                   onChange(checked ? list.filter((x) => x !== index) : [...list, index].sort((a, b) => a - b));
                 }}
               />
+              <span
+                aria-hidden
+                className={cn(
+                  "flex size-7 shrink-0 items-center justify-center border text-xs font-medium transition-colors duration-200",
+                  multi ? "rounded-md" : "rounded-full",
+                  checked ? "border-transparent bg-[var(--c-amber)] text-[#1c1a17]" : "text-muted-foreground",
+                )}
+              >
+                {String.fromCharCode(65 + index)}
+              </span>
               <span className="whitespace-pre-line" dir="auto">{option}</span>
             </label>
           );

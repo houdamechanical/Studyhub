@@ -20,7 +20,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </div>
             </div>
           </header>
-          <main className="flex flex-1 flex-col pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0">{children}</main>
+          <main className="flex flex-1 flex-col overflow-x-clip pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0">{children}</main>
         </div>
         <BottomNav />
       </div>

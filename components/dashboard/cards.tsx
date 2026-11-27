@@ -15,9 +15,9 @@ import { cn } from "@/lib/utils";
 
 export function Card({ title, aside, children, className }: { title: string; aside?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
-    <section className={cn("soft flex flex-col rounded-xl border bg-card p-5 sm:p-6", className)}>
-      <div className="mb-4 flex items-baseline justify-between gap-2">
-        <h2 className="font-display text-lg font-semibold">{title}</h2>
+    <section className={cn("hairline flex flex-col pt-6", className)}>
+      <div className="mb-5 flex items-baseline justify-between gap-2">
+        <h2 className="eyebrow">{title}</h2>
         {aside}
       </div>
       {children}
@@ -214,7 +214,7 @@ export function StreakCard({ days, streak, today }: { days: Set<string> | null; 
       <div className="flex items-center gap-3">
         <Flame size={28} strokeWidth={1.75} className={streak > 0 ? "text-primary" : "text-muted-foreground"} />
         <div>
-          <p className="font-display text-4xl font-medium tabular-nums leading-none">{days ? streak : "–"}</p>
+          <p className="font-display text-5xl font-medium tabular-nums leading-none">{days ? streak : "–"}</p>
           <p className="mt-1 text-sm text-muted-foreground">
             {streak === 0 ? t.streakZero : streak === 1 ? t.streakOne : fill(t.streakDays, { n: streak })}
           </p>

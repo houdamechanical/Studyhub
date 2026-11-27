@@ -232,3 +232,43 @@
 .focus-mode {
   animation: fade-only 400ms ease both;
 }
+
+/* Luxe & calm */
+@layer components {
+  /* Small spaced-out uppercase label above headings (editorial). */
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-text-2);
+  }
+  /* Section with a thin rule on top instead of a boxed card. */
+  .hairline {
+    border-top: 1px solid var(--c-border);
+  }
+  /* Soft warm light that slowly "breathes" behind a focal element. */
+  .glow-orb {
+    background:
+      radial-gradient(closest-side at 45% 45%, rgb(201 164 106 / 0.34), transparent 70%),
+      radial-gradient(closest-side at 62% 60%, rgb(184 138 138 / 0.22), transparent 75%),
+      radial-gradient(closest-side at 40% 65%, rgb(125 143 166 / 0.12), transparent 80%);
+    filter: blur(28px);
+    animation: breathe 9s ease-in-out infinite;
+  }
+}
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(0.94);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow-orb {
+    animation: none;
+  }
+}
