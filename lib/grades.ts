@@ -116,3 +116,31 @@ export function formatOnScale(scale: Scale, value: number, intlLocale: string, p
 export function formatScore(score: number, scale: Scale, intlLocale: string) {
   return formatOnScale(scale, fromScore(scale, score), intlLocale, true);
 }
+
+/** 0–1 score → school points (0–15). */
+export const toPoints = (score: number) => score * 15;
+
+/**
+ * NC of a half-year, as in the school's grade sheet (Notenrechner):
+ *   NC = (17 − average points of all subjects) / 3
+ * Each subject counts once (its weighted average of the half-year). An NC
+ * can't be better than 1.0, so it is capped there.
+ */
+export function ncFromPoints(points: number) {
+  return Math.max(1, (17 - points) / 3);
+}
+
+/** NC straight from a 0–1 score (what the leaderboards return). */
+export const ncFromScore = (score: number) => ncFromPoints(toPoints(score));
+
+export function halfYearNC(grades: Grade[]): { nc: number; points: number; subjects: number } | null {
+  const subjects = subjectAverages(grades);
+  if (subjects.length === 0) return null;
+  const points = subjects.reduce((s, a) => s + toPoints(a.score), 0) / subjects.length;
+  return { nc: ncFromPoints(points), points, subjects: subjects.length };
+}
+
+/** "1,8" / "1.8" */
+export function formatNC(nc: number, locale: string) {
+  return new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(nc);
+}

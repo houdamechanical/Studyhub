@@ -19,3 +19,6 @@ export function sortByDate<T extends Pick<SchoolExam, "exam_date">>(list: T[], d
 
 /** "1-2" → "1–2" */
 export const formatPeriods = (p: string) => p.replace("-", "–");
+
+/** Date of the school's Klausurplan version in school_exams (shown as "updated …"). */
+export const EXAM_PLAN_UPDATED = "2026-08-30";

@@ -3,108 +3,115 @@
 @tailwind utilities;
 
 @layer base {
-  /* Premium warm palette: ivory light mode, near-black dark mode, copper-orange accent.
+  /* Linear-style: white + blue (light), near-black + indigo (dark), a quiet gold as third accent.
+     --c-amber is the accent used for text/rings (name kept from earlier themes).
      Hex first as a fallback, then the same colour in OKLCH. */
   :root {
-    --background: 40 31% 94.3%;
-    --foreground: 34 14% 9.6%;
-    --card: 40 43% 97.3%;
-    --card-foreground: 34 14% 9.6%;
-    --popover: 40 43% 97.3%;
-    --popover-foreground: 34 14% 9.6%;
-    --primary: 22 70% 40.0%;
+    --background: 0 0% 100.0%;
+    --foreground: 220 17% 7.1%;
+    --card: 0 0% 100.0%;
+    --card-foreground: 220 17% 7.1%;
+    --popover: 0 0% 100.0%;
+    --popover-foreground: 220 17% 7.1%;
+    --primary: 226 82% 55.1%;
     --primary-foreground: 0 0% 100.0%;
-    --secondary: 38 26% 91.6%;
-    --secondary-foreground: 34 14% 9.6%;
-    --muted: 38 26% 91.6%;
-    --muted-foreground: 33 9% 38.4%;
-    --accent: 38 26% 91.6%;
-    --accent-foreground: 34 14% 9.6%;
-    --destructive: 4 59% 44.5%;
+    --secondary: 220 16% 96.3%;
+    --secondary-foreground: 220 17% 7.1%;
+    --muted: 220 16% 96.3%;
+    --muted-foreground: 221 9% 40.2%;
+    --accent: 220 16% 96.3%;
+    --accent-foreground: 220 17% 7.1%;
+    --destructive: 4 74% 48.8%;
     --destructive-foreground: 0 0% 100.0%;
-    --border: 38 22% 85.5%;
-    --input: 37 19% 81.6%;
-    --ring: 22 70% 40.0%;
-    --radius: 0.75rem;
-    --chart-accent: #ad541f;
-    --chart-muted: #cfc7bb;
-    --c-bg: #f5f2ec;
-    --c-bg: oklch(96.2% 0.009 84.6);
-    --c-surface: #fbf9f5;
-    --c-surface: oklch(98.3% 0.006 84.6);
-    --c-raised: #efebe4;
-    --c-raised: oklch(94.1% 0.010 81.8);
-    --c-border: #e2dcd2;
-    --c-border: oklch(89.6% 0.015 80.7);
-    --c-text: #1c1915;
-    --c-text: oklch(21.5% 0.009 75.1);
-    --c-text-2: #6b6359;
-    --c-text-2: oklch(50.4% 0.019 73.5);
-    --c-amber: #ad541f;
-    --c-amber: oklch(54.7% 0.133 47.5);
-    --c-sage: #4f6b45;
-    --c-sage: oklch(49.5% 0.067 137.7);
-    --c-rose: #9a4f4f;
-    --c-rose: oklch(51.9% 0.100 21.1);
+    --border: 216 11% 91.2%;
+    --input: 218 13% 87.8%;
+    --ring: 226 82% 55.1%;
+    --radius: 0.5rem;
+    --chart-accent: #2f5bea;
+    --chart-muted: #cdd1d8;
+    --c-bg: #ffffff;
+    --c-bg: oklch(100.0% 0.000 89.9);
+    --c-surface: #ffffff;
+    --c-surface: oklch(100.0% 0.000 89.9);
+    --c-raised: #f4f5f7;
+    --c-raised: oklch(97.0% 0.003 264.5);
+    --c-border: #e6e8eb;
+    --c-border: oklch(93.0% 0.005 258.3);
+    --c-text: #0f1115;
+    --c-text: oklch(17.7% 0.009 264.3);
+    --c-text-2: #5d6370;
+    --c-text-2: oklch(49.9% 0.022 265.8);
+    --c-amber: #2f5bea;
+    --c-amber: oklch(53.3% 0.221 265.8);
+    --c-gold: #b45309;
+    --c-gold: oklch(55.5% 0.146 49.0);
+    --c-sage: #2f855a;
+    --c-sage: oklch(55.3% 0.107 158.0);
+    --c-rose: #c0392b;
+    --c-rose: oklch(54.3% 0.174 29.7);
     --c-slate: #4a5f7a;
     --c-slate: oklch(47.9% 0.051 254.9);
-    --c-amber-hi: #c9672c;
+    --c-amber-hi: #2f5bea;
     --c-on-amber: #ffffff;
-    --c-pill: #e9e3d9;
-    --c-border-strong: #cfc7bb;
-    --grain-opacity: 0.025;
+    --c-pill: #eceef1;
+    --c-border-strong: #cdd1d8;
+    --c-side: #fafafb;
+    --grain-opacity: 0;
     color-scheme: light;
   }
   .dark {
-    --background: 30 8% 4.7%;
-    --foreground: 37 39% 93.5%;
-    --card: 30 10% 7.8%;
-    --card-foreground: 37 39% 93.5%;
-    --popover: 30 10% 7.8%;
-    --popover-foreground: 37 39% 93.5%;
-    --primary: 24 80% 60.8%;
-    --primary-foreground: 25 43% 5.5%;
-    --secondary: 36 9% 11.2%;
-    --secondary-foreground: 37 39% 93.5%;
-    --muted: 36 9% 11.2%;
-    --muted-foreground: 33 10% 60.0%;
-    --accent: 36 9% 11.2%;
-    --accent-foreground: 37 39% 93.5%;
-    --destructive: 3 56% 58.4%;
+    --background: 210 11% 3.5%;
+    --foreground: 220 9% 93.1%;
+    --card: 220 8% 7.3%;
+    --card-foreground: 220 9% 93.1%;
+    --popover: 225 8% 10.2%;
+    --popover-foreground: 220 9% 93.1%;
+    --primary: 234 56% 59.6%;
+    --primary-foreground: 0 0% 100.0%;
+    --secondary: 225 8% 10.2%;
+    --secondary-foreground: 220 9% 93.1%;
+    --muted: 225 8% 10.2%;
+    --muted-foreground: 220 7% 57.5%;
+    --accent: 225 8% 10.2%;
+    --accent-foreground: 220 9% 93.1%;
+    --destructive: 0 79% 63.1%;
     --destructive-foreground: 0 0% 100.0%;
-    --border: 34 9% 15.9%;
-    --input: 33 9% 18.6%;
-    --ring: 24 80% 60.8%;
-    --radius: 0.75rem;
-    --chart-accent: #eb8b4b;
-    --chart-muted: #3d3831;
-    --c-bg: #0d0c0b;
-    --c-bg: oklch(15.5% 0.003 67.6);
-    --c-surface: #161412;
-    --c-surface: oklch(19.3% 0.005 67.5);
-    --c-raised: #1f1d1a;
-    --c-raised: oklch(23.2% 0.006 78.2);
-    --c-border: #2c2925;
-    --c-border: oklch(28.3% 0.008 75.2);
-    --c-text: #f5f0e8;
-    --c-text: oklch(95.7% 0.012 79.8);
-    --c-text-2: #a39a8f;
-    --c-text-2: oklch(69.1% 0.019 73.0);
-    --c-amber: #eb8b4b;
-    --c-amber: oklch(72.7% 0.141 52.3);
-    --c-sage: #8fa382;
-    --c-sage: oklch(69.1% 0.052 133.2);
-    --c-rose: #c08f8f;
-    --c-rose: oklch(69.7% 0.060 18.7);
+    --border: 228 7% 14.3%;
+    --input: 223 8% 17.8%;
+    --ring: 235 88% 76.7%;
+    --radius: 0.5rem;
+    --chart-accent: #8f98f8;
+    --chart-muted: #34363c;
+    --c-bg: #08090a;
+    --c-bg: oklch(13.9% 0.003 246.3);
+    --c-surface: #111214;
+    --c-surface: oklch(18.2% 0.004 264.5);
+    --c-raised: #18191c;
+    --c-raised: oklch(21.4% 0.006 271.1);
+    --c-border: #222327;
+    --c-border: oklch(25.7% 0.008 274.7);
+    --c-text: #ecedef;
+    --c-text: oklch(94.6% 0.003 264.5);
+    --c-text-2: #8b909a;
+    --c-text-2: oklch(65.2% 0.016 264.5);
+    --c-amber: #8f98f8;
+    --c-amber: oklch(71.3% 0.140 278.2);
+    --c-gold: #f2b24c;
+    --c-gold: oklch(80.5% 0.138 75.9);
+    --c-sage: #5fbf8a;
+    --c-sage: oklch(73.2% 0.121 157.4);
+    --c-rose: #e5787a;
+    --c-rose: oklch(69.7% 0.135 20.0);
     --c-slate: #8a9bb3;
     --c-slate: oklch(68.4% 0.040 257.0);
-    --c-amber-hi: #f4a468;
-    --c-on-amber: #140d08;
-    --c-pill: #29261f;
-    --c-border-strong: #3d3831;
-    --grain-opacity: 0.035;
+    --c-amber-hi: #5e6ad2;
+    --c-on-amber: #ffffff;
+    --c-pill: #1f2024;
+    --c-border-strong: #34363c;
+    --c-side: #0c0d0e;
+    --grain-opacity: 0;
     color-scheme: dark;
-    }
+  }
 }
 
 @layer base {
@@ -153,7 +160,11 @@
 
 @layer base {
   html {
-    font-size: 16.5px;
+    font-size: 15px;
+  }
+  /* iOS zooms into inputs under 16px */
+  @media (max-width: 640px) {
+    input, select, textarea { font-size: 16px; }
   }
   body {
     line-height: 1.6;
@@ -170,12 +181,13 @@
     background-image: var(--grain);
     opacity: var(--grain-opacity);
   }
+  /* Headings: Inter, tight like Linear */
   .font-display {
-    letter-spacing: -0.01em;
-    font-variation-settings: "SOFT" 100, "WONK" 0;
+    letter-spacing: -0.022em;
   }
   h1, h2, h3 {
-    line-height: 1.25;
+    line-height: 1.2;
+    letter-spacing: -0.018em;
   }
   ::selection {
     background: color-mix(in srgb, var(--c-amber) 30%, transparent);
@@ -401,5 +413,30 @@
 @media (prefers-reduced-motion: reduce) {
   .check-pop {
     animation: none;
+  }
+}
+
+/* Print (e.g. the exam plan): just the content, black on white */
+@media print {
+  .no-print,
+  [role="tooltip"] {
+    display: none !important;
+  }
+  :root,
+  .dark {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --muted-foreground: 0 0% 30%;
+    --border: 0 0% 80%;
+    --c-amber: #000;
+    --c-gold: #000;
+  }
+  main {
+    padding: 0 !important;
+  }
+  a {
+    text-decoration: none;
   }
 }

@@ -25,8 +25,8 @@ export function AuthHero({ children }: { children: React.ReactNode }) {
         </div>
 
         <h1
-          className="wordmark-in absolute inset-x-0 top-[13svh] z-[1] text-center font-display font-light leading-none text-foreground lg:top-[9vh]"
-          style={{ fontSize: "min(15vw, 19vh)", letterSpacing: "-0.035em" }}
+          className="wordmark-in absolute inset-x-0 top-[13svh] z-[1] text-center font-display font-semibold leading-none text-foreground lg:top-[9vh]"
+          style={{ fontSize: "min(15vw, 19vh)", letterSpacing: "-0.055em" }}
         >
           Study Hub
         </h1>

@@ -71,7 +71,7 @@ function Choice({ id, on, role, onClick }: { id: SubjectId; on: boolean; role: "
           <Check size={11} strokeWidth={3} />
         </span>
       )}
-      <SubjectIcon subject={id} className={cn("size-6", on && "text-primary")} strokeWidth={1.75} />
+      <SubjectIcon subject={id} className={cn("size-6", on && "text-[var(--c-amber)]")} strokeWidth={1.75} />
       {SUBJECTS[id].label[locale]}
     </button>
   );

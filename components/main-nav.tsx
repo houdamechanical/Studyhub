@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, CalendarCheck, House, Settings, Trophy, type LucideIcon } from "lucide-react";
+import { BookOpen, CalendarCheck, House, Settings, Users, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SlidingIndicator } from "@/components/sliding-indicator";
@@ -21,7 +21,7 @@ type NavItem = {
 export const NAV_ITEMS: NavItem[] = [
   { href: "/home", label: "home", icon: House, match: ["/home"] },
   { href: semesterHref(), label: "subjects", icon: BookOpen, match: ["/grade", "/library", "/practice"] },
-  { href: "/compare", label: "leaderboard", icon: Trophy, match: ["/compare"] },
+  { href: "/communities", label: "communities", icon: Users, match: ["/communities", "/compare"] },
   { href: "/grades", label: "exams", icon: CalendarCheck, match: ["/grades", "/exams"] },
   { href: "/settings", label: "settings", icon: Settings, match: ["/settings", "/admin"] },
 ];
@@ -31,12 +31,12 @@ export function useActiveNav() {
   return (item: NavItem) => item.match.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
-/** App mark: copper square with an open book. */
+/** App mark: accent square with an open book. */
 export function LogoMark({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "flex size-9 items-center justify-center rounded-xl bg-gradient-to-b from-[var(--c-amber-hi)] to-[var(--c-amber)] text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.25)]",
+        "flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.2)]",
         className,
       )}
     >
@@ -60,7 +60,7 @@ export function BottomNav() {
   const isActive = useActiveNav();
   const activeIndex = NAV_ITEMS.findIndex(isActive);
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t bg-background/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
+    <nav className="no-print fixed inset-x-0 bottom-0 z-40 border-t bg-background/85 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
       <ul className="relative mx-auto flex max-w-2xl">
         <SlidingIndicator
           count={NAV_ITEMS.length}
@@ -80,7 +80,7 @@ export function BottomNav() {
                   active ? "text-foreground" : "text-muted-foreground",
                 )}
               >
-                <span className={cn("flex h-8 w-12 items-center justify-center rounded-lg", active && "text-primary")}>
+                <span className={cn("flex h-8 w-12 items-center justify-center rounded-lg", active && "text-[var(--c-amber)]")}>
                   <Icon className="size-5" strokeWidth={2.1} />
                 </span>
                 <span className="max-w-full truncate px-1">{dict.nav[item.label]}</span>

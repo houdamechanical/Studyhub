@@ -12,6 +12,7 @@ export const SUBJECT_IDS = [
   "arabisch",
   "kunst",
   "musik",
+  "sport",
 ] as const;
 
 export type SubjectId = (typeof SUBJECT_IDS)[number];
@@ -78,6 +79,11 @@ export const SUBJECTS: Record<SubjectId, SubjectInfo> = {
     emoji: "🎵",
     color: "#a855f7",
     label: { en: "Music", de: "Musik", ar: "الموسيقى" },
+  },
+  sport: {
+    emoji: "🏃",
+    color: "#0ea5e9",
+    label: { en: "Sport", de: "Sport", ar: "الرياضة" },
   },
 };
 

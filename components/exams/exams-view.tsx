@@ -1,9 +1,9 @@
 "use client";
 
-import { Clock, Sun, Users } from "lucide-react";
+import { Clock, Printer, Sun, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SubjectIcon } from "@/components/subject-icon";
-import { formatPeriods, sortByDate, type SchoolExam } from "@/lib/exams";
+import { EXAM_PLAN_UPDATED, formatPeriods, sortByDate, type SchoolExam } from "@/lib/exams";
 import { formatDate, todayISO } from "@/lib/format";
 import { useI18n } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 /** The school's exam plan (read-only): the next exam big, then upcoming and written ones. */
 export function ExamsView({ exams }: { exams: SchoolExam[] }) {
-  const { dict } = useI18n();
+  const { dict, locale } = useI18n();
   // "Today" needs the browser's date, so only after mount.
   const [today, setToday] = useState<string | null>(null);
   useEffect(() => setToday(todayISO()), []);
@@ -25,6 +25,13 @@ export function ExamsView({ exams }: { exams: SchoolExam[] }) {
   return (
     <div className="flex flex-col gap-8">
       <NextExam exam={upcoming[0] ?? null} />
+      <div className="-mt-4 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+        <span>{fill(dict.exams.planUpdated, { date: formatDate(EXAM_PLAN_UPDATED, locale, { day: "numeric", month: "long", year: "numeric" }) })}</span>
+        <button type="button" onClick={() => window.print()} className="no-print hit flex items-center gap-1.5 hover:text-foreground">
+          <Printer size={14} aria-hidden />
+          {dict.exams.print}
+        </button>
+      </div>
       {[
         { heading: dict.exams.upcoming, list: upcoming },
         { heading: dict.exams.written, list: written },
@@ -82,7 +89,7 @@ function NextExam({ exam }: { exam: SchoolExam | null }) {
       <div aria-hidden className="glow-orb pointer-events-none absolute -end-20 -top-24 size-72" />
       <p className="eyebrow relative">{t.next}</p>
       <h2 className="relative mt-2 font-display text-2xl font-semibold sm:text-3xl">
-        <SubjectIcon subject={exam.subject} className="-mt-1 me-2 inline size-[0.9em] align-middle text-primary" />
+        <SubjectIcon subject={exam.subject} className="-mt-1 me-2 inline size-[0.9em] align-middle text-[var(--c-amber)]" />
         {SUBJECTS[exam.subject].label[locale]}
         {exam.title && <span className="font-normal text-muted-foreground"> · {exam.title}</span>}
       </h2>
@@ -90,7 +97,7 @@ function NextExam({ exam }: { exam: SchoolExam | null }) {
         <span>{formatDate(exam.exam_date, locale, { weekday: "long", day: "numeric", month: "long" })}</span>
         <Meta exam={exam} />
       </p>
-      <p className="relative mt-4 font-display text-4xl font-light text-primary">
+      <p className="relative mt-4 font-display text-4xl font-semibold tracking-tight text-[var(--c-amber)]">
         {days <= 0 ? t.today : days === 1 ? t.tomorrow : fill(t.inDays, { n: days })}
       </p>
     </section>

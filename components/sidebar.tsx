@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { SearchButton } from "@/components/app-chrome";
 import { LogoMark, NAV_ITEMS, useActiveNav } from "@/components/main-nav";
 import { useI18n } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
@@ -16,12 +17,14 @@ export function Sidebar() {
   const settings = NAV_ITEMS[4];
 
   return (
-    <aside className="sticky top-0 hidden h-dvh w-[76px] shrink-0 flex-col items-center border-e bg-card/50 py-5 lg:flex">
+    <aside className="no-print sticky top-0 hidden h-dvh w-16 shrink-0 flex-col items-center border-e bg-[var(--c-side)] py-4 lg:flex">
       <Link href="/home" aria-label="Study Hub" className="press">
         <LogoMark />
       </Link>
 
-      <nav className="mt-10 flex flex-1 flex-col items-center gap-2" aria-label="Main">
+      <SearchButton className="mt-5" />
+
+      <nav className="mt-3 flex flex-1 flex-col items-center gap-1" aria-label="Main">
         {main.map((item) => (
           <RailLink key={item.label} href={item.href} label={dict.nav[item.label]} icon={item.icon} active={isActive(item)} />
         ))}
@@ -49,12 +52,12 @@ function RailLink({
       aria-label={label}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "press group/rail relative flex size-11 items-center justify-center rounded-xl",
-        active ? "bg-secondary text-primary" : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground",
+        "press group/rail relative flex size-10 items-center justify-center rounded-lg",
+        active ? "bg-secondary text-[var(--c-amber)]" : "text-muted-foreground hover:bg-secondary/70 hover:text-foreground",
       )}
     >
-      {active && <span className="absolute inset-y-2.5 -start-[16px] w-[3px] rounded-full bg-primary" aria-hidden />}
-      <Icon className="size-[20px]" strokeWidth={2} />
+      {active && <span className="absolute inset-y-2.5 -start-[12px] w-[3px] rounded-full bg-primary" aria-hidden />}
+      <Icon className="size-[18px]" strokeWidth={1.9} />
       {/* Tooltip (hover intent: shows after a short pause) */}
       <span
         role="tooltip"

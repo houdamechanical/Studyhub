@@ -135,7 +135,7 @@ function Podium({
               {row.nickname.slice(0, 1)}
               {row.rank === 1 && (
                 <Crown
-                  className="absolute -top-5 size-5 text-primary sm:-top-6 sm:size-6"
+                  className="absolute -top-5 size-5 text-[var(--c-amber)] sm:-top-6 sm:size-6"
                   strokeWidth={2}
                   aria-hidden
                 />
@@ -144,7 +144,7 @@ function Podium({
             <span
               className={cn(
                 "mt-2 w-full truncate text-sm font-medium",
-                row.is_me && "text-primary",
+                row.is_me && "text-[var(--c-amber)]",
               )}
             >
               <bdi>{row.nickname}</bdi>
