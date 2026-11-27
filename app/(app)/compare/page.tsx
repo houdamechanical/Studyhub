@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Crown } from "lucide-react";
+import { Check, Crown, Zap } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useTransition } from "react";
@@ -14,6 +14,7 @@ import { SubjectIcon } from "@/components/subject-icon";
 import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
 import { normaliseBoard, type GradeBoard } from "@/lib/compare";
+import { loadMiniBoard } from "@/lib/friends";
 import { must, useLoad } from "@/lib/data";
 import { intlLocale } from "@/lib/format";
 import { formatPoints } from "@/lib/gradebook";
@@ -58,17 +59,115 @@ async function loadCompare(asked: string, userId: string) {
 }
 
 function CompareLoader() {
-  const asked = useSearchParams().get("subject") ?? "";
-  const { userId } = useAuth();
+  const params = useSearchParams();
+  const asked = params.get("subject") ?? "";
+  const mini = params.get("board") === "mini";
   const { dict } = useI18n();
-  const state = useLoad(() => loadCompare(asked, userId), `compare:${asked}`);
   return (
     <div className="mx-auto w-full max-w-4xl px-4 pb-12 pt-6 sm:pt-8">
       <PageHero back={{ href: "/communities", label: dict.communities.title }} title={dict.compare.title} subtitle={dict.compare.subtitle} />
-      <div className="mt-6">
-        <Loaded state={state}>{(data) => <CompareView {...data} />}</Loaded>
+      <div className="mt-6 flex flex-col gap-8">
+        <CompareTabs active={mini ? "mini" : isSubjectId(asked) ? asked : null} />
+        {mini ? <MiniBoardView friends={params.get("scope") === "friends"} /> : <GradeBoardLoader asked={asked} />}
       </div>
     </div>
+  );
+}
+
+function GradeBoardLoader({ asked }: { asked: string }) {
+  const { userId } = useAuth();
+  const state = useLoad(() => loadCompare(asked, userId), `compare:${asked}`);
+  return <Loaded state={state}>{(data) => <CompareView {...data} />}</Loaded>;
+}
+
+/** Grade tabs (NC, then each subject) plus the mini-test XP board. */
+function CompareTabs({ active }: { active: SubjectId | null | "mini" }) {
+  const { locale, dict } = useI18n();
+  const t = dict.compare;
+  const tabs: { id: SubjectId | null | "mini"; label: string; href: string }[] = [
+    { id: null, label: t.overall, href: "/compare" },
+    { id: "mini", label: dict.friends.miniBoard, href: "/compare?board=mini" },
+    ...SUBJECT_IDS.map((id) => ({ id, label: SUBJECTS[id].label[locale], href: `/compare?subject=${id}` })),
+  ];
+  return (
+    <nav className="-mx-4 overflow-x-auto px-4" aria-label={dict.grades.subject}>
+      <div className="flex w-max gap-1.5 md:w-auto md:flex-wrap">
+        {tabs.map(({ id, label, href }) => {
+          const on = id === active;
+          return (
+            <Link
+              key={id ?? "overall"}
+              href={href}
+              aria-current={on ? "page" : undefined}
+              className={cn(
+                "press whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-medium",
+                on ? "border-transparent bg-primary text-primary-foreground" : "bg-card text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {id === null ? (
+                <Crown className="-mt-0.5 me-1 inline size-[1.05em] align-middle" aria-hidden />
+              ) : id === "mini" ? (
+                <Zap className="-mt-0.5 me-1 inline size-[1.05em] align-middle" aria-hidden />
+              ) : (
+                <SubjectIcon subject={id} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />
+              )}
+              {label}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+/** XP from mini tests: everyone or just you and your friends. */
+function MiniBoardView({ friends }: { friends: boolean }) {
+  const { locale, dict } = useI18n();
+  const t = dict.friends;
+  const state = useLoad(() => loadMiniBoard(friends), `mini-board:${friends}`);
+  const nf = new Intl.NumberFormat(intlLocale(locale));
+  return (
+    <section key={String(friends)} className="enter">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h2 className="font-display text-2xl font-semibold">{t.miniBoard}</h2>
+        <div role="tablist" aria-label={t.miniBoard} className="grid w-full grid-cols-2 rounded-xl border bg-card p-1 shadow-card sm:w-auto">
+          {[
+            { on: !friends, label: t.scopeAll, href: "/compare?board=mini" },
+            { on: friends, label: t.scopeFriends, href: "/compare?board=mini&scope=friends" },
+          ].map((s) => (
+            <Link
+              key={s.href}
+              href={s.href}
+              role="tab"
+              aria-selected={s.on}
+              className={cn(
+                "press whitespace-nowrap rounded-lg px-3 py-2.5 text-center text-sm font-semibold sm:px-4 sm:text-base",
+                s.on ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {s.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+      <div className="mt-5">
+        <Loaded state={state}>
+          {({ missing, board }) =>
+            missing ? (
+              <SetupNotice problem="no-table" />
+            ) : (
+              <Leaderboard
+                board={board}
+                format={(v) => `${nf.format(Math.round(v))} XP`}
+                extra={(n) => (n === 1 ? t.oneTest : fill(t.testsCount, { n }))}
+                labels={{ you: dict.compare.you, average: dict.compare.average, people: dict.compare.people, empty: t.miniEmpty }}
+              />
+            )
+          }
+        </Loaded>
+      </div>
+      <p className="mt-3 text-xs text-muted-foreground">{t.miniHint}</p>
+    </section>
   );
 }
 
@@ -89,42 +188,13 @@ function CompareView({ subject, missing, nickname, shared, board, myScore }: Awa
     });
   }
 
-  const tabs: { id: SubjectId | null; label: string }[] = [
-    { id: null, label: t.overall },
-    ...SUBJECT_IDS.map((id) => ({ id, label: SUBJECTS[id].label[locale] })),
-  ];
-
   return (
     <div className="flex flex-col gap-8">
-      <nav className="-mx-4 overflow-x-auto px-4" aria-label={dict.grades.subject}>
-        <div className="flex w-max gap-1.5 md:w-auto md:flex-wrap">
-          {tabs.map(({ id, label }) => {
-            const active = id === subject;
-            return (
-              <Link
-                key={id ?? "overall"}
-                href={id ? `/compare?subject=${id}` : "/compare"}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "press whitespace-nowrap rounded-full border px-3.5 py-2 text-sm font-medium",
-                  active ? "border-transparent bg-primary text-primary-foreground" : "bg-card text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {id ? (
-                  <SubjectIcon subject={id} className="-mt-0.5 me-1 inline size-[1.05em] align-middle" />
-                ) : (
-                  <Crown className="-mt-0.5 me-1 inline size-[1.05em] align-middle" aria-hidden />
-                )}
-                {label}
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
 
       <section key={subject ?? "overall"} className="enter">
-        <p className="eyebrow">{subject ? SUBJECTS[subject].label[locale] : t.overall}</p>
-        <h2 className="mt-2 font-display text-2xl">{formatSemester(CURRENT_SEMESTER, dict)}</h2>
+        <h2 className="font-display text-2xl font-semibold">
+          {subject ? SUBJECTS[subject].label[locale] : t.overall} · {formatSemester(CURRENT_SEMESTER, dict)}
+        </h2>
 
         {missing ? (
           <div className="mt-5">

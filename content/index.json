@@ -216,8 +216,8 @@
     "file": "deutsch/11.1/lyrik-aufbau-gedichtinterpretation.html"
   },
   {
-    "id": "deutsch-lyrik-stilmittel-formulierungen",
-    "title": "Stilmittel und Formulierungshilfen",
+    "id": "deutsch-lyrik-stilmittel",
+    "title": "Stilmittel mit Beispiel und Wirkung",
     "subject": "deutsch",
     "semester": "11.1",
     "topic": "Lyrik: Gedichtinterpretation schreiben",
@@ -228,10 +228,29 @@
       "Metrum",
       "Reim",
       "Kadenz",
-      "Formulierungshilfen",
-      "Überleitungen"
+      "Enjambement",
+      "Metapher",
+      "Wirkung"
     ],
-    "file": "deutsch/11.1/lyrik-stilmittel-formulierungen.html"
+    "file": "deutsch/11.1/lyrik-stilmittel.html"
+  },
+  {
+    "id": "deutsch-lyrik-formulierungshilfen",
+    "title": "Formulierungshilfen für Einleitung, Hauptteil und Schluss",
+    "subject": "deutsch",
+    "semester": "11.1",
+    "topic": "Lyrik: Gedichtinterpretation schreiben",
+    "kind": "notes",
+    "tags": [
+      "Formulierungshilfen",
+      "Satzanfänge",
+      "Einleitung",
+      "Hauptteil",
+      "Schluss",
+      "Überleitungen",
+      "Wirkungs-Verben"
+    ],
+    "file": "deutsch/11.1/lyrik-formulierungshilfen.html"
   },
   {
     "id": "deutsch-lyrik-beispiel-barock-gryphius",

@@ -45,7 +45,6 @@ function CommunitiesView({ list }: { list: Community[] }) {
       </div>
 
       <section>
-        <h2 className="eyebrow mb-3">{t.title}</h2>
         {list.length === 0 ? (
           <p className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">{t.empty}</p>
         ) : (

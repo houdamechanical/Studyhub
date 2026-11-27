@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, CalendarCheck, House, Settings, Users, type LucideIcon } from "lucide-react";
+import { BookOpen, CalendarCheck, HeartHandshake, House, Settings, Users, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SlidingIndicator } from "@/components/sliding-indicator";
@@ -17,11 +17,12 @@ type NavItem = {
   match: string[];
 };
 
-/** The five places in the app, in the sidebar and the bottom tab bar. */
+/** The six places in the app, in the sidebar and the bottom tab bar. */
 export const NAV_ITEMS: NavItem[] = [
   { href: "/home", label: "home", icon: House, match: ["/home"] },
   { href: semesterHref(), label: "subjects", icon: BookOpen, match: ["/grade", "/library", "/practice"] },
   { href: "/communities", label: "communities", icon: Users, match: ["/communities", "/compare"] },
+  { href: "/friends", label: "friends", icon: HeartHandshake, match: ["/friends", "/profile"] },
   { href: "/grades", label: "exams", icon: CalendarCheck, match: ["/grades", "/exams"] },
   { href: "/settings", label: "settings", icon: Settings, match: ["/settings", "/admin"] },
 ];
@@ -71,7 +72,7 @@ export function BottomNav() {
           const Icon = item.icon;
           const active = isActive(item);
           return (
-            <li key={item.label} className="flex-1">
+            <li key={item.label} className="min-w-0 flex-1 basis-0">
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
@@ -83,7 +84,7 @@ export function BottomNav() {
                 <span className={cn("flex h-8 w-12 items-center justify-center rounded-lg", active && "text-[var(--c-amber)]")}>
                   <Icon className="size-5" strokeWidth={2.1} />
                 </span>
-                <span className="max-w-full truncate px-1">{dict.nav[item.label]}</span>
+                <span className="max-w-full truncate text-[11px] tracking-tighter min-[390px]:tracking-tight">{dict.nav[item.label]}</span>
               </Link>
             </li>
           );

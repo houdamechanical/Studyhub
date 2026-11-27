@@ -1,33 +1,33 @@
 /* Study Hub – shared look for the math study pages (same palette and fonts as the app).
    Light/dark comes from the app (?theme=… and postMessage), falling back to the system. */
 :root {
-  --bg: #fbf7ef;
-  --card: #ffffff;
-  --raised: #f3ecdf;
-  --border: #e8dfd0;
-  --text: #1f1b16;
-  --text2: #6b5f52;
-  --accent: #b8360f;
-  --blue: #2b5c8a;
-  --green: #3f7a4f;
+  --bg: #faf6ee;
+  --card: #fffdf8;
+  --raised: #f1eadc;
+  --border: #e6ddcc;
+  --text: #1a1a2e;
+  --text2: #5a5a66;
+  --accent: #2350d8;
+  --blue: #c2410c;
+  --green: #276b3c;
   --math: #3341c9;
   --math2: #7c89ff;
   --mathbg: #eceeff;
   --okbg: #e7f1ea;
   --warnbg: #fbe9e3;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -16px rgb(60 40 20 / 0.25);
+  --shadow: 0 1px 2px rgb(40 30 10 / 0.05), 0 8px 24px -16px rgb(60 45 20 / 0.28);
   color-scheme: light;
 }
 :root[data-theme="dark"] {
-  --bg: #17130f;
-  --card: #201a15;
-  --raised: #29221c;
-  --border: #3a3027;
-  --text: #f5eee4;
-  --text2: #ab9f92;
-  --accent: #f47a55;
-  --blue: #8fb8e3;
-  --green: #8fc79e;
+  --bg: #0a0a0a;
+  --card: #141414;
+  --raised: #1c1c1c;
+  --border: #2a2a2a;
+  --text: #f5f5f5;
+  --text2: #a3a3a3;
+  --accent: #ff7a1a;
+  --blue: #7c9cff;
+  --green: #6fcf8f;
   --math: #9aa5ff;
   --math2: #c3c9ff;
   --mathbg: #23243f;
