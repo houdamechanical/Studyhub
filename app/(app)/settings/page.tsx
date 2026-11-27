@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
 import { ProfileCard } from "@/components/compare/profile-card";
+import type { ArtTeacher } from "@/lib/exams";
 import { ElectivesPicker, useSaveElectives } from "@/components/electives";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
@@ -100,15 +101,19 @@ export default function SettingsPage() {
 
 function SubjectsChoice() {
   const { dict } = useI18n();
-  const { electives, setElectives } = useAuth();
+  const { electives, artTeacher, setElectives } = useAuth();
   const [value, setValue] = useState<SubjectId[]>(electives ?? []);
+  const [teacher, setTeacher] = useState<ArtTeacher | null>(artTeacher);
   const { save, saving, error } = useSaveElectives(setElectives);
-  const changed = [...value].sort().join() !== [...(electives ?? [])].sort().join();
+  const art = value.includes("kunst");
+  const changed =
+    [...value].sort().join() !== [...(electives ?? [])].sort().join() || (art && teacher !== artTeacher);
+  const valid = isValidElectives(value) && (!art || teacher !== null);
   return (
     <div className="flex flex-col gap-4">
-      <ElectivesPicker value={value} onChange={setValue} />
+      <ElectivesPicker value={value} onChange={setValue} teacher={teacher} onTeacher={setTeacher} />
       {error && <p className="text-sm text-destructive">{error}</p>}
-      <Button onClick={() => save(value)} disabled={!changed || !isValidElectives(value) || saving} className="self-start">
+      <Button onClick={() => save(value, teacher)} disabled={!changed || !valid || saving} className="self-start">
         {dict.common.save}
       </Button>
     </div>

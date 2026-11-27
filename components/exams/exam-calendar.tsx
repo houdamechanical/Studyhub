@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Clock, X } from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Clock, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { SubjectIcon } from "@/components/subject-icon";
 import { formatPeriods, type SchoolExam } from "@/lib/exams";
@@ -92,13 +92,13 @@ export function MiniCalendar({ exams, onOpen }: { exams: SchoolExam[]; onOpen: (
                     className={cn(
                       "relative flex size-6 items-center justify-center rounded-md tabular-nums",
                       has && !done && "bg-[color-mix(in_srgb,var(--c-amber)_16%,transparent)] font-semibold text-[var(--c-amber)]",
-                      done && "font-semibold text-muted-foreground",
+                      done && "bg-[color-mix(in_srgb,var(--c-sage)_16%,transparent)] font-semibold text-[var(--c-sage)]",
                       isToday && "ring-1 ring-foreground/40",
                       !has && date < today && "text-muted-foreground/60",
                     )}
                   >
                     {d}
-                    {done && <PastMark />}
+                    {done && <DoneBadge className="absolute -end-1 -top-1" />}
                   </span>
                 </span>
               );
@@ -109,9 +109,20 @@ export function MiniCalendar({ exams, onOpen }: { exams: SchoolExam[]; onOpen: (
   );
 }
 
-/** Hand-drawn style cross over a day whose exam is already written. */
-function PastMark() {
-  return <X className="pointer-events-none absolute inset-0 m-auto size-6 text-foreground/75" strokeWidth={2.25} aria-hidden />;
+/** Small green tick: this exam is written. */
+function DoneBadge({ className, size = "sm" }: { className?: string; size?: "sm" | "md" }) {
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "pointer-events-none flex items-center justify-center rounded-full bg-[var(--c-sage)] text-background ring-2 ring-card",
+        size === "sm" ? "size-3.5" : "size-5",
+        className,
+      )}
+    >
+      <Check className={size === "sm" ? "size-2.5" : "size-3.5"} strokeWidth={3.5} />
+    </span>
+  );
 }
 
 /** Full calendar in a dialog: month by month, every exam on its day, and the month's list below. */
@@ -214,11 +225,13 @@ export function CalendarDialog({ exams, onClose }: { exams: SchoolExam[]; onClos
                         key={e.id}
                         className={cn(
                           "flex items-center gap-1 truncate rounded px-1 py-0.5 text-xs font-medium",
-                          past ? "bg-secondary text-muted-foreground" : "bg-[color-mix(in_srgb,var(--c-amber)_14%,transparent)] text-[var(--c-amber)]",
+                          past
+                            ? "bg-[color-mix(in_srgb,var(--c-sage)_14%,transparent)] text-[var(--c-sage)]"
+                            : "bg-[color-mix(in_srgb,var(--c-amber)_14%,transparent)] text-[var(--c-amber)]",
                         )}
                       >
-                        {past ? <X className="size-3 shrink-0 text-foreground" strokeWidth={3} aria-hidden /> : <SubjectIcon subject={e.subject} className="size-3 shrink-0" />}
-                        <span className={cn("hidden truncate sm:inline", past && "line-through")}>{SUBJECTS[e.subject].label[locale]}</span>
+                        {past ? <Check className="size-3 shrink-0" strokeWidth={3} aria-hidden /> : <SubjectIcon subject={e.subject} className="size-3 shrink-0" />}
+                        <span className="hidden truncate sm:inline">{SUBJECTS[e.subject].label[locale]}</span>
                       </span>
                     ))}
                   </button>
@@ -229,17 +242,16 @@ export function CalendarDialog({ exams, onClose }: { exams: SchoolExam[]; onClos
           <ul className="m-4 divide-y rounded-xl border bg-card shadow-card">
             {list.length === 0 && <li className="px-4 py-6 text-center text-sm text-muted-foreground">{t.noExamsMonth}</li>}
             {list.map((e) => (
-              <li key={e.id} className={cn("flex items-center gap-3 px-4 py-2.5 text-sm", e.exam_date < today && "text-muted-foreground")}>
+              <li key={e.id} className="flex items-center gap-3 px-4 py-2.5 text-sm">
                 {e.exam_date < today ? (
-                  <span className="flex size-4 shrink-0 items-center justify-center" title={t.pastExam}>
-                    <X className="size-4 text-foreground" strokeWidth={3} aria-label={t.pastExam} />
-                  </span>
+                  <DoneBadge size="md" className="shrink-0 ring-0" />
                 ) : (
                   <SubjectIcon subject={e.subject} className="size-4 shrink-0 text-muted-foreground" />
                 )}
-                <span className={cn("min-w-0 flex-1 truncate font-medium", e.exam_date < today && "line-through decoration-foreground/50")}>
+                <span className="min-w-0 flex-1 truncate font-medium">
                   {SUBJECTS[e.subject].label[locale]}
                   {e.title && <span className="font-normal text-muted-foreground"> · {e.title}</span>}
+                  {e.exam_date < today && <span className="ms-2 text-xs font-semibold text-[var(--c-sage)]">{t.pastExam}</span>}
                 </span>
                 {e.periods && (
                   <span className="hidden items-center gap-1 text-muted-foreground sm:flex">
