@@ -1,16 +1,20 @@
 "use client";
 
-import { Check, ChevronRight, Clock, Search, UserPlus, X } from "lucide-react";
+import { Check, ChevronRight, Clock, Lock, Search, UserPlus, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
 import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
 import { controlClass } from "@/components/ui/field";
+import { SetupNotice } from "@/components/setup-notice";
 import { useLoad } from "@/lib/data";
+import { intlLocale } from "@/lib/format";
+import { CURRENT_SEMESTER, formatNC, ncFromScore } from "@/lib/grades";
 import {
   acceptFriend,
   addFriend,
+  loadFriendRows,
   loadFriends,
   removeFriend,
   searchPlayers,
@@ -21,22 +25,35 @@ import { useI18n } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
 
-/** Your profile, finding classmates, requests and your friends. */
-export function FriendsPanel() {
+type Sort = "nc" | "name" | "xp";
+
+/** The Friends page: your profile, finding classmates, requests and your friends (sortable). */
+export function FriendsView() {
   const { userId, nickname } = useAuth();
-  const { dict } = useI18n();
+  const { locale, dict } = useI18n();
   const t = dict.friends;
-  const state = useLoad(() => loadFriends(userId), `friends:${userId}`);
-  if (state.data?.missing) return null; // friends migration not applied yet
-  const list = state.data?.list ?? [];
-  const incoming = list.filter((f) => f.relation === "incoming");
-  const outgoing = list.filter((f) => f.relation === "outgoing");
-  const friends = list.filter((f) => f.relation === "friends");
+  const requests = useLoad(() => loadFriends(userId), `friends:${userId}`);
+  const rows = useLoad(() => loadFriendRows(CURRENT_SEMESTER), `friend-rows:${userId}`);
+  const [sort, setSort] = useState<Sort>("nc");
+  if (requests.data?.missing || rows.data?.missing) return <SetupNotice problem="no-table" />;
+  const all = requests.data?.list ?? [];
+  const incoming = all.filter((f) => f.relation === "incoming");
+  const outgoing = all.filter((f) => f.relation === "outgoing");
+  const nf = intlLocale(locale);
+  const xpf = new Intl.NumberFormat(nf);
+
+  const friends = [...(rows.data?.list ?? [])].sort((a, b) => {
+    if (sort === "name") return a.nickname.localeCompare(b.nickname, nf);
+    if (sort === "xp") return b.xp - a.xp || a.nickname.localeCompare(b.nickname, nf);
+    // NC: best (highest score) first; friends who don't share go last.
+    if (a.score === null && b.score === null) return a.nickname.localeCompare(b.nickname, nf);
+    if (a.score === null) return 1;
+    if (b.score === null) return -1;
+    return b.score - a.score;
+  });
 
   return (
-    <section className="flex flex-col gap-4">
-      <h2 className="font-display text-2xl font-semibold">{t.title}</h2>
-
+    <div className="flex flex-col gap-8">
       <Link
         href="/profile"
         className="flex items-center gap-3 rounded-xl border bg-card px-4 py-3 shadow-card transition-colors hover:bg-secondary/60"
@@ -49,11 +66,9 @@ export function FriendsPanel() {
         <ChevronRight size={16} className="text-muted-foreground rtl:rotate-180" />
       </Link>
 
-      <PlayerSearch known={list} />
-
       {incoming.length > 0 && (
-        <div>
-          <h3 className="mb-2 text-sm font-semibold">{t.requests}</h3>
+        <section>
+          <h2 className="mb-3 font-display text-xl font-semibold">{t.requests}</h2>
           <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
             {incoming.map((f) => (
               <li key={f.user_id} className="flex items-center gap-3 px-4 py-2.5">
@@ -62,28 +77,80 @@ export function FriendsPanel() {
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       )}
 
-      {friends.length === 0 && outgoing.length === 0 ? (
-        state.data && <p className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">{t.empty}</p>
-      ) : (
-        <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
-          {[...friends, ...outgoing].map((f) => (
-            <li key={f.user_id} className="flex items-center gap-3 px-4 py-2.5">
-              <PersonLink f={f} />
-              {f.relation === "outgoing" && (
+      <section>
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-xl font-semibold">{t.yourFriends}</h2>
+          <div role="radiogroup" aria-label={t.sortBy} className="inline-flex rounded-lg border bg-card p-1 shadow-card">
+            {(["nc", "name", "xp"] as const).map((id) => (
+              <button
+                key={id}
+                type="button"
+                role="radio"
+                aria-checked={sort === id}
+                onClick={() => setSort(id)}
+                className={cn(
+                  "press rounded-md px-3 py-1.5 text-sm font-medium",
+                  sort === id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {id === "nc" ? t.sortNc : id === "name" ? t.sortName : t.sortXp}
+              </button>
+            ))}
+          </div>
+        </div>
+        {rows.data === null ? (
+          <div className="h-32 animate-pulse rounded-xl bg-secondary" aria-busy />
+        ) : friends.length === 0 && outgoing.length === 0 ? (
+          <p className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">{t.empty}</p>
+        ) : (
+          <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
+            {friends.map((f) => (
+              <li key={f.user_id}>
+                <Link href={`/profile?id=${f.user_id}`} className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-secondary/60">
+                  <Avatar name={f.nickname} />
+                  <span className="min-w-0 flex-1">
+                    <bdi className="block truncate font-medium">{f.nickname}</bdi>
+                    <span className="block text-sm tabular-nums text-muted-foreground">
+                      {xpf.format(f.xp)} XP · {f.tests === 1 ? t.oneTest : fill(t.testsCount, { n: f.tests })}
+                    </span>
+                  </span>
+                  <span className="shrink-0 text-end">
+                    {f.they_share ? (
+                      <>
+                        <span className="block text-xs text-muted-foreground">{t.nc}</span>
+                        <span className="block font-display text-xl font-semibold tabular-nums">
+                          {f.score === null ? "–" : formatNC(ncFromScore(f.score), nf)}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                        <Lock size={12} aria-hidden />
+                        {t.notSharing}
+                      </span>
+                    )}
+                  </span>
+                  <ChevronRight size={16} className="shrink-0 text-muted-foreground rtl:rotate-180" />
+                </Link>
+              </li>
+            ))}
+            {outgoing.map((f) => (
+              <li key={f.user_id} className="flex items-center gap-3 px-4 py-3">
+                <PersonLink f={f} />
                 <span className="inline-flex shrink-0 items-center gap-1 text-xs text-muted-foreground">
                   <Clock size={13} aria-hidden />
                   {t.sent}
                 </span>
-              )}
-              <ChevronRight size={16} className="shrink-0 text-muted-foreground rtl:rotate-180" />
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <PlayerSearch known={all} />
+    </div>
   );
 }
 
@@ -168,8 +235,8 @@ function PlayerSearch({ known }: { known: Friend[] }) {
   }
 
   return (
-    <div>
-      <label htmlFor="player-search" className="mb-2 block text-sm font-semibold">
+    <section>
+      <label htmlFor="player-search" className="mb-3 block font-display text-xl font-semibold">
         {t.searchLabel}
       </label>
       <div className="relative">
@@ -211,6 +278,6 @@ function PlayerSearch({ known }: { known: Friend[] }) {
           })}
         </ul>
       )}
-    </div>
+    </section>
   );
 }

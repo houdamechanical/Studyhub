@@ -170,3 +170,47 @@ export const ACHIEVEMENTS: { id: AchievementId; value: (s: PlayerStats) => numbe
   { id: "xp500", value: (s) => s.xp, goal: 500 },
   { id: "friend", value: (s) => s.friends, goal: 1 },
 ];
+
+// ---------------------------------------------------------------------------
+// Friends list with XP and (if they share with you) their NC
+// ---------------------------------------------------------------------------
+export type FriendRow = {
+  user_id: string;
+  nickname: string;
+  xp: number;
+  tests: number;
+  /** They let you see their grades. */
+  they_share: boolean;
+  /** You let them see yours. */
+  i_share: boolean;
+  /** Average points / 15 this half-year; null when not shared (or no grades yet). */
+  score: number | null;
+};
+
+export async function loadFriendRows(semester: string): Promise<{ missing: boolean; list: FriendRow[] }> {
+  const { data, error } = await createClient().rpc("get_friends", { p_semester: semester });
+  if (error) {
+    if (isMissing(error.code)) return { missing: true, list: [] };
+    throw error;
+  }
+  const list = ((data as FriendRow[] | null) ?? []).map((f) => ({
+    ...f,
+    xp: Number(f.xp ?? 0),
+    tests: Number(f.tests ?? 0),
+    score: f.score === null || f.score === undefined ? null : Number(f.score),
+  }));
+  return { missing: false, list };
+}
+
+/** Let one friend see your grades (NC and subject averages), or stop. */
+export async function setFriendShare(friendId: string, me: string, on: boolean): Promise<Result> {
+  const supabase = createClient();
+  const { error } = on
+    ? await supabase
+        .from("friend_grade_shares")
+        .upsert({ owner: me, viewer: friendId }, { onConflict: "owner,viewer", ignoreDuplicates: true })
+    : await supabase.from("friend_grade_shares").delete().eq("owner", me).eq("viewer", friendId);
+  if (error) return { ok: false };
+  dataChanged();
+  return { ok: true };
+}

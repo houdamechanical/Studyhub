@@ -130,7 +130,7 @@ function MiniBoardView({ friends }: { friends: boolean }) {
     <section key={String(friends)} className="enter">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-display text-2xl font-semibold">{t.miniBoard}</h2>
-        <div role="tablist" aria-label={t.miniBoard} className="inline-flex rounded-lg border bg-card p-1 shadow-card">
+        <div role="tablist" aria-label={t.miniBoard} className="grid w-full grid-cols-2 rounded-xl border bg-card p-1 shadow-card sm:w-auto">
           {[
             { on: !friends, label: t.scopeAll, href: "/compare?board=mini" },
             { on: friends, label: t.scopeFriends, href: "/compare?board=mini&scope=friends" },
@@ -141,7 +141,7 @@ function MiniBoardView({ friends }: { friends: boolean }) {
               role="tab"
               aria-selected={s.on}
               className={cn(
-                "press rounded-md px-3 py-1.5 text-sm font-medium",
+                "press whitespace-nowrap rounded-lg px-3 py-2.5 text-center text-sm font-semibold sm:px-4 sm:text-base",
                 s.on ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
               )}
             >

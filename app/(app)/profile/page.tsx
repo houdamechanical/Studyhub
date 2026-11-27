@@ -30,12 +30,15 @@ import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { useLoad } from "@/lib/data";
+import { CURRENT_SEMESTER, formatNC, ncFromScore } from "@/lib/grades";
 import { intlLocale } from "@/lib/format";
 import {
   acceptFriend,
   ACHIEVEMENTS,
   addFriend,
+  loadFriendRows,
   loadProfile,
+  setFriendShare,
   removeFriend,
   type AchievementId,
   type PlayerStats,
@@ -67,7 +70,7 @@ function ProfileLoader() {
             <SetupNotice problem="no-table" />
           ) : !stats ? (
             <>
-              <PageHero back={{ href: "/communities", label: dict.communities.title }} title={dict.friends.notFound} />
+              <PageHero back={{ href: "/friends", label: dict.friends.title }} title={dict.friends.notFound} />
             </>
           ) : (
             <ProfileView stats={stats} />
@@ -106,7 +109,7 @@ function ProfileView({ stats }: { stats: PlayerStats }) {
 
   return (
     <div className="flex flex-col gap-8">
-      <PageHero back={{ href: "/communities", label: dict.communities.title }} title={stats.nickname} />
+      <PageHero back={{ href: "/friends", label: dict.friends.title }} title={stats.nickname} />
 
       <section className="enter -mt-4 flex flex-wrap items-center gap-x-5 gap-y-4">
         <span
@@ -130,6 +133,8 @@ function ProfileView({ stats }: { stats: PlayerStats }) {
           </div>
         ))}
       </dl>
+
+      {stats.relation === "friends" && <FriendGrades id={stats.user_id} name={stats.nickname} />}
 
       <section className="enter">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -272,4 +277,70 @@ function FriendActions({ stats }: { stats: PlayerStats }) {
         </div>
       );
   }
+}
+
+/** With a friend: their NC (if they share with you) and a switch to share yours with them. */
+function FriendGrades({ id, name }: { id: string; name: string }) {
+  const { userId } = useAuth();
+  const { locale, dict } = useI18n();
+  const t = dict.friends;
+  const state = useLoad(() => loadFriendRows(CURRENT_SEMESTER), `friend-rows:${userId}`);
+  const [pending, setPending] = useState(false);
+  const row = state.data?.list.find((f) => f.user_id === id);
+  if (state.data?.missing || !row) return null;
+
+  async function toggle() {
+    if (!row) return;
+    setPending(true);
+    const on = !row.i_share;
+    const r = await setFriendShare(id, userId, on);
+    setPending(false);
+    toast(r.ok ? fill(on ? t.sharedOn : t.sharedOff, { name }) : dict.common.error.failed, r.ok ? "success" : "error");
+  }
+
+  return (
+    <section className="enter rounded-xl border bg-card p-4 shadow-card sm:p-5">
+      <h2 className="font-display text-xl font-semibold">{t.shareTitle}</h2>
+      <div className="mt-3 flex items-baseline justify-between gap-3 border-b pb-4">
+        <span className="text-muted-foreground">{fill(t.theirNc, { name })}</span>
+        {row.they_share ? (
+          <span className="font-display text-2xl font-semibold tabular-nums">
+            {row.score === null ? t.noGradesYet : formatNC(ncFromScore(row.score), intlLocale(locale))}
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+            <Lock size={14} aria-hidden />
+            {fill(t.theyDontShare, { name })}
+          </span>
+        )}
+      </div>
+      <button
+        type="button"
+        role="switch"
+        aria-checked={row.i_share}
+        onClick={toggle}
+        disabled={pending}
+        className="mt-4 flex w-full items-center gap-4 text-start disabled:opacity-60"
+      >
+        <span className="min-w-0 flex-1">
+          <span className="block font-medium">{fill(t.shareWith, { name })}</span>
+          <span className="mt-0.5 block text-sm text-muted-foreground">{fill(t.shareHint, { name })}</span>
+        </span>
+        <span
+          aria-hidden
+          className={cn(
+            "relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors",
+            row.i_share ? "bg-primary" : "bg-[var(--c-border-strong)]",
+          )}
+        >
+          <span
+            className={cn(
+              "absolute size-5 rounded-full bg-white shadow transition-[inset-inline-start] duration-200",
+              row.i_share ? "start-6" : "start-1",
+            )}
+          />
+        </span>
+      </button>
+    </section>
+  );
 }

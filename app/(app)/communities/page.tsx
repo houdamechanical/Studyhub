@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { CommunityAvatar } from "@/components/communities/avatar";
-import { FriendsPanel } from "@/components/communities/friends-panel";
 import { Loaded } from "@/components/page-shell";
 import { PageHero } from "@/components/page-hero";
 import { SetupNotice } from "@/components/setup-notice";
@@ -40,9 +39,6 @@ function CommunitiesView({ list }: { list: Community[] }) {
   const t = dict.communities;
   return (
     <div className="flex flex-col gap-8">
-      <FriendsPanel />
-
-      <h2 className="-mb-4 font-display text-2xl font-semibold">{t.title}</h2>
       <div className="grid gap-3 sm:grid-cols-2">
         <CreateForm />
         <JoinForm />
