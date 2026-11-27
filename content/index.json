@@ -21,6 +21,26 @@
     "file": "math/11.1/extremalprobleme.html"
   },
   {
+    "id": "mathe-schulaufgabe-extremalprobleme",
+    "title": "Schulaufgabe – Extremalprobleme",
+    "subject": "math",
+    "semester": "11.1",
+    "topic": "Extremalprobleme",
+    "kind": "exercises",
+    "tags": [
+      "Übung",
+      "Lösungen",
+      "Extremalprobleme",
+      "Gärtner",
+      "Balken",
+      "Milchkarton",
+      "Streichholzschachtel",
+      "Rechteck unter Parabel",
+      "Dreieck"
+    ],
+    "file": "math/11.1/schulaufgabe-extremalprobleme.html"
+  },
+  {
     "id": "mathe-funktionsgleichungen-gesucht",
     "title": "Funktionsgleichungen gesucht – Erklärung",
     "subject": "math",
@@ -42,31 +62,11 @@
     "file": "math/11.1/funktionsgleichungen-gesucht.html"
   },
   {
-    "id": "mathe-schulaufgabe-extremalprobleme",
-    "title": "Schulaufgabe – Extremalprobleme",
-    "subject": "math",
-    "semester": "11.1",
-    "topic": "Schulaufgaben",
-    "kind": "exercises",
-    "tags": [
-      "Übung",
-      "Lösungen",
-      "Extremalprobleme",
-      "Gärtner",
-      "Balken",
-      "Milchkarton",
-      "Streichholzschachtel",
-      "Rechteck unter Parabel",
-      "Dreieck"
-    ],
-    "file": "math/11.1/schulaufgabe-extremalprobleme.html"
-  },
-  {
     "id": "mathe-schulaufgabe-funktionsgleichungen",
     "title": "Schulaufgabe – Funktionsgleichungen gesucht",
     "subject": "math",
     "semester": "11.1",
-    "topic": "Schulaufgaben",
+    "topic": "Funktionsgleichungen gesucht (Rekonstruktion)",
     "kind": "exercises",
     "tags": [
       "Übung",
