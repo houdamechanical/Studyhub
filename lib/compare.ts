@@ -1,7 +1,7 @@
 /** Same rule as the database check: 3–20 letters (Latin, umlauts, Arabic), digits, _ . - */
 export const NICKNAME_PATTERN = /^[A-Za-z0-9ÄÖÜäöüß_.\-ء-ي٠-٩]{3,20}$/;
 
-export type BoardRow = { rank: number; nickname: string; value: number; extra: number; is_me: boolean };
+export type BoardRow = { rank: number; nickname: string; value: number; extra: number; is_me: boolean; user_id?: string };
 
 /** What get_quiz_board / get_subject_board return for one leaderboard. Values are 0–1. */
 export type Board = {

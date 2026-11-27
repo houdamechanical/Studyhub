@@ -1,5 +1,6 @@
 import { Crown, Flag } from "lucide-react";
-import type { Board } from "@/lib/compare";
+import Link from "next/link";
+import type { Board, BoardRow } from "@/lib/compare";
 import { cn } from "@/lib/utils";
 
 type Labels = { you: string; average: string; people: string; empty: string };
@@ -69,7 +70,7 @@ export function Leaderboard({
                         : row.rank}
                     </span>
                     <span className="min-w-0 flex-1 truncate">
-                      <bdi>{row.nickname}</bdi>
+                      <Name row={row} />
                       {row.is_me && (
                         <span className="ms-1.5 text-xs font-normal text-muted-foreground">
                           ({labels.you})
@@ -147,7 +148,7 @@ function Podium({
                 row.is_me && "text-[var(--c-amber)]",
               )}
             >
-              <bdi>{row.nickname}</bdi>
+              <Name row={row} />
               {row.is_me && (
                 <span className="block text-xs font-medium text-muted-foreground">
                   ({you})
@@ -172,5 +173,15 @@ function Podium({
         ),
       )}
     </ol>
+  );
+}
+
+/** A name that opens the student's profile (when the board knows who it is). */
+function Name({ row }: { row: BoardRow }) {
+  if (!row.user_id) return <bdi>{row.nickname}</bdi>;
+  return (
+    <Link href={`/profile?id=${row.user_id}`} className="underline-offset-4 hover:underline">
+      <bdi>{row.nickname}</bdi>
+    </Link>
   );
 }
