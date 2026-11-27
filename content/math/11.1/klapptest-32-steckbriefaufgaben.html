@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steckbriefaufgaben – Klapptest 32</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+<style>
+  .aufgabe > h3 { font-size: 1.08rem; line-height: 1.5; }
+  .klapp { display: flex; flex-direction: column; }
+  details.res { border-top: 0; }
+  .mark { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: -4px 0 6px; }
+  .btn.ok.on { background: var(--okbg); border-color: var(--green); color: var(--green); }
+  .btn.no.on { background: var(--warnbg); border-color: var(--accent); color: var(--accent); }
+  .score { display: inline-flex; align-items: baseline; gap: 6px; font-family: "Bricolage Grotesque", Inter, sans-serif; font-weight: 800; font-size: 1.4rem; padding: 6px 16px; border: 2px solid var(--accent); border-radius: 10px; color: var(--accent); }
+  .score small { font-family: Inter, sans-serif; font-size: .8rem; font-weight: 600; color: var(--text2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <span class="eyebrow"><span class="dot"></span>Mathematik · 11.1 · Funktionsgleichungen gesucht</span>
+  <h1>Steckbriefaufgaben <em>Klapptest 32</em></h1>
+  <p class="lead"><i>Falte zuerst das Blatt entlang der Linie. Löse dann die Aufgaben. Kontrolliere anschließend die Ergebnisse. Notiere zum Schluss die Anzahl der richtigen Aufgaben.</i></p>
+  <p class="lead" style="margin-top:10px">Hier heißt „falten“: Erst selbst rechnen, dann <b>Ergebnis aufklappen</b> und abhaken. Wenn etwas nicht stimmt, zeigt dir <b>Lösungsweg anzeigen</b> jeden Schritt im Schema (1) Ansatz → (5) Resultat.</p>
+  <div class="card" style="margin-top:18px"><b>Bestimmen Sie den Funktionsterm \(f(x)\) derjenigen ganzrationalen Funktion dritten Grades, …</b></div>
+</header>
+<div class="toolbar">
+  <span class="score" aria-live="polite"><span id="score">0</span> / 12 <small>richtig</small></span>
+  <span style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+    <button class="btn" data-all="close">Alles zuklappen</button>
+    <button class="btn" id="reset">Neu starten</button>
+  </span>
+</div>
+
+<article class="aufgabe" id="a1">
+  <h3>1. <span style="font-weight:600">… deren Graph die x-Achse bei 1 schneidet, im Punkt \((-2\,|\,3)\) ein Extremum und bei \(x_0 = 0\) einen Wendepunkt hat.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = \tfrac19 x^3 - 1\tfrac13 x + 1\tfrac29\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="1" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="1" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Nullstelle bei \(x = 1\)</p><p>2. Extrempunkt \(E(-2\,|\,3)\)</p><p>3. Wendestelle \(x = 0\)</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(1) = 0\)</span><span>\(a + b + c + d = 0\)</span><span>2.</span><span>\(f(-2) = 3\)</span><span>\(-8a + 4b - 2c + d = 3\)</span><span></span><span>\(f'(-2) = 0\)</span><span>\(12a - 4b + c = 0\)</span><span>3.</span><span>\(f''(0) = 0\)</span><span>\(2b = 0 \;\Rightarrow\; b = 0\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <p class='small muted' style='margin:0 0 6px'>Mit \(b = 0\) aus 3.:</p><div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(a + c + d = 0\)</span><span class='small'></span><span class='r'>II:</span><span>\(-8a - 2c + d = 3\)</span><span class='small'>\(\text{I} - \text{II} \to\)</span><span class='r'>III:</span><span>\(12a + c = 0\)</span><span class='small'>\(\to c = -12a\)</span></div></div><div class='gbox'><p><span class='r'>IV:</span> \(9a + 3c = -3 \;\big|:3\)</p><p>\(3a + c = -1\)</p></div><div class='gbox'><p>III in IV: \(3a - 12a = -1\)</p><p>\(a = \tfrac19\)</p></div><div class='gbox'><p>\(c = -\tfrac{12}{9} = -1\tfrac13\)</p><p>in I: \(d = -a - c = 1\tfrac29\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = \tfrac19 x^3 - 1\tfrac13 x + 1\tfrac29\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a2">
+  <h3>2. <span style="font-weight:600">… deren Graph im Punkt \((-1\,|\,5\tfrac13)\) einen Extrempunkt und in \((1\,|\,y)\) einen Wendepunkt hat und der die y-Achse bei \(3\tfrac23\) schneidet.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = \tfrac13 x^3 - x^2 - 3x + 3\tfrac23\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="2" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="2" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Extrempunkt \(E(-1\,|\,5\tfrac13)\)</p><p>2. Wendestelle \(x = 1\)</p><p>3. y-Achsenabschnitt \(3\tfrac23\)</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(-1) = 5\tfrac13\)</span><span>\(-a + b - c + d = 5\tfrac13\)</span><span></span><span>\(f'(-1) = 0\)</span><span>\(3a - 2b + c = 0\)</span><span>2.</span><span>\(f''(1) = 0\)</span><span>\(6a + 2b = 0\)</span><span>3.</span><span>\(f(0) = 3\tfrac23\)</span><span>\(d = 3\tfrac23\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(-a + b - c = \tfrac53\)</span><span class='small'>\((d\text{ eingesetzt})\)</span><span class='r'>II:</span><span>\(3a - 2b + c = 0\)</span><span class='small'></span><span class='r'>III:</span><span>\(6a + 2b = 0\)</span><span class='small'>\(\to b = -3a\)</span></div></div><div class='gbox'><p>b in I: <span class='r'>IV:</span> \(-4a - c = \tfrac53\)</p><p>b in II: <span class='r'>V:</span> \(9a + c = 0\)</p></div><div class='gbox'><p>IV + V: \(5a = \tfrac53\)</p><p>\(a = \tfrac13\)</p></div><div class='gbox'><p>\(b = -1\)</p><p>in V: \(c = -3\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = \tfrac13 x^3 - x^2 - 3x + 3\tfrac23\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a3">
+  <h3>3. <span style="font-weight:600">… deren Graph durch den Ursprung verläuft und im Punkt \((x\,|\,44)\) einen Wendepunkt mit der Wendetangente \(t\) mit \(t(x) = 27x - 64\) besitzt.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = -x^3 + 12x^2 - 21x\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="3" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="3" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Punkt \(O(0\,|\,0)\)</p><p>2. Wendepunkt \(W(x_W\,|\,44)\) auf \(t\): \(27x_W - 64 = 44 \Rightarrow x_W = 4\)</p><p>3. Steigung im Wendepunkt: 27 (Steigung von \(t\))</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(0) = 0\)</span><span>\(d = 0\)</span><span>2.</span><span>\(f(4) = 44\)</span><span>\(64a + 16b + 4c = 44\)</span><span></span><span>\(f''(4) = 0\)</span><span>\(24a + 2b = 0\)</span><span>3.</span><span>\(f'(4) = 27\)</span><span>\(48a + 8b + c = 27\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(64a + 16b + 4c = 44\)</span><span class='small'></span><span class='r'>II:</span><span>\(24a + 2b = 0\)</span><span class='small'>\(\to b = -12a\)</span><span class='r'>III:</span><span>\(48a + 8b + c = 27\)</span><span class='small'></span></div></div><div class='gbox'><p>b in III: \(c = 27 + 48a\) <span class='r'>(IV)</span></p></div><div class='gbox'><p>b, IV in I:</p><p>\(64a - 192a + 108 + 192a = 44\)</p><p>\(64a = -64 \Rightarrow a = -1\)</p></div><div class='gbox'><p>\(b = 12\)</p><p>\(c = -21\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = -x^3 + 12x^2 - 21x\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a4">
+  <h3>4. <span style="font-weight:600">… deren Graph den Hochpunkt \((-1\,|\,16)\) und den Tiefpunkt \((3\,|\,-16)\) besitzt.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = x^3 - 3x^2 - 9x + 11\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="4" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="4" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Hochpunkt \(H(-1\,|\,16)\)</p><p>2. Tiefpunkt \(T(3\,|\,-16)\)</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(-1) = 16\)</span><span>\(-a + b - c + d = 16\)</span><span></span><span>\(f'(-1) = 0\)</span><span>\(3a - 2b + c = 0\)</span><span>2.</span><span>\(f(3) = -16\)</span><span>\(27a + 9b + 3c + d = -16\)</span><span></span><span>\(f'(3) = 0\)</span><span>\(27a + 6b + c = 0\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(-a + b - c + d = 16\)</span><span class='small'></span><span class='r'>II:</span><span>\(3a - 2b + c = 0\)</span><span class='small'></span><span class='r'>III:</span><span>\(27a + 9b + 3c + d = -16\)</span><span class='small'>\(\text{III}-\text{I} \to\)</span><span class='r'>IV:</span><span>\(27a + 6b + c = 0\)</span><span class='small'>\(\text{IV}-\text{II} \to\)</span></div></div><div class='gbox'><p><span class='r'>V:</span> \(28a + 8b + 4c = -32\;\big|:4\)</p><p>\(7a + 2b + c = -8\)</p><p><span class='r'>VI:</span> \(24a + 8b = 0 \Rightarrow b = -3a\)</p></div><div class='gbox'><p>V − II: \(4a + 4b = -8\)</p><p>VI eingesetzt: \(-8a = -8\)</p><p>\(a = 1\)</p></div><div class='gbox'><p>\(b = -3\)</p><p>in II: \(c = -9\)</p><p>in I: \(d = 11\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = x^3 - 3x^2 - 9x + 11\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a5">
+  <h3>5. <span style="font-weight:600">… deren Graph im Ursprung die x-Achse berührt und deren Tangente im Punkt \((1\,|\,-1)\) die Steigung 24 hat.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = 26x^3 - 27x^2\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="5" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="5" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Berührpunkt mit der x-Achse \(O(0\,|\,0)\)</p><p>2. Punkt \(P(1\,|\,-1)\)</p><p>3. Steigung in \(P\): 24</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(0) = 0\)</span><span>\(d = 0\)</span><span></span><span>\(f'(0) = 0\)</span><span>\(c = 0\)</span><span>2.</span><span>\(f(1) = -1\)</span><span>\(a + b = -1\)</span><span>3.</span><span>\(f'(1) = 24\)</span><span>\(3a + 2b = 24\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(a + b = -1\)</span><span class='small'></span><span class='r'>II:</span><span>\(3a + 2b = 24\)</span><span class='small'>\(\text{II} - 2\cdot\text{I} \to\)</span></div></div><div class='gbox'><p>\(a = 26\)</p></div><div class='gbox'><p>in I: \(b = -27\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = 26x^3 - 27x^2\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a6">
+  <h3>6. <span style="font-weight:600">… deren Graph im Ursprung den Hochpunkt und den Tiefpunkt \((3\,|\,-13{,}5)\) hat.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = x^3 - 4{,}5x^2\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="6" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="6" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Hochpunkt \(H(0\,|\,0)\)</p><p>2. Tiefpunkt \(T(3\,|\,-13{,}5)\)</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(0) = 0\)</span><span>\(d = 0\)</span><span></span><span>\(f'(0) = 0\)</span><span>\(c = 0\)</span><span>2.</span><span>\(f(3) = -13{,}5\)</span><span>\(27a + 9b = -13{,}5\)</span><span></span><span>\(f'(3) = 0\)</span><span>\(27a + 6b = 0\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(27a + 9b = -13{,}5\)</span><span class='small'></span><span class='r'>II:</span><span>\(27a + 6b = 0\)</span><span class='small'>\(\text{I} - \text{II} \to\)</span></div></div><div class='gbox'><p>\(3b = -13{,}5\)</p><p>\(b = -4{,}5\)</p></div><div class='gbox'><p>in II: \(27a = 27\)</p><p>\(a = 1\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = x^3 - 4{,}5x^2\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a7">
+  <h3>7. <span style="font-weight:600">… deren Graph durch \((2\,|\,3)\) verläuft und in \((0\,|\,1)\) einen Wendepunkt mit der Steigung \(-3\) besitzt.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = x^3 - 3x + 1\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="7" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="7" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Punkt \(P(2\,|\,3)\)</p><p>2. Wendepunkt \(W(0\,|\,1)\)</p><p>3. Steigung in \(W\): \(-3\)</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(2) = 3\)</span><span>\(8a + 4b + 2c + d = 3\)</span><span>2.</span><span>\(f(0) = 1\)</span><span>\(d = 1\)</span><span></span><span>\(f''(0) = 0\)</span><span>\(b = 0\)</span><span>3.</span><span>\(f'(0) = -3\)</span><span>\(c = -3\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><p>\(b = 0,\; c = -3,\; d = 1\) in I:</p></div><div class='gbox'><p>\(8a - 6 + 1 = 3\)</p><p>\(8a = 8\)</p><p>\(a = 1\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = x^3 - 3x + 1\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a8">
+  <h3>8. <span style="font-weight:600">… deren Graph im Ursprung einen Extrempunkt und den Wendepunkt \((1\,|\,\tfrac23)\) hat.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = -\tfrac13 x^3 + x^2\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="8" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="8" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Extrempunkt \(E(0\,|\,0)\)</p><p>2. Wendepunkt \(W(1\,|\,\tfrac23)\)</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(0) = 0\)</span><span>\(d = 0\)</span><span></span><span>\(f'(0) = 0\)</span><span>\(c = 0\)</span><span>2.</span><span>\(f(1) = \tfrac23\)</span><span>\(a + b = \tfrac23\)</span><span></span><span>\(f''(1) = 0\)</span><span>\(6a + 2b = 0\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(a + b = \tfrac23\)</span><span class='small'></span><span class='r'>II:</span><span>\(6a + 2b = 0\)</span><span class='small'>\(\to b = -3a\)</span></div></div><div class='gbox'><p>in I: \(-2a = \tfrac23\)</p><p>\(a = -\tfrac13\)</p></div><div class='gbox'><p>\(b = 1\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = -\tfrac13 x^3 + x^2\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a9">
+  <h3>9. <span style="font-weight:600">… deren Graph bei \(-1\) eine Nullstelle und bei \(-2\) einen Wendepunkt mit der Wendetangente \(t\) mit \(t: 3x - y + 2{,}5 = 0\) besitzt.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = \tfrac12 x^3 + 3x^2 + 9x + 6\tfrac12\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="9" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="9" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Nullstelle bei \(x = -1\)</p><p>2. Wendestelle \(x = -2\); Wendetangente: \(y = 3x + 2{,}5\)</p><p>\(\;\;\;\Rightarrow W(-2\,|\,3\cdot(-2) + 2{,}5) = W(-2\,|\,-3{,}5)\)</p><p>3. Steigung in \(W\): 3</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(-1) = 0\)</span><span>\(-a + b - c + d = 0\)</span><span>2.</span><span>\(f(-2) = -3{,}5\)</span><span>\(-8a + 4b - 2c + d = -3{,}5\)</span><span></span><span>\(f''(-2) = 0\)</span><span>\(-12a + 2b = 0\)</span><span>3.</span><span>\(f'(-2) = 3\)</span><span>\(12a - 4b + c = 3\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(-a + b - c + d = 0\)</span><span class='small'></span><span class='r'>II:</span><span>\(-8a + 4b - 2c + d = -3{,}5\)</span><span class='small'>\(\text{I}-\text{II} \to\)</span><span class='r'>III:</span><span>\(-12a + 2b = 0\)</span><span class='small'>\(\to b = 6a\)</span><span class='r'>IV:</span><span>\(12a - 4b + c = 3\)</span><span class='small'></span></div></div><div class='gbox'><p><span class='r'>V:</span> \(7a - 3b + c = 3{,}5\)</p><p>IV − V: \(5a - b = -0{,}5\)</p></div><div class='gbox'><p>\(b = 6a\) eingesetzt:</p><p>\(-a = -0{,}5\)</p><p>\(a = 0{,}5\)</p></div><div class='gbox'><p>\(b = 3\)</p><p>in IV: \(c = 9\)</p><p>in I: \(d = 6{,}5\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = \tfrac12 x^3 + 3x^2 + 9x + 6\tfrac12\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a10">
+  <h3>10. <span style="font-weight:600">… deren Graph in \((-2\,|\,0)\) die x-Achse schneidet und bei \(x_0 = 0\) einen Wendepunkt mit der Wendetangente \(t\) mit \(t: x - 3y + 6 = 0\) besitzt.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = \tfrac16 x^3 + \tfrac13 x + 2\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="10" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="10" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Nullstelle \(N(-2\,|\,0)\)</p><p>2. Wendestelle \(x = 0\); Wendetangente: \(y = \tfrac13 x + 2\)</p><p>\(\;\;\;\Rightarrow W(0\,|\,2)\)</p><p>3. Steigung in \(W\): \(\tfrac13\)</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(-2) = 0\)</span><span>\(-8a + 4b - 2c + d = 0\)</span><span>2.</span><span>\(f(0) = 2\)</span><span>\(d = 2\)</span><span></span><span>\(f''(0) = 0\)</span><span>\(b = 0\)</span><span>3.</span><span>\(f'(0) = \tfrac13\)</span><span>\(c = \tfrac13\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><p>\(b = 0,\; c = \tfrac13,\; d = 2\) in I:</p></div><div class='gbox'><p>\(-8a - \tfrac23 + 2 = 0\)</p><p>\(8a = \tfrac43\)</p><p>\(a = \tfrac16\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = \tfrac16 x^3 + \tfrac13 x + 2\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a11">
+  <h3>11. <span style="font-weight:600">… deren Graph den Ursprung als Symmetriezentrum und den Punkt \((-2\,|\,-4)\) als Tiefpunkt besitzt.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = -\tfrac14 x^3 + 3x\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="11" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="11" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. punktsymmetrisch zum Ursprung</p><p>2. Tiefpunkt \(T(-2\,|\,-4)\)</p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(\text{nur ungerade Potenzen}\)</span><span>\(b = 0,\; d = 0\)</span><span>2.</span><span>\(f(-2) = -4\)</span><span>\(-8a - 2c = -4\)</span><span></span><span>\(f'(-2) = 0\)</span><span>\(12a + c = 0\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(-8a - 2c = -4\)</span><span class='small'></span><span class='r'>II:</span><span>\(12a + c = 0\)</span><span class='small'>\(\to c = -12a\)</span></div></div><div class='gbox'><p>in I: \(-8a + 24a = -4\)</p><p>\(16a = -4\)</p><p>\(a = -\tfrac14\)</p></div><div class='gbox'><p>\(c = 3\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = -\tfrac14 x^3 + 3x\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      <p class='small muted'>Probe: \(f''(-2) = 6\cdot(-\tfrac14)\cdot(-2) = 3 &gt; 0\) → wirklich ein Tiefpunkt ✓</p>
+    </div></details>
+  </div>
+</article>
+<article class="aufgabe" id="a12">
+  <h3>12. <span style="font-weight:600">… deren Graph durch den Ursprung verläuft und den Punkt \((2\,|\,1)\) als Sattelpunkt besitzt.</span></h3>
+  <div class="klapp">
+    <details class="sol res"><summary>Ergebnis aufklappen</summary><div class="inner">
+      <div class="result"><b>\(f(x) = \tfrac18 x^3 - \tfrac34 x^2 + 1\tfrac12 x\)</b></div>
+      <div class="mark"><span class="small muted">Hattest du das?</span>
+        <button class="btn ok" data-mark="12" data-v="1">✓ Richtig</button>
+        <button class="btn no" data-mark="12" data-v="0">✗ Falsch</button></div>
+    </div></details>
+    <details class="sol"><summary>Lösungsweg anzeigen</summary><div class="inner">
+      <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+      <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+      <div class="two">
+        <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p><div class="gbox"><p>1. Punkt \(O(0\,|\,0)\)</p><p>2. Sattelpunkt \(S(2\,|\,1)\)<br><span class='small'>(Punkt, waagerechte Tangente und Wendestelle bei \(x = 2\))</span></p></div></div>
+        <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p><div class="gbox"><div class="lgs"><span>1.</span><span>\(f(0) = 0\)</span><span>\(d = 0\)</span><span>2.</span><span>\(f(2) = 1\)</span><span>\(8a + 4b + 2c = 1\)</span><span></span><span>\(f'(2) = 0\)</span><span>\(12a + 4b + c = 0\)</span><span></span><span>\(f''(2) = 0\)</span><span>\(12a + 2b = 0\)</span></div></div></div>
+      </div>
+      <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+      <div class='flow'><div class='gbox'><div class='lgs'><span class='r'>I:</span><span>\(8a + 4b + 2c = 1\)</span><span class='small'></span><span class='r'>II:</span><span>\(12a + 4b + c = 0\)</span><span class='small'></span><span class='r'>III:</span><span>\(12a + 2b = 0\)</span><span class='small'>\(\to b = -6a\)</span></div></div><div class='gbox'><p>b in II: \(12a - 24a + c = 0\)</p><p>\(c = 12a\) <span class='r'>(IV)</span></p></div><div class='gbox'><p>b, IV in I: \(8a - 24a + 24a = 1\)</p><p>\(a = \tfrac18\)</p></div><div class='gbox'><p>\(b = -\tfrac34\)</p><p>\(c = \tfrac32 = 1\tfrac12\)</p></div></div>
+      <p><b><i>(5) Resultat</i></b></p>
+      <div class="result"><b>\(f(x) = \tfrac18 x^3 - \tfrac34 x^2 + 1\tfrac12 x\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+      
+    </div></details>
+  </div>
+</article>
+<div class="tip" style="margin-top:28px"><b>Tangente in der Form \(ax + by + c = 0\)?</b>Erst nach \(y\) auflösen: \(3x - y + 2{,}5 = 0 \Rightarrow y = 3x + 2{,}5\). Die Zahl vor \(x\) ist die Steigung, und den y-Wert des Wendepunkts bekommst du durch Einsetzen der Wendestelle in die Tangente.</div>
+<p class="foot">Study Hub · Mathematik 11.1 · Steckbriefaufgaben – Klapptest 32 (nach Thomas Unkelbach, CC BY-SA)</p>
+</div>
+<script>
+(function () {
+  var marks = {};
+  function render() {
+    var n = 0; for (var k in marks) if (marks[k] === "1") n++;
+    document.getElementById("score").textContent = n;
+    document.querySelectorAll("[data-mark]").forEach(function (b) {
+      b.classList.toggle("on", marks[b.dataset.mark] === b.dataset.v);
+    });
+  }
+  document.querySelectorAll("[data-mark]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      marks[b.dataset.mark] = marks[b.dataset.mark] === b.dataset.v ? undefined : b.dataset.v;
+      render();
+    });
+  });
+  document.getElementById("reset").addEventListener("click", function () {
+    marks = {}; render();
+    document.querySelectorAll("details.sol").forEach(function (d) { d.open = false; });
+    window.scrollTo({ top: 0 });
+  });
+})();
+</script>
+</body>
+</html>

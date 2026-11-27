@@ -80,6 +80,26 @@
     "file": "math/11.1/schulaufgabe-funktionsgleichungen.html"
   },
   {
+    "id": "mathe-klapptest-32",
+    "title": "Steckbriefaufgaben – Klapptest 32",
+    "subject": "math",
+    "semester": "11.1",
+    "topic": "Funktionsgleichungen gesucht (Rekonstruktion)",
+    "kind": "exercises",
+    "tags": [
+      "Klapptest",
+      "Steckbriefaufgaben",
+      "Funktion dritten Grades",
+      "Wendetangente",
+      "Sattelpunkt",
+      "Hochpunkt",
+      "Tiefpunkt",
+      "Übung",
+      "Lösungen"
+    ],
+    "file": "math/11.1/klapptest-32-steckbriefaufgaben.html"
+  },
+  {
     "id": "bio-klausur-zelle-enzyme",
     "title": "Bio-Klausur Klasse 11 – einfach erklärt",
     "subject": "bio",
