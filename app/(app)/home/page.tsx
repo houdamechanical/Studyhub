@@ -96,7 +96,7 @@ function NextExam({ exam }: { exam: SchoolExam | null }) {
   return (
     <Link
       href="/grades?tab=exams"
-      className="enter group relative block overflow-hidden rounded-xl border bg-card p-5 transition-colors hover:border-[var(--c-border-strong)] sm:p-6"
+      className="enter group relative block overflow-hidden rounded-xl border bg-card shadow-card p-5 transition-colors hover:border-[var(--c-border-strong)] sm:p-6"
     >
       {/* A whisper of the accent, top right */}
       <div aria-hidden className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--c-amber)_14%,transparent),transparent)]" />
@@ -189,12 +189,12 @@ function CommunitiesCard({ list }: { list: Community[] }) {
 function HomeSkeleton() {
   return (
     <div className="flex flex-col gap-4" aria-busy>
-      <div className="h-44 animate-pulse rounded-xl border bg-card" />
+      <div className="h-44 animate-pulse rounded-xl border bg-card shadow-card" />
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="h-48 animate-pulse rounded-xl border bg-card" />
-        <div className="h-48 animate-pulse rounded-xl border bg-card" />
+        <div className="h-48 animate-pulse rounded-xl border bg-card shadow-card" />
+        <div className="h-48 animate-pulse rounded-xl border bg-card shadow-card" />
       </div>
-      <div className="h-24 animate-pulse rounded-xl border bg-card" />
+      <div className="h-24 animate-pulse rounded-xl border bg-card shadow-card" />
     </div>
   );
 }

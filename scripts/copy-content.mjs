@@ -11,4 +11,6 @@ for (const item of index) {
   mkdirSync(path.dirname(to), { recursive: true });
   cpSync(from, to);
 }
+// Shared assets the pages link to (KaTeX for formulas, the math page theme).
+cpSync(path.join("content", "_shared"), path.join("public", "content", "_shared"), { recursive: true });
 console.log(`copied ${index.length} study pages to public/content/`);

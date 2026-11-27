@@ -1,0 +1,465 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-27T19:13:41Z",
+  "title": "Design System: Study Hub",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(97.7% 0.011 84.6)",
+        "tonalRamp": [
+          "oklch(15% 0.01 84.6)",
+          "oklch(25% 0.012 84.6)",
+          "oklch(35% 0.015 84.6)",
+          "oklch(45% 0.017 84.6)",
+          "oklch(58% 0.019 84.6)",
+          "oklch(72% 0.016 84.6)",
+          "oklch(85% 0.012 84.6)",
+          "oklch(95% 0.01 84.6)"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.005 84.6)",
+          "oklch(25% 0.006 84.6)",
+          "oklch(35% 0.007 84.6)",
+          "oklch(45% 0.009 84.6)",
+          "oklch(58% 0.01 84.6)",
+          "oklch(72% 0.008 84.6)",
+          "oklch(85% 0.006 84.6)",
+          "oklch(95% 0.005 84.6)"
+        ]
+      },
+      "margin-beige": {
+        "role": "neutral",
+        "displayName": "Margin Beige",
+        "canonical": "oklch(94.5% 0.019 83.1)",
+        "tonalRamp": [
+          "oklch(15% 0.015 83.1)",
+          "oklch(25% 0.019 83.1)",
+          "oklch(35% 0.022 83.1)",
+          "oklch(45% 0.026 83.1)",
+          "oklch(58% 0.029 83.1)",
+          "oklch(72% 0.024 83.1)",
+          "oklch(85% 0.019 83.1)",
+          "oklch(95% 0.015 83.1)"
+        ]
+      },
+      "ruled-line": {
+        "role": "neutral",
+        "displayName": "Ruled Line",
+        "canonical": "oklch(90.7% 0.022 80.7)",
+        "tonalRamp": [
+          "oklch(15% 0.015 80.7)",
+          "oklch(25% 0.019 80.7)",
+          "oklch(35% 0.022 80.7)",
+          "oklch(45% 0.026 80.7)",
+          "oklch(58% 0.029 80.7)",
+          "oklch(72% 0.024 80.7)",
+          "oklch(85% 0.019 80.7)",
+          "oklch(95% 0.015 80.7)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(22.5% 0.011 73.3)",
+        "tonalRamp": [
+          "oklch(15% 0.01 73.3)",
+          "oklch(25% 0.012 73.3)",
+          "oklch(35% 0.015 73.3)",
+          "oklch(45% 0.017 73.3)",
+          "oklch(58% 0.019 73.3)",
+          "oklch(72% 0.016 73.3)",
+          "oklch(85% 0.012 73.3)",
+          "oklch(95% 0.01 73.3)"
+        ]
+      },
+      "pencil-grey": {
+        "role": "neutral",
+        "displayName": "Pencil Grey",
+        "canonical": "oklch(49.3% 0.025 69.4)",
+        "tonalRamp": [
+          "oklch(15% 0.015 69.4)",
+          "oklch(25% 0.019 69.4)",
+          "oklch(35% 0.022 69.4)",
+          "oklch(45% 0.026 69.4)",
+          "oklch(58% 0.029 69.4)",
+          "oklch(72% 0.024 69.4)",
+          "oklch(85% 0.019 69.4)",
+          "oklch(95% 0.015 69.4)"
+        ]
+      },
+      "correction-red": {
+        "role": "primary",
+        "displayName": "Correction Red",
+        "canonical": "oklch(52.4% 0.173 35.5)",
+        "tonalRamp": [
+          "oklch(15% 0.083 35.5)",
+          "oklch(25% 0.105 35.5)",
+          "oklch(35% 0.127 35.5)",
+          "oklch(45% 0.148 35.5)",
+          "oklch(58% 0.164 35.5)",
+          "oklch(72% 0.133 35.5)",
+          "oklch(85% 0.105 35.5)",
+          "oklch(95% 0.083 35.5)"
+        ]
+      },
+      "coral-red": {
+        "role": "primary",
+        "displayName": "Coral Red (dark mode)",
+        "canonical": "oklch(71.3% 0.159 37.6)",
+        "tonalRamp": [
+          "oklch(15% 0.079 37.6)",
+          "oklch(25% 0.099 37.6)",
+          "oklch(35% 0.119 37.6)",
+          "oklch(45% 0.14 37.6)",
+          "oklch(58% 0.154 37.6)",
+          "oklch(72% 0.125 37.6)",
+          "oklch(85% 0.099 37.6)",
+          "oklch(95% 0.079 37.6)"
+        ]
+      },
+      "ink-blue": {
+        "role": "secondary",
+        "displayName": "Ink Blue",
+        "canonical": "oklch(46.3% 0.092 249.2)",
+        "tonalRamp": [
+          "oklch(15% 0.044 249.2)",
+          "oklch(25% 0.056 249.2)",
+          "oklch(35% 0.067 249.2)",
+          "oklch(45% 0.079 249.2)",
+          "oklch(58% 0.087 249.2)",
+          "oklch(72% 0.071 249.2)",
+          "oklch(85% 0.056 249.2)",
+          "oklch(95% 0.044 249.2)"
+        ]
+      },
+      "night-blue": {
+        "role": "secondary",
+        "displayName": "Night Blue (dark mode)",
+        "canonical": "oklch(76.9% 0.076 250.0)",
+        "tonalRamp": [
+          "oklch(15% 0.039 250)",
+          "oklch(25% 0.049 250)",
+          "oklch(35% 0.06 250)",
+          "oklch(45% 0.07 250)",
+          "oklch(58% 0.077 250)",
+          "oklch(72% 0.063 250)",
+          "oklch(85% 0.049 250)",
+          "oklch(95% 0.039 250)"
+        ]
+      },
+      "check-green": {
+        "role": "tertiary",
+        "displayName": "Check Green",
+        "canonical": "oklch(52.7% 0.092 151.0)",
+        "tonalRamp": [
+          "oklch(15% 0.044 151)",
+          "oklch(25% 0.056 151)",
+          "oklch(35% 0.067 151)",
+          "oklch(45% 0.079 151)",
+          "oklch(58% 0.087 151)",
+          "oklch(72% 0.071 151)",
+          "oklch(85% 0.056 151)",
+          "oklch(95% 0.044 151)"
+        ]
+      },
+      "night-desk": {
+        "role": "neutral",
+        "displayName": "Night Desk",
+        "canonical": "oklch(19.0% 0.010 67.1)",
+        "tonalRamp": [
+          "oklch(15% 0.007 67.1)",
+          "oklch(25% 0.009 67.1)",
+          "oklch(35% 0.011 67.1)",
+          "oklch(45% 0.013 67.1)",
+          "oklch(58% 0.014 67.1)",
+          "oklch(72% 0.012 67.1)",
+          "oklch(85% 0.009 67.1)",
+          "oklch(95% 0.007 67.1)"
+        ]
+      },
+      "chalk": {
+        "role": "neutral",
+        "displayName": "Chalk",
+        "canonical": "oklch(95.2% 0.015 77.1)",
+        "tonalRamp": [
+          "oklch(15% 0.01 77.1)",
+          "oklch(25% 0.012 77.1)",
+          "oklch(35% 0.015 77.1)",
+          "oklch(45% 0.017 77.1)",
+          "oklch(58% 0.019 77.1)",
+          "oklch(72% 0.016 77.1)",
+          "oklch(85% 0.012 77.1)",
+          "oklch(95% 0.01 77.1)"
+        ]
+      },
+      "book-math": {
+        "role": "subject",
+        "displayName": "Math book"
+      },
+      "book-deutsch": {
+        "role": "subject",
+        "displayName": "Deutsch book"
+      },
+      "book-englisch": {
+        "role": "subject",
+        "displayName": "Englisch book"
+      },
+      "book-chemie": {
+        "role": "subject",
+        "displayName": "Chemie book"
+      },
+      "book-physik": {
+        "role": "subject",
+        "displayName": "Physik book"
+      },
+      "book-bio": {
+        "role": "subject",
+        "displayName": "Bio book"
+      },
+      "book-geschichte": {
+        "role": "subject",
+        "displayName": "Geschichte book"
+      },
+      "book-religion": {
+        "role": "subject",
+        "displayName": "Religion book"
+      },
+      "book-arabisch": {
+        "role": "subject",
+        "displayName": "Arabisch book"
+      },
+      "book-kunst": {
+        "role": "subject",
+        "displayName": "Kunst book"
+      },
+      "book-musik": {
+        "role": "subject",
+        "displayName": "Musik book"
+      },
+      "book-sport": {
+        "role": "subject",
+        "displayName": "Sport book"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page titles, subject names, the NC number."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles, next-exam subject."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card, folder and Aufgabe titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All reading text, 18px root."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, tabs, chips, meta lines."
+      },
+      "study-text": {
+        "displayName": "Study Text",
+        "purpose": "Musterlösungen and poems on study pages."
+      }
+    },
+    "shadows": [
+      {
+        "name": "resting-card",
+        "value": "0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -16px rgb(60 40 20 / 0.25)",
+        "purpose": "Cards, study-page boxes, the grade book."
+      },
+      {
+        "name": "button-bevel",
+        "value": "inset 0 1px 0 rgb(255 255 255 / 0.16), 0 1px 2px rgb(0 0 0 / 0.18)",
+        "purpose": "Primary buttons."
+      },
+      {
+        "name": "pop-up",
+        "value": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+        "purpose": "Dialogs, calendar, search, menus, toasts."
+      },
+      {
+        "name": "book",
+        "value": "0 10px 24px -12px rgb(0 0 0 / 0.55), 0 2px 4px rgb(0 0 0 / 0.18)",
+        "purpose": "3D subject books."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        "purpose": "Default for state changes, entrances (200–300ms)."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.45, 0, 0.55, 1)",
+        "purpose": "Things moving across the screen."
+      },
+      {
+        "name": "press",
+        "value": "transform: scale(0.985), 200ms ease-out",
+        "purpose": "Tap feedback on buttons, chips, cards."
+      },
+      {
+        "name": "book-zoom",
+        "value": "420ms cubic-bezier(0.65, 0, 0.25, 1), then 320ms fade",
+        "purpose": "Opening a subject book."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px",
+        "purpose": "Icon rail replaces bottom bar."
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action on a view (Save, Hop in, Join).",
+      "html": "<button class=\"ds-btn-primary\">Hop in</button>",
+      "css": ".ds-btn-primary{background:#b8360f;color:#fff;font:500 14px/1 Inter,system-ui,sans-serif;height:40px;padding:0 18px;border:0;border-radius:8px;box-shadow:inset 0 1px 0 rgb(255 255 255/.16),0 1px 2px rgb(0 0 0/.18);cursor:pointer;transition:background .2s,transform .2s cubic-bezier(.22,.61,.36,1)}.ds-btn-primary:hover{background:#a4300d}.ds-btn-primary:active{transform:scale(.985)}.ds-btn-primary:focus-visible{outline:2px solid #b8360f;outline-offset:2px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary actions (Cancel, Show all solutions off).",
+      "html": "<button class=\"ds-btn-outline\">Cancel</button>",
+      "css": ".ds-btn-outline{background:#fbf7ef;color:#1f1b16;font:500 14px/1 Inter,system-ui,sans-serif;height:40px;padding:0 18px;border:1px solid #d8ccb8;border-radius:8px;box-shadow:0 1px 2px rgb(0 0 0/.05);cursor:pointer;transition:background .2s,transform .2s}.ds-btn-outline:hover{background:#f3ecdf}.ds-btn-outline:active{transform:scale(.985)}.ds-btn-outline:focus-visible{outline:2px solid #b8360f;outline-offset:2px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Names, community codes, search fields.",
+      "html": "<input class=\"ds-input\" placeholder=\"Name, e.g. Bio crew\">",
+      "css": ".ds-input{width:260px;background:#fbf7ef;color:#1f1b16;font:400 16px/1.4 Inter,system-ui,sans-serif;padding:8px 12px;border:1px solid #d8ccb8;border-radius:8px;outline:none;transition:border-color .2s,box-shadow .2s}.ds-input::placeholder{color:#6b5f52}.ds-input:focus-visible{border-color:#b8360f;box-shadow:0 0 0 2px rgb(184 54 15/.25)}"
+    },
+    {
+      "name": "Grade Field",
+      "kind": "input",
+      "refersTo": "grade-field",
+      "description": "Type exam or oral points 0–15; filled fields take the subject colour at 14%.",
+      "html": "<label class=\"ds-grade\"><input value=\"13\" inputmode=\"numeric\" aria-label=\"Points\"><span>P</span></label>",
+      "css": ".ds-grade{position:relative;display:inline-flex;align-items:center}.ds-grade input{width:88px;height:48px;text-align:center;font:700 20px/1 Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums;color:#1f1b16;background:color-mix(in srgb,#3341c9 14%,transparent);border:2px solid transparent;border-radius:10px;padding:0 30px 0 12px;outline:none}.ds-grade input:focus-visible{border-color:#b8360f}.ds-grade span{position:absolute;right:12px;font:500 14px Inter,sans-serif;color:#6b5f52}"
+    },
+    {
+      "name": "Subject Chip",
+      "kind": "chip",
+      "refersTo": "chip-active",
+      "description": "Subject / NC filter on leaderboards; selected one is red.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip on\">NC</button><button class=\"ds-chip\">Math</button><button class=\"ds-chip\">German</button></div>",
+      "css": ".ds-chips{display:flex;gap:6px}.ds-chip{font:500 14px/1 Inter,system-ui,sans-serif;padding:8px 12px;border-radius:8px;border:1px solid #e8dfd0;background:#fff;color:#6b5f52;cursor:pointer;transition:color .2s,background .2s,transform .2s}.ds-chip:hover{color:#1f1b16}.ds-chip:active{transform:scale(.985)}.ds-chip.on{background:#b8360f;border-color:transparent;color:#fff}.ds-chip:focus-visible{outline:2px solid #b8360f;outline-offset:2px}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Panels on home and the grade book: white sheet on cream paper, soft lift.",
+      "html": "<section class=\"ds-card\"><header>Your NC · 11.1</header><p class=\"big\">1,8</p><p class=\"meta\">Ø 11,6 points · 10 subjects</p></section>",
+      "css": ".ds-card{width:280px;background:#fff;color:#1f1b16;border:1px solid #e8dfd0;border-radius:14px;box-shadow:0 1px 2px rgb(0 0 0/.04),0 8px 24px -16px rgb(60 40 20/.25);overflow:hidden;font-family:Inter,system-ui,sans-serif}.ds-card header{padding:10px 16px;border-bottom:1px solid #e8dfd0;font:500 14px Inter,sans-serif;color:#6b5f52}.ds-card .big{margin:14px 16px 0;font:800 48px/1 'Bricolage Grotesque',Inter,sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.ds-card .meta{margin:8px 16px 16px;color:#6b5f52;font-size:14px}"
+    },
+    {
+      "name": "Navigation Rail",
+      "kind": "nav",
+      "refersTo": "nav-rail-item-active",
+      "description": "Desktop icon rail; active item beige with red icon and edge bar.",
+      "html": "<nav class=\"ds-rail\"><a class=\"on\" aria-label=\"Home\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\"/><path d=\"M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg></a><a aria-label=\"Subjects\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 7v14\"/><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"/></svg></a></nav>",
+      "css": ".ds-rail{display:flex;flex-direction:column;gap:4px;padding:12px;width:64px;background:#f6f0e4;border-right:1px solid #e8dfd0}.ds-rail a{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:8px;color:#6b5f52;cursor:pointer;transition:background .2s,color .2s,transform .2s}.ds-rail a:hover{background:rgb(243 236 223/.7);color:#1f1b16}.ds-rail a:active{transform:scale(.985)}.ds-rail a.on{background:#f3ecdf;color:#b8360f}.ds-rail a.on::before{content:'';position:absolute;left:-12px;top:10px;bottom:10px;width:3px;border-radius:3px;background:#b8360f}"
+    },
+    {
+      "name": "Subject Book",
+      "kind": "custom",
+      "refersTo": "book-math",
+      "description": "Signature 3D subject book: tilts toward the pointer, lifts on hover, fills the screen when opened.",
+      "html": "<a class=\"ds-book\" aria-label=\"Math\"><span class=\"cover\"><span class=\"ico\"><svg width=\"100%\" height=\"100%\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2\"/></svg></span><span class=\"t\">Math</span></span></a>",
+      "css": ".ds-book{display:block;width:150px;aspect-ratio:3/4;perspective:900px;cursor:pointer}.ds-book .cover{position:relative;display:block;width:100%;height:100%;border-radius:3px 10px 10px 3px;color:#fff;background:linear-gradient(90deg,rgb(0 0 0/.28),rgb(255 255 255/.18) 4%,transparent 9%),linear-gradient(150deg,#7c89ff,#3341c9 78%);box-shadow:0 10px 24px -12px rgb(0 0 0/.55),0 2px 4px rgb(0 0 0/.18),6px 0 0 -1px #efe7d6;transform:rotateY(-18deg) rotateX(4deg);transition:transform .5s cubic-bezier(.22,.61,.36,1)}.ds-book:hover .cover{transform:translateY(-8px) rotateY(-8deg) rotateX(2deg)}.ds-book .ico{position:absolute;left:18%;top:14%;width:34%;aspect-ratio:1}.ds-book .t{position:absolute;left:14%;bottom:11%;font:800 20px/1.05 'Bricolage Grotesque',Inter,sans-serif;letter-spacing:-.02em}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Class Planner",
+    "overview": "Study Hub is the planner a well-organised student keeps for the whole school year: cream paper, a red pen for what matters, ink blue for notes, and a shelf of coloured subject books. Everything has its place – the next exam on top, every subject in its own book, every grade in its row – so a student between lessons finds what they need in one tap. Order comes first; personality lives in the details you touch.\n\nComponents are tactile and friendly. Surfaces sit on the paper with soft shadows, buttons give a small press, and the subject books are real objects: they tilt toward the pointer, catch the light and grow to fill the screen when opened. Study content switches to a printed-page serif with margin line numbers, so a Musterlösung looks like the worksheet it came from.\n\nLight mode is paper on a desk; dark mode is the same planner at night (warm brown-black, chalk text, coral instead of red). Both are first-class; the user picks Light, Dark or System.",
+    "keyCharacteristics": [
+      "Cream paper, red pen, ink blue – one strong accent, one quiet second colour.",
+      "Every subject has a fixed book colour and icon; colour signals the subject, not decoration.",
+      "Soft shadows lift cards gently off the page; pop-ups and books lift further.",
+      "Large, readable text (18px base) with a friendly grotesque for headings.",
+      "Study pages read like printed school material (serif, verse/line numbers, Fachbegriffe in bold)."
+    ],
+    "rules": [
+      {
+        "name": "The Red Pen Rule",
+        "body": "Correction Red marks what to do or look at next – one primary button, the active tab, the countdown. If everything is red, nothing is.",
+        "section": "colors"
+      },
+      {
+        "name": "The Book Colour Rule",
+        "body": "Subject colours belong to subjects. Never use a book colour as a general accent, background or decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Modes Rule",
+        "body": "Every colour ships as a light and a dark pair; text pairs must pass WCAG AA (4.5:1) in both.",
+        "section": "colors"
+      },
+      {
+        "name": "The Big-Enough Rule",
+        "body": "Nothing a student must read is smaller than 0.875rem; fixed pixel sizes below 14px are not allowed.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Numbers Rule",
+        "body": "Grades, points, NC, timers and countdowns use tabular figures so digits don't jump.",
+        "section": "typography"
+      },
+      {
+        "name": "The Gentle Lift Rule",
+        "body": "Shadows are soft and warm, never hard black edges. The more a thing can be picked up (dialog, book), the higher it floats.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep one Correction Red action per view; everything else is outline or ghost.",
+      "Do use the subject's book colour whenever a subject is shown (book, badge, grade card) – and only then.",
+      "Do ship every screen in light and dark and check text contrast ≥ 4.5:1 in both.",
+      "Do keep reading text at 18px root and labels ≥ 0.875rem; use tabular numbers for grades and dates.",
+      "Do give tappable things press feedback (scale 0.985) and a 44px touch target.",
+      "Do respect prefers-reduced-motion (no tilt, zoom or slide)."
+    ],
+    "donts": [
+      "Don't use book colours as decoration, backgrounds or gradients outside subject contexts.",
+      "Don't add hard, dark, offset shadows or glowing neon effects.",
+      "Don't shrink text below 14px or use thin weights for anything students must read.",
+      "Don't let pages scroll sideways on a phone; scroll wide tables and formulas inside their box.",
+      "Don't introduce a third accent colour; Ink Blue and Check Green stay small and functional."
+    ]
+  }
+}

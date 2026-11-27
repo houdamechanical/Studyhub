@@ -113,7 +113,7 @@ function ImportTab() {
   }
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl border bg-card p-4">
+    <div className="flex flex-col gap-3 rounded-xl border bg-card shadow-card p-4">
       <p className="text-sm text-muted-foreground">{t.importHint}</p>
       <div className="flex flex-wrap gap-2">
         <label className={cn(controlClass, "inline-flex w-auto cursor-pointer items-center gap-2")}>
@@ -215,7 +215,7 @@ function QuestionTab() {
   }
 
   return (
-    <form onSubmit={save} className="flex flex-col gap-4 rounded-xl border bg-card p-4">
+    <form onSubmit={save} className="flex flex-col gap-4 rounded-xl border bg-card shadow-card p-4">
       <div className="grid gap-4 sm:grid-cols-3">
         <SubjectSelect value={f.subject} onChange={(subject) => setF({ ...f, subject })} />
         <Field label={t.topic}>
@@ -338,7 +338,7 @@ function QuizTab({ questions }: { questions: AdminData["questions"] }) {
   }
 
   return (
-    <form onSubmit={save} className="flex flex-col gap-4 rounded-xl border bg-card p-4">
+    <form onSubmit={save} className="flex flex-col gap-4 rounded-xl border bg-card shadow-card p-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label={t.kind}>
           <select className={controlClass} value={kind} onChange={(e) => setKind(e.target.value as QuizKind)}>
@@ -432,7 +432,7 @@ function CardsTab({ decks }: { decks: AdminData["decks"] }) {
   }
 
   return (
-    <form onSubmit={save} className="flex flex-col gap-4 rounded-xl border bg-card p-4">
+    <form onSubmit={save} className="flex flex-col gap-4 rounded-xl border bg-card shadow-card p-4">
       <Field label={t.deck}>
         <select className={controlClass} value={deckId} onChange={(e) => setDeckId(e.target.value)}>
           {decks.map((d) => (
@@ -516,7 +516,7 @@ function ContentTab({ data }: { data: AdminData }) {
           {g.rows.length === 0 ? (
             <p className="text-sm text-muted-foreground">{dict.practice.noneYet}</p>
           ) : (
-            <ul className="max-h-96 divide-y overflow-y-auto rounded-xl border bg-card">
+            <ul className="max-h-96 divide-y overflow-y-auto rounded-xl border bg-card shadow-card">
               {g.rows.map((r) => (
                 <li key={r.id} className="flex items-center gap-3 px-3 py-2 text-sm">
                   <span className="size-2.5 shrink-0 rounded-full" style={{ background: SUBJECTS[r.subject].color }} title={SUBJECTS[r.subject].label[locale]} />

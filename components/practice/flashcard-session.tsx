@@ -114,9 +114,9 @@ export function FlashcardSession({
       <FormError message={error} />
 
       {queue === null ? (
-        <div className="h-72 animate-pulse rounded-xl border bg-card" aria-hidden />
+        <div className="h-72 animate-pulse rounded-xl border bg-card shadow-card" aria-hidden />
       ) : !card ? (
-        <div className="flex flex-col items-center gap-3 rounded-xl border bg-card p-8 text-center">
+        <div className="flex flex-col items-center gap-3 rounded-xl border bg-card shadow-card p-8 text-center">
           <PartyPopper size={32} className="text-muted-foreground" />
           {total > 0 ? (
             <>

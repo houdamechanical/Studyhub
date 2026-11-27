@@ -45,3 +45,6 @@ next-env.d.ts
 /public/content/
 # static export output
 /out/
+
+# Claude Code local settings (machine-specific hooks)
+.claude/settings.local.json

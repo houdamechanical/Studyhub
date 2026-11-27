@@ -2,7 +2,7 @@
 
 import { isMissingTable } from "@/components/setup-notice";
 import { must } from "@/lib/data";
-import { sortByDate, type SchoolExam } from "@/lib/exams";
+import { isMyExam, sortByDate, type SchoolExam } from "@/lib/exams";
 import { todayISO } from "@/lib/format";
 import type { QuizKind } from "@/lib/practice";
 import type { SubjectId } from "@/lib/subjects";
@@ -102,7 +102,7 @@ export async function loadSchoolExams(subjects: readonly SubjectId[], opts: { su
     if (isMissingTable(error)) return [];
     throw error;
   }
-  return sortByDate(data as SchoolExam[]);
+  return sortByDate((data as SchoolExam[]).filter((e) => isMyExam(e)));
 }
 
 /** Whole days from today until a YYYY-MM-DD date (0 = today). */

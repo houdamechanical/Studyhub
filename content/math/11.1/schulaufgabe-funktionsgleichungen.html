@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schulaufgabe – Funktionsgleichungen gesucht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Schulaufgabe <em>Funktions&shy;gleichungen gesucht</em></h1>
+  <p class="lead">Die Aufgaben vom Arbeitsblatt „Funktionsgleichungen gesucht“ und drei zusätzliche Übungsaufgaben im Stil der Arbeit. Alle Lösungen in den fünf Schritten wie im Buch: <b>(1) Ansatz · (2) Eigenschaften · (3) Gleichungen · (4) LGS lösen · (5) Resultat</b>.</p>
+  <div class="card small" style="margin-top:18px">
+    <b>Hilfsmittel:</b> WTR, Formelsammlung · <b>Bearbeitungszeit:</b> ca. 90 Minuten · <b>Gesamt:</b> 70 Punkte<br>
+    <span class="muted">Bestimmen Sie jeweils die Funktionsgleichung. Notieren Sie Ansatz, Eigenschaften, Gleichungen und den Lösungsweg des LGS.</span>
+  </div>
+</header>
+
+<div class="toolbar">
+  <span class="small muted">5 Aufgaben</span>
+  <span style="display:flex;gap:8px">
+    <button class="btn" data-all="close">Lösungen ausblenden</button>
+    <button class="btn primary" data-all="open">Alle Lösungen zeigen</button>
+  </span>
+</div>
+
+<!-- ============ Aufgabe 1 ============ -->
+<article class="aufgabe" id="a1">
+  <h3>Aufgabe 1 · Steckbriefe <span class="pts">32 P</span></h3>
+  <p class="small muted">Arbeitsblatt „Funktionsgleichungen gesucht“, Aufgabe 1</p>
+  <ol class="sub">
+    <li>Der Graph einer ganzrationalen Funktion 3. Grades ist punktsymmetrisch zum Ursprung und hat den Tiefpunkt \(T(2\,|\,-4)\). <span class="small muted">(6 P)</span></li>
+    <li>Der Graph einer ganzrationalen Funktion 3. Grades geht durch den Koordinatenursprung und hat an der Stelle 2 eine waagerechte Tangente. Außerdem hat er eine Tangente im Wendepunkt \(W(4\,|\,y_W)\) mit der Steigung \(-4\). <span class="small muted">(8 P)</span></li>
+    <li>Der Graph einer ganzrationalen Funktion 3. Grades ist punktsymmetrisch zum Punkt \(P(-1\,|\,0)\) und schneidet die x-Achse bei 2 unter einem Winkel von 45°.<br><span class="small muted">(Tipp 1: Jede ganzrationale Funktion 3. Grades ist punktsymmetrisch zum Wendepunkt.) (Tipp 2: Überlegen Sie, welcher Steigung ein Schnittwinkel von 45° entspricht.)</span> <span class="small muted">(10 P)</span></li>
+    <li>Der Graph einer ganzrationalen Funktion 4. Grades ist symmetrisch zur y-Achse. Im Punkt \(P(2\,|\,0)\) hat der Graph die Steigung 2, und bei \(x_W = -1\) befindet sich eine Wendestelle. <span class="small muted">(8 P)</span></li>
+  </ol>
+
+  <!-- a -->
+  <details class="sol"><summary>Lösung zu a)</summary><div class="inner">
+    <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b><br>Wir setzen die ganzrationale Funktion dritten Grades unter Verwendung der Parameter \(a, b, c\) und \(d\) allgemein an. Außerdem notieren wir den Funktionsterm von \(f'\).</p>
+    <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p></div>
+    <div class="two">
+      <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+        <div class="gbox"><p>1. punktsymmetrisch zum Ursprung</p><p>2. Tiefpunkt \(T(2\,|\,-4)\)<br><span class="small">(Extremstelle \(x = 2\), Funktionswert \(y = -4\))</span></p></div></div>
+      <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+        <div class="gbox"><div class="lgs">
+          <span>1.</span><span>nur ungerade Potenzen</span><span>\(b = 0,\; d = 0\)</span>
+          <span>2.</span><span>\(f(2) = -4\)</span><span>\(8a + 2c = -4\)</span>
+          <span></span><span>\(f'(2) = 0\)</span><span>\(12a + c = 0\)</span>
+        </div></div></div>
+    </div>
+    <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+    <div class="flow">
+      <div class="gbox"><div class="lgs">
+        <span class="r">I:</span><span>\(8a + 2c = -4\)</span><span></span>
+        <span class="r">II:</span><span>\(12a + c = 0\)</span><span class="small">\(2\cdot\text{II} - \text{I} \to\)</span>
+      </div></div>
+      <div class="gbox"><p><span class="r">III:</span> \(16a = 4\)</p><p>\(a = 0{,}25\)</p></div>
+      <div class="gbox"><p>in II: \(3 + c = 0\)</p><p>\(c = -3\)</p></div>
+    </div>
+    <p><b><i>(5) Resultat</i></b></p>
+    <div class="result"><b>\(f(x) = 0{,}25x^3 - 3x\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+    <p class="small muted">Probe: \(f(2) = 2 - 6 = -4\) ✓ · \(f'(2) = 3 - 3 = 0\) ✓ · \(f''(2) = 1{,}5\cdot 2 = 3 &gt; 0\) → wirklich ein Tiefpunkt ✓</p>
+  </div></details>
+
+  <!-- b -->
+  <details class="sol"><summary>Lösung zu b)</summary><div class="inner">
+    <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+    <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+    <div class="two">
+      <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+        <div class="gbox"><p>1. Punkt \(O(0\,|\,0)\)</p><p>2. waagerechte Tangente bei \(x = 2\)</p><p>3. Wendepunkt \(W(4\,|\,y_W)\)<br><span class="small">(Wendestelle \(x = 4\), \(y_W\) unbekannt)</span></p><p>4. Steigung im Wendepunkt: \(-4\)</p></div></div>
+      <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+        <div class="gbox"><div class="lgs">
+          <span>1.</span><span>\(f(0) = 0\)</span><span>\(d = 0\)</span>
+          <span>2.</span><span>\(f'(2) = 0\)</span><span>\(12a + 4b + c = 0\)</span>
+          <span>3.</span><span>\(f''(4) = 0\)</span><span>\(24a + 2b = 0\)</span>
+          <span>4.</span><span>\(f'(4) = -4\)</span><span>\(48a + 8b + c = -4\)</span>
+        </div></div></div>
+    </div>
+    <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+    <div class="flow">
+      <div class="gbox"><div class="lgs">
+        <span class="r">I:</span><span>\(12a + 4b + c = 0\)</span><span></span>
+        <span class="r">II:</span><span>\(24a + 2b = 0\)</span><span class="small">\(\to b = -12a\) (IV)</span>
+        <span class="r">III:</span><span>\(48a + 8b + c = -4\)</span><span class="small">\(\text{III} - \text{I} \to\)</span>
+      </div></div>
+      <div class="gbox"><p><span class="r">V:</span> \(36a + 4b = -4\)</p><p>IV in V: \(36a - 48a = -4\)</p><p>\(-12a = -4\)</p></div>
+      <div class="gbox"><p>\(a = \tfrac13\)</p><p>in IV: \(b = -4\)</p><p>in I: \(4 - 16 + c = 0 \Rightarrow c = 12\)</p></div>
+    </div>
+    <p><b><i>(5) Resultat</i></b></p>
+    <div class="result"><b>\(f(x) = \tfrac13 x^3 - 4x^2 + 12x\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+    <p class="small muted">Probe: \(f'(x) = x^2 - 8x + 12\): \(f'(2) = 4 - 16 + 12 = 0\) ✓ · \(f'(4) = 16 - 32 + 12 = -4\) ✓ · \(f''(x) = 2x - 8\): \(f''(4) = 0\) ✓</p>
+  </div></details>
+
+  <!-- c -->
+  <details class="sol"><summary>Lösung zu c)</summary><div class="inner">
+    <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+    <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+    <div class="two">
+      <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+        <div class="gbox"><p>1. Wendepunkt \(W(-1\,|\,0)\)<br><span class="small">(Tipp 1: punktsymmetrisch zu \(P\) ⇒ \(P\) ist der Wendepunkt)</span></p><p>2. Nullstelle bei \(x = 2\)</p><p>3. Steigung bei \(x = 2\): \(\tan 45° = 1\)<br><span class="small">(Tipp 2)</span></p></div></div>
+      <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+        <div class="gbox"><div class="lgs">
+          <span>1.</span><span>\(f(-1) = 0\)</span><span>\(-a + b - c + d = 0\)</span>
+          <span></span><span>\(f''(-1) = 0\)</span><span>\(-6a + 2b = 0\)</span>
+          <span>2.</span><span>\(f(2) = 0\)</span><span>\(8a + 4b + 2c + d = 0\)</span>
+          <span>3.</span><span>\(f'(2) = 1\)</span><span>\(12a + 4b + c = 1\)</span>
+        </div></div></div>
+    </div>
+    <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+    <div class="flow">
+      <div class="gbox"><div class="lgs">
+        <span class="r">I:</span><span>\(-a + b - c + d = 0\)</span><span></span>
+        <span class="r">II:</span><span>\(-6a + 2b = 0\)</span><span class="small">\(\to b = 3a\) (V)</span>
+        <span class="r">III:</span><span>\(8a + 4b + 2c + d = 0\)</span><span class="small">\(\text{III}-\text{I} \to\)</span>
+        <span class="r">IV:</span><span>\(12a + 4b + c = 1\)</span><span></span>
+      </div></div>
+      <div class="gbox"><p><span class="r">VI:</span> \(9a + 3b + 3c = 0 \;\big|:3\)</p><p>\(3a + b + c = 0\)</p><p>V in VI: \(6a + c = 0 \Rightarrow c = -6a\) (VII)</p></div>
+      <div class="gbox"><p>V, VII in IV:</p><p>\(12a + 12a - 6a = 1\)</p><p>\(18a = 1 \Rightarrow a = \tfrac{1}{18}\)</p></div>
+      <div class="gbox"><p>in V: \(b = \tfrac16\)</p><p>in VII: \(c = -\tfrac13\)</p><p>in I: \(d = -\tfrac49\)</p></div>
+    </div>
+    <details class="sol"><summary>Wie kommt man auf d?</summary><div class="inner">
+      <p>I: \(-\tfrac{1}{18} + \tfrac16 - \big(-\tfrac13\big) + d = 0 \;\Rightarrow\; \tfrac{-1 + 3 + 6}{18} + d = 0 \;\Rightarrow\; \tfrac{8}{18} + d = 0 \;\Rightarrow\; d = -\tfrac49\)</p>
+    </div></details>
+    <p><b><i>(5) Resultat</i></b></p>
+    <div class="result"><b>\(f(x) = \tfrac{1}{18}x^3 + \tfrac16 x^2 - \tfrac13 x - \tfrac49\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+    <p class="small muted">Probe: \(f(2) = \tfrac49 + \tfrac23 - \tfrac23 - \tfrac49 = 0\) ✓ · \(f'(2) = \tfrac{12}{18} + \tfrac46 - \tfrac13 = 1\) ✓ · \(f''(-1) = -\tfrac13 + \tfrac13 = 0\) ✓</p>
+  </div></details>
+
+  <!-- d -->
+  <details class="sol"><summary>Lösung zu d)</summary><div class="inner">
+    <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b><br>Achsensymmetrie zur y-Achse: Nur gerade Potenzen, d.&nbsp;h. \(b = d = 0\).</p>
+    <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^4 + cx^2 + e\)</p><p>\(f'(x) = 4ax^3 + 2cx\)</p><p>\(f''(x) = 12ax^2 + 2c\)</p></div>
+    <div class="two">
+      <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+        <div class="gbox"><p>1. Punkt \(P(2\,|\,0)\)</p><p>2. Steigung in \(P\): 2</p><p>3. Wendestelle \(x_W = -1\)</p></div></div>
+      <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+        <div class="gbox"><div class="lgs">
+          <span>1.</span><span>\(f(2) = 0\)</span><span>\(16a + 4c + e = 0\)</span>
+          <span>2.</span><span>\(f'(2) = 2\)</span><span>\(32a + 4c = 2\)</span>
+          <span>3.</span><span>\(f''(-1) = 0\)</span><span>\(12a + 2c = 0\)</span>
+        </div></div></div>
+    </div>
+    <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+    <div class="flow">
+      <div class="gbox"><div class="lgs">
+        <span class="r">I:</span><span>\(16a + 4c + e = 0\)</span><span></span>
+        <span class="r">II:</span><span>\(32a + 4c = 2\)</span><span></span>
+        <span class="r">III:</span><span>\(12a + 2c = 0\)</span><span class="small">\(\text{II} - 2\cdot\text{III} \to\)</span>
+      </div></div>
+      <div class="gbox"><p><span class="r">IV:</span> \(8a = 2\)</p><p>\(a = 0{,}25\)</p></div>
+      <div class="gbox"><p>IV in III: \(3 + 2c = 0 \Rightarrow c = -1{,}5\)</p><p>in I: \(4 - 6 + e = 0 \Rightarrow e = 2\)</p></div>
+    </div>
+    <p><b><i>(5) Resultat</i></b></p>
+    <div class="result"><b>\(f(x) = 0{,}25x^4 - 1{,}5x^2 + 2\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+  </div></details>
+</article>
+
+<!-- ============ Aufgabe 2 ============ -->
+<article class="aufgabe" id="a2">
+  <h3>Aufgabe 2 · Das Abwasserauffangbecken <span class="pts">14 P</span></h3>
+  <p class="small muted">Arbeitsblatt „Funktionsgleichungen gesucht“, Aufgabe 2</p>
+  <p>Der Zu- und Ablauf eines Abwasserauffangbeckens lässt sich für \(t \in [0;\,12]\) annähernd durch eine ganzrationale Funktion dritten Grades beschreiben. Zum Zeitpunkt \(t = 0\) enthält das Becken 300 m³ Wasser. Nach 12 Stunden ist das Becken leer. Nach 4 Stunden hat der Wasserstand seinen Höchstwert erreicht. Er liegt dann bei 500 m³. Geben Sie die Funktionsgleichung an, die den Füllstand in m³ in Abhängigkeit der abgelaufenen Zeit in Stunden angibt.</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b><br>\(t\): Zeit in Stunden, \(V(t)\): Füllstand in m³.</p>
+    <div class="gbox" style="max-width:360px"><p>\(V(t) = at^3 + bt^2 + ct + d\)</p><p>\(V'(t) = 3at^2 + 2bt + c\)</p></div>
+    <div class="two">
+      <div><p><b><i>(2) Eigenschaften der Funktion V</i></b></p>
+        <div class="gbox"><p>1. Punkt \((0\,|\,300)\) – Anfangsfüllung</p><p>2. Punkt \((12\,|\,0)\) – nach 12 h leer</p><p>3. Hochpunkt \(H(4\,|\,500)\)<br><span class="small">(Extremstelle \(t = 4\), Funktionswert 500)</span></p></div></div>
+      <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+        <div class="gbox"><div class="lgs">
+          <span>1.</span><span>\(V(0) = 300\)</span><span>\(d = 300\)</span>
+          <span>2.</span><span>\(V(12) = 0\)</span><span>\(1728a + 144b + 12c + 300 = 0\)</span>
+          <span>3.</span><span>\(V'(4) = 0\)</span><span>\(48a + 8b + c = 0\)</span>
+          <span></span><span>\(V(4) = 500\)</span><span>\(64a + 16b + 4c + 300 = 500\)</span>
+        </div></div></div>
+    </div>
+    <p><b><i>(4) Lösen des Gleichungssystems</i></b> (mit \(d = 300\) bereits eingesetzt)</p>
+    <div class="flow">
+      <div class="gbox"><div class="lgs">
+        <span class="r">I:</span><span>\(1728a + 144b + 12c = -300\)</span><span class="small">\(:12 \to\)</span>
+        <span class="r">II:</span><span>\(48a + 8b + c = 0\)</span><span></span>
+        <span class="r">III:</span><span>\(64a + 16b + 4c = 200\)</span><span class="small">\(:4 \to\)</span>
+      </div></div>
+      <div class="gbox"><div class="lgs">
+        <span class="r">IV:</span><span>\(144a + 12b + c = -25\)</span><span class="small">\(\text{IV}-\text{II} \to\)</span>
+        <span class="r">V:</span><span>\(16a + 4b + c = 50\)</span><span class="small">\(\text{II}-\text{V} \to\)</span>
+      </div></div>
+      <div class="gbox"><div class="lgs">
+        <span class="r">VI:</span><span>\(96a + 4b = -25\)</span><span class="small">\(\text{VI}-\text{VII} \to\)</span>
+        <span class="r">VII:</span><span>\(32a + 4b = -50\)</span><span></span>
+      </div></div>
+      <div class="gbox"><p><span class="r">VIII:</span> \(64a = 25\)</p><p>\(a = \tfrac{25}{64} \approx 0{,}39\)</p></div>
+      <div class="gbox"><p>in VII: \(12{,}5 + 4b = -50\)</p><p>\(b = -15{,}625\)</p><p>in II: \(18{,}75 - 125 + c = 0\)</p><p>\(c = 106{,}25\)</p></div>
+    </div>
+    <p><b><i>(5) Resultat</i></b></p>
+    <div class="result"><b>\(V(t) = 0{,}39\,t^3 - 15{,}625\,t^2 + 106{,}25\,t + 300\)</b> beschreibt den Füllstand (in m³) nach \(t\) Stunden.</div>
+    <p class="small muted">Genau: \(a = \tfrac{25}{64} = 0{,}390625\). Probe: \(V(4) = 25 - 250 + 425 + 300 = 500\) ✓ · \(V(12) = 675 - 2250 + 1275 + 300 = 0\) ✓ · \(V'(4) = 18{,}75 - 125 + 106{,}25 = 0\) ✓</p>
+  </div></details>
+</article>
+
+<!-- ============ Aufgabe 3 ============ -->
+<article class="aufgabe" id="a3">
+  <h3>Aufgabe 3 · Parabel mit Scheitelpunkt <span class="pts">6 P</span></h3>
+  <p>Eine quadratische Funktion hat den Scheitelpunkt \(S(2\,|\,-1)\) und ihr Graph geht durch den Punkt \(P(0\,|\,3)\). Bestimmen Sie die Funktionsgleichung.</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+    <div class="gbox" style="max-width:300px"><p>\(f(x) = ax^2 + bx + c\)</p><p>\(f'(x) = 2ax + b\)</p></div>
+    <div class="two">
+      <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+        <div class="gbox"><p>1. Scheitelpunkt \(S(2\,|\,-1)\)<br><span class="small">(Extremstelle \(x = 2\), Funktionswert \(-1\))</span></p><p>2. Punkt \(P(0\,|\,3)\)</p></div></div>
+      <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+        <div class="gbox"><div class="lgs">
+          <span>1.</span><span>\(f(2) = -1\)</span><span>\(4a + 2b + c = -1\)</span>
+          <span></span><span>\(f'(2) = 0\)</span><span>\(4a + b = 0\)</span>
+          <span>2.</span><span>\(f(0) = 3\)</span><span>\(c = 3\)</span>
+        </div></div></div>
+    </div>
+    <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+    <div class="flow">
+      <div class="gbox"><p>\(c = 3\) in I:</p><p><span class="r">IV:</span> \(4a + 2b = -4\)</p><p><span class="r">II:</span> \(4a + b = 0\)</p></div>
+      <div class="gbox"><p>IV − II: \(b = -4\)</p><p>in II: \(4a - 4 = 0 \Rightarrow a = 1\)</p></div>
+    </div>
+    <p><b><i>(5) Resultat</i></b></p>
+    <div class="result"><b>\(f(x) = x^2 - 4x + 3\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+  </div></details>
+</article>
+
+<!-- ============ Aufgabe 4 ============ -->
+<article class="aufgabe" id="a4">
+  <h3>Aufgabe 4 · Hochpunkt und Wendepunkt <span class="pts">8 P</span></h3>
+  <p>Der Graph einer ganzrationalen Funktion 3. Grades hat den Hochpunkt \(H(0\,|\,4)\) und den Wendepunkt \(W(1\,|\,2)\). Bestimmen Sie die Funktionsgleichung.</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+    <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+    <div class="two">
+      <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+        <div class="gbox"><p>1. Hochpunkt \(H(0\,|\,4)\)</p><p>2. Wendepunkt \(W(1\,|\,2)\)</p></div></div>
+      <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+        <div class="gbox"><div class="lgs">
+          <span>1.</span><span>\(f(0) = 4\)</span><span>\(d = 4\)</span>
+          <span></span><span>\(f'(0) = 0\)</span><span>\(c = 0\)</span>
+          <span>2.</span><span>\(f(1) = 2\)</span><span>\(a + b + c + d = 2\)</span>
+          <span></span><span>\(f''(1) = 0\)</span><span>\(6a + 2b = 0\)</span>
+        </div></div></div>
+    </div>
+    <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+    <div class="flow">
+      <div class="gbox"><p>\(c = 0,\; d = 4\) einsetzen:</p><p><span class="r">I:</span> \(a + b = -2\)</p><p><span class="r">II:</span> \(6a + 2b = 0\)</p></div>
+      <div class="gbox"><p>II − 2·I: \(4a = 4\)</p><p>\(a = 1\)</p><p>in I: \(b = -3\)</p></div>
+    </div>
+    <p><b><i>(5) Resultat</i></b></p>
+    <div class="result"><b>\(f(x) = x^3 - 3x^2 + 4\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+    <p class="small muted">Probe: \(f''(0) = -6 &lt; 0\) → wirklich ein Hochpunkt ✓ · \(f(1) = 1 - 3 + 4 = 2\) ✓</p>
+  </div></details>
+</article>
+
+<!-- ============ Aufgabe 5 ============ -->
+<article class="aufgabe" id="a5">
+  <h3>Aufgabe 5 · Der Sattelpunkt <span class="pts">10 P</span></h3>
+  <p>Der Graph einer ganzrationalen Funktion 3. Grades geht durch den Ursprung und hat im Punkt \(S(1\,|\,2)\) einen Sattelpunkt (Terrassenpunkt). Bestimmen Sie die Funktionsgleichung.</p>
+  <p class="small muted">(Tipp: Ein Sattelpunkt ist ein Wendepunkt mit waagerechter Tangente.)</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b></p>
+    <div class="gbox" style="max-width:340px"><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p><p>\(f''(x) = 6ax + 2b\)</p></div>
+    <div class="two">
+      <div><p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+        <div class="gbox"><p>1. Punkt \(O(0\,|\,0)\)</p><p>2. Sattelpunkt \(S(1\,|\,2)\)<br><span class="small">(Punkt, waagerechte Tangente und Wendestelle bei \(x = 1\))</span></p></div></div>
+      <div><p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+        <div class="gbox"><div class="lgs">
+          <span>1.</span><span>\(f(0) = 0\)</span><span>\(d = 0\)</span>
+          <span>2.</span><span>\(f(1) = 2\)</span><span>\(a + b + c = 2\)</span>
+          <span></span><span>\(f'(1) = 0\)</span><span>\(3a + 2b + c = 0\)</span>
+          <span></span><span>\(f''(1) = 0\)</span><span>\(6a + 2b = 0\)</span>
+        </div></div></div>
+    </div>
+    <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+    <div class="flow">
+      <div class="gbox"><div class="lgs">
+        <span class="r">I:</span><span>\(a + b + c = 2\)</span><span></span>
+        <span class="r">II:</span><span>\(3a + 2b + c = 0\)</span><span class="small">\(\text{II}-\text{I} \to\)</span>
+        <span class="r">III:</span><span>\(6a + 2b = 0\)</span><span class="small">\(\to b = -3a\)</span>
+      </div></div>
+      <div class="gbox"><p><span class="r">IV:</span> \(2a + b = -2\)</p><p>\(b = -3a\) in IV:</p><p>\(-a = -2 \Rightarrow a = 2\)</p></div>
+      <div class="gbox"><p>\(b = -6\)</p><p>in I: \(2 - 6 + c = 2\)</p><p>\(c = 6\)</p></div>
+    </div>
+    <p><b><i>(5) Resultat</i></b></p>
+    <div class="result"><b>\(f(x) = 2x^3 - 6x^2 + 6x\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+    <p class="small muted">Probe: \(f'(x) = 6x^2 - 12x + 6 = 6(x-1)^2\) → \(f'(1) = 0\) ✓ und \(f'\) wechselt das Vorzeichen nicht → Sattelpunkt ✓</p>
+  </div></details>
+</article>
+
+<p class="foot">Study Hub · Mathematik 11.1 · Schulaufgabe · Funktionsgleichungen gesucht</p>
+</div>
+</body>
+</html>

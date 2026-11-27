@@ -56,6 +56,7 @@
     --c-pill: #efe6d6;
     --c-border-strong: #cdbfa8;
     --c-side: #f6f0e4;
+    --shadow-rest: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -16px rgb(60 40 20 / 0.25);
     --grain-opacity: 0;
     color-scheme: light;
   }
@@ -109,6 +110,7 @@
     --c-pill: #2f2720;
     --c-border-strong: #4d4034;
     --c-side: #1b1612;
+    --shadow-rest: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 26px -14px rgb(0 0 0 / 0.6);
     --grain-opacity: 0;
     color-scheme: dark;
   }
@@ -406,7 +408,7 @@
 
 /* Micro-interaction: the tick pops in when a task is done */
 .check-pop {
-  animation: check-pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: check-pop 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 @keyframes check-pop {
   from {

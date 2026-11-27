@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schulaufgabe – Extremalprobleme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Schulaufgabe <em>Extremalprobleme</em></h1>
+  <p class="lead">Alle Aufgaben aus dem Unterricht – und zwei zusätzliche Übungsaufgaben im Stil der Arbeit. Erst selbst rechnen, dann die Lösung aufklappen. Die Lösungen sind so aufgeschrieben wie im Buch: <b>Zielfunktion (HB, NB, ZF)</b> → <b>Extremalrechnung</b> → <b>Antwort</b>.</p>
+  <div class="card small" style="margin-top:18px">
+    <b>Hilfsmittel:</b> WTR, Formelsammlung · <b>Bearbeitungszeit:</b> ca. 90 Minuten · <b>Gesamt:</b> 80 Punkte<br>
+    <span class="muted">Schreibe bei jeder Aufgabe HB, NB, ZF, Definitionsbereich, Ableitung, hinreichende Bedingung und einen Antwortsatz auf.</span>
+  </div>
+</header>
+
+<div class="toolbar">
+  <span class="small muted">8 Aufgaben</span>
+  <span style="display:flex;gap:8px">
+    <button class="btn" data-all="close">Lösungen ausblenden</button>
+    <button class="btn primary" data-all="open">Alle Lösungen zeigen</button>
+  </span>
+</div>
+
+<!-- Aufgabe 1 -->
+<article class="aufgabe" id="a1">
+  <h3>Aufgabe 1 · Das Gehege an der Mauer <span class="pts">6 P</span></h3>
+  <p>Ein Bauer möchte an einer langen, geraden Mauer ein rechteckiges Gehege für seine Hühner abgrenzen. Er hat 60 m Zaun. An der Mauer selbst braucht er keinen Zaun. Wie muss er das Rechteck wählen, damit die Hühner möglichst viel Platz haben?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="two">
+      <div class="txt">
+        <p>Die Fläche \(A\) des Geheges hängt von der Breite \(x\) (senkrecht zur Mauer) und der Länge \(y\) (parallel zur Mauer) ab (1).</p>
+        <p>Der Zaun reicht für zwei Breiten und eine Länge: \(x\) und \(y\) stehen über die Zaunlänge 60 m miteinander in Beziehung (2).</p>
+        <p>Durch Auflösen von (2) nach \(y\) und Einsetzen in (1) erhalten wir die Zielfunktion (3).</p>
+        <p>Die Extremalrechnung zeigt, dass \(A\) ein Maximum bei \(x = 15\) besitzt. Für die Länge erhalten wir durch Einsetzen \(y = 30\).</p>
+        <p class="answer">Das Gehege sollte 15 m breit und 30 m lang sein. Die Hühner haben dann 450 m² Platz.</p>
+      </div>
+      <div class="math">
+        <h4>Zielfunktion:</h4>
+        <div class="eqs">
+          <span class="l">(1)</span><span>\(A(x,y) = x\cdot y\)</span><span class="t">(HB)</span>
+          <span class="l">(2)</span><span>\(2x + y = 60\)</span><span class="t">(NB)</span>
+          <span></span><span>\(y = 60 - 2x\)</span><span></span>
+          <span class="l">(3)</span><span>\(A(x) = 60x - 2x^2\)</span><span class="t">(ZF)</span>
+        </div>
+        <p>\(D = \;]0;\,30[\)</p>
+        <h4>Extremalrechnung:</h4>
+        <p>\(A'(x) = 60 - 4x \overset{!}{=} 0\)</p>
+        <p>Auflösen: \(x = 15\)</p>
+        <p>\(A''(x) = -4 &lt; 0 \Rightarrow\) Maximum</p>
+        <p>Einsetzen: \(y = 30;\; A(15) = 450\)</p>
+      </div>
+    </div>
+  </div></details>
+</article>
+
+<!-- Aufgabe 2 -->
+<article class="aufgabe" id="a2">
+  <h3>Aufgabe 2 · Rosen- und Tulpenbeet <span class="pts">12 P</span></h3>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Ein Gärtner besitzt einen Vorrat von Umrandungssteinen, der insgesamt für eine Strecke von 10 m reicht. Er möchte damit ein kreisförmiges Rosenbeet und ein quadratisches Tulpenbeet abgrenzen. Welche Maße sollten diese Beete erhalten, wenn die Gesamtfläche – und damit der Bedarf an Pflanzen – möglichst klein ausfallen soll?</div>
+  <p class="small muted">(Bezeichnungen wie in der Abbildung: Radius des Rosenbeets \(r\), Seitenlänge des Tulpenbeets \(x\).)</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="two">
+      <div class="txt">
+        <p>Die Gesamtfläche \(A\) setzt sich aus der Kreisfläche und der Quadratfläche zusammen und hängt vom Radius \(r\) und der Seitenlänge \(x\) ab (1).</p>
+        <p>\(r\) und \(x\) stehen über die Länge der Steine miteinander in Beziehung: Kreisumfang plus Quadratumfang ergeben 10 m (2).</p>
+        <p>Durch Auflösen von (2) nach \(x\) und Einsetzen in (1) erhalten wir die Zielfunktion \(A\) des Extremalproblems (3).</p>
+        <p>Sinnvoll ist \(0 \le r \le \frac{10}{2\pi} \approx 1{,}59\) (bei \(r = 1{,}59\) werden alle Steine für den Kreis verbraucht).</p>
+        <p>Die Extremalrechnung zeigt, dass \(A\) ein Minimum bei \(r \approx 0{,}70\) besitzt. Für die Seitenlänge erhalten wir durch Einsetzen \(x \approx 1{,}40\).</p>
+        <p>Vergleich mit den Rändern: \(A(0) = 6{,}25\) und \(A(1{,}59) \approx 7{,}96\) sind größer als \(A(0{,}70) \approx 3{,}50\). Also liegt wirklich das absolute Minimum vor.</p>
+        <p class="answer">Das Rosenbeet erhält einen Radius von ca. 0,70 m (Umfang 4,40 m), das Tulpenbeet eine Seitenlänge von ca. 1,40 m (Umfang 5,60 m). Die Gesamtfläche beträgt dann nur ca. 3,50 m². Auffällig: Die Seitenlänge des Quadrats ist genau so groß wie der Durchmesser des Kreises.</p>
+      </div>
+      <div class="math">
+        <h4>Zielfunktion:</h4>
+        <div class="eqs">
+          <span class="l">(1)</span><span>\(A(r,x) = \pi r^2 + x^2\)</span><span class="t">(HB)</span>
+          <span class="l">(2)</span><span>\(2\pi r + 4x = 10\)</span><span class="t">(NB)</span>
+          <span></span><span>\(x = 2{,}5 - \tfrac{\pi}{2}r\)</span><span></span>
+          <span class="l">(3)</span><span>\(A(r) = \pi r^2 + \big(2{,}5 - \tfrac{\pi}{2}r\big)^2\)</span><span class="t">(ZF)</span>
+        </div>
+        <p>\(D = [0;\,1{,}59]\)</p>
+        <h4>Extremalrechnung:</h4>
+        <p>\(A'(r) = 2\pi r + 2\big(2{,}5 - \tfrac{\pi}{2}r\big)\cdot\big(-\tfrac{\pi}{2}\big)\)</p>
+        <p>\(\phantom{A'(r)} = 2\pi r - 2{,}5\pi + \tfrac{\pi^2}{2}r \overset{!}{=} 0\)</p>
+        <p>Auflösen: \(r\big(2\pi + \tfrac{\pi^2}{2}\big) = 2{,}5\pi\)</p>
+        <p>\(r = \dfrac{2{,}5}{2 + \frac{\pi}{2}} = \dfrac{5}{4+\pi} \approx 0{,}70\)</p>
+        <p>\(A''(r) = 2\pi + \tfrac{\pi^2}{2} &gt; 0 \Rightarrow\) Minimum</p>
+        <p>Einsetzen: \(x \approx 1{,}40;\; A_{\min} \approx 3{,}50\)</p>
+      </div>
+    </div>
+    <div class="tip"><b>Ableitung mit Kettenregel</b>\(\big(2{,}5 - \tfrac{\pi}{2}r\big)^2\) wird abgeleitet zu \(2\cdot\big(2{,}5 - \tfrac{\pi}{2}r\big)\cdot\big(-\tfrac{\pi}{2}\big)\) – äußere Ableitung mal innere Ableitung. Alternativ vorher ausmultiplizieren.</div>
+  </div></details>
+</article>
+
+<!-- Aufgabe 3 -->
+<article class="aufgabe" id="a3">
+  <h3>Aufgabe 3 · Der Balken aus dem Stamm <span class="pts">10 P</span></h3>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Aus einem Stamm mit nahezu kreisförmigem Querschnitt soll ein rechteckiger Balken geschnitten werden. Die Tragfähigkeit eines Balkens ist proportional zur Breite sowie zum Quadrat der Höhe des Balkens. Die von der Holzart abhängige Proportionalitätskonstante sei \(C\). Der Durchmesser des Stamms betrage 40 cm. Welche Höhe \(h\) und welche Breite \(b\) muss der Balken erhalten, damit seine Tragfähigkeit maximal wird?</div>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="two">
+      <div class="txt">
+        <p>Die Tragfähigkeit \(T\) hängt von der Breite \(b\) und der Höhe \(h\) des Balkens ab: proportional zu \(b\) und zu \(h^2\) (1).</p>
+        <p>Die Diagonale des Rechtecks ist der Durchmesser des Stamms. Nach dem Satz des Pythagoras stehen \(b\) und \(h\) miteinander in Beziehung (2).</p>
+        <p>Wir lösen (2) nach \(h^2\) auf – das reicht, weil \(h\) in (1) nur als \(h^2\) vorkommt – und erhalten durch Einsetzen die Zielfunktion (3).</p>
+        <p>Die Extremalrechnung zeigt, dass \(T\) ein Maximum bei \(b \approx 23{,}09\) besitzt. Für die zugehörige Höhe erhalten wir durch Einsetzen \(h \approx 32{,}66\).</p>
+        <p class="answer">Der Balken muss ca. 23,1 cm breit und ca. 32,7 cm hoch sein. Dann ist seine Tragfähigkeit maximal. Die Höhe ist dabei \(\sqrt{2} \approx 1{,}41\)-mal so groß wie die Breite.</p>
+      </div>
+      <div class="math">
+        <h4>Zielfunktion:</h4>
+        <div class="eqs">
+          <span class="l">(1)</span><span>\(T(b,h) = C\cdot b\cdot h^2\)</span><span class="t">(HB)</span>
+          <span class="l">(2)</span><span>\(b^2 + h^2 = 40^2\)</span><span class="t">(NB)</span>
+          <span></span><span>\(h^2 = 1600 - b^2\)</span><span></span>
+          <span class="l">(3)</span><span>\(T(b) = C\,(1600b - b^3)\)</span><span class="t">(ZF)</span>
+        </div>
+        <p>\(D = \;]0;\,40[\)</p>
+        <h4>Extremalrechnung:</h4>
+        <p>\(T'(b) = C\,(1600 - 3b^2) \overset{!}{=} 0\)</p>
+        <p>Auflösen: \(b^2 = \tfrac{1600}{3} \Rightarrow b = \tfrac{40}{\sqrt3} \approx 23{,}09\)</p>
+        <p>\(T''(b) = -6C\,b &lt; 0 \Rightarrow\) Maximum</p>
+        <p>Einsetzen: \(h = \sqrt{1600 - 533{,}33} \approx 32{,}66\)</p>
+      </div>
+    </div>
+  </div></details>
+</article>
+
+<!-- Aufgabe 4 -->
+<article class="aufgabe" id="a4">
+  <h3>Aufgabe 4 · Ein Verpackungsproblem <span class="pts">12 P</span></h3>
+  <div class="beispiel"><span class="tag">Beispiel: Ein Verpackungsproblem</span><br>Ein Liter Milch soll in quaderförmigen Pappkartons mit quadratischer Grundfläche angeboten werden. Um keinen Materialabfall bei einer Serienherstellung der Pappkartons zu erhalten, sollen Rohlinge wie abgebildet ausgestanzt werden. Der Klebefalz soll jeweils 10 % der Kartonbreite betragen. Aus Kostengründen und der Umwelt zuliebe soll der Materialverbrauch pro Karton durch eine günstige Formgebung möglichst niedrig gehalten werden. Bestimmen Sie Breite und Höhe eines solchen „optimalen“ Quaders.</div>
+  <p class="small muted">Rohling (laut Abbildung): Breite \(\tfrac b2 + b + b + b + \tfrac b2 + 0{,}1b = 4{,}1b\) · Höhe \(0{,}1b + \tfrac b2 + h + \tfrac b2 + 0{,}1b = h + 1{,}2b\).</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="two">
+      <div class="txt">
+        <p>Der Materialverbrauch \(A\) ist der Flächeninhalt des rechteckigen Rohlings. Er hängt von der Kartonbreite \(b\) und der Kartonhöhe \(h\) ab (1).</p>
+        <p>\(b\) und \(h\) stehen über das vorgegebene Volumen \(V = 1\ \text{l} = 1000\ \text{cm}^3\) miteinander in Beziehung (2).</p>
+        <p>Durch Auflösen von (2) nach \(h\) und Einsetzen in (1) erhalten wir die Zielfunktion \(A\) des Extremalproblems (3).</p>
+        <p>Die Extremalrechnung zeigt, dass \(A\) ein Minimum bei \(b \approx 7{,}47\) besitzt. Für die zugehörige Höhe erhalten wir durch Einsetzen \(h \approx 17{,}93\).</p>
+        <p class="answer">Der optimale Milchkarton ist ca. 7,47 cm breit (und tief) und ca. 17,93 cm hoch. Der Rohling hat dann einen Flächeninhalt von ca. 823 cm².</p>
+      </div>
+      <div class="math">
+        <h4>Zielfunktion:</h4>
+        <div class="eqs">
+          <span class="l">(1)</span><span>\(A(b,h) = 4{,}1b\,(h + 1{,}2b)\)</span><span class="t">(HB)</span>
+          <span class="l">(2)</span><span>\(b^2 h = 1000\)</span><span class="t">(NB)</span>
+          <span></span><span>\(h = \dfrac{1000}{b^2}\)</span><span></span>
+          <span class="l">(3)</span><span>\(A(b) = 4100\cdot\dfrac{1}{b} + 4{,}92\,b^2\)</span><span class="t">(ZF)</span>
+        </div>
+        <h4>Extremalrechnung:</h4>
+        <p>\(A'(b) = -4100\cdot\dfrac{1}{b^2} + 9{,}84\,b \overset{!}{=} 0\)</p>
+        <p>Auflösen: \(b = \sqrt[3]{\dfrac{4100}{9{,}84}} \approx 7{,}47\)</p>
+        <p>\(A''(b) = \dfrac{8200}{b^3} + 9{,}84 &gt; 0 \Rightarrow\) Minimum</p>
+        <p>Einsetzen: \(h \approx 17{,}93\)</p>
+      </div>
+    </div>
+    <details class="sol"><summary>Zwischenschritte</summary><div class="inner">
+      <p>\(A(b) = 4{,}1b\cdot\Big(\dfrac{1000}{b^2} + 1{,}2b\Big) = \dfrac{4100}{b} + 4{,}92\,b^2\)</p>
+      <p>\(9{,}84\,b = \dfrac{4100}{b^2} \;\big|\cdot b^2 \;\Rightarrow\; 9{,}84\,b^3 = 4100 \;\Rightarrow\; b^3 \approx 416{,}67 \;\Rightarrow\; b \approx 7{,}47\ \text{cm}\)</p>
+      <p>\(h = \dfrac{1000}{7{,}469^2} \approx 17{,}93\ \text{cm}\) · \(A_{\min} = \dfrac{4100}{7{,}469} + 4{,}92\cdot 7{,}469^2 \approx 823{,}4\ \text{cm}^2\)</p>
+    </div></details>
+  </div></details>
+</article>
+
+<!-- Aufgabe 5 -->
+<article class="aufgabe" id="a5">
+  <h3>Aufgabe 5 · Die optimale Streichholzschachtel <span class="pts">14 P</span></h3>
+  <div class="beispiel"><span class="tag">Beispiel: Die optimale Streichholzschachtel</span><br>Ein Urlaubsort möchte zu Werbezwecken Streichholzschachteln produzieren lassen. Sie sollen 5 cm lang sein und ein Volumen von 20 cm³ besitzen. Die Breite \(x\) und die Höhe \(y\) sollen so bestimmt werden, dass die Herstellungskosten minimal werden.<br>Das Herstellungsverfahren:<br><i><b>Die Schachtel</b></i> wird aus einer rechteckigen Pappe gefertigt. In den Ecken werden vier quadratische Stücke abgeschnitten und als Abfall weggeworfen. Aus dem Rest wird die Schachtel gefaltet.<br><i><b>Die Hülle</b></i> wird ebenfalls aus einer rechteckigen Pappe hergestellt. Hierbei entsteht kein Verschnitt. Allerdings werden die beiden Seitenflächen, die als Reibeflächen dienen, beschichtet, was die Materialkosten für diese Teile vervierfacht.</div>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="two">
+      <div class="txt">
+        <p>Wir messen die Kosten \(K\) in „Flächeneinheiten unbeschichteter Pappe“. Sie hängen von der Breite \(x\) und der Höhe \(y\) ab (1):</p>
+        <p><b>Schachtel:</b> Die Pappe muss an jeder Seite um die Höhe \(y\) größer sein, also \((5 + 2y)\) mal \((x + 2y)\). Der Abfall (die vier Ecken \(y\times y\)) wird mitbezahlt.</p>
+        <p><b>Hülle:</b> Oben und unten je \(5\cdot x\) (einfacher Preis), die beiden Reibeflächen je \(5\cdot y\) (vierfacher Preis).</p>
+        <p>\(x\) und \(y\) stehen über das Volumen \(5\cdot x\cdot y = 20\) miteinander in Beziehung (2).</p>
+        <p>Ausmultiplizieren von (1), Auflösen von (2) nach \(y\) und Einsetzen liefert die Zielfunktion (3).</p>
+        <p>Die Extremalrechnung führt auf eine Gleichung 3. Grades, die wir mit dem WTR lösen. \(K\) hat ein Minimum bei \(x \approx 3{,}94\). Durch Einsetzen erhalten wir \(y \approx 1{,}02\).</p>
+        <p class="answer">Die Schachtel sollte ca. 3,94 cm breit und ca. 1,02 cm hoch sein (Länge 5 cm). Die Kosten entsprechen dann ca. 122 cm² unbeschichteter Pappe.</p>
+      </div>
+      <div class="math">
+        <h4>Zielfunktion:</h4>
+        <div class="eqs">
+          <span class="l">(1)</span><span>\(K(x,y) = (5+2y)(x+2y) + 2\cdot 5x + 4\cdot 2\cdot 5y\)</span><span class="t">(HB)</span>
+          <span></span><span>\(\phantom{K(x,y)} = 15x + 50y + 2xy + 4y^2\)</span><span></span>
+          <span class="l">(2)</span><span>\(5xy = 20\)</span><span class="t">(NB)</span>
+          <span></span><span>\(y = \dfrac{4}{x}\)</span><span></span>
+          <span class="l">(3)</span><span>\(K(x) = 15x + \dfrac{200}{x} + 8 + \dfrac{64}{x^2}\)</span><span class="t">(ZF)</span>
+        </div>
+        <p>\(D = \;]0;\,\infty[\)</p>
+        <h4>Extremalrechnung:</h4>
+        <p>\(K'(x) = 15 - \dfrac{200}{x^2} - \dfrac{128}{x^3} \overset{!}{=} 0 \;\big|\cdot x^3\)</p>
+        <p>\(15x^3 - 200x - 128 = 0\)</p>
+        <p>WTR: \(x \approx 3{,}94\) (einzige positive Lösung)</p>
+        <p>\(K''(x) = \dfrac{400}{x^3} + \dfrac{384}{x^4} &gt; 0 \Rightarrow\) Minimum</p>
+        <p>Einsetzen: \(y = \dfrac{4}{3{,}94} \approx 1{,}02;\; K_{\min} \approx 122\)</p>
+      </div>
+    </div>
+    <div class="tip"><b>Woher kommt die 8?</b> In \(2xy\) setzen wir \(xy = 4\) ein: \(2xy = 8\). Und \(50y = 50\cdot\frac4x = \frac{200}{x}\), \(4y^2 = 4\cdot\frac{16}{x^2} = \frac{64}{x^2}\).</div>
+  </div></details>
+</article>
+
+<!-- Aufgabe 6 -->
+<article class="aufgabe" id="a6">
+  <h3>Aufgabe 6 · Rechteck unter der Parabel <span class="pts">8 P</span></h3>
+  <p class="small muted">Arbeitsblatt „Extremwertaufgaben zu Flächen unter Funktionen“, Aufgabe 1</p>
+  <p>Geben Sie ein Rechteck mit maximalem Flächeninhalt an, das in dem endlich großen Flächenstück zwischen dem Graphen von \(p(x) = -\tfrac14 x^2 + 4\) und der x-Achse im Bereich von \(x = -4\) bis \(x = 4\) liegt.</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="two">
+      <div class="txt">
+        <p>Die Parabel ist symmetrisch zur y-Achse, also auch das größte Rechteck. Seine rechte obere Ecke liegt im Punkt \(P(u\,|\,p(u))\) auf dem Graphen, seine Unterseite auf der x-Achse.</p>
+        <p>Der Flächeninhalt \(A\) hängt von der Breite \(g = 2u\) und der Höhe \(h = p(u)\) ab (1), (2).</p>
+        <p>Einsetzen liefert die Zielfunktion (3). Sinnvoll ist \(0 &lt; u &lt; 4\).</p>
+        <p>Die Extremalrechnung zeigt, dass \(A\) ein Maximum bei \(u \approx 2{,}31\) besitzt. Die Höhe ist dann \(p(2{,}31) = \tfrac83 \approx 2{,}67\).</p>
+        <p class="answer">Das Rechteck hat die Eckpunkte \((\pm 2{,}31\,|\,0)\) und \((\pm 2{,}31\,|\,2{,}67)\). Es ist ca. 4,62 LE breit, ca. 2,67 LE hoch und hat den maximalen Flächeninhalt \(A_{\max} \approx 12{,}32\) FE.</p>
+      </div>
+      <div class="math">
+        <h4>Zielfunktion:</h4>
+        <div class="eqs">
+          <span class="l">(1)</span><span>\(A(g,h) = g\cdot h\)</span><span class="t">(HB)</span>
+          <span class="l">(2)</span><span>\(g = 2u,\;\; h = -\tfrac14 u^2 + 4\)</span><span class="t">(NB)</span>
+          <span class="l">(3)</span><span>\(A(u) = 2u\big(-\tfrac14 u^2 + 4\big) = -\tfrac12 u^3 + 8u\)</span><span class="t">(ZF)</span>
+        </div>
+        <p>\(D = \;]0;\,4[\)</p>
+        <h4>Extremalrechnung:</h4>
+        <p>\(A'(u) = -\tfrac32 u^2 + 8 \overset{!}{=} 0\)</p>
+        <p>Auflösen: \(u^2 = \tfrac{16}{3} \Rightarrow u = \tfrac{4}{\sqrt3} \approx 2{,}31\)</p>
+        <p>\(A''(u) = -3u &lt; 0 \Rightarrow\) Maximum</p>
+        <p>Einsetzen: \(h = \tfrac83 \approx 2{,}67;\; A_{\max} = \tfrac{64}{3\sqrt3} \approx 12{,}32\)</p>
+      </div>
+    </div>
+  </div></details>
+</article>
+
+<!-- Aufgabe 7 -->
+<article class="aufgabe" id="a7">
+  <h3>Aufgabe 7 · Dreieck unter dem Graphen <span class="pts">10 P</span></h3>
+  <p class="small muted">Arbeitsblatt „Extremwertaufgaben zu Flächen unter Funktionen“, Aufgabe 2</p>
+  <p>In dem Bild ist der Graph der Funktion \(p(x) = -x^4 + 2x^3\) gezeichnet. Zwischen dem Graph von \(p\) und der x-Achse soll im I. Quadranten ein rechtwinkliges Dreieck mit möglichst großem Flächeninhalt einbeschrieben werden, wobei die Höhe des Dreiecks parallel zur y-Achse verläuft und ein Eckpunkt des Dreiecks bei \((2\,|\,0)\) liegt.</p>
+  <ol class="sub">
+    <li>Zeigen Sie, dass \(A(x) = \tfrac12 x^5 - 2x^4 + 2x^3\) eine mögliche Zielfunktion ist. <span class="pts small muted">(3 P)</span></li>
+    <li>Berechnen Sie den Wert \(x\), für den die Fläche des Dreiecks \(A(x)\) maximal ist. <span class="small muted">(5 P)</span></li>
+    <li>Berechnen Sie die größtmögliche Fläche. <span class="small muted">(2 P)</span></li>
+  </ol>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <p><b>Lösung zu a)</b></p>
+    <div class="two">
+      <div class="txt">
+        <p>Das Dreieck hat den rechten Winkel im Punkt \((x\,|\,0)\). Die Höhe \(h\) reicht bis zum Graphen, also \(h = p(x)\). Die Grundseite \(g\) reicht von \(x\) bis 2, also \(g = 2 - x\).</p>
+        <p>Einsetzen in die Flächenformel für Dreiecke und Ausmultiplizieren ergibt genau die angegebene Zielfunktion.</p>
+      </div>
+      <div class="math">
+        <div class="eqs">
+          <span class="l">(1)</span><span>\(A(g,h) = \tfrac12\cdot g\cdot h\)</span><span class="t">(HB)</span>
+          <span class="l">(2)</span><span>\(g = 2 - x,\;\; h = -x^4 + 2x^3\)</span><span class="t">(NB)</span>
+        </div>
+        <p>\(A(x) = \tfrac12(2-x)(-x^4 + 2x^3)\)</p>
+        <p>\(\phantom{A(x)} = \tfrac12(-2x^4 + 4x^3 + x^5 - 2x^4)\)</p>
+        <p>\(\phantom{A(x)} = \tfrac12(x^5 - 4x^4 + 4x^3)\)</p>
+        <p>\(\phantom{A(x)} = \tfrac12 x^5 - 2x^4 + 2x^3\) ✓ (ZF)</p>
+      </div>
+    </div>
+    <p><b>Lösung zu b)</b></p>
+    <div class="two">
+      <div class="txt">
+        <p>Sinnvoll ist \(0 &lt; x &lt; 2\) (im I. Quadranten, links vom Punkt \((2|0)\)).</p>
+        <p>Wir leiten ab, setzen null und klammern \(x^2\) aus. Die quadratische Gleichung lösen wir mit der pq-Formel.</p>
+        <p>\(x = 0\) und \(x = 2\) liegen nicht in \(D\) (dort ist die Fläche 0).</p>
+        <p class="answer">Für \(x = 1{,}2\) ist die Fläche des Dreiecks maximal.</p>
+      </div>
+      <div class="math">
+        <h4>Extremalrechnung:</h4>
+        <p>\(A'(x) = \tfrac52 x^4 - 8x^3 + 6x^2 \overset{!}{=} 0\)</p>
+        <p>\(x^2\big(\tfrac52 x^2 - 8x + 6\big) = 0 \;\big|\;:\tfrac52\)</p>
+        <p>\(x^2 - 3{,}2x + 2{,}4 = 0\)</p>
+        <p>\(x_{1/2} = 1{,}6 \pm \sqrt{1{,}6^2 - 2{,}4} = 1{,}6 \pm 0{,}4\)</p>
+        <p>\(x_1 = 1{,}2;\;\; x_2 = 2 \notin D\)</p>
+        <p>\(A''(x) = 10x^3 - 24x^2 + 12x\)</p>
+        <p>\(A''(1{,}2) = -2{,}88 &lt; 0 \Rightarrow\) Maximum</p>
+      </div>
+    </div>
+    <p><b>Lösung zu c)</b></p>
+    <div class="two">
+      <div class="txt">
+        <p>Wir setzen \(x = 1{,}2\) in die Zielfunktion ein. (Kontrolle: Höhe \(p(1{,}2) = 1{,}3824\), Grundseite \(0{,}8\).)</p>
+        <p class="answer">Die größtmögliche Fläche beträgt ca. 0,553 FE.</p>
+      </div>
+      <div class="math">
+        <p>\(A(1{,}2) = \tfrac12\cdot 1{,}2^5 - 2\cdot 1{,}2^4 + 2\cdot 1{,}2^3\)</p>
+        <p>\(\phantom{A(1{,}2)} = 1{,}24416 - 4{,}1472 + 3{,}456\)</p>
+        <p>\(\phantom{A(1{,}2)} = 0{,}55296 \approx 0{,}553\)</p>
+      </div>
+    </div>
+  </div></details>
+</article>
+
+<!-- Aufgabe 8 -->
+<article class="aufgabe" id="a8">
+  <h3>Aufgabe 8 · Die offene Schachtel <span class="pts">8 P</span></h3>
+  <p>Aus einem quadratischen Stück Pappe mit 30 cm Seitenlänge soll eine oben offene Schachtel entstehen. Dazu werden an den vier Ecken gleich große Quadrate mit der Seitenlänge \(x\) ausgeschnitten und die Ränder hochgeklappt. Wie groß muss \(x\) sein, damit das Volumen der Schachtel maximal wird? Wie groß ist dieses Volumen?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="two">
+      <div class="txt">
+        <p>Das Volumen \(V\) der Schachtel hängt von der Seitenlänge \(a\) der quadratischen Grundfläche und der Höhe \(x\) ab (1).</p>
+        <p>An jeder Seite fehlen zwei Ecken der Breite \(x\): \(a\) und \(x\) stehen so miteinander in Beziehung (2).</p>
+        <p>Einsetzen liefert die Zielfunktion (3). Sinnvoll ist \(0 &lt; x &lt; 15\).</p>
+        <p>Die Extremalrechnung zeigt, dass \(V\) ein Maximum bei \(x = 5\) besitzt. Die Grundseite ist dann \(a = 20\).</p>
+        <p class="answer">Es müssen Quadrate mit 5 cm Seitenlänge ausgeschnitten werden. Die Schachtel ist dann 20 cm × 20 cm × 5 cm groß und hat das maximale Volumen 2000 cm³ = 2 Liter.</p>
+      </div>
+      <div class="math">
+        <h4>Zielfunktion:</h4>
+        <div class="eqs">
+          <span class="l">(1)</span><span>\(V(a,x) = a^2\cdot x\)</span><span class="t">(HB)</span>
+          <span class="l">(2)</span><span>\(a = 30 - 2x\)</span><span class="t">(NB)</span>
+          <span class="l">(3)</span><span>\(V(x) = x(30-2x)^2 = 4x^3 - 120x^2 + 900x\)</span><span class="t">(ZF)</span>
+        </div>
+        <p>\(D = \;]0;\,15[\)</p>
+        <h4>Extremalrechnung:</h4>
+        <p>\(V'(x) = 12x^2 - 240x + 900 \overset{!}{=} 0 \;\big|\;:12\)</p>
+        <p>\(x^2 - 20x + 75 = 0\)</p>
+        <p>\(x_{1/2} = 10 \pm \sqrt{100 - 75} = 10 \pm 5\)</p>
+        <p>\(x_1 = 5;\;\; x_2 = 15 \notin D\)</p>
+        <p>\(V''(x) = 24x - 240;\;\; V''(5) = -120 &lt; 0 \Rightarrow\) Maximum</p>
+        <p>Einsetzen: \(a = 20;\; V(5) = 2000\)</p>
+      </div>
+    </div>
+  </div></details>
+</article>
+
+<p class="foot">Study Hub · Mathematik 11.1 · Schulaufgabe · Extremalprobleme</p>
+</div>
+</body>
+</html>

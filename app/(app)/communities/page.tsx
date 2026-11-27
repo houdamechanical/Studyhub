@@ -49,7 +49,7 @@ function CommunitiesView({ list }: { list: Community[] }) {
         {list.length === 0 ? (
           <p className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">{t.empty}</p>
         ) : (
-          <ul className="divide-y overflow-hidden rounded-xl border bg-card">
+          <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
             {list.map((c) => (
               <li key={c.id}>
                 <Link href={`/communities/view?id=${c.id}`} className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-secondary/60">
@@ -70,7 +70,7 @@ function CommunitiesView({ list }: { list: Community[] }) {
         )}
       </section>
 
-      <Link href="/compare" className="flex items-center gap-3 rounded-xl border bg-card px-4 py-3 transition-colors hover:bg-secondary/60">
+      <Link href="/compare" className="flex items-center gap-3 rounded-xl border bg-card shadow-card px-4 py-3 transition-colors hover:bg-secondary/60">
         <span className="flex size-9 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
           <Globe size={17} />
         </span>
@@ -102,7 +102,7 @@ function CreateForm() {
     router.push(`/communities/view?id=${r.id}`);
   }
   return (
-    <form onSubmit={submit} className="flex flex-col gap-2 rounded-xl border bg-card p-4">
+    <form onSubmit={submit} className="flex flex-col gap-2 rounded-xl border bg-card shadow-card p-4">
       <label htmlFor="community-name" className="text-sm font-medium">
         {t.createTitle}
       </label>
@@ -136,7 +136,7 @@ function JoinForm() {
     router.push(`/communities/view?id=${r.id}`);
   }
   return (
-    <form onSubmit={submit} className="flex flex-col gap-2 rounded-xl border bg-card p-4">
+    <form onSubmit={submit} className="flex flex-col gap-2 rounded-xl border bg-card shadow-card p-4">
       <label htmlFor="community-code" className="text-sm font-medium">
         {t.joinTitle}
       </label>

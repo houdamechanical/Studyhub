@@ -168,7 +168,7 @@ function InviteCode({ code }: { code: string }) {
     }
   }
   return (
-    <div className="flex h-9 items-center gap-1 rounded-lg border bg-card ps-3 text-sm">
+    <div className="flex h-9 items-center gap-1 rounded-lg border bg-card shadow-card ps-3 text-sm">
       <span className="text-muted-foreground">{t.invite}</span>
       <span className="font-mono font-semibold tracking-[0.18em]" dir="ltr">
         {code}
@@ -262,7 +262,7 @@ function Chat({ communityId, initial, members }: { communityId: string; initial:
   const day = (iso: string) => new Intl.DateTimeFormat(intlLocale(locale), { weekday: "long", day: "numeric", month: "long" }).format(new Date(iso));
 
   return (
-    <div className="flex min-h-[24rem] flex-1 flex-col overflow-hidden rounded-xl border bg-card lg:max-h-[calc(100dvh-15rem)]">
+    <div className="flex min-h-[24rem] flex-1 flex-col overflow-hidden rounded-xl border bg-card shadow-card lg:max-h-[calc(100dvh-15rem)]">
       <div ref={listRef} className="flex max-h-[60dvh] flex-1 flex-col gap-0.5 overflow-y-auto px-3 py-4 lg:max-h-none" aria-live="polite">
         {messages.length === 0 && <p className="m-auto text-sm text-muted-foreground">{t.noMessages}</p>}
         {messages.map((m, i) => {
@@ -379,7 +379,7 @@ function Members({ members, creator }: { members: Member[]; creator: string }) {
   const { dict } = useI18n();
   const { userId } = useAuth();
   return (
-    <ul className="divide-y overflow-hidden rounded-xl border bg-card">
+    <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
       {members.map((m) => (
         <li key={m.user_id} className="flex items-center gap-3 px-4 py-2.5">
           <span className="flex size-8 items-center justify-center rounded-full bg-secondary text-sm font-semibold uppercase">

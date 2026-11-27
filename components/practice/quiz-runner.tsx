@@ -107,12 +107,12 @@ export function QuizRunner({
         />
         <section className="relative isolate py-8 text-center sm:py-12">
           <div aria-hidden className="glow-orb pointer-events-none absolute inset-0 -z-10 m-auto size-[320px] sm:size-[420px]" />
-          <p className="eyebrow">
-            {quiz.kind === "mock" ? t.mock : t.mini} · {subject.label[locale]}
-          </p>
-          <h1 className="mx-auto mt-4 max-w-xl font-display text-4xl font-normal leading-tight sm:text-5xl" dir="auto">
+          <h1 className="mx-auto max-w-xl font-display text-4xl font-normal leading-tight sm:text-5xl" dir="auto">
             {quiz.title}
           </h1>
+          <p className="mt-3 text-muted-foreground">
+            {quiz.kind === "mock" ? t.mock : t.mini} · {subject.label[locale]}
+          </p>
           {quiz.description && (
             <p className="mx-auto mt-3 max-w-md whitespace-pre-line text-muted-foreground" dir="auto">
               {quiz.description}
@@ -156,7 +156,7 @@ export function QuizRunner({
         {attempts.length > 0 && (
           <section>
             <h2 className="eyebrow mb-3">{t.previousAttempts}</h2>
-            <ul className="divide-y rounded-xl border bg-card">
+            <ul className="divide-y rounded-xl border bg-card shadow-card">
               {attempts.map((a) => (
                 <li key={a.id}>
                   <Link href={`/practice/attempt?id=${a.id}`} className="flex items-center justify-between gap-3 px-4 py-3 text-sm transition-colors duration-200 hover:bg-secondary">

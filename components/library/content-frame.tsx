@@ -2,14 +2,18 @@
 
 import { ArrowLeft, Maximize, X } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
 
-const SANDBOX = "allow-scripts allow-popups allow-popups-to-escape-sandbox allow-forms allow-modals";
+const SANDBOX =
+  "allow-scripts allow-popups allow-popups-to-escape-sandbox allow-forms allow-modals";
 
 // Older Safari only has the prefixed Fullscreen API.
-type FullscreenCapable = HTMLIFrameElement & { webkitRequestFullscreen?: () => Promise<void> | void };
+type FullscreenCapable = HTMLIFrameElement & {
+  webkitRequestFullscreen?: () => Promise<void> | void;
+};
 type WebkitDocument = Document & { webkitFullscreenEnabled?: boolean };
 
 /**
@@ -39,11 +43,25 @@ export function ContentFrame({
   // Safari, and the home-screen app): the page fills the window instead.
   const [expanded, setExpanded] = useState(false);
   // Copied to public/content/ at build time (scripts/copy-content.mjs).
-  const src = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/content/${file}`;
+  // The page is told the app's light/dark mode: once in the URL (read before it paints),
+  // then live via postMessage. Pages that don't care simply ignore both.
+  const { resolvedTheme } = useTheme();
+  const [initialTheme, setInitialTheme] = useState<string | null>(null);
+  useEffect(() => {
+    if (resolvedTheme && !initialTheme) setInitialTheme(resolvedTheme);
+  }, [resolvedTheme, initialTheme]);
+  useEffect(() => {
+    frameRef.current?.contentWindow?.postMessage(
+      { type: "studyhub-theme", theme: resolvedTheme },
+      "*",
+    );
+  }, [resolvedTheme]);
+  const src = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/content/${file}?theme=${initialTheme ?? "light"}`;
 
   useEffect(() => {
     if (!expanded) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setExpanded(false);
+    const onKey = (e: KeyboardEvent) =>
+      e.key === "Escape" && setExpanded(false);
     window.addEventListener("keydown", onKey);
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -56,7 +74,12 @@ export function ContentFrame({
   async function goFullscreen() {
     const el = frameRef.current as FullscreenCapable | null;
     const request = el?.requestFullscreen ?? el?.webkitRequestFullscreen;
-    if (el && request && (document.fullscreenEnabled ?? (document as WebkitDocument).webkitFullscreenEnabled)) {
+    if (
+      el &&
+      request &&
+      (document.fullscreenEnabled ??
+        (document as WebkitDocument).webkitFullscreenEnabled)
+    ) {
       try {
         await request.call(el);
         return;
@@ -70,7 +93,12 @@ export function ContentFrame({
   // One tree for both states, so the iframe is never re-created (it would
   // reload and lose the reader's place when going in or out of fullscreen).
   return (
-    <div className={cn("flex flex-col", expanded ? "fixed inset-0 z-50 bg-white" : "flex-1")}>
+    <div
+      className={cn(
+        "flex flex-col",
+        expanded ? "fixed inset-0 z-50 bg-white" : "flex-1",
+      )}
+    >
       {!expanded && (
         <div className="flex items-center gap-2 border-b px-2 py-1.5 sm:px-4">
           <Link
@@ -80,7 +108,11 @@ export function ContentFrame({
             <ArrowLeft size={16} className="rtl:rotate-180" />
             <span className="hidden sm:inline">{backLabel}</span>
           </Link>
-          <h1 className="min-w-0 flex-1 truncate text-sm font-medium" lang="de" dir="auto">
+          <h1
+            className="min-w-0 flex-1 truncate text-sm font-medium"
+            lang="de"
+            dir="auto"
+          >
             {title}
           </h1>
           <button
@@ -94,15 +126,20 @@ export function ContentFrame({
           </button>
         </div>
       )}
-      <iframe
-        ref={frameRef}
-        src={src}
-        title={title}
-        sandbox={SANDBOX}
-        allow="fullscreen"
-        allowFullScreen
-        className={cn("w-full flex-1 border-0 bg-white", !expanded && "min-h-[60dvh]")}
-      />
+      {initialTheme && (
+        <iframe
+          ref={frameRef}
+          src={src}
+          title={title}
+          sandbox={SANDBOX}
+          allow="fullscreen"
+          allowFullScreen
+          className={cn(
+            "w-full flex-1 border-0 bg-background",
+            !expanded && "min-h-[60dvh]",
+          )}
+        />
+      )}
       {expanded && (
         <button
           type="button"

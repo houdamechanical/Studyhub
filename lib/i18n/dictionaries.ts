@@ -49,6 +49,7 @@ const en = {
     half2: "2nd",
   },
   kind: {
+    exercises: "Exercises with solutions",
     notes: "Notes",
     quiz: "Quiz",
     interactive: "Interactive",
@@ -390,6 +391,7 @@ const en = {
     cta: "Done",
     saved: "Subjects saved",
     yourSubjects: "Your subjects",
+    artTeacher: "Who teaches your Art class?",
   },
   onboarding: {
     hello: "Hey there!",
@@ -408,6 +410,7 @@ const en = {
     prevMonth: "Previous month",
     nextMonth: "Next month",
     noExamsMonth: "No exams this month.",
+    pastExam: "Done",
     examsThisMonth: "{n} exams this month",
     oneExamThisMonth: "1 exam this month",
     ncTitle: "Your NC",
@@ -536,6 +539,7 @@ const de: Dictionary = {
     half2: "2.",
   },
   kind: {
+    exercises: "Übungen mit Lösungen",
     notes: "Lernseite",
     quiz: "Quiz",
     interactive: "Interaktiv",
@@ -877,6 +881,7 @@ const de: Dictionary = {
     cta: "Fertig",
     saved: "Fächer gespeichert",
     yourSubjects: "Deine Fächer",
+    artTeacher: "Wer unterrichtet dich in Kunst?",
   },
   onboarding: {
     hello: "Hey!",
@@ -895,6 +900,7 @@ const de: Dictionary = {
     prevMonth: "Vorheriger Monat",
     nextMonth: "Nächster Monat",
     noExamsMonth: "Keine Klausuren in diesem Monat.",
+    pastExam: "Geschrieben",
     examsThisMonth: "{n} Klausuren in diesem Monat",
     oneExamThisMonth: "1 Klausur in diesem Monat",
     ncTitle: "Dein NC",
@@ -1021,6 +1027,7 @@ const ar: Dictionary = {
     half2: "الثاني",
   },
   kind: {
+    exercises: "تمارين مع الحلول",
     notes: "ملخص",
     quiz: "اختبار",
     interactive: "تفاعلي",
@@ -1362,6 +1369,7 @@ const ar: Dictionary = {
     cta: "تم",
     saved: "تم حفظ المواد",
     yourSubjects: "موادك",
+    artTeacher: "من يدرّسك الفن؟",
   },
   onboarding: {
     hello: "مرحبًا!",
@@ -1380,6 +1388,7 @@ const ar: Dictionary = {
     prevMonth: "الشهر السابق",
     nextMonth: "الشهر التالي",
     noExamsMonth: "لا امتحانات هذا الشهر.",
+    pastExam: "تمت",
     examsThisMonth: "{n} امتحانات هذا الشهر",
     oneExamThisMonth: "امتحان واحد هذا الشهر",
     ncTitle: "معدلك NC",

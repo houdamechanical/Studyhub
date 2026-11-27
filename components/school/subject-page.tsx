@@ -6,10 +6,12 @@ import {
   Check,
   ChevronRight,
   FileText,
+  FolderOpen,
   Gamepad2,
   Layers,
   ListChecks,
   MousePointerClick,
+  PencilLine,
   Timer,
   type LucideIcon,
 } from "lucide-react";
@@ -23,7 +25,12 @@ import { useLoad } from "@/lib/data";
 import { formatDate, todayISO } from "@/lib/format";
 import { useI18n, useTitle } from "@/lib/i18n/client";
 import { fill } from "@/lib/i18n/dictionaries";
-import { daysUntil, dueCount, loadPractice, loadSchoolExams } from "@/lib/loaders";
+import {
+  daysUntil,
+  dueCount,
+  loadPractice,
+  loadSchoolExams,
+} from "@/lib/loaders";
 import { PRACTICE_SEMESTER, semesterHref, splitSemester } from "@/lib/school";
 import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
@@ -32,6 +39,7 @@ const KIND_ICON: Record<ContentKind, LucideIcon> = {
   notes: FileText,
   quiz: Gamepad2,
   interactive: MousePointerClick,
+  exercises: PencilLine,
 };
 
 const TABS = ["pages", "mini", "mock", "cards"] as const;
@@ -40,7 +48,9 @@ const isTab = (v: string): v is Tab => (TABS as readonly string[]).includes(v);
 
 async function loadSubject(subject: SubjectId, withPractice: boolean) {
   const [practice, exams] = await Promise.all([
-    withPractice ? loadPractice(subject) : Promise.resolve({ quizList: [], deckList: [] }),
+    withPractice
+      ? loadPractice(subject)
+      : Promise.resolve({ quizList: [], deckList: [] }),
     loadSchoolExams([subject], { subject }),
   ]);
   return { ...practice, exams };
@@ -51,7 +61,13 @@ async function loadSubject(subject: SubjectId, withPractice: boolean) {
  * this layout: a short header, then tabs for study pages, mini tests, mock
  * exams and flashcards (the tab is kept in the URL hash, e.g. #mini).
  */
-export function SubjectPage({ semester, subject }: { semester: string; subject: SubjectId }) {
+export function SubjectPage({
+  semester,
+  subject,
+}: {
+  semester: string;
+  subject: SubjectId;
+}) {
   const { locale, dict } = useI18n();
   const t = dict.subject;
   const info = SUBJECTS[subject];
@@ -59,17 +75,25 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
   const { grade, half } = splitSemester(semester);
   const halfLabel = half === "1" ? dict.school.half1 : dict.school.half2;
 
-  const pages = getContentForSubject(subject).filter((c) => c.semester === semester);
+  const pages = getContentForSubject(subject).filter(
+    (c) => c.semester === semester,
+  );
   // Tests and decks have no half-year in the database yet: they belong to the current one.
   const withPractice = semester === PRACTICE_SEMESTER;
-  const state = useLoad(() => loadSubject(subject, withPractice), `subject:${semester}:${subject}`);
+  const state = useLoad(
+    () => loadSubject(subject, withPractice),
+    `subject:${semester}:${subject}`,
+  );
   const minis = state.data?.quizList.filter((q) => q.kind === "mini") ?? [];
   const mocks = state.data?.quizList.filter((q) => q.kind === "mock") ?? [];
   const decks = state.data?.deckList ?? [];
   const nextExam = state.data?.exams[0] ?? null;
   const [today, setToday] = useState<string | null>(null);
   const progress =
-    state.data && today ? (subjectProgress(state.data.quizList, state.data.deckList, today)[0] ?? null) : null;
+    state.data && today
+      ? (subjectProgress(state.data.quizList, state.data.deckList, today)[0] ??
+        null)
+      : null;
 
   const [tab, setTab] = useState<Tab>("pages");
   useEffect(() => {
@@ -82,8 +106,18 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
     history.replaceState(null, "", `#${next}`);
   }
 
-  const counts: Record<Tab, number> = { pages: pages.length, mini: minis.length, mock: mocks.length, cards: decks.length };
-  const labels: Record<Tab, string> = { pages: t.studyPages, mini: t.miniTests, mock: t.mockExams, cards: t.flashcards };
+  const counts: Record<Tab, number> = {
+    pages: pages.length,
+    mini: minis.length,
+    mock: mocks.length,
+    cards: decks.length,
+  };
+  const labels: Record<Tab, string> = {
+    pages: t.studyPages,
+    mini: t.miniTests,
+    mock: t.mockExams,
+    cards: t.flashcards,
+  };
   const p = dict.practice;
 
   return (
@@ -91,25 +125,49 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
       {/* Big, obvious way back to all subjects */}
       <Link
         href={semesterHref(semester)}
-        className="press inline-flex h-11 items-center gap-2 rounded-xl border bg-card pe-4 ps-3 font-semibold hover:bg-secondary"
+        className="press inline-flex h-11 items-center gap-2 rounded-xl border bg-card shadow-card pe-4 ps-3 font-semibold hover:bg-secondary"
       >
         <ArrowLeft size={20} className="rtl:rotate-180" />
         {dict.school.subjects}
       </Link>
 
       <header className="enter mt-6 flex items-center gap-5 sm:gap-7">
-        <SubjectBook subject={subject} label={info.label[locale]} size="sm" className="w-20 shrink-0 sm:w-28" />
+        <SubjectBook
+          subject={subject}
+          label={info.label[locale]}
+          size="sm"
+          className="w-20 shrink-0 sm:w-28"
+        />
         <div className="min-w-0 flex-1">
-          <h1 className="truncate text-4xl font-extrabold tracking-tight sm:text-5xl">{info.label[locale]}</h1>
+          <h1 className="truncate text-4xl font-extrabold tracking-tight sm:text-5xl">
+            {info.label[locale]}
+          </h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {fill(dict.school.grade, { grade })} · {halfLabel}
           </p>
           {nextExam && (
-            <Link href="/grades?tab=exams" className="group mt-2 inline-flex items-center gap-1.5 text-sm">
-              <CalendarClock size={15} className="text-muted-foreground" aria-hidden />
-              <span className="text-muted-foreground">{dict.home.nextExam}</span>
-              <span className="font-medium">{formatDate(nextExam.exam_date, locale, { weekday: "short", day: "numeric", month: "short" })}</span>
-              <span className="font-semibold text-[var(--c-amber)]">· {whenLabel(nextExam.exam_date, dict)}</span>
+            <Link
+              href="/grades?tab=exams"
+              className="group mt-2 inline-flex items-center gap-1.5 text-sm"
+            >
+              <CalendarClock
+                size={15}
+                className="text-muted-foreground"
+                aria-hidden
+              />
+              <span className="text-muted-foreground">
+                {dict.home.nextExam}
+              </span>
+              <span className="font-medium">
+                {formatDate(nextExam.exam_date, locale, {
+                  weekday: "short",
+                  day: "numeric",
+                  month: "short",
+                })}
+              </span>
+              <span className="font-semibold text-[var(--c-amber)]">
+                · {whenLabel(nextExam.exam_date, dict)}
+              </span>
             </Link>
           )}
         </div>
@@ -121,14 +179,30 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
             <span className="font-medium">{dict.subject.progress}</span>
             <span className="truncate text-xs text-muted-foreground">
               {[
-                progress.tests ? fill(dict.subject.testsTaken, { a: progress.testsTaken, n: progress.tests }) : "",
-                progress.avgBest !== null ? fill(dict.subject.avg, { p: `${Math.round(progress.avgBest * 100)} %` }) : "",
-                progress.cards ? fill(dict.subject.cardsLearned, { a: progress.cardsLearned, n: progress.cards }) : "",
+                progress.tests
+                  ? fill(dict.subject.testsTaken, {
+                      a: progress.testsTaken,
+                      n: progress.tests,
+                    })
+                  : "",
+                progress.avgBest !== null
+                  ? fill(dict.subject.avg, {
+                      p: `${Math.round(progress.avgBest * 100)} %`,
+                    })
+                  : "",
+                progress.cards
+                  ? fill(dict.subject.cardsLearned, {
+                      a: progress.cardsLearned,
+                      n: progress.cards,
+                    })
+                  : "",
               ]
                 .filter(Boolean)
                 .join(" · ")}
             </span>
-            <span className="tabular-nums text-muted-foreground">{Math.round(progress.progress * 100)} %</span>
+            <span className="tabular-nums text-muted-foreground">
+              {Math.round(progress.progress * 100)} %
+            </span>
           </div>
           <ProgressBar value={progress.progress} className="mt-2" />
         </div>
@@ -136,7 +210,10 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
 
       {/* Tabs: one quiet underline row, sticky while scrolling */}
       <div className="sticky top-14 z-30 -mx-4 mt-8 bg-background/90 px-4 backdrop-blur-xl lg:top-0">
-        <div role="tablist" className="flex gap-1 overflow-x-auto border-b [scrollbar-width:none]">
+        <div
+          role="tablist"
+          className="flex gap-1 overflow-x-auto border-b [scrollbar-width:none]"
+        >
           {TABS.map((id) => (
             <button
               key={id}
@@ -146,7 +223,9 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
               onClick={() => choose(id)}
               className={cn(
                 "relative -mb-px flex items-center gap-2 whitespace-nowrap border-b-[3px] px-4 py-3.5 text-base font-semibold transition-colors",
-                tab === id ? "border-[var(--c-amber)] text-foreground" : "border-transparent text-muted-foreground hover:text-foreground",
+                tab === id
+                  ? "border-[var(--c-amber)] text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground",
               )}
             >
               {labels[id]}
@@ -160,20 +239,46 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
 
       <div key={tab} className="enter mt-5" role="tabpanel">
         {tab !== "pages" && state.loading ? (
-          <div className="h-48 animate-pulse rounded-xl border bg-card" />
+          <div className="h-48 animate-pulse rounded-xl border bg-card shadow-card" />
         ) : tab === "pages" ? (
-          <List empty={t.emptyPages}>
-            {pages.map((item) => (
-              <Row
-                key={item.id}
-                href={`/library/${item.subject}/${item.id}`}
-                icon={KIND_ICON[item.kind]}
-                title={item.title}
-                meta={`${dict.kind[item.kind]} · ${item.topic}`}
-                lang="de"
-              />
-            ))}
-          </List>
+          pages.length === 0 ? (
+            <List empty={t.emptyPages}>{[]}</List>
+          ) : (
+            // One folder per topic, in the order the topics first appear.
+            <div className="flex flex-col gap-6">
+              {[...new Set(pages.map((p) => p.topic))].map((topic) => {
+                const inFolder = pages.filter((p) => p.topic === topic);
+                return (
+                  <section key={topic}>
+                    <h3
+                      className="mb-2.5 flex items-center gap-2.5 text-lg font-bold"
+                      lang="de"
+                    >
+                      <span className="flex size-9 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--c-amber)_14%,transparent)] text-[var(--c-amber)]">
+                        <FolderOpen size={19} strokeWidth={2} />
+                      </span>
+                      <span className="min-w-0 flex-1 truncate">{topic}</span>
+                      <span className="rounded-md bg-secondary px-2 text-sm font-semibold tabular-nums text-muted-foreground">
+                        {inFolder.length}
+                      </span>
+                    </h3>
+                    <List empty="">
+                      {inFolder.map((item) => (
+                        <Row
+                          key={item.id}
+                          href={`/library/${item.subject}/${item.id}`}
+                          icon={KIND_ICON[item.kind]}
+                          title={item.title}
+                          meta={dict.kind[item.kind]}
+                          lang="de"
+                        />
+                      ))}
+                    </List>
+                  </section>
+                );
+              })}
+            </div>
+          )
         ) : tab === "mini" || tab === "mock" ? (
           <List empty={tab === "mini" ? t.emptyTests : t.emptyMocks}>
             {(tab === "mini" ? minis : mocks).map((q) => (
@@ -183,8 +288,12 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
                 icon={tab === "mini" ? ListChecks : Timer}
                 title={q.title}
                 meta={[
-                  q.questionCount === 1 ? p.oneQuestion : fill(p.questions, { n: q.questionCount }),
-                  q.durationMinutes ? fill(p.minutes, { n: q.durationMinutes }) : "",
+                  q.questionCount === 1
+                    ? p.oneQuestion
+                    : fill(p.questions, { n: q.questionCount }),
+                  q.durationMinutes
+                    ? fill(p.minutes, { n: q.durationMinutes })
+                    : "",
                 ]
                   .filter(Boolean)
                   .join(" · ")}
@@ -192,7 +301,9 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
                   q.best === null ? (
                     <span className="text-sm text-muted-foreground">–</span>
                   ) : (
-                    <span className="text-sm font-semibold tabular-nums">{Math.round(q.best * 100)} %</span>
+                    <span className="text-sm font-semibold tabular-nums">
+                      {Math.round(q.best * 100)} %
+                    </span>
                   )
                 }
               />
@@ -208,12 +319,22 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
                   href={`/practice/deck?id=${d.id}`}
                   icon={Layers}
                   title={d.title}
-                  meta={d.cardCount === 1 ? p.oneCard : fill(p.cards, { n: d.cardCount })}
+                  meta={
+                    d.cardCount === 1
+                      ? p.oneCard
+                      : fill(p.cards, { n: d.cardCount })
+                  }
                   aside={
                     due === null ? null : due > 0 ? (
-                      <span className="text-sm font-semibold tabular-nums text-[var(--c-amber)]">{fill(p.due, { n: due })}</span>
+                      <span className="text-sm font-semibold tabular-nums text-[var(--c-amber)]">
+                        {fill(p.due, { n: due })}
+                      </span>
                     ) : (
-                      <Check size={16} className="text-muted-foreground" aria-label={t.allDone} />
+                      <Check
+                        size={16}
+                        className="text-muted-foreground"
+                        aria-label={t.allDone}
+                      />
                     )
                   }
                 />
@@ -228,14 +349,32 @@ export function SubjectPage({ semester, subject }: { semester: string; subject: 
 
 function whenLabel(date: string, dict: ReturnType<typeof useI18n>["dict"]) {
   const days = daysUntil(date);
-  return days <= 0 ? dict.home.today : days === 1 ? dict.home.tomorrow : fill(dict.home.inDays, { n: days });
+  return days <= 0
+    ? dict.home.today
+    : days === 1
+      ? dict.home.tomorrow
+      : fill(dict.home.inDays, { n: days });
 }
 
-function List({ empty, children }: { empty: string; children: React.ReactNode[] }) {
+function List({
+  empty,
+  children,
+}: {
+  empty: string;
+  children: React.ReactNode[];
+}) {
   if (children.length === 0) {
-    return <p className="rounded-xl border border-dashed px-4 py-10 text-center text-sm text-muted-foreground">{empty}</p>;
+    return (
+      <p className="rounded-xl border border-dashed px-4 py-10 text-center text-sm text-muted-foreground">
+        {empty}
+      </p>
+    );
   }
-  return <ul className="divide-y overflow-hidden rounded-xl border bg-card">{children}</ul>;
+  return (
+    <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
+      {children}
+    </ul>
+  );
 }
 
 function Row({
@@ -255,7 +394,10 @@ function Row({
 }) {
   return (
     <li>
-      <Link href={href} className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-secondary/60">
+      <Link
+        href={href}
+        className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-secondary/60"
+      >
         <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground">
           <Icon size={20} strokeWidth={2} />
         </span>
@@ -263,7 +405,11 @@ function Row({
           <p className="truncate text-lg font-semibold" lang={lang} dir="auto">
             {title}
           </p>
-          <p className="truncate text-sm text-muted-foreground" lang={lang} dir="auto">
+          <p
+            className="truncate text-sm text-muted-foreground"
+            lang={lang}
+            dir="auto"
+          >
             {meta}
           </p>
         </div>

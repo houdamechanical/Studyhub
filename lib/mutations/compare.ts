@@ -2,6 +2,7 @@ import { dataChanged } from "@/lib/data";
 import { requireUser, type ActionResult } from "@/lib/actions";
 import { NICKNAME_PATTERN } from "@/lib/compare";
 import { isSubjectId, isValidElectives, SUBJECT_IDS } from "@/lib/subjects";
+import type { ArtTeacher } from "@/lib/exams";
 
 export async function saveNickname(nickname: string): Promise<ActionResult> {
   const auth = await requireUser();
@@ -52,11 +53,16 @@ export async function setAllGradeShares(shared: boolean): Promise<ActionResult> 
 }
 
 /** Save your subject choices (one of Art / Music, two of Biology / Chemistry / Arabic). */
-export async function saveElectives(electives: string[]): Promise<ActionResult> {
+export async function saveElectives(electives: string[], artTeacher: ArtTeacher | null = null): Promise<ActionResult> {
   const auth = await requireUser();
   if (!auth) return { ok: false, error: "unauthorized" };
   if (!isValidElectives(electives)) return { ok: false, error: "invalid" };
-  const { error } = await auth.supabase.from("profiles").update({ electives }).eq("user_id", auth.userId);
+  const art_teacher = electives.includes("kunst") ? artTeacher : null;
+  let { error } = await auth.supabase.from("profiles").update({ electives, art_teacher }).eq("user_id", auth.userId);
+  // Art teacher migration not applied yet: save the subjects alone.
+  if (error && (error.code === "PGRST204" || error.code === "42703")) {
+    ({ error } = await auth.supabase.from("profiles").update({ electives }).eq("user_id", auth.userId));
+  }
   if (error) return { ok: false, error: error.code === "23514" ? "invalid" : "failed" };
   dataChanged();
   return { ok: true };

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funktionsgleichungen gesucht – Erklärung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Funktions&shy;gleichungen <em>gesucht</em></h1>
+  <p class="lead">Rekonstruktion von Funktionen („Steckbriefaufgaben“): Du kennst Eigenschaften eines Graphen – einen Wendepunkt, ein Maximum, eine Steigung – und sollst daraus die <b>Funktionsgleichung</b> bestimmen. Hier lernst du jeden Schritt so, wie er im Unterricht aufgeschrieben wird.</p>
+  <nav class="toc" aria-label="Inhalt">
+    <a href="#idee"><b>1</b> Die Idee</a>
+    <a href="#ansatz"><b>2</b> Ansätze</a>
+    <a href="#symmetrie"><b>3</b> Symmetrie</a>
+    <a href="#tabelle"><b>4</b> Übersetzungstabelle</a>
+    <a href="#schema"><b>5</b> Das Schema</a>
+    <a href="#lgs"><b>6</b> LGS lösen</a>
+    <a href="#bsp1"><b>7</b> Beispiel Wendepunkt</a>
+    <a href="#bsp2"><b>8</b> Beispiel Winkelhalbierende</a>
+    <a href="#bsp3"><b>9</b> Beispiel 4. Grad</a>
+    <a href="#anwendung"><b>10</b> Skateboard &amp; Basketball</a>
+    <a href="#fehler"><b>11</b> Typische Fehler</a>
+    <a href="#check"><b>12</b> Kurz-Check</a>
+  </nav>
+</header>
+
+<!-- 1 -->
+<section class="block" id="idee">
+  <h2><span class="num">1</span>Die Idee</h2>
+  <p>Bei der Kurvendiskussion hast du eine Funktion und suchst ihre Eigenschaften (Nullstellen, Extrempunkte, Wendepunkte …). Hier ist es <b>umgekehrt</b>: Die Eigenschaften sind gegeben, die Funktion wird gesucht. Darum heißt das Thema auch <b>Rekonstruktion</b>.</p>
+  <p>Das braucht man z.&nbsp;B. in der Technik: Eine Skateboard-Bahn, eine Straße oder eine Achterbahn soll ohne Knick an gerade Stücke anschließen – dafür braucht man eine passende Funktionsgleichung.</p>
+  <div class="rule"><b>Merke</b>Jede Eigenschaft liefert eine <b>Gleichung</b>. Mit genauso vielen Gleichungen wie unbekannten Parametern \((a, b, c, \dots)\) entsteht ein <b>lineares Gleichungssystem (LGS)</b>, das du löst.</div>
+</section>
+
+<!-- 2 -->
+<section class="block" id="ansatz">
+  <h2><span class="num">2</span>Der Ansatz: allgemeine Funktionsgleichung</h2>
+  <p>Zuerst schreibst du die allgemeine Gleichung des gesuchten Grades auf – und gleich die Ableitungen dazu, weil fast immer Steigung oder Krümmung vorkommen.</p>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th>Grad</th><th>Ansatz</th><th>Ableitungen</th><th>Unbekannte</th></tr>
+    <tr><td>2 (Parabel)</td><td>\(f(x) = ax^2 + bx + c\)</td><td>\(f'(x) = 2ax + b\)<br>\(f''(x) = 2a\)</td><td>3 → 3 Gleichungen</td></tr>
+    <tr><td>3</td><td>\(f(x) = ax^3 + bx^2 + cx + d\)</td><td>\(f'(x) = 3ax^2 + 2bx + c\)<br>\(f''(x) = 6ax + 2b\)</td><td>4 → 4 Gleichungen</td></tr>
+    <tr><td>4</td><td>\(f(x) = ax^4 + bx^3 + cx^2 + dx + e\)</td><td>\(f'(x) = 4ax^3 + 3bx^2 + 2cx + d\)<br>\(f''(x) = 12ax^2 + 6bx + 2c\)</td><td>5 → 5 Gleichungen</td></tr>
+  </table>
+  </div>
+  <div class="tip"><b>Faustregel</b>Grad \(n\) → \(n+1\) Parameter → du brauchst \(n+1\) Bedingungen. Zähle immer nach, bevor du anfängst zu rechnen!</div>
+</section>
+
+<!-- 3 -->
+<section class="block" id="symmetrie">
+  <h2><span class="num">3</span>Symmetrie spart Arbeit</h2>
+  <div class="two">
+    <div class="card">
+      <b>Achsensymmetrisch zur y-Achse</b>
+      <p>Nur <b>gerade</b> Potenzen von \(x\) kommen vor. Alle ungeraden Parameter sind 0.</p>
+      <p>4. Grad: \(b = d = 0\)<br>\(f(x) = ax^4 + cx^2 + e\)</p>
+    </div>
+    <div class="card">
+      <b>Punktsymmetrisch zum Ursprung</b>
+      <p>Nur <b>ungerade</b> Potenzen. Alle geraden Parameter (auch das absolute Glied) sind 0.</p>
+      <p>3. Grad: \(b = d = 0\)<br>\(f(x) = ax^3 + cx\)</p>
+    </div>
+  </div>
+  <div class="rule"><b>Wichtig</b>Jede ganzrationale Funktion 3. Grades ist <b>punktsymmetrisch zu ihrem Wendepunkt</b>. „Punktsymmetrisch zu \(P(-1|0)\)“ heißt also: \(P\) ist der Wendepunkt → \(f(-1) = 0\) und \(f''(-1) = 0\).</div>
+</section>
+
+<!-- 4 -->
+<section class="block" id="tabelle">
+  <h2><span class="num">4</span>Die Übersetzungstabelle: Text → Gleichung</h2>
+  <p>Das ist das Herzstück. Lerne diese Tabelle – damit kannst du jeden Steckbrief übersetzen.</p>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th>Im Text steht …</th><th>Gleichung(en)</th></tr>
+    <tr><td>Der Graph geht durch \(P(2\,|\,5)\)</td><td>\(f(2) = 5\)</td></tr>
+    <tr><td>… durch den Ursprung / Koordinatenursprung</td><td>\(f(0) = 0\)</td></tr>
+    <tr><td>… schneidet die y-Achse bei 3</td><td>\(f(0) = 3\)</td></tr>
+    <tr><td>Nullstelle bei \(x = 4\) / schneidet die x-Achse bei 4</td><td>\(f(4) = 0\)</td></tr>
+    <tr><td>Extremstelle (Hoch-/Tiefpunkt, Maximum, Minimum) bei \(x = 2\)</td><td>\(f'(2) = 0\)</td></tr>
+    <tr><td>Hoch-/Tiefpunkt \(T(2\,|\,-4)\)</td><td>\(f(2) = -4\) <b>und</b> \(f'(2) = 0\)</td></tr>
+    <tr><td>Waagerechte Tangente bei \(x = 2\)</td><td>\(f'(2) = 0\)</td></tr>
+    <tr><td>Wendestelle bei \(x = -1\) / „ändert sein Krümmungsverhalten“</td><td>\(f''(-1) = 0\)</td></tr>
+    <tr><td>Wendepunkt \(W(1\,|\,0)\)</td><td>\(f(1) = 0\) <b>und</b> \(f''(1) = 0\)</td></tr>
+    <tr><td>Sattelpunkt \(S(0\,|\,2)\)</td><td>\(f(0) = 2\), \(f'(0) = 0\), \(f''(0) = 0\)</td></tr>
+    <tr><td>Steigung 3 bei \(x = 1\)</td><td>\(f'(1) = 3\)</td></tr>
+    <tr><td>Tangente \(y = -2x + 2\) im Punkt \(W(1|0)\)</td><td>\(f(1) = 0\) und \(f'(1) = -2\) (Steigung der Tangente)</td></tr>
+    <tr><td>Berührt die x-Achse bei \(x = 3\)</td><td>\(f(3) = 0\) <b>und</b> \(f'(3) = 0\)</td></tr>
+    <tr><td>Berührt die Winkelhalbierende \(y = x\) bei \(x = 1\)</td><td>\(f(1) = 1\) <b>und</b> \(f'(1) = 1\)</td></tr>
+    <tr><td>Schneidet die x-Achse unter dem Winkel \(\alpha\)</td><td>\(f'(x_0) = \tan\alpha\) (z.&nbsp;B. \(45° \to\) Steigung 1)</td></tr>
+    <tr><td>Geht ohne Knick in eine Gerade über</td><td>Gleicher Punkt <b>und</b> gleiche Steigung wie die Gerade</td></tr>
+  </table>
+  </div>
+  <div class="tip"><b>Steigung aus einem Winkel</b>\(m = \tan\alpha\). Beispiel: \(45° \to m = \tan 45° = 1\). Fällt der Graph, ist die Steigung negativ: \(m = \tan(180° - \beta)\) ist dann z.&nbsp;B. \(-0{,}63\).</div>
+</section>
+
+<!-- 5 -->
+<section class="block" id="schema">
+  <h2><span class="num">5</span>Das Schema in fünf Schritten</h2>
+  <p>So steht es im Buch – und so solltest du es in der Arbeit aufschreiben:</p>
+  <ol class="steps">
+    <li><b>Ansatz für die Funktionsgleichung</b>Allgemeine Gleichung mit den Parametern \(a, b, c, d\) aufschreiben, dazu die Funktionsterme von \(f'\) und \(f''\).</li>
+    <li><b>Eigenschaften der Funktion \(f\)</b>Alle Informationen aus dem Text untereinander auflisten (1., 2., 3. …).</li>
+    <li><b>Umsetzen der Eigenschaften in Gleichungen</b>Jede Eigenschaft mit der Tabelle übersetzen, einsetzen und als Gleichung in \(a, b, c, d\) schreiben.</li>
+    <li><b>Lösen des Gleichungssystems</b>Gleichungen mit I, II, III, IV benennen und mit dem Additions- oder Einsetzungsverfahren (oder dem WTR) lösen.</li>
+    <li><b>Resultat</b>Funktionsgleichung angeben: „\(f(x) = \dots\) hat die geforderten Eigenschaften, was man leicht überprüfen kann.“</li>
+  </ol>
+  <div class="card small"><b>Arbeitsblatt-Variante (6 Schritte):</b> 1. Allgemeine Funktionsgleichung angeben · 2. Symmetrieinformationen verarbeiten · 3. Ableitungen aufstellen · 4. Bestimmungsgleichungen und LGS ermitteln · 5. LGS lösen (Additionsverfahren oder WTR) · 6. Funktionsgleichung angeben und ggf. mit GeoGebra prüfen. Das ist dasselbe Vorgehen, nur feiner aufgeteilt.</div>
+</section>
+
+<!-- 6 -->
+<section class="block" id="lgs">
+  <h2><span class="num">6</span>Das LGS lösen</h2>
+  <p>Gib jeder Gleichung eine römische Nummer. Neue Gleichungen bekommen neue Nummern (V, VI, VII …), und du schreibst dazu, wie du sie gebildet hast:</p>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th>Notation</th><th>Bedeutung</th></tr>
+    <tr><td>\(\text{II} - \text{III}\)</td><td>Gleichung III von Gleichung II abziehen (Additionsverfahren)</td></tr>
+    <tr><td>\(2\cdot\text{II}\)</td><td>Gleichung II mit 2 multiplizieren</td></tr>
+    <tr><td>\(\text{V} + \text{VI}\)</td><td>Gleichungen V und VI addieren, damit eine Variable wegfällt</td></tr>
+    <tr><td>IV in III</td><td>Das Ergebnis aus IV in Gleichung III einsetzen (Einsetzungsverfahren)</td></tr>
+  </table>
+  </div>
+  <div class="tip"><b>Ziel</b>Bei jedem Schritt verschwindet eine Variable, bis nur noch eine übrig ist. Dann rückwärts einsetzen. Mit dem WTR (Gleichungssystem-Modus) kannst du dein Ergebnis kontrollieren.</div>
+</section>
+
+<!-- 7 -->
+<section class="block" id="bsp1">
+  <h2><span class="num">7</span>Beispiel: Wendepunkt, Maximum und Wendetangente</h2>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Gesucht ist eine ganzrationale Funktion dritten Grades mit dem Wendepunkt \(W(-2\,|\,6)\), die an der Stelle \(x = -4\) ein Maximum hat. Außerdem ist die Steigung der Wendetangente (Tangente im Wendepunkt) bekannt. Sie ist gleich \(-12\).</div>
+  <p class="loesung-head">Lösung:</p>
+  <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b><br>Wir setzen die ganzrationale Funktion dritten Grades unter Verwendung der Parameter \(a, b, c\) und \(d\) allgemein an. Außerdem notieren wir die Funktionsterme von \(f'\) und \(f''\).</p>
+  <div class="gbox" style="max-width:340px">
+    <p>\(f(x) = ax^3 + bx^2 + cx + d\)</p>
+    <p>\(f'(x) = 3ax^2 + 2bx + c\)</p>
+    <p>\(f''(x) = 6ax + 2b\)</p>
+  </div>
+  <div class="two">
+    <div>
+      <p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+      <div class="gbox">
+        <p>1. Wendepunkt \(W(-2\,|\,6)\)<br><span class="small">(Wendestelle \(x = -2\), Funktionswert \(y = 6\))</span></p>
+        <p>2. Maximum bei \(x = -4\)</p>
+        <p>3. Steigung im Wendepunkt: \(-12\)</p>
+      </div>
+    </div>
+    <div>
+      <p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+      <div class="gbox">
+        <div class="lgs">
+          <span>1.</span><span>\(f(-2) = 6\)</span><span>\(-8a + 4b - 2c + d = 6\)</span>
+          <span></span><span>\(f''(-2) = 0\)</span><span>\(-12a + 2b = 0\)</span>
+          <span>2.</span><span>\(f'(-4) = 0\)</span><span>\(48a - 8b + c = 0\)</span>
+          <span>3.</span><span>\(f'(-2) = -12\)</span><span>\(12a - 4b + c = -12\)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+  <div class="flow">
+    <div class="gbox">
+      <div class="lgs">
+        <span class="r">I:</span><span>\(-8a + 4b - 2c + d = 6\)</span><span></span>
+        <span class="r">II:</span><span>\(-12a + 2b = 0\)</span><span class="small">\(2\cdot\text{II} \to\)</span>
+        <span class="r">III:</span><span>\(48a - 8b + c = 0\)</span><span class="small">\(\text{III}-\text{IV} \to\)</span>
+        <span class="r">IV:</span><span>\(12a - 4b + c = -12\)</span><span></span>
+      </div>
+    </div>
+    <div class="gbox">
+      <div class="lgs">
+        <span class="r">V:</span><span>\(-24a + 4b = 0\)</span><span class="small">\(\text{V}+\text{VI} \to\)</span>
+        <span class="r">VI:</span><span>\(36a - 4b = 12\)</span><span></span>
+      </div>
+    </div>
+    <div class="gbox">
+      <p><span class="r">VII:</span> \(12a = 12\)</p>
+      <p>\(a = 1\)</p>
+    </div>
+    <div class="gbox">
+      <p>in II: \(b = 6\)</p>
+      <p>in III: \(c = 0\)</p>
+      <p>in IV: \(d = -10\)</p>
+    </div>
+  </div>
+  <details class="sol"><summary>Rechnung Schritt für Schritt</summary><div class="inner">
+    <p><b>\(2\cdot\)II:</b> \(-24a + 4b = 0\) = V.</p>
+    <p><b>III − IV:</b> \((48a - 12a) + (-8b + 4b) + (c - c) = 0 - (-12) \Rightarrow 36a - 4b = 12\) = VI.</p>
+    <p><b>V + VI:</b> \(12a = 12 \Rightarrow a = 1\).</p>
+    <p><b>in II:</b> \(-12\cdot 1 + 2b = 0 \Rightarrow b = 6\).</p>
+    <p><b>in III:</b> \(48 - 48 + c = 0 \Rightarrow c = 0\).</p>
+    <p><b>in I:</b> \(-8 + 24 - 0 + d = 6 \Rightarrow d = -10\).</p>
+    <p><b>Probe:</b> \(f'(-4) = 3\cdot16 - 48 = 0\) ✓ · \(f''(-4) = -24 + 12 = -12 &lt; 0\) → wirklich ein Maximum ✓.</p>
+  </div></details>
+  <p><b><i>(5) Resultat</i></b></p>
+  <div class="result"><b>\(f(x) = x^3 + 6x^2 - 10\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+</section>
+
+<!-- 8 -->
+<section class="block" id="bsp2">
+  <h2><span class="num">8</span>Beispiel: Berührung der Winkelhalbierenden</h2>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Der Graph einer ganzrationalen Funktion dritten Grades berührt die Winkelhalbierende des ersten Quadranten bei \(x = 1\) und ändert sein Krümmungsverhalten in \(P(0\,|\,0{,}5)\). Wie lautet die Funktionsgleichung?</div>
+  <p class="loesung-head">Lösung:</p>
+  <p><b><i>(1) Ansatz für die Funktionsgleichung</i></b><br>Wir setzen die ganzrationale Funktion dritten Grades unter Verwendung der Parameter \(a, b, c\) und \(d\) allgemein an. Außerdem notieren wir die Funktionsterme von \(f'\) und \(f''\), da das Krümmungsverhalten mit im Spiel ist.</p>
+  <div class="gbox" style="max-width:340px">
+    <p>\(f(x) = ax^3 + bx^2 + cx + d\)</p>
+    <p>\(f'(x) = 3ax^2 + 2bx + c\)</p>
+    <p>\(f''(x) = 6ax + 2b\)</p>
+  </div>
+  <div class="two">
+    <div>
+      <p><b><i>(2) Eigenschaften der Funktion f</i></b></p>
+      <div class="gbox">
+        <p>1. Wendepunkt \(W(0\,|\,0{,}5)\)<br><span class="small">(Wendestelle \(x = 0\), Funktionswert \(y = 0{,}5\))</span></p>
+        <p>2. Punkt \(P(1\,|\,1)\)</p>
+        <p>3. Steigung bei \(x = 1\): 1</p>
+      </div>
+    </div>
+    <div>
+      <p><b><i>(3) Umsetzen der Eigenschaften in Gleichungen</i></b></p>
+      <div class="flow">
+        <div class="gbox">
+          <p>1. \(f''(0) = 0\)</p>
+          <p>\(\;\;\;f(0) = 0{,}5\)</p>
+          <p>2. \(f(1) = 1\)</p>
+          <p>3. \(f'(1) = 1\)</p>
+        </div>
+        <span class="arrow">⇒</span>
+        <div class="gbox">
+          <p>\(b = 0\)</p>
+          <p>\(d = 0{,}5\)</p>
+          <p>\(a + b + c + d = 1\)</p>
+          <p>\(3a + 2b + c = 1\)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="small muted">Warum \(P(1|1)\) und Steigung 1? Die Winkelhalbierende des 1. Quadranten ist \(y = x\). „Berühren bei \(x = 1\)“ heißt: gleicher Punkt \((1\,|\,1)\) und gleiche Steigung 1.</p>
+  <p><b><i>(4) Lösen des Gleichungssystems</i></b></p>
+  <div class="flow">
+    <div class="gbox"><p>\(a + c = 0{,}5\)</p><p>\(3a + c = 1\)</p></div>
+    <span class="arrow">⇒</span>
+    <div class="gbox"><p>\(c = 0{,}5 - a \Rightarrow 3a + 0{,}5 - a = 1 \Rightarrow 2a = 0{,}5\)</p></div>
+    <span class="arrow">⇒</span>
+    <div class="gbox"><p>\(a = 1/4\)</p><p>\(c = 1/4\)</p></div>
+  </div>
+  <p><b><i>(5) Resultat</i></b></p>
+  <div class="result"><b>\(f(x) = \tfrac14 x^3 + \tfrac14 x + 0{,}5\)</b> hat die geforderten Eigenschaften, was man leicht überprüfen kann.</div>
+</section>
+
+<!-- 9 -->
+<section class="block" id="bsp3">
+  <h2><span class="num">9</span>Beispielrechnung: Funktion 4. Grades</h2>
+  <div class="beispiel"><span class="tag">Aufgabe:</span>Eine Funktion 4. Grades ist gesucht. Ihr Graph ist achsensymmetrisch zur y-Achse. Er hat in \(W(1\,|\,0)\) einen Wendepunkt. Die Tangentengerade im Punkt W hat die Gleichung \(y = -2x + 2\).<br><span class="small muted">(Tipp: Die Tangentengerade im Punkt W ist die Gerade, die den Graphen im Punkt W berührt, bzw. so schneidet, dass sie dieselbe Steigung hat wie die gesuchte Funktion im Punkt W.)</span></div>
+  <ol class="steps">
+    <li><b>Schritt: Allgemeine Funktionsgleichung angeben</b>Funktion 4. Grades: \(f(x) = ax^4 + bx^3 + cx^2 + dx + e\)<br>Gesucht sind die Parameter \(a, b, c, d, e\).</li>
+    <li><b>Schritt: Symmetrieinformationen verarbeiten</b>Achsensymmetrie zur y-Achse: Nur gerade Potenzen, d.&nbsp;h. \(b = d = 0\)<br>\(f(x) = ax^4 + cx^2 + e\)</li>
+    <li><b>Schritt: Ableitungen aufstellen</b>\(f'(x) = 4ax^3 + 2cx\)<br>\(f''(x) = 12ax^2 + 2c\)</li>
+    <li><b>Schritt: Bestimmungsgleichungen und LGS ermitteln</b>
+      <div class="scroll-x"><table class="table">
+        <tr><td>W ist ein Punkt des Graphen:</td><td>\(f(1) = 0\)</td><td>⇒</td><td>I: \(a + c + e = 0\)</td></tr>
+        <tr><td>W ist ein Wendepunkt:</td><td>\(f''(1) = 0\)</td><td>⇒</td><td>II: \(12a + 2c = 0\)</td></tr>
+        <tr><td>Die Steigung in W ist \(-2\):<br><span class="small muted">(die Steigung der Tangente)</span></td><td>\(f'(1) = -2\)</td><td>⇒</td><td>III: \(4a + 2c = -2\)</td></tr>
+      </table></div></li>
+    <li><b>LGS lösen, entweder per Additionsverfahren, oder mit dem WTR</b>
+      <div class="scroll-x"><table class="table">
+        <tr><td>II − III:</td><td>IV: \(8a = 2\)</td><td>⇒ \(a = \tfrac14\)</td></tr>
+        <tr><td>IV in III:</td><td>V: \(1 + 2c = -2\)</td><td>⇒ \(c = -\tfrac32\)</td></tr>
+        <tr><td>IV, V in I:</td><td>VI: \(\tfrac14 - \tfrac32 + e = 0\)</td><td>⇒ \(e = \tfrac54\)</td></tr>
+      </table></div></li>
+    <li><b>Funktionsgleichung angeben und ggfs. mit GeoGebra prüfen</b>
+      <div class="result"><b>\(f(x) = \tfrac14 x^4 - \tfrac32 x^2 + \tfrac54\)</b></div></li>
+  </ol>
+</section>
+
+<!-- 10 -->
+<section class="block" id="anwendung">
+  <h2><span class="num">10</span>Anwendungen: Skateboard-Bahn und Basketball</h2>
+  <div class="beispiel"><span class="tag">Beispiel:</span>Aus Beton soll eine Skateboard-Bahn für den Park so gebaut werden, wie es die Abbildung zeigt. Die gebogenen Teile sollen ohne Knick an die geraden Teile anschließen. Ermitteln Sie für die Konstruktion die Gleichung einer Polynomfunktion, deren Graph dem gebogenen Teil nahe kommt. Entnehmen Sie die Maße der Skizze. <span class="small muted">(Skizze: Höhenunterschied 3 m, Länge 4 m, Ursprung in der Mitte der Bahn.)</span></div>
+  <p class="loesung-head">Lösung:</p>
+  <p>Der Skizze können wir entnehmen, dass die gesuchte Polynomfunktion dritten Grades ist, die die folgenden Bedingungen erfüllen muss: Ihr Graph ist punktsymmetrisch zum Ursprung des eingezeichneten Koordinatensystems und geht durch den Punkt \(P(0\,|\,0)\). Ein Tiefpunkt der Polynomfunktion liegt bei \(T(2\,|\,-1{,}5)\). Somit ergibt sich folgende Rechnung:</p>
+  <div class="flow">
+    <div class="gbox"><p><b><i>Ansatz für f:</i></b></p><p>\(f(x) = ax^3 + bx^2 + cx + d\)</p><p>\(f'(x) = 3ax^2 + 2bx + c\)</p></div>
+    <div class="gbox"><p><b><i>Eigenschaften von f:</i></b></p><p>(1) symmetrisch zu O</p><p>(2) \(f(0) = 0\)</p><p>(3) \(f'(2) = 0\)</p><p>(4) \(f(2) = -1{,}5\)</p></div>
+    <span class="arrow">→</span>
+    <div class="gbox"><p><b><i>Gleichungssystem:</i></b></p><p>\(b = 0\)</p><p>\(d = 0\)</p><p>\(12a + 4b + c = 0\)</p><p>\(8a + 4b + 2c + d = -1{,}5\)</p></div>
+    <span class="arrow">→</span>
+    <div class="gbox"><p><b><i>Lösung:</i></b></p><p>\(b = 0\)</p><p>\(d = 0\)</p><p>\(a = 3/32\)</p><p>\(c = -9/8\)</p></div>
+  </div>
+  <details class="sol"><summary>Wie kommt man auf a und c?</summary><div class="inner">
+    <p>Mit \(b = d = 0\) bleiben: I: \(12a + c = 0 \Rightarrow c = -12a\) und II: \(8a + 2c = -1{,}5\).</p>
+    <p>I in II: \(8a - 24a = -1{,}5 \Rightarrow -16a = -1{,}5 \Rightarrow a = \tfrac{3}{32}\); dann \(c = -12\cdot\tfrac{3}{32} = -\tfrac{9}{8}\).</p>
+    <p>Probe: \(f'(2) = 3\cdot\tfrac{3}{32}\cdot 4 - \tfrac98 = \tfrac98 - \tfrac98 = 0\) ✓ · \(f(2) = \tfrac{3}{32}\cdot 8 - \tfrac98\cdot 2 = \tfrac34 - \tfrac94 = -1{,}5\) ✓</p>
+  </div></details>
+  <div class="result"><b>Resultat:</b> Das Profil der Skateboard-Bahn wird durch die Funktion \(f(x) = \tfrac{3}{32}x^3 - \tfrac98 x\) beschrieben.</div>
+
+  <div class="beispiel" style="margin-top:34px"><span class="tag">Beispiel: Freiwurf beim Basketball</span><br>Holger Geschwindner, der Trainer von Dirk Nowitzki, erkannte, dass man beim Freiwurf den Korb (D = 45 cm) mit dem Ball (d = 24 cm) nicht zu flach treffen darf. Der Einschlagwinkel \(\beta\) muss mindestens 32° betragen, sonst prallt der Ball am vorderen oder hinteren Korbrand ab. <span class="small muted">(Skizze: Abwurf in 2,70 m Höhe, Korb in 3,05 m Höhe, waagerechter Abstand 4,23 m; Koordinatenursprung im Abwurfpunkt.)</span>
+    <ol class="sub" style="margin-bottom:0">
+      <li>Weisen Sie nach, dass Geschwindners Resultat richtig ist. Verwenden Sie dazu das rechtwinklige Dreieck in der oben dargestellten Skizze mit dem Einflugkanal.</li>
+      <li>Die Flugbahn des Balles beim Freiwurf kann durch eine quadratische Parabel der Form \(f(x) = ax^2 + bx + c\) modelliert werden. Verwenden Sie das Koordinatensystem und die Daten aus der Zeichnung sowie das Ergebnis von a), um a, b und c zu bestimmen.</li>
+      <li>Der Spieler darf den Ball nicht zu flach abwerfen, damit er nicht abprallt. Wie groß ist der minimale Abwurfwinkel \(\alpha\) für den oben dargestellten Spieler?</li>
+    </ol>
+  </div>
+  <div class="two">
+    <div class="txt">
+      <p><b>Lösung zu a:</b><br>Der Einflugkanal des Balles in den Korb muss mindestens so breit sein wie der Ball, also 24 cm. Mit diesen Daten lässt sich \(\beta\) im obigen rechtwinkeligen Dreieck bestimmen. Resultat: \(\beta = 32{,}23°\).</p>
+    </div>
+    <div class="math">
+      <h4>Minimal Einschlagwinkel</h4>
+      <p>\(\sin\beta = \dfrac{\text{Gk}}{\text{Hyp}} = \dfrac{24}{45} = 0{,}5333\)</p>
+      <p>\(\beta = 32{,}23°\)</p>
+    </div>
+    <div class="txt">
+      <p><b>Lösung zu b:</b><br>Wir besitzen drei Informationen:</p>
+      <div class="gbox">
+        <p>I. Abwurf im Punkt \(P(0\,|\,0)\)</p>
+        <p>II. Korb bei \(K(4{,}23\,|\,0{,}35)\)</p>
+        <p>III. Mindestwinkel \(\beta = 32{,}23°\) bei \(x = 4{,}23\)</p>
+      </div>
+      <p>Diese liefern ein Gleichungssystem mit den Lösungen \(a = -0{,}1685\), \(b = 0{,}796\) und \(c = 0\).</p>
+      <p>Resultat:</p>
+      <div class="result"><b>\(f(x) = -0{,}1685x^2 + 0{,}796x\)</b></div>
+    </div>
+    <div class="math">
+      <h4>Parabelgleichung</h4>
+      <p>Ansatz: \(f(x) = ax^2 + bx + c,\; f'(x) = 2ax + b\)</p>
+      <div class="gbox">
+        <p>I: \(f(0) = 0\)</p>
+        <p>II: \(f(4{,}23) = 0{,}35\)</p>
+        <p>III: \(f'(4{,}23) = \tan(147{,}77°) = -0{,}63\)</p>
+      </div>
+      <div class="gbox">
+        <p>I: \(c = 0\)</p>
+        <p>II: \(17{,}89a + 4{,}23b = 0{,}35\)</p>
+        <p>III: \(8{,}46a + b = -0{,}63\)</p>
+        <p>\(\Rightarrow c = 0,\; b = 0{,}796,\; a = -0{,}1685\)</p>
+      </div>
+    </div>
+    <div class="txt">
+      <p><b>Lösung zu c:</b><br>Den Mindestabwurfwinkel \(\alpha\) erhalten wir aus der Abwurfsteigung: \(\tan\alpha = f'(0)\).</p>
+      <p class="answer">Resultat: Der Abwurfwinkel für einen möglichen Korbwurf beträgt mindestens 38°.</p>
+    </div>
+    <div class="math">
+      <h4>Minimaler Abwurfwinkel</h4>
+      <p>\(\tan\alpha = f'(0)\)</p>
+      <p>\(\tan\alpha = 0{,}79\)</p>
+      <p>\(\alpha = 38{,}52°\)</p>
+    </div>
+  </div>
+  <div class="tip"><b>Warum 0,35 und 147,77°?</b> Der Korb hängt \(3{,}05 - 2{,}70 = 0{,}35\) m über dem Abwurfpunkt. Der Ball fällt am Korb, die Steigung ist also negativ: Der Winkel zur x-Achse ist \(180° - 32{,}23° = 147{,}77°\), und \(\tan 147{,}77° \approx -0{,}63\).</div>
+</section>
+
+<!-- 11 -->
+<section class="block" id="fehler">
+  <h2><span class="num">11</span>Typische Fehler</h2>
+  <div class="warn"><b>1. Bei einem Punkt nur eine Gleichung</b>Ein <b>Extrempunkt</b> \(T(2|-4)\) liefert <b>zwei</b> Gleichungen: \(f(2) = -4\) und \(f'(2) = 0\). Ein <b>Wendepunkt</b> ebenso: \(f(x_W) = y_W\) und \(f''(x_W) = 0\).</div>
+  <div class="warn"><b>2. Falsche Ableitung benutzt</b>Steigung / Extremum → \(f'\). Wendepunkt / Krümmung → \(f''\). Punkt → \(f\).</div>
+  <div class="warn"><b>3. Vorzeichen beim Einsetzen</b>\(f(-2)\): \(a\cdot(-2)^3 = -8a\), aber \(b\cdot(-2)^2 = +4b\). Klammern setzen!</div>
+  <div class="warn"><b>4. Symmetrie vergessen</b>Wer die Symmetrie nicht nutzt, hat zu wenige Gleichungen für zu viele Unbekannte.</div>
+  <div class="warn"><b>5. Keine Probe</b>Setze am Ende in alle Bedingungen ein – ein Rechenfehler fällt sofort auf.</div>
+</section>
+
+<!-- 12 -->
+<section class="block" id="check">
+  <h2><span class="num">12</span>Kurz-Check</h2>
+  <div class="card">
+    <p><b>1.</b> „Der Graph hat bei \(x = 3\) einen Wendepunkt.“ Welche Gleichung gehört dazu?</p>
+    <div class="check">
+      <button>\(f(3) = 0\)</button>
+      <button>\(f'(3) = 0\)</button>
+      <button data-ok="1">\(f''(3) = 0\)</button>
+      <p class="why">Wendestelle → die zweite Ableitung ist null.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p><b>2.</b> Eine Funktion 3. Grades ist punktsymmetrisch zum Ursprung. Welcher Ansatz passt?</p>
+    <div class="check">
+      <button data-ok="1">\(f(x) = ax^3 + cx\)</button>
+      <button>\(f(x) = ax^3 + bx^2\)</button>
+      <button>\(f(x) = bx^2 + d\)</button>
+      <p class="why">Punktsymmetrie zum Ursprung → nur ungerade Potenzen: \(b = d = 0\).</p>
+    </div>
+  </div>
+  <div class="card">
+    <p><b>3.</b> Der Graph schneidet die x-Achse bei \(x = 2\) unter 45°. Welche Steigung hat er dort?</p>
+    <div class="check">
+      <button>0</button>
+      <button data-ok="1">1</button>
+      <button>45</button>
+      <p class="why">\(m = \tan 45° = 1\), also \(f'(2) = 1\) (und zusätzlich \(f(2) = 0\)).</p>
+    </div>
+  </div>
+  <p class="muted">Alle Aufgaben vom Arbeitsblatt mit ausführlichen Lösungen: Ordner <b>Funktionsgleichungen gesucht → Schulaufgabe Funktionsgleichungen gesucht</b>.</p>
+</section>
+
+<p class="foot">Study Hub · Mathematik 11.1 · Funktionsgleichungen gesucht (Rekonstruktion)</p>
+</div>
+</body>
+</html>

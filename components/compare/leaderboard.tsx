@@ -44,7 +44,7 @@ export function Leaderboard({
             you={labels.you}
           />
           {board.rows.some((r) => r.rank > 3) && (
-            <ol className="divide-y rounded-xl border bg-card">
+            <ol className="divide-y rounded-xl border bg-card shadow-card">
               {board.rows
                 .filter((r) => r.rank > 3)
                 .map((row) => (
