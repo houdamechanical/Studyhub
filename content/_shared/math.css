@@ -55,7 +55,7 @@ a { color: var(--accent); }
 /* ---------- Hero ---------- */
 .hero { padding: 40px 0 8px; }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text2); }
-.eyebrow .dot { width: 10px; height: 10px; border-radius: 3px; background: linear-gradient(150deg, #7c89ff, #3341c9); }
+.eyebrow .dot { width: 10px; height: 10px; border-radius: 3px; background: linear-gradient(150deg, var(--g1, #7c89ff), var(--g2, #3341c9)); }
 .hero h1 { font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 800; margin: 12px 0 10px; }
 .hero h1 em { font-style: normal; color: var(--math); }
 .lead { font-size: 1.12rem; color: var(--text2); max-width: 640px; margin: 0; }
@@ -67,7 +67,7 @@ a { color: var(--accent); }
 /* ---------- Sections ---------- */
 section.block { margin-top: 44px; scroll-margin-top: 16px; }
 .block > h2 { display: flex; align-items: center; gap: 12px; font-size: 1.7rem; font-weight: 800; margin: 0 0 14px; }
-.num { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(150deg, #7c89ff, #3341c9); color: #fff; font-size: 1.05rem; font-weight: 800; }
+.num { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(150deg, var(--g1, #7c89ff), var(--g2, #3341c9)); color: #fff; font-size: 1.05rem; font-weight: 800; }
 .block > h3 { font-size: 1.25rem; margin: 26px 0 8px; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow); margin: 14px 0; }
 .muted { color: var(--text2); }
@@ -178,3 +178,47 @@ details.sol > .inner { padding-top: 10px; animation: open 0.25s ease-out both; }
 @media (prefers-reduced-motion: reduce) {
   details.sol > .inner { animation: none; }
 }
+
+/* ===================== Deutsch (red accent) + Lyrik building blocks ===================== */
+body.deutsch { --math: #b8360f; --math2: #e0573f; --mathbg: #fbe9e3; --g1: #ff7b7b; --g2: #c92a2a; }
+:root[data-theme="dark"] body.deutsch { --math: #ff8a72; --math2: #ffb3a3; --mathbg: #3a221c; }
+mark { background: #ffe58f; color: #1f1b16; padding: 0 2px; border-radius: 3px; }
+:root[data-theme="dark"] mark { background: #6b5a14; color: #fff7d6; }
+
+/* Poem with verse numbers */
+.poem { counter-reset: v; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px 18px 16px; margin: 16px 0; box-shadow: var(--shadow); font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size: 1.06rem; line-height: 1.7; }
+.poem h3 { font-family: "Bricolage Grotesque", Inter, sans-serif; margin: 0 0 2px; font-size: 1.3rem; }
+.poem .by { color: var(--text2); font-family: Inter, sans-serif; font-size: .9rem; margin: 0 0 14px; }
+.poem .st { margin: 0 0 14px; }
+.poem .st:last-child { margin-bottom: 0; }
+.poem .v { display: block; position: relative; padding-inline-start: 2.6em; }
+.poem .v::before { counter-increment: v; content: counter(v); position: absolute; inset-inline-start: 0; width: 1.8em; text-align: end; font: 500 .72rem/2.4 Inter, sans-serif; color: var(--text2); opacity: .75; }
+
+/* Musterlösung: printed-page look with line numbers every 5 lines */
+.muster { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 22px 22px 3.4em; margin: 16px 0; box-shadow: var(--shadow); font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size: 1.04rem; line-height: 1.8; hyphens: auto; -webkit-hyphens: auto; text-align: justify; }
+.muster > p { margin: 0; text-indent: 1.3em; }
+.muster > p.first { text-indent: 0; }
+.muster > p.gap { margin-top: 1.8em; text-indent: 0; }
+.muster .ln { position: absolute; inset-inline-start: 0; width: 2.6em; text-align: end; font: 500 .68rem/1.8rem Inter, sans-serif; color: var(--text2); opacity: .8; pointer-events: none; }
+.muster .part { font: 700 .72rem/1 Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--math); margin: 1.2em 0 .5em; display: flex; align-items: center; gap: 8px; text-indent: 0; }
+.muster .part::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.muster .part:first-child { margin-top: 0; }
+.muster.hide-parts .part { display: none; }
+.muster .sm { font-weight: 700; text-decoration: underline; text-decoration-color: var(--math2); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.chip { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--raised); font-size: .85rem; font-weight: 500; }
+.chip.hot { background: var(--mathbg); color: var(--math); font-weight: 600; }
+.checklist { list-style: none; padding: 0; margin: 10px 0; display: grid; gap: 8px; }
+.checklist li label { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; cursor: pointer; }
+.checklist input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--math); flex: none; }
+.checklist input:checked + span { color: var(--text2); text-decoration: line-through; }
+.say { background: var(--raised); border-radius: 10px; padding: 9px 13px; margin: 6px 0; font-style: italic; }
+.say::before { content: "„"; }
+.say::after { content: "“"; }
+.epoch-head { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: baseline; }
+.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0; }
+.timeline div { border-radius: 12px; padding: 10px 12px; background: var(--card); border: 1px solid var(--border); }
+.timeline div b { display: block; font-family: "Bricolage Grotesque", Inter, sans-serif; }
+.timeline div small { color: var(--text2); }
+.timeline div.on { background: var(--mathbg); border-color: transparent; }
+@media (max-width: 680px) { .timeline { grid-template-columns: 1fr 1fr; } .muster { padding-left: 2.8em; padding-right: 16px; text-align: left; } }

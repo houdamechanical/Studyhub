@@ -28,6 +28,40 @@
         throwOnError: false,
       });
     }
+    // Musterlösungen: line numbers every 5 printed lines (like a textbook page)
+    function numberLines() {
+      document.querySelectorAll(".muster").forEach(function (m) {
+        m.querySelectorAll(".ln").forEach(function (x) { x.remove(); });
+        var lh = parseFloat(getComputedStyle(m).lineHeight) || 30;
+        var count = 0;
+        m.querySelectorAll(":scope > p").forEach(function (p) {
+          var n = Math.max(1, Math.round(p.getBoundingClientRect().height / lh));
+          for (var i = 1; i <= n; i++) {
+            if ((count + i) % 5 === 0) {
+              var s = document.createElement("span");
+              s.className = "ln";
+              s.textContent = count + i;
+              s.style.top = p.offsetTop + (i - 1) * lh + "px";
+              s.style.lineHeight = lh + "px";
+              m.appendChild(s);
+            }
+          }
+          count += n;
+        });
+      });
+    }
+    numberLines();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(numberLines);
+    var rt;
+    window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(numberLines, 150); });
+    document.querySelectorAll("[data-parts]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        document.querySelectorAll(".muster").forEach(function (m) { m.classList.toggle("hide-parts"); });
+        b.textContent = b.textContent.indexOf("aus") > -1 ? "Aufbau einblenden" : "Aufbau ausblenden";
+        numberLines();
+      });
+    });
+    // Checklists remember nothing (sandboxed page) – they're just for ticking off while writing.
     // Show / hide all solutions
     document.querySelectorAll("[data-all]").forEach(function (b) {
       b.addEventListener("click", function () {
