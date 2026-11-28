@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Settings,
   Award,
   Camera,
   CalendarCheck,
@@ -141,6 +142,12 @@ function ProfileView({ stats }: { stats: PlayerStats }) {
           )}
         </div>
         <FriendActions stats={stats} />
+        {self && (
+          <Link href="/settings" className="tile press flex h-11 items-center gap-2 rounded-xl px-4 text-sm font-semibold">
+            <Settings size={17} aria-hidden />
+            {dict.nav.settings}
+          </Link>
+        )}
       </section>
       {picking && <AvatarPicker onClose={() => setPicking(false)} />}
 
