@@ -227,3 +227,7 @@ mark { background: #ffe58f; color: #1f1b16; padding: 0 2px; border-radius: 3px; 
 .timeline div small { color: var(--text2); }
 .timeline div.on { background: var(--mathbg); border-color: transparent; }
 @media (max-width: 680px) { .timeline { grid-template-columns: 1fr 1fr; } .muster { padding-left: 2.8em; padding-right: 16px; text-align: left; } }
+/* "Im Vergleich zu Nathan": a card with an accent edge */
+.nathan { background: var(--card); border: 1px solid var(--border); border-inline-start: 4px solid var(--math); border-radius: 14px; padding: 14px 16px; margin: 16px 0; box-shadow: var(--shadow); max-width: 74ch; }
+.nathan > b:first-child { display: block; margin-bottom: 6px; font-family: "Bricolage Grotesque", Inter, sans-serif; font-size: 1.05rem; }
+.nathan p { margin: 6px 0; }
