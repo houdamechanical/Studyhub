@@ -20,6 +20,18 @@ export type NewsItem = {
 
 export const NEWS: NewsItem[] = [
   {
+    id: "2026-12-nathan-bezug",
+    date: "2026-12-05",
+    art: "deutsch",
+    href: "/library/deutsch/deutsch-lyrik-nathan-bezug",
+    title: { de: "Deutsch: Bezug zu Nathan", en: "German: linking to Nathan", ar: "الألمانية: الربط مع ناتان" },
+    text: {
+      de: "So schreibst du Aufgabe 2: Nathan in 2 Minuten, Aufbau, Formulierungshilfen und eine Musterlösung zu Prometheus vs. Nathan. Dazu bei jeder Epoche: Wo steht sie im Vergleich zu Nathan?",
+      en: "How to write task 2: Nathan in two minutes, structure, phrases and a model answer on Prometheus vs. Nathan – plus each era compared with Nathan.",
+      ar: "كيف تكتب المهمة الثانية: ناتان في دقيقتين، البنية، عبارات مساعدة وحل نموذجي – ومقارنة كل عصر بناتان.",
+    },
+  },
+  {
     id: "2026-12-lyrik-klausur-2025",
     date: "2026-12-04",
     art: "deutsch",
