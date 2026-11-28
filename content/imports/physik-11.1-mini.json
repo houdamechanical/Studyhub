@@ -322,7 +322,8 @@
       ],
       "answer": 2,
       "explanation": [
-        "Im homogenen Feld (z. B. Plattenkondensator) ist die Feldstärke überall gleich groß und gleich gerichtet."
+        "Im homogenen Feld (z. B. Plattenkondensator) ist die Feldstärke überall gleich groß und gleich gerichtet.",
+        "Sternförmig auseinanderlaufende Linien gehören zum Radialfeld einer Punktladung – einem inhomogenen Feld."
       ]
     },
     {
@@ -330,16 +331,17 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
-      "prompt": "In welche Richtung wirkt die Kraft auf ein Elektron im elektrischen Feld?",
+      "prompt": "Welches dieser Felder ist inhomogen?",
       "options": [
-        "In Feldlinienrichtung",
-        "Entgegen der Feldlinienrichtung",
-        "Senkrecht zu den Feldlinien",
-        "Es wirkt keine Kraft"
+        "Das Feld in der Mitte eines Plattenkondensators",
+        "Das Radialfeld einer Punktladung",
+        "Ein Feld mit parallelen, gleich dichten Feldlinien",
+        "Ein Feld, in dem die Kraft überall gleich ist"
       ],
       "answer": 1,
       "explanation": [
-        "Feldlinien zeigen die Kraftrichtung auf positive Ladungen. Das Elektron ist negativ, also wirkt die Kraft entgegengesetzt."
+        "Im Radialfeld laufen die Feldlinien auseinander: Nach außen wird das Feld schwächer, die Kraft ist also nicht überall gleich – das Feld ist inhomogen.",
+        "Im Plattenkondensator ist das Feld homogen: parallele, gleich dichte Linien, überall dieselbe Kraft."
       ]
     },
     {
@@ -347,16 +349,16 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
-      "prompt": "Wie ist die elektrische Feldstärke definiert?",
+      "prompt": "In welche Richtung wirkt die Kraft auf ein Elektron im elektrischen Feld?",
       "options": [
-        "E = F / q",
-        "E = F · q",
-        "E = q / F",
-        "E = U · d"
+        "Entgegen der Feldlinienrichtung",
+        "In Feldlinienrichtung",
+        "Senkrecht zu den Feldlinien",
+        "Es wirkt keine Kraft"
       ],
       "answer": 0,
       "explanation": [
-        "Die Feldstärke ist die Kraft pro Probeladung: E = F/q."
+        "Feldlinien zeigen die Kraftrichtung auf positive Ladungen. Das Elektron ist negativ, also wirkt die Kraft entgegengesetzt."
       ]
     },
     {
@@ -364,16 +366,16 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
-      "prompt": "Welche Einheit hat die elektrische Feldstärke?",
+      "prompt": "Wie ist die elektrische Feldstärke definiert?",
       "options": [
-        "N·C",
-        "V·m",
-        "C/N",
-        "N/C (= V/m)"
+        "E = F · q",
+        "E = q / F",
+        "E = U · d",
+        "E = F / q"
       ],
       "answer": 3,
       "explanation": [
-        "[E] = 1 N/C = 1 V/m."
+        "Die Feldstärke ist die Kraft pro Probeladung: E = F/q."
       ]
     },
     {
@@ -381,16 +383,16 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
-      "prompt": "Eine Probeladung q = 2 nC erfährt die Kraft F = 6 · 10⁻⁵ N. Wie groß ist E?",
+      "prompt": "Welche Einheit hat die elektrische Feldstärke?",
       "options": [
-        "1,2 · 10⁻¹³ N/C",
-        "3 · 10⁻⁴ N/C",
-        "3 · 10⁴ N/C",
-        "1,2 · 10⁴ N/C"
+        "N·C",
+        "V·m",
+        "N/C (= V/m)",
+        "C/N"
       ],
       "answer": 2,
       "explanation": [
-        "E = F/q = 6 · 10⁻⁵ N / 2 · 10⁻⁹ C = 3 · 10⁴ N/C."
+        "[E] = 1 N/C = 1 V/m."
       ]
     },
     {
@@ -398,16 +400,16 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
-      "prompt": "Ein Plattenkondensator hat U = 100 V und d = 0,5 cm. Wie groß ist die Feldstärke?",
+      "prompt": "Eine Probeladung q = 2 nC erfährt die Kraft F = 6 · 10⁻⁵ N. Wie groß ist E?",
       "options": [
-        "200 V/m",
-        "2 · 10⁴ V/m",
-        "50 V/m",
-        "2 · 10² V/m"
+        "1,2 · 10⁻¹³ N/C",
+        "3 · 10⁴ N/C",
+        "3 · 10⁻⁴ N/C",
+        "1,2 · 10⁴ N/C"
       ],
       "answer": 1,
       "explanation": [
-        "E = U/d = 100 V / 0,005 m = 2 · 10⁴ V/m. d muss in Metern eingesetzt werden."
+        "E = F/q = 6 · 10⁻⁵ N / 2 · 10⁻⁹ C = 3 · 10⁴ N/C."
       ]
     },
     {
@@ -415,16 +417,16 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
-      "prompt": "Der Abstand zu einer Punktladung wird verdreifacht. Die Feldstärke wird …",
+      "prompt": "Ein Plattenkondensator hat U = 100 V und d = 0,5 cm. Wie groß ist die Feldstärke?",
       "options": [
-        "ein Neuntel so groß",
-        "ein Drittel so groß",
-        "dreimal so groß",
-        "gleich groß"
+        "2 · 10⁴ V/m",
+        "200 V/m",
+        "50 V/m",
+        "2 · 10² V/m"
       ],
       "answer": 0,
       "explanation": [
-        "E ~ 1/r²: (1/3)² = 1/9."
+        "E = U/d = 100 V / 0,005 m = 2 · 10⁴ V/m. d muss in Metern eingesetzt werden."
       ]
     },
     {
@@ -432,16 +434,16 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
-      "prompt": "Wer hat das Modell der Feldlinien eingeführt?",
+      "prompt": "Der Abstand zu einer Punktladung wird verdreifacht. Die Feldstärke wird …",
       "options": [
-        "Charles Augustin de Coulomb",
-        "Isaac Newton",
-        "Robert Millikan",
-        "Michael Faraday"
+        "ein Drittel so groß",
+        "dreimal so groß",
+        "gleich groß",
+        "ein Neuntel so groß"
       ],
       "answer": 3,
       "explanation": [
-        "Faraday führte die Feldlinien als Modell ein. Coulomb maß die Kraft zwischen Ladungen, Millikan die Elementarladung."
+        "E ~ 1/r²: (1/3)² = 1/9."
       ]
     },
     {
@@ -449,16 +451,16 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
-      "prompt": "Man verdoppelt die Probeladung an einem Punkt im Feld. Was passiert mit E?",
+      "prompt": "Wer hat das Modell der Feldlinien eingeführt?",
       "options": [
-        "E verdoppelt sich.",
-        "E halbiert sich.",
-        "E bleibt gleich, nur F verdoppelt sich.",
-        "E wird vierfach so groß."
+        "Charles Augustin de Coulomb",
+        "Isaac Newton",
+        "Michael Faraday",
+        "Robert Millikan"
       ],
       "answer": 2,
       "explanation": [
-        "E = F/q beschreibt das Feld selbst. Doppelte Ladung → doppelte Kraft → gleicher Quotient."
+        "Faraday führte die Feldlinien als Modell ein. Coulomb maß die Kraft zwischen Ladungen, Millikan die Elementarladung."
       ]
     },
     {
@@ -466,14 +468,31 @@
       "subject": "physik",
       "topic": "Das elektrische Feld",
       "type": "single",
+      "prompt": "Man verdoppelt die Probeladung an einem Punkt im Feld. Was passiert mit E?",
+      "options": [
+        "E verdoppelt sich.",
+        "E bleibt gleich, nur F verdoppelt sich.",
+        "E halbiert sich.",
+        "E wird vierfach so groß."
+      ],
+      "answer": 1,
+      "explanation": [
+        "E = F/q beschreibt das Feld selbst. Doppelte Ladung → doppelte Kraft → gleicher Quotient."
+      ]
+    },
+    {
+      "key": "phys111-ef-q15",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
       "prompt": "Womit kann man die Struktur eines elektrischen Feldes sichtbar machen?",
       "options": [
-        "Mit Eisenfeilspänen auf Papier",
         "Mit Grießkörnern in Öl",
+        "Mit Eisenfeilspänen auf Papier",
         "Mit einem Amperemeter",
         "Mit einem Thermometer"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": [
         "Grießkörner richten sich im elektrischen Feld entlang der Feldlinien aus. Eisenfeilspäne zeigen Magnetfelder."
       ]
@@ -529,7 +548,8 @@
         "phys111-ef-q11",
         "phys111-ef-q12",
         "phys111-ef-q13",
-        "phys111-ef-q14"
+        "phys111-ef-q14",
+        "phys111-ef-q15"
       ]
     }
   ],
