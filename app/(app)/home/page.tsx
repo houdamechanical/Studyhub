@@ -47,7 +47,7 @@ export default function HomePage() {
   usePortalArrival(card);
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 pb-12 pt-4 sm:pt-6 lg:px-6">
+    <div className="mx-auto w-full max-w-6xl px-4 pt-3 sm:pt-6 md:pb-12 lg:px-6">
       <div ref={card}>
         {!data ? <HomeSkeleton /> : <Hero friends={data.friends} next={data.next} nc={data.nc} onCalendar={() => setCalendar(true)} />}
       </div>
@@ -89,14 +89,19 @@ function Hero({
       {/* Darken behind the text, and fade the floor */}
       <div aria-hidden className="hero-fade pointer-events-none absolute inset-0 -z-10" />
 
-      <div className="relative grid gap-7 p-5 sm:p-8 md:min-h-[max(560px,calc(100dvh-8.5rem))] md:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] md:p-10">
+      {/* Phone: exactly the space between the top bar and the tab bar – no scrolling.
+          iPad and up: a grid that fills the screen under the top bar. */}
+      <div className="relative flex h-[calc(100dvh-9.5rem-env(safe-area-inset-bottom))] flex-col gap-4 p-5 [@media(max-height:700px)]:gap-3 [@media(max-height:700px)]:p-4 sm:p-8 md:grid md:h-auto md:min-h-[max(560px,calc(100dvh-8.5rem))] md:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] md:gap-7 md:p-10">
         <div className="flex flex-col">
-          <p className="hero-in label-mono !text-white/60 [--d:0ms]">{fill(t.hello, { name: nickname })}</p>
-          <h1 className="hero-in mt-4 max-w-[12ch] font-display font-semibold leading-[1.02] tracking-tight [--d:80ms]" style={{ fontSize: "clamp(2.1rem, 5.2vw, 3.6rem)" }}>
+          <div className="flex items-center justify-between gap-3">
+            <p className="hero-in label-mono !text-white/60 [--d:0ms]">{fill(t.hello, { name: nickname })}</p>
+            <FriendsStack friends={friends} compact />
+          </div>
+          <h1 className="hero-in mt-3 max-w-[12ch] font-display text-[2.05rem] font-semibold leading-[1.02] tracking-tight [--d:80ms] [@media(max-height:700px)]:text-[1.7rem] md:mt-4 md:text-[clamp(2.1rem,5.2vw,3.6rem)]">
             {t.heroTitle}
           </h1>
-          <p className="hero-in mt-3 max-w-[34ch] text-white/70 [--d:140ms]">{t.heroText}</p>
-          <div className="hero-in mt-6 flex flex-wrap items-center gap-3 [--d:200ms]">
+          <p className="hero-in mt-3 max-w-[34ch] text-white/70 [--d:140ms] max-md:hidden">{t.heroText}</p>
+          <div className="hero-in mt-5 flex flex-wrap items-center gap-3 [--d:200ms] [@media(max-height:700px)]:mt-3 md:mt-6">
             <Link
               href={semesterHref()}
               className="press group flex h-12 items-center gap-3 rounded-2xl bg-[var(--hero-acc)] pe-2 ps-5 font-bold text-[#0e0c0a]"
@@ -112,13 +117,15 @@ function Hero({
         {/* Right: what's new */}
         <NewsCarousel />
 
-        {/* Bottom row: next exam · NC on the left (over the dark side), friends on the right */}
-        <div className="flex flex-col gap-5 md:col-span-2 md:flex-row md:items-end md:justify-between md:self-end">
-          <div className="hero-in grid grid-cols-2 gap-2.5 [--d:420ms] max-[379px]:grid-cols-1 md:w-[27rem]">
+        {/* Bottom row: next exam · NC on the left (over the dark side), friends on the right (iPad+) */}
+        <div className="mt-auto flex flex-col gap-5 md:col-span-2 md:mt-0 md:flex-row md:items-end md:justify-between md:self-end">
+          <div className="hero-in grid grid-cols-2 gap-2.5 [--d:420ms] md:w-[27rem]">
             <ExamTile next={next} onOpen={onCalendar} />
             <NcTile nc={nc} />
           </div>
-          <FriendsStack friends={friends} />
+          <div className="max-md:hidden">
+            <FriendsStack friends={friends} />
+          </div>
         </div>
       </div>
     </section>
@@ -129,21 +136,21 @@ function Hero({
 function ExamTile({ next, onOpen }: { next: SchoolExam | null; onOpen: () => void }) {
   const { locale, dict } = useI18n();
   return (
-    <button type="button" onClick={onOpen} className="press group flex min-h-[7.5rem] flex-col rounded-2xl border border-white/15 bg-[#1b1814]/85 p-4 text-start text-white backdrop-blur-xl transition-colors hover:bg-[#26221c]/90">
+    <button type="button" onClick={onOpen} className="press group flex min-h-[6.5rem] flex-col rounded-2xl border border-white/15 bg-[#1b1814]/85 p-3.5 [@media(max-height:700px)]:min-h-0 [@media(max-height:700px)]:p-3 text-start md:min-h-[7.5rem] md:p-4 text-white backdrop-blur-xl transition-colors hover:bg-[#26221c]/90">
       <span className="flex w-full items-start justify-between gap-2">
-        <span className="label-mono !text-white/60">{dict.home2.examTile}</span>
+        <span className="label-mono !text-white/60 max-md:!tracking-[0.08em]">{dict.home2.examTile}</span>
         <CalendarDays size={17} className="shrink-0 text-white/60 transition-colors group-hover:text-white" aria-label={dict.home2.calendar} />
       </span>
       {next ? (
         <>
-          <span className="mt-auto flex items-center gap-2 pt-3 font-display text-xl font-semibold leading-tight">
+          <span className="mt-auto flex items-center gap-2 pt-3 font-display text-lg font-semibold leading-tight md:text-xl">
             <SubjectIcon subject={next.subject} className="size-5 shrink-0 text-[var(--hero-acc)]" strokeWidth={2} />
             <span className="truncate">{SUBJECTS[next.subject].label[locale]}</span>
           </span>
           <span className="mt-1 truncate text-sm">
             <span className="font-semibold text-[var(--hero-acc)]">{when(next.exam_date, dict)}</span>
-            <span className="text-white/60 max-[380px]:hidden"> · </span>
-            <span className="text-white/60 max-[380px]:hidden">{formatDate(next.exam_date, locale, { day: "numeric", month: "short" })}</span>
+            <span className="text-white/60 max-md:hidden"> · </span>
+            <span className="text-white/60 max-md:hidden">{formatDate(next.exam_date, locale, { day: "numeric", month: "short" })}</span>
           </span>
         </>
       ) : (
@@ -158,15 +165,15 @@ function NcTile({ nc }: { nc: ReturnType<typeof ncFromResults> }) {
   const { locale, dict } = useI18n();
   const t = dict.home2;
   return (
-    <Link href="/grades" className="press group flex min-h-[7.5rem] flex-col rounded-2xl border border-white/15 bg-[#1b1814]/85 p-4 text-start text-white backdrop-blur-xl transition-colors hover:bg-[#26221c]/90">
+    <Link href="/grades" className="press group flex min-h-[6.5rem] flex-col rounded-2xl border border-white/15 bg-[#1b1814]/85 p-3.5 [@media(max-height:700px)]:min-h-0 [@media(max-height:700px)]:p-3 text-start md:min-h-[7.5rem] md:p-4 text-white backdrop-blur-xl transition-colors hover:bg-[#26221c]/90">
       <span className="flex items-start justify-between gap-2">
-        <span className="label-mono !text-white/60">{t.ncTile}</span>
+        <span className="label-mono !text-white/60 max-md:!tracking-[0.08em]">{t.ncTile}</span>
         <ArrowUpRight size={17} className="shrink-0 text-white/60 transition-transform group-hover:rotate-45 group-hover:text-white" />
       </span>
       <span className="mt-auto pt-3 font-display text-4xl font-semibold leading-none tabular-nums tracking-tight">
         {nc ? formatNC(nc.nc, intlLocale(locale)) : "–"}
       </span>
-      <span className="mt-1.5 truncate text-sm text-white/60">{nc ? fill(t.ncOf, { n: nc.subjects }) : t.ncEmpty}</span>
+      <span className="mt-1.5 truncate text-sm text-white/60 max-md:text-[0.78rem]">{nc ? fill(t.ncOf, { n: nc.subjects }) : t.ncEmpty}</span>
     </Link>
   );
 }
@@ -219,21 +226,27 @@ function NewsCarousel() {
   }
 
   return (
-    <div className="hero-in flex flex-col gap-3 [--d:320ms] md:self-start" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
+    <div className="hero-in flex min-h-0 shrink flex-col gap-3 overflow-hidden [--d:320ms] [@media(max-height:620px)]:max-md:hidden md:self-start md:overflow-visible touch-pan-y select-none"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerEnd}
+      onPointerCancel={onPointerEnd}
+      onClickCapture={(e) => {
+        if (swiped.current) {
+          e.preventDefault();
+          e.stopPropagation();
+          swiped.current = false;
+        }
+      }}
+    >
       <Link
         href={n.href ?? "/neu"}
         draggable={false}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerEnd}
-        onPointerCancel={onPointerEnd}
-        onClick={(e) => {
-          if (swiped.current) {
-            e.preventDefault();
-            swiped.current = false;
-          }
-        }}
-        className="group touch-pan-y select-none overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-1.5 backdrop-blur-md transition-colors hover:bg-white/15"
+        className="news-box group overflow-hidden [@media(max-height:760px)]:max-md:hidden rounded-2xl border border-white/15 bg-white/10 p-1.5 backdrop-blur-md transition-colors hover:bg-white/15"
         aria-label={n.title[locale]}
       >
         <div
@@ -241,7 +254,7 @@ function NewsCarousel() {
           className={cn("keep-white fade-swap relative", dx === 0 && "transition-transform duration-300")}
           style={dx ? { transform: `translateX(${dx * 0.6}px) rotate(${dx * 0.02}deg)` } : undefined}
         >
-          <NewsArt item={n} className="h-24 rounded-xl sm:h-36" />
+          <NewsArt item={n} className="h-20 rounded-xl sm:h-36" />
           <span className="absolute end-2 top-2 rounded-full bg-black/35 px-2 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">{dict.news.newBadge}</span>
         </div>
         <div className="flex items-center gap-3 px-2 pb-1.5 pt-2.5">
@@ -282,11 +295,30 @@ function NewsCarousel() {
   );
 }
 
-function FriendsStack({ friends }: { friends: FriendRow[] }) {
+function FriendsStack({ friends, compact = false }: { friends: FriendRow[]; compact?: boolean }) {
   const { dict } = useI18n();
   const t = dict.home2;
-  const shown = friends.slice(0, 4);
+  const shown = friends.slice(0, compact ? 3 : 4);
   const people = usePeople(shown.map((f) => f.user_id));
+  const label = friends.length === 0 ? t.noFriends : friends.length === 1 ? t.oneFriend : fill(t.friends, { n: friends.length });
+  if (compact) {
+    // Phone, top right: just the faces.
+    return (
+      <Link href="/friends" aria-label={label} className="hero-in flex shrink-0 rounded-full bg-black/45 p-1 backdrop-blur-md [--d:120ms] md:hidden">
+        {shown.length ? (
+          <span className="flex -space-x-2.5 rtl:space-x-reverse">
+            {shown.map((f) => (
+              <UserAvatar key={f.user_id} userId={f.user_id} avatar={people.get(f.user_id)?.avatar} name={f.nickname} className="size-8 text-xs ring-2 ring-[#0e0c0a]" still />
+            ))}
+          </span>
+        ) : (
+          <span className="flex size-8 items-center justify-center rounded-full border border-dashed border-white/40">
+            <Users size={15} />
+          </span>
+        )}
+      </Link>
+    );
+  }
   return (
     <Link href="/friends" className="hero-in group flex w-fit items-center gap-3 rounded-full bg-black/45 py-1.5 pe-4 ps-1.5 backdrop-blur-md [--d:380ms]">
       {shown.length ? (
@@ -301,7 +333,7 @@ function FriendsStack({ friends }: { friends: FriendRow[] }) {
         </span>
       )}
       <span className="whitespace-nowrap text-sm font-medium text-white/80 group-hover:text-white">
-        {friends.length === 0 ? t.noFriends : friends.length === 1 ? t.oneFriend : fill(t.friends, { n: friends.length })}
+        {label}
       </span>
     </Link>
   );
@@ -311,7 +343,7 @@ function FriendsStack({ friends }: { friends: FriendRow[] }) {
 function HomeSkeleton() {
   return (
     <div className="flex flex-col gap-4" aria-busy>
-      <div className="ink-bg h-[560px] animate-pulse rounded-[28px] md:h-[max(560px,calc(100dvh-8.5rem))]" />
+      <div className="ink-bg h-[calc(100dvh-9.5rem-env(safe-area-inset-bottom))] animate-pulse rounded-[28px] md:h-[max(560px,calc(100dvh-8.5rem))]" />
     </div>
   );
 }

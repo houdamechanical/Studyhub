@@ -55,9 +55,9 @@ export function LogoMark({ className }: { className?: string }) {
 
 export function Logo() {
   return (
-    <Link href="/home" className="flex items-center gap-2.5 font-display text-lg font-semibold">
+    <Link href="/home" className="flex shrink-0 items-center gap-2.5 whitespace-nowrap font-display text-lg font-semibold">
       <LogoMark className="size-8" />
-      <span>Study Hub</span>
+      <span className="max-[359px]:text-base">Study Hub</span>
     </Link>
   );
 }
@@ -166,7 +166,7 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
           </Link>
         </div>
         <Eyebrow className="mt-6">{t.goTo}</Eyebrow>
-        <GoToGrid only={["league", "grades", "news", "profile", "settings"]} onPick={onClose} />
+        <GoToGrid only={["league", "grades", "news"]} onPick={onClose} />
       </div>
     </div>
   );
@@ -242,6 +242,17 @@ export function TopNav() {
         </Link>
       </nav>
     </div>
+  );
+}
+
+/** Phones: your picture in the top bar → your profile (settings live there). */
+export function PhoneProfileButton({ className }: { className?: string }) {
+  const { dict } = useI18n();
+  const { userId, nickname, avatar } = useAuth();
+  return (
+    <Link href="/profile" aria-label={dict.friends.myProfile} title={dict.friends.myProfile} className={cn("press ms-1 rounded-full", className)}>
+      <UserAvatar userId={userId} avatar={avatar} name={nickname} className="size-9 text-sm" still />
+    </Link>
   );
 }
 
