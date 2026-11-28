@@ -62,12 +62,13 @@ export function Logo() {
   );
 }
 
-/** Phones: Start · Fächer · [Mehr] · Klausuren · Year League – the rest lives in the "Mehr" sheet. */
+/** Phones: Start · Fächer · [Mehr] · Klausuren · Gruppen · Freunde – Year League and the rest live in the "Mehr" sheet. */
 const PHONE_TABS: NavItem[] = [
   NAV_ITEMS[0],
   NAV_ITEMS[1],
   { href: "/grades?tab=exams", label: "exams", icon: CalendarCheck, match: ["/grades", "/exams"] },
-  { href: "/compare", label: "leaderboard", icon: Trophy, match: ["/compare"] },
+  { href: "/communities", label: "communities", icon: Users, match: ["/communities"] },
+  { href: "/friends", label: "friends", icon: HeartHandshake, match: ["/friends", "/profile"] },
 ];
 
 export function BottomNav() {
@@ -90,7 +91,7 @@ export function BottomNav() {
           )}
         >
           <Icon className="size-[22px]" strokeWidth={active ? 2.2 : 1.8} />
-          <span className="max-w-full truncate">{dict.nav[item.label]}</span>
+          <span className="max-w-full truncate max-[389px]:text-[10px] max-[389px]:tracking-tighter">{dict.nav[item.label]}</span>
         </Link>
       </li>
     );
@@ -108,7 +109,7 @@ export function BottomNav() {
               aria-haspopup="dialog"
               className="press flex w-full flex-col items-center gap-1 pb-2 pt-2.5 text-[11px] font-semibold text-foreground"
             >
-              <span className="flex h-[22px] w-[3.75rem] items-center justify-center rounded-full bg-foreground shadow-[0_6px_14px_-6px_rgb(0_0_0/0.5)]">
+              <span className="flex h-[22px] w-[3.25rem] items-center justify-center rounded-full bg-foreground shadow-[0_6px_14px_-6px_rgb(0_0_0/0.5)]">
                 <span className="h-[3px] w-7 rounded-full bg-[var(--c-amber)]" />
               </span>
               {dict.home2.more}
@@ -165,7 +166,7 @@ function MoreSheet({ onClose }: { onClose: () => void }) {
           </Link>
         </div>
         <Eyebrow className="mt-6">{t.goTo}</Eyebrow>
-        <GoToGrid only={["league", "friends", "groups", "news", "profile", "settings"]} onPick={onClose} />
+        <GoToGrid only={["league", "grades", "news", "profile", "settings"]} onPick={onClose} />
       </div>
     </div>
   );
