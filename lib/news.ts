@@ -20,6 +20,18 @@ export type NewsItem = {
 
 export const NEWS: NewsItem[] = [
   {
+    id: "2026-12-lyrik-klausur-2025",
+    date: "2026-12-04",
+    art: "deutsch",
+    href: "/library/deutsch/deutsch-lyrik-klausur-2025",
+    title: { de: "Deutsch: Lyrik-Klausur 2025", en: "German: poetry exam 2025", ar: "الألمانية: امتحان الشعر 2025" },
+    text: {
+      de: "Die echte Probeklausur zu Herweghs „Das Lied vom Hasse“ mit Nathan-Bezug – mit Schreibblatt, Erwartungshorizont und Musterlösung.",
+      en: "The real practice exam on Herwegh's “Das Lied vom Hasse” with Nathan – with a writing sheet, marking guide and model answer.",
+      ar: "امتحان تجريبي حقيقي عن قصيدة هيرفيغ «أغنية الكراهية» مع ربطها بناتان – مع ورقة كتابة ومعايير تصحيح وحل نموذجي.",
+    },
+  },
+  {
     id: "2026-12-welcome",
     date: "2026-12-03",
     art: "friends",

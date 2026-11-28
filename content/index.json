@@ -376,5 +376,25 @@
       "Öltröpfchen"
     ],
     "file": "physik/11.1/aufgaben-elektrisches-feld.html"
+  },
+  {
+    "id": "deutsch-lyrik-klausur-2025",
+    "title": "Lyrik-Klausur 2025",
+    "subject": "deutsch",
+    "semester": "11.1",
+    "topic": "Lyrik: Probeklausur",
+    "kind": "exercises",
+    "tags": [
+      "Probeklausur",
+      "Klausur",
+      "Herwegh",
+      "Das Lied vom Hasse",
+      "Vormärz",
+      "Nathan der Weise",
+      "Lessing",
+      "Gedichtinterpretation",
+      "Musterlösung"
+    ],
+    "file": "deutsch/11.1/lyrik-klausur-2025.html"
   }
 ]
