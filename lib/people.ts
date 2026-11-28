@@ -5,8 +5,20 @@ import { dataChanged } from "@/lib/data";
 import { createClient } from "@/lib/supabase/client";
 
 /** The app's animated avatars (drawn in components/user-avatar.tsx). */
-export const AVATAR_PRESETS = ["fuchs", "katze", "panda", "frosch", "eule", "roboter", "pinguin", "alien"] as const;
+export const AVATAR_PRESETS = ["shades", "cyber", "astro", "drip", "beats", "ninja", "wolf", "saturn"] as const;
 export type AvatarPreset = (typeof AVATAR_PRESETS)[number];
+
+/** The first set (animals for kids) – anyone who picked one gets its replacement. */
+const LEGACY: Record<string, AvatarPreset> = {
+  fuchs: "shades",
+  katze: "ninja",
+  panda: "drip",
+  frosch: "beats",
+  eule: "wolf",
+  roboter: "cyber",
+  pinguin: "astro",
+  alien: "saturn",
+};
 
 export type Avatar = { kind: "preset"; id: AvatarPreset } | { kind: "photo"; url: string } | null;
 
@@ -14,8 +26,9 @@ export type Avatar = { kind: "preset"; id: AvatarPreset } | { kind: "photo"; url
 export function parseAvatar(value: string | null | undefined): Avatar {
   if (!value) return null;
   if (value.startsWith("a:")) {
-    const id = value.slice(2) as AvatarPreset;
-    return (AVATAR_PRESETS as readonly string[]).includes(id) ? { kind: "preset", id } : null;
+    const raw = value.slice(2);
+    const id = (AVATAR_PRESETS as readonly string[]).includes(raw) ? (raw as AvatarPreset) : LEGACY[raw];
+    return id ? { kind: "preset", id } : null;
   }
   if (value.startsWith("u:https://")) return { kind: "photo", url: value.slice(2) };
   return null;

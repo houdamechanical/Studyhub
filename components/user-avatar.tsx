@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { parseAvatar, type AvatarPreset } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
@@ -38,155 +39,225 @@ export function UserAvatar({
   );
 }
 
-const BG: Record<AvatarPreset, string> = {
-  fuchs: "#ffe2c7",
-  katze: "#e6e1f5",
-  panda: "#dff0e3",
-  frosch: "#d9f2ff",
-  eule: "#f7ecd5",
-  roboter: "#dde6f3",
-  pinguin: "#d6ecf7",
-  alien: "#eadcff",
+/** Background gradient per avatar (top-left → bottom-right). */
+const BG: Record<AvatarPreset, [string, string]> = {
+  shades: ["#12c2b0", "#1747c9"],
+  cyber: ["#0b0f1a", "#2b3a5c"],
+  astro: ["#0d1033", "#5021c4"],
+  drip: ["#7c3aed", "#ec4899"],
+  beats: ["#0f0c29", "#3b2f8f"],
+  ninja: ["#ff3d5a", "#6d0bc0"],
+  wolf: ["#070b1f", "#2c3e8f"],
+  saturn: ["#ff8a1a", "#ff2d78"],
 };
 
 export const AVATAR_NAMES: Record<AvatarPreset, string> = {
-  fuchs: "Fuchs",
-  katze: "Katze",
-  panda: "Panda",
-  frosch: "Frosch",
-  eule: "Eule",
-  roboter: "Roboter",
-  pinguin: "Pinguin",
-  alien: "Alien",
+  shades: "Shades",
+  cyber: "Cyber",
+  astro: "Astro",
+  drip: "Drip",
+  beats: "Beats",
+  ninja: "Ninja",
+  wolf: "Wolf",
+  saturn: "Saturn",
 };
 
-/** Two eyes that blink together. */
-function Eyes({ x1 = 24, x2 = 40, y = 34, r = 3.2, color = "#1f1b16" }) {
+const INK = "#14121a";
+
+function Stars({ at }: { at: [number, number, number][] }) {
   return (
-    <g className="av-blink" style={{ transformOrigin: `32px ${y}px` }}>
-      <circle cx={x1} cy={y} r={r} fill={color} />
-      <circle cx={x2} cy={y} r={r} fill={color} />
-      <circle cx={x1 + 1} cy={y - 1.2} r={r * 0.35} fill="#fff" />
-      <circle cx={x2 + 1} cy={y - 1.2} r={r * 0.35} fill="#fff" />
+    <>
+      {at.map(([x, y, r]) => (
+        <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="#fff" className="av-twinkle" />
+      ))}
+    </>
+  );
+}
+
+function Note({ x, y, className }: { x: number; y: number; className?: string }) {
+  return (
+    <g className={className}>
+      <ellipse cx={x} cy={y + 6} rx="2.4" ry="1.8" fill="#ffd34d" transform={`rotate(-20 ${x} ${y + 6})`} />
+      <path d={`M${x + 2.1} ${y + 5.5} V${y - 2} l4 1.6`} stroke="#ffd34d" strokeWidth="1.5" fill="none" strokeLinecap="round" />
     </g>
   );
 }
 
-const Smile = ({ y = 42, color = "#1f1b16" }) => (
-  <path d={`M28 ${y} q4 3.5 8 0`} stroke={color} strokeWidth="2" fill="none" strokeLinecap="round" />
-);
-
-function Face({ id }: { id: AvatarPreset }) {
+function Face({ id, uid }: { id: AvatarPreset; uid: string }) {
   switch (id) {
-    case "fuchs":
+    case "shades":
       return (
         <>
-          <path d="M12 14 L22 26 L14 30 Z M52 14 L42 26 L50 30 Z" fill="#f07c2b" />
-          <path d="M14 18 L19 25 L15 27 Z M50 18 L45 25 L49 27 Z" fill="#3a2414" />
-          <ellipse cx="32" cy="37" rx="19" ry="17" fill="#f07c2b" />
-          <path d="M14 40 Q32 62 50 40 Q42 46 32 46 Q22 46 14 40 Z" fill="#fff4ea" />
-          <Eyes />
-          <ellipse cx="32" cy="41" rx="2.6" ry="2" fill="#1f1b16" />
-        </>
-      );
-    case "katze":
-      return (
-        <>
-          <path d="M14 14 L24 24 L14 30 Z M50 14 L40 24 L50 30 Z" fill="#8c8aa8" />
-          <ellipse cx="32" cy="37" rx="19" ry="17" fill="#a6a4c2" />
-          <Eyes />
-          <path d="M30 40 L34 40 L32 42.5 Z" fill="#e0738a" />
-          <path d="M14 40 L24 41 M14 44 L24 43 M50 40 L40 41 M50 44 L40 43" stroke="#5c5a74" strokeWidth="1.3" strokeLinecap="round" />
-          <Smile y={43} />
-        </>
-      );
-    case "panda":
-      return (
-        <>
-          <circle cx="16" cy="20" r="7" fill="#2b2b2b" />
-          <circle cx="48" cy="20" r="7" fill="#2b2b2b" />
-          <ellipse cx="32" cy="37" rx="19" ry="17" fill="#fbfbf8" />
-          <ellipse cx="24" cy="34" rx="5.5" ry="6.5" fill="#2b2b2b" transform="rotate(-20 24 34)" />
-          <ellipse cx="40" cy="34" rx="5.5" ry="6.5" fill="#2b2b2b" transform="rotate(20 40 34)" />
-          <Eyes r={2.4} color="#fbfbf8" />
-          <ellipse cx="32" cy="41" rx="2.6" ry="1.8" fill="#2b2b2b" />
-          <Smile y={44} />
-        </>
-      );
-    case "frosch":
-      return (
-        <>
-          <circle cx="22" cy="22" r="8" fill="#4caf50" />
-          <circle cx="42" cy="22" r="8" fill="#4caf50" />
-          <ellipse cx="32" cy="38" rx="21" ry="15" fill="#5cc062" />
-          <circle cx="22" cy="22" r="4.6" fill="#fff" />
-          <circle cx="42" cy="22" r="4.6" fill="#fff" />
-          <Eyes x1={22} x2={42} y={22} r={2.6} />
-          <path d="M22 41 q10 7 20 0" stroke="#1f5d22" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-          <circle cx="18" cy="40" r="2.4" fill="#f59fb0" opacity=".7" />
-          <circle cx="46" cy="40" r="2.4" fill="#f59fb0" opacity=".7" />
-        </>
-      );
-    case "eule":
-      return (
-        <>
-          <path d="M14 16 L24 24 L16 28 Z M50 16 L40 24 L48 28 Z" fill="#8a5a2b" />
-          <ellipse cx="32" cy="37" rx="19" ry="18" fill="#a8743e" />
-          <circle cx="24" cy="34" r="7.5" fill="#fff6e6" />
-          <circle cx="40" cy="34" r="7.5" fill="#fff6e6" />
-          <Eyes r={3.6} />
-          <path d="M29.5 40 L34.5 40 L32 45 Z" fill="#f0a13a" />
-        </>
-      );
-    case "roboter":
-      return (
-        <>
-          <line x1="32" y1="10" x2="32" y2="18" stroke="#5b6b82" strokeWidth="2.2" />
-          <circle cx="32" cy="9" r="3" fill="#ff7a1a" className="av-pulse" />
-          <rect x="13" y="18" width="38" height="34" rx="9" fill="#8fa3bd" />
-          <rect x="18" y="26" width="28" height="14" rx="6" fill="#203047" />
-          <Eyes y={33} r={2.6} color="#7cf2ff" />
-          <rect x="25" y="44" width="14" height="3" rx="1.5" fill="#203047" />
-          <rect x="9" y="30" width="4" height="10" rx="2" fill="#5b6b82" />
-          <rect x="51" y="30" width="4" height="10" rx="2" fill="#5b6b82" />
-        </>
-      );
-    case "pinguin":
-      return (
-        <>
-          <ellipse cx="32" cy="36" rx="20" ry="19" fill="#22303d" />
-          <path d="M16 38 Q16 24 26 24 Q32 28 38 24 Q48 24 48 38 Q48 52 32 52 Q16 52 16 38 Z" fill="#fbfbf8" />
-          <Eyes y={33} r={2.8} />
-          <path d="M28 39 L36 39 L32 44 Z" fill="#f5a623" />
-          <circle cx="21" cy="41" r="2.4" fill="#f59fb0" opacity=".6" />
-          <circle cx="43" cy="41" r="2.4" fill="#f59fb0" opacity=".6" />
-        </>
-      );
-    case "alien":
-      return (
-        <>
-          <line x1="22" y1="16" x2="18" y2="8" stroke="#7b4fd6" strokeWidth="2" />
-          <line x1="42" y1="16" x2="46" y2="8" stroke="#7b4fd6" strokeWidth="2" />
-          <circle cx="18" cy="8" r="2.6" fill="#ffd34d" className="av-pulse" />
-          <circle cx="46" cy="8" r="2.6" fill="#ffd34d" className="av-pulse" />
-          <ellipse cx="32" cy="35" rx="19" ry="19" fill="#9b6cf0" />
-          <ellipse cx="32" cy="32" rx="9" ry="8" fill="#fff" />
-          <g className="av-blink" style={{ transformOrigin: "32px 32px" }}>
-            <circle cx="32" cy="32" r="4.6" fill="#1f1b16" />
-            <circle cx="33.6" cy="30.4" r="1.4" fill="#fff" />
+          <defs>
+            <linearGradient id={`${uid}-lens`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#1a1036" />
+              <stop offset="1" stopColor="#7b2ff7" />
+            </linearGradient>
+            <clipPath id={`${uid}-lc`}>
+              <path d="M15 31 H30 V34 Q30 39.5 24 39.5 H20.5 Q15 39.5 15 34 Z M34 31 H49 V34 Q49 39.5 43.5 39.5 H40 Q34 39.5 34 34 Z" />
+            </clipPath>
+          </defs>
+          <path d="M11 11 L24 25 L13 31 Z M53 11 L40 25 L51 31 Z" fill="#ff7a1a" />
+          <path d="M14 16 L20 24 L15 27 Z M50 16 L44 24 L49 27 Z" fill="#2a1a10" />
+          <ellipse cx="32" cy="38" rx="19.5" ry="16.5" fill="#ff7a1a" />
+          <path d="M13 41 Q32 63 51 41 Q42 47.5 32 47.5 Q22 47.5 13 41 Z" fill="#fff4ea" />
+          <rect x="13" y="29.5" width="38" height="3" rx="1.5" fill={INK} />
+          <path d="M15 31 H30 V34 Q30 39.5 24 39.5 H20.5 Q15 39.5 15 34 Z M34 31 H49 V34 Q49 39.5 43.5 39.5 H40 Q34 39.5 34 34 Z" fill={`url(#${uid}-lens)`} stroke={INK} strokeWidth="1.4" />
+          <g clipPath={`url(#${uid}-lc)`}>
+            <path d="M18 44 L26 28 L29 28 L21 44 Z" fill="#fff" opacity=".55" className="av-glint" />
           </g>
-          <Smile y={44} />
+          <ellipse cx="32" cy="43.5" rx="2.4" ry="1.8" fill={INK} />
+          <path d="M28.5 48 Q32.5 50.5 37 47" stroke={INK} strokeWidth="1.8" fill="none" strokeLinecap="round" />
+        </>
+      );
+    case "cyber":
+      return (
+        <>
+          <defs>
+            <linearGradient id={`${uid}-scan`} x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stopColor="#00f0ff" stopOpacity="0" />
+              <stop offset=".5" stopColor="#00f0ff" stopOpacity=".55" />
+              <stop offset="1" stopColor="#00f0ff" stopOpacity="0" />
+            </linearGradient>
+            <clipPath id={`${uid}-vc`}>
+              <rect x="15" y="27" width="34" height="11" rx="5.5" />
+            </clipPath>
+          </defs>
+          <rect x="8" y="29" width="6" height="13" rx="2.5" fill="#3d4555" />
+          <rect x="50" y="29" width="6" height="13" rx="2.5" fill="#3d4555" />
+          <rect x="12" y="13" width="40" height="44" rx="17" fill="#2a303d" stroke="#46506a" strokeWidth="1.2" />
+          <path d="M20 18 Q32 13 44 18" stroke="#5d6886" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <rect x="15" y="27" width="34" height="11" rx="5.5" fill="#04060b" />
+          <g clipPath={`url(#${uid}-vc)`}>
+            <g className="av-blink" style={{ transformOrigin: "32px 32.5px" }}>
+              <rect x="21" y="30.5" width="7" height="4" rx="2" fill="#00f0ff" />
+              <rect x="36" y="30.5" width="7" height="4" rx="2" fill="#00f0ff" />
+            </g>
+            <rect x="24" y="27" width="16" height="11" fill={`url(#${uid}-scan)`} className="av-scan" />
+          </g>
+          <path d="M26 46 H38 M27 49.5 H37" stroke="#56627c" strokeWidth="1.8" strokeLinecap="round" />
+          <circle cx="44" cy="19" r="1.8" fill="#ff3d8a" className="av-pulse" />
+        </>
+      );
+    case "astro":
+      return (
+        <>
+          <defs>
+            <linearGradient id={`${uid}-visor`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#141a45" />
+              <stop offset=".65" stopColor="#7b2ff7" />
+              <stop offset="1" stopColor="#ff7a3d" />
+            </linearGradient>
+          </defs>
+          <Stars at={[[10, 12, 1.1], [54, 9, 1.3], [8, 44, 0.9], [57, 30, 1], [50, 47, 0.8]]} />
+          <path d="M9 64 Q11 50 32 50 Q53 50 55 64 Z" fill="#e9ecf2" />
+          <rect x="27" y="51" width="10" height="6" rx="1.5" fill="#ff7a1a" />
+          <circle cx="13.5" cy="33" r="3" fill="#c7ccd8" />
+          <circle cx="50.5" cy="33" r="3" fill="#c7ccd8" />
+          <circle cx="32" cy="32" r="18.5" fill="#f4f6fa" stroke="#c7ccd8" strokeWidth="1.5" />
+          <ellipse cx="32" cy="33" rx="13.5" ry="11" fill={`url(#${uid}-visor)`} />
+          <path d="M22 29 Q25 24.5 31 24" stroke="#fff" strokeWidth="2.2" fill="none" strokeLinecap="round" opacity=".75" />
+          <circle cx="39" cy="37" r="1" fill="#fff" className="av-twinkle" />
+          <circle cx="35" cy="40" r=".7" fill="#fff" className="av-twinkle" />
+        </>
+      );
+    case "drip":
+      return (
+        <>
+          <circle cx="32" cy="30" r="17" fill="#ffe14d" />
+          <rect x="21.5" y="38" width="4.5" height="13" rx="2.25" fill="#ffe14d" className="av-drip" />
+          <rect x="37" y="41" width="4" height="9" rx="2" fill="#ffe14d" className="av-drip av-drip-2" />
+          <rect x="30" y="44" width="3.5" height="7" rx="1.75" fill="#ffe14d" className="av-drip" />
+          <g className="av-blink" style={{ transformOrigin: "32px 26px" }}>
+            <ellipse cx="26" cy="26" rx="2.4" ry="4" fill={INK} />
+            <ellipse cx="38" cy="26" rx="2.4" ry="4" fill={INK} />
+          </g>
+          <path d="M21.5 33 Q32 43 42.5 33" stroke={INK} strokeWidth="2.6" fill="none" strokeLinecap="round" />
+        </>
+      );
+    case "beats":
+      return (
+        <>
+          <Note x={50} y={11} className="av-float" />
+          <Note x={10} y={15} className="av-float av-float-2" />
+          <circle cx="32" cy="37" r="16" fill="#7cf5c8" />
+          <path d="M13.5 36 Q13.5 15 32 15 Q50.5 15 50.5 36" stroke="#ff3d8a" strokeWidth="4" fill="none" strokeLinecap="round" />
+          <rect x="9" y="31" width="9" height="14" rx="4.5" fill="#ff3d8a" />
+          <rect x="46" y="31" width="9" height="14" rx="4.5" fill="#ff3d8a" />
+          <rect x="11" y="33.5" width="3" height="9" rx="1.5" fill="#ff8fbd" />
+          <path d="M23 35 q3 2.6 6 0 M35 35 q3 2.6 6 0" stroke="#10362a" strokeWidth="2" fill="none" strokeLinecap="round" />
+          <path d="M27.5 42 q4.5 4 9 0" stroke="#10362a" strokeWidth="2" fill="none" strokeLinecap="round" />
+        </>
+      );
+    case "ninja":
+      return (
+        <>
+          <path d="M49 21 q9 -3 12 3 q-6 -1 -10 1.5 Z M49 23 q8 3 9 10 q-4 -5 -9.5 -6 Z" fill="#e11d48" />
+          <circle cx="32" cy="35" r="19" fill="#16161d" />
+          <rect x="13.5" y="20" width="37" height="5.5" rx="2" fill="#e11d48" />
+          <rect x="28" y="20.5" width="8" height="4.5" rx="1" fill="#cbd5e1" />
+          <rect x="16" y="29" width="32" height="10" rx="5" fill="#e8c4a0" />
+          <g className="av-blink" style={{ transformOrigin: "32px 34px" }}>
+            <ellipse cx="25" cy="34.5" rx="2.4" ry="2.2" fill={INK} />
+            <ellipse cx="39" cy="34.5" rx="2.4" ry="2.2" fill={INK} />
+          </g>
+          <path d="M20 30.5 L29 32.8 M44 30.5 L35 32.8" stroke="#16161d" strokeWidth="2.4" strokeLinecap="round" />
+        </>
+      );
+    case "wolf":
+      return (
+        <>
+          <circle cx="32" cy="30" r="23" fill="#fdf0c4" opacity=".14" />
+          <Stars at={[[9, 14, 1], [55, 12, 1.2], [56, 44, 0.8]]} />
+          <path d="M14 9 L23 25 L12 28 Z M50 9 L41 25 L52 28 Z" fill="#6b7280" />
+          <path d="M15.5 14 L20 23.5 L15 25 Z M48.5 14 L44 23.5 L49 25 Z" fill="#374151" />
+          <path d="M12 28 L22 22 L42 22 L52 28 L48 43 L32 57 L16 43 Z" fill="#9ca3af" />
+          <path d="M22 22 L32 31 L42 22 Z" fill="#6b7280" />
+          <path d="M12 28 L22 37 L16 43 Z M52 28 L42 37 L48 43 Z" fill="#7c8492" />
+          <path d="M24 39 L32 34 L40 39 L32 57 Z" fill="#e5e7eb" />
+          <path d="M29 49.5 L35 49.5 L32 53 Z" fill={INK} />
+          <g className="av-blink" style={{ transformOrigin: "32px 34px" }}>
+            <path d="M19 31.5 L28 34 L20.5 36 Z M45 31.5 L36 34 L43.5 36 Z" fill="#fbbf24" />
+          </g>
+        </>
+      );
+    case "saturn":
+      return (
+        <>
+          <defs>
+            <linearGradient id={`${uid}-pl`} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor="#fff1c2" />
+              <stop offset="1" stopColor="#f59e0b" />
+            </linearGradient>
+          </defs>
+          <Stars at={[[11, 13, 1.1], [52, 52, 1], [8, 40, 0.8]]} />
+          <ellipse cx="32" cy="34" rx="25" ry="6.5" transform="rotate(-18 32 34)" fill="none" stroke="#fff7ed" strokeWidth="3" opacity=".8" />
+          <circle cx="32" cy="34" r="13" fill={`url(#${uid}-pl)`} />
+          <path d="M20 30 Q32 33 44 29 M19.5 37 Q32 40 44.5 36" stroke="#d97706" strokeWidth="1.6" fill="none" opacity=".6" />
+          <path d="M7 34 A25 6.5 0 0 0 57 34" transform="rotate(-18 32 34)" fill="none" stroke="#fff7ed" strokeWidth="3" strokeLinecap="round" />
+          <g className="av-orbit">
+            <circle cx="32" cy="7" r="2.6" fill="#fff" />
+          </g>
         </>
       );
   }
 }
 
 export function AnimatedAvatar({ id, className, still = false }: { id: AvatarPreset; className?: string; still?: boolean }) {
+  const uid = `av${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
+  const [from, to] = BG[id];
   return (
-    <span className={cn("block shrink-0 overflow-hidden rounded-full", className)} style={{ background: BG[id] }} aria-hidden>
+    <span className={cn("block shrink-0 overflow-hidden rounded-full", className)} aria-hidden>
       <svg viewBox="0 0 64 64" className={cn("block size-full", !still && "av-anim")}>
+        <defs>
+          <linearGradient id={`${uid}-bg`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor={from} />
+            <stop offset="1" stopColor={to} />
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" fill={`url(#${uid}-bg)`} />
         <g className="av-bob">
-          <Face id={id} />
+          <Face id={id} uid={uid} />
         </g>
       </svg>
     </span>

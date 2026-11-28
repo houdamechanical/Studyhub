@@ -619,14 +619,28 @@ a:hover > .book3d .book3d-shadow {
   }
 }
 
-/* Animated avatars: a slow bob, a blink every few seconds, blinking antenna lights */
+/* Animated avatars: a slow bob, blinks, glints, a visor scan, drips, an orbiting moon */
 .av-anim .av-bob { animation: av-bob 3.2s ease-in-out infinite; transform-box: view-box; }
 .av-anim .av-blink { animation: av-blink 4.6s ease-in-out infinite; transform-box: view-box; }
 .av-anim .av-pulse { animation: av-pulse 1.6s ease-in-out infinite; }
+.av-anim .av-twinkle { animation: av-pulse 2.4s ease-in-out infinite; }
+.av-anim .av-twinkle:nth-of-type(2n) { animation-delay: -1.2s; }
+.av-anim .av-glint { animation: av-glint 3.8s ease-in-out infinite; }
+.av-anim .av-scan { animation: av-scan 2.6s ease-in-out infinite alternate; }
+.av-anim .av-drip { animation: av-drip 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: top; }
+.av-anim .av-drip-2 { animation-delay: -1.4s; }
+.av-anim .av-float { animation: av-float 2.6s ease-out infinite; }
+.av-anim .av-float-2 { animation-delay: -1.3s; }
+.av-anim .av-orbit { animation: av-orbit 7s linear infinite; transform-box: view-box; transform-origin: 32px 34px; }
 @keyframes av-bob { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-1.6px) } }
 @keyframes av-blink { 0%, 92%, 100% { transform: scaleY(1) } 95% { transform: scaleY(0.12) } }
 @keyframes av-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.35 } }
-@media (prefers-reduced-motion: reduce) { .av-anim .av-bob, .av-anim .av-blink, .av-anim .av-pulse { animation: none; } }
+@keyframes av-glint { 0%, 55% { transform: translateX(-26px) } 80%, 100% { transform: translateX(26px) } }
+@keyframes av-scan { from { transform: translateX(-9px) } to { transform: translateX(9px) } }
+@keyframes av-drip { 0%, 100% { transform: scaleY(1) } 50% { transform: scaleY(1.45) } }
+@keyframes av-float { 0% { transform: translateY(4px); opacity: 0 } 30% { opacity: 1 } 100% { transform: translateY(-8px); opacity: 0 } }
+@keyframes av-orbit { to { transform: rotate(360deg) } }
+@media (prefers-reduced-motion: reduce) { .av-anim * { animation: none !important; } }
 
 /* Home hero: rotating text ring */
 .spin-slow { animation: spin-slow 22s linear infinite; }
