@@ -4,6 +4,7 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { NICKNAME_PATTERN } from "@/lib/compare";
 import { useI18n } from "@/lib/i18n/client";
+import { fill } from "@/lib/i18n/dictionaries";
 import { saveNickname } from "@/lib/mutations/compare";
 
 /** Names the database gives new users until they pick their own. */
@@ -41,6 +42,7 @@ export function NameOnboarding({ onDone }: { onDone: (name: string) => void }) {
         onSubmit={submit}
         className="enter w-full max-w-md rounded-xl border bg-card shadow-card p-7 sm:p-9"
       >
+        <p className="label-mono mb-4">{fill(t.stepOf, { n: 1, total: 4 })}</p>
         <p className="text-sm font-medium text-muted-foreground">{t.hello}</p>
         <h1 className="mt-1 font-display text-3xl font-semibold leading-tight sm:text-4xl">
           {t.title}
