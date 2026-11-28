@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, Maximize, X } from "lucide-react";
+import { ArrowLeft, ArrowUp, Maximize, X } from "lucide-react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
@@ -42,6 +42,10 @@ export function ContentFrame({
   // Fallback when the browser has no Fullscreen API for elements (iPhone
   // Safari, and the home-screen app): the page fills the window instead.
   const [expanded, setExpanded] = useState(false);
+  // Reading mode: scrolled down into the page → the app's bars step aside and
+  // only "back" and "to the top" float over the page.
+  const [reading, setReading] = useState(false);
+  const readingRef = useRef(false);
   // Copied to public/content/ at build time (scripts/copy-content.mjs).
   // The page is told the app's light/dark mode: once in the URL (read before it paints),
   // then live via postMessage. Pages that don't care simply ignore both.
@@ -91,6 +95,37 @@ export function ContentFrame({
   }, [file]);
 
   useEffect(() => {
+    let lastY = 0;
+    const onScroll = (e: MessageEvent) => {
+      const frame = frameRef.current;
+      const win = frame?.contentWindow;
+      if (!frame || !win || e.source !== win) return;
+      const d = e.data as { type?: string; y?: unknown } | null;
+      if (d?.type !== "studyhub-scroll" || typeof d.y !== "number") return;
+      const y = d.y;
+      const down = y > lastY;
+      lastY = y;
+      if (!readingRef.current && down && y > 200) {
+        // The frame is about to move up to the top of the screen: scroll the page
+        // up by the same amount so the text stays where it is.
+        const offset = frame.getBoundingClientRect().top;
+        readingRef.current = true;
+        setReading(true);
+        if (offset > 0) win.postMessage({ type: "studyhub-scroll-by", dy: -offset }, "*");
+      } else if (readingRef.current && y < 30) {
+        readingRef.current = false;
+        setReading(false);
+      }
+    };
+    window.addEventListener("message", onScroll);
+    return () => window.removeEventListener("message", onScroll);
+  }, []);
+
+  function toTop() {
+    frameRef.current?.contentWindow?.postMessage({ type: "studyhub-scroll-top" }, "*");
+  }
+
+  useEffect(() => {
     if (!expanded) return;
     const onKey = (e: KeyboardEvent) =>
       e.key === "Escape" && setExpanded(false);
@@ -128,10 +163,10 @@ export function ContentFrame({
     <div
       className={cn(
         "flex flex-col",
-        expanded ? "fixed inset-0 z-50 bg-white" : "flex-1",
+        expanded ? "fixed inset-0 z-50 bg-white" : reading ? "fixed inset-0 z-50 bg-background" : "flex-1",
       )}
     >
-      {!expanded && (
+      {!expanded && !reading && (
         <div className="flex items-center gap-2 border-b px-2 py-1.5 sm:px-4">
           <Link
             href={backHref}
@@ -168,9 +203,30 @@ export function ContentFrame({
           allowFullScreen
           className={cn(
             "w-full flex-1 border-0 bg-background",
-            !expanded && "min-h-[60dvh]",
+            !expanded && !reading && "min-h-[60dvh]",
           )}
         />
+      )}
+      {reading && !expanded && (
+        <>
+          <Link
+            href={backHref}
+            aria-label={backLabel}
+            title={backLabel}
+            className="press enter absolute start-3 top-[calc(0.75rem+env(safe-area-inset-top))] flex size-11 items-center justify-center rounded-full bg-black/70 text-white shadow-lg backdrop-blur"
+          >
+            <ArrowLeft size={20} className="rtl:rotate-180" />
+          </Link>
+          <button
+            type="button"
+            onClick={toTop}
+            aria-label={dict.library.toTop}
+            title={dict.library.toTop}
+            className="press enter absolute bottom-[calc(1rem+env(safe-area-inset-bottom))] end-4 flex size-12 items-center justify-center rounded-full bg-black/70 text-white shadow-lg backdrop-blur"
+          >
+            <ArrowUp size={21} />
+          </button>
+        </>
       )}
       {expanded && (
         <button

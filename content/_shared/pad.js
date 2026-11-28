@@ -40,8 +40,9 @@
     '.pad-bar .sw{width:22px;height:22px;min-width:22px;padding:0;border-radius:50%;border:2px solid transparent}' +
     '.pad-bar .sw.on{border-color:var(--text,#222);box-shadow:0 0 0 2px var(--card,#fff) inset}' +
     '.pad-bar .grow{flex:1}' +
-    '.pad-sheet{position:relative;background-color:#fffdf7;background-image:linear-gradient(#e7e2d6 1px,transparent 1px);background-size:100% 34px;background-position:0 33px}' +
-    '.pad-sheet canvas{display:block;width:100%;touch-action:none;cursor:crosshair}' +
+    '.pad-sheet{position:relative;background-color:#fffdf7;background-image:linear-gradient(#e7e2d6 1px,transparent 1px);background-size:100% 34px;background-position:0 33px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}' +
+    '.pad-sheet.grid{background-image:linear-gradient(#e9e4d9 1px,transparent 1px),linear-gradient(90deg,#e9e4d9 1px,transparent 1px);background-size:24px 24px;background-position:-1px -1px}' +
+    '.pad-sheet canvas{display:block;width:100%;touch-action:none;cursor:crosshair;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}' +
     '.pad-sheet.pen-mode canvas{touch-action:pan-y}' +
     '.pad-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid var(--border,#ddd);font:500 .78rem Inter,system-ui,sans-serif;color:var(--text2,#666)}' +
     '.pad-foot button{font:600 .85rem Inter,system-ui,sans-serif;background:none;border:0;color:var(--accent,#2350d8);cursor:pointer;padding:6px 4px}';
@@ -54,6 +55,8 @@
     undo: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>',
     trash: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
     close: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+    lined: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+    grid: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>',
     write: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>'
   };
 
@@ -81,6 +84,9 @@
         '<span class="sep"></span>' +
         COLORS.map(function (c, i) { return '<button class="sw' + (i ? '' : ' on') + '" data-c="' + c + '" style="background:' + c + '" aria-label="Farbe"></button>'; }).join("") +
         '<span class="sep"></span>' +
+        '<button data-p="l" class="on" title="Liniert">' + ICON.lined + '<span>Liniert</span></button>' +
+        '<button data-p="k" title="Kariert">' + ICON.grid + '<span>Kariert</span></button>' +
+        '<span class="sep"></span>' +
         '<button data-a="undo" title="Rückgängig">' + ICON.undo + '</button>' +
         '<button data-a="clear" title="Alles löschen">' + ICON.trash + '</button>' +
         '<span class="grow"></span>' +
@@ -92,9 +98,14 @@
 
     var sheet = el.querySelector(".pad-sheet"), cv = el.querySelector("canvas"), ctx = cv.getContext("2d");
     var msg = el.querySelector(".msg");
-    var tool = "pen", color = COLORS[0], strokes = [], sheets = 1, cur = null, penSeen = false, scale = 1, timer = null;
+    var tool = "pen", color = COLORS[0], strokes = [], sheets = 1, cur = null, penSeen = false, scale = 1, timer = null, paper = "l";
+    function setPaper(p) {
+      paper = p === "k" ? "k" : "l";
+      sheet.classList.toggle("grid", paper === "k");
+      el.querySelectorAll("[data-p]").forEach(function (x) { x.classList.toggle("on", x.dataset.p === paper); });
+    }
 
-    load(key).then(function (d) { if (d && d.s) { strokes = d.s; sheets = Math.max(1, d.h || 1); fit(); } });
+    load(key).then(function (d) { if (d) { if (d.s) strokes = d.s; sheets = Math.max(1, d.h || 1); setPaper(d.p); fit(); } });
 
     function fit() {
       var w = sheet.clientWidth || 600, dpr = window.devicePixelRatio || 1;
@@ -130,12 +141,21 @@
       clearTimeout(timer);
       msg.textContent = "Speichert…";
       timer = setTimeout(function () {
-        save(key, strokes.length ? { s: strokes, h: sheets } : null).then(function (r) {
+        save(key, strokes.length || paper === "k" ? { s: strokes, h: sheets, p: paper } : null).then(function (r) {
           msg.textContent = r && r.ok === false ? "Speicher voll – Entwurf nicht gespeichert." : parentOK ? "Entwurf gespeichert." : "Schreib mit Stift, Finger oder Maus.";
         });
       }, 700);
     }
     function pos(e) { var r = cv.getBoundingClientRect(); return [Math.round((e.clientX - r.left) / scale * 10) / 10, Math.round((e.clientY - r.top) / scale * 10) / 10]; }
+
+    // Apple Pencil on iPad: Safari would scroll the page with the pencil (it is a
+    // "touch" for scrolling). Stop that for the stylus only – fingers still scroll.
+    function stylus(e) {
+      for (var i = 0; i < e.touches.length; i++) if (e.touches[i].touchType === "stylus") return true;
+      return false;
+    }
+    cv.addEventListener("touchstart", function (e) { if (stylus(e) || !penSeen) e.preventDefault(); }, { passive: false });
+    cv.addEventListener("touchmove", function (e) { if (stylus(e) || (!penSeen && cur)) e.preventDefault(); }, { passive: false });
 
     cv.addEventListener("pointerdown", function (e) {
       if (e.pointerType === "pen" && !penSeen) { penSeen = true; sheet.classList.add("pen-mode"); }
@@ -160,6 +180,7 @@
       var b = e.target.closest("button"); if (!b) return;
       if (b.dataset.t) { tool = b.dataset.t; el.querySelectorAll("[data-t]").forEach(function (x) { x.classList.toggle("on", x === b); }); }
       if (b.dataset.c) { color = b.dataset.c; if (tool === "er") { tool = "pen"; el.querySelectorAll("[data-t]").forEach(function (x) { x.classList.toggle("on", x.dataset.t === "pen"); }); } el.querySelectorAll(".sw").forEach(function (x) { x.classList.toggle("on", x === b); }); }
+      if (b.dataset.p) { setPaper(b.dataset.p); persist(); }
       if (b.dataset.a === "undo") { strokes.pop(); redraw(); persist(); }
       if (b.dataset.a === "clear" && strokes.length && confirm("Alles auf diesem Blatt löschen?")) { strokes = []; sheets = 1; fit(); persist(); }
       if (b.dataset.a === "close") onClose();

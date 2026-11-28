@@ -188,10 +188,63 @@ function NewsCarousel() {
   }, [paused, items.length]);
   const n = items[i];
   const pad = (x: number) => String(x).padStart(2, "0");
+
+  // Swipe left / right to flip through the news (the card follows the finger).
+  const drag = useRef<{ x: number; y: number; id: number; horizontal: boolean | null } | null>(null);
+  const [dx, setDx] = useState(0);
+  const swiped = useRef(false);
+  function onPointerDown(e: React.PointerEvent) {
+    if (e.pointerType === "mouse") return;
+    drag.current = { x: e.clientX, y: e.clientY, id: e.pointerId, horizontal: null };
+    swiped.current = false;
+    setPaused(true);
+  }
+  function onPointerMove(e: React.PointerEvent) {
+    const d = drag.current;
+    if (!d || d.id !== e.pointerId) return;
+    const mx = e.clientX - d.x;
+    const my = e.clientY - d.y;
+    if (d.horizontal === null && Math.abs(mx) + Math.abs(my) > 8) d.horizontal = Math.abs(mx) > Math.abs(my);
+    if (d.horizontal) setDx(mx);
+  }
+  function onPointerEnd(e: React.PointerEvent) {
+    const d = drag.current;
+    drag.current = null;
+    setPaused(false);
+    if (!d || !d.horizontal) return setDx(0);
+    const mx = e.clientX - d.x;
+    const rtl = document.documentElement.dir === "rtl";
+    if (Math.abs(mx) > 40) {
+      swiped.current = true;
+      const step = (mx < 0) !== rtl ? 1 : -1;
+      setI((k) => (k + step + items.length) % items.length);
+    }
+    setDx(0);
+  }
+
   return (
     <div className="hero-in flex flex-col gap-3 [--d:320ms] md:self-start" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
-      <Link href={n.href ?? "/neu"} className="group overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-1.5 backdrop-blur-md transition-colors hover:bg-white/15" aria-label={n.title[locale]}>
-        <div key={n.id} className="fade-swap relative">
+      <Link
+        href={n.href ?? "/neu"}
+        draggable={false}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerEnd}
+        onPointerCancel={onPointerEnd}
+        onClick={(e) => {
+          if (swiped.current) {
+            e.preventDefault();
+            swiped.current = false;
+          }
+        }}
+        className="group touch-pan-y select-none overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-1.5 backdrop-blur-md transition-colors hover:bg-white/15"
+        aria-label={n.title[locale]}
+      >
+        <div
+          key={n.id}
+          className={cn("fade-swap relative", dx === 0 && "transition-transform duration-300")}
+          style={dx ? { transform: `translateX(${dx * 0.6}px) rotate(${dx * 0.02}deg)` } : undefined}
+        >
           <NewsArt item={n} className="h-24 rounded-xl sm:h-36" />
           <span className="absolute end-2 top-2 rounded-full bg-black/35 px-2 py-0.5 text-xs font-semibold backdrop-blur-sm">{dict.news.newBadge}</span>
         </div>

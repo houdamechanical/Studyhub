@@ -3,10 +3,11 @@
 // 2) Formulas: KaTeX auto-render for \( … \) and \[ … \].
 // 3) Solutions: "show all / hide all" buttons, quick checks.
 // 4) Loads pad.js ("Antwort selbst schreiben" under every exercise) and
-//    kompakt.js (sections fold to their key points).
+//    kompakt.js (sections can fold to their key points) and reader.js
+//    (scroll position for the app, so it can hide its bars while reading).
 (function () {
   if (document.currentScript) {
-    ["pad.js", "kompakt.js"].forEach(function (name) {
+    ["pad.js", "kompakt.js", "reader.js"].forEach(function (name) {
       var el = document.createElement("script");
       el.src = document.currentScript.src.replace(/math\.js(\?.*)?$/, name);
       el.defer = true;
