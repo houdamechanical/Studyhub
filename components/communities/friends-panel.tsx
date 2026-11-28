@@ -4,6 +4,8 @@ import { Check, ChevronRight, Clock, Lock, Search, UserPlus, X } from "lucide-re
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
+import { NameTag } from "@/components/name-tag";
+import { UserAvatar } from "@/components/user-avatar";
 import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
 import { controlClass } from "@/components/ui/field";
@@ -22,6 +24,7 @@ import {
   type Player,
 } from "@/lib/friends";
 import { useI18n } from "@/lib/i18n/client";
+import { usePeople } from "@/lib/people";
 import { fill } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +32,7 @@ type Sort = "nc" | "name" | "xp";
 
 /** The Friends page: your profile, finding classmates, requests and your friends (sortable). */
 export function FriendsView() {
-  const { userId, nickname } = useAuth();
+  const { userId, nickname, avatar } = useAuth();
   const { locale, dict } = useI18n();
   const t = dict.friends;
   const requests = useLoad(() => loadFriends(userId), `friends:${userId}`);
@@ -58,7 +61,7 @@ export function FriendsView() {
         href="/profile"
         className="flex items-center gap-3 rounded-xl border bg-card px-4 py-3 shadow-card transition-colors hover:bg-secondary/60"
       >
-        <Avatar name={nickname} accent />
+        <UserAvatar userId={userId} avatar={avatar} name={nickname} className="size-10" />
         <span className="min-w-0 flex-1">
           <span className="block font-medium">{t.myProfile}</span>
           <span className="block text-sm text-muted-foreground">{t.myProfileHint}</span>
@@ -110,9 +113,9 @@ export function FriendsView() {
             {friends.map((f) => (
               <li key={f.user_id}>
                 <Link href={`/profile?id=${f.user_id}`} className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-secondary/60">
-                  <Avatar name={f.nickname} />
+                  <Avatar userId={f.user_id} name={f.nickname} />
                   <span className="min-w-0 flex-1">
-                    <bdi className="block truncate font-medium">{f.nickname}</bdi>
+                    <NameTag userId={f.user_id} name={f.nickname} className="block truncate font-medium" />
                     <span className="block text-sm tabular-nums text-muted-foreground">
                       {xpf.format(f.xp)} XP · {f.tests === 1 ? t.oneTest : fill(t.testsCount, { n: f.tests })}
                     </span>
@@ -154,25 +157,18 @@ export function FriendsView() {
   );
 }
 
-function Avatar({ name, accent = false }: { name: string; accent?: boolean }) {
-  return (
-    <span
-      aria-hidden
-      className={cn(
-        "flex size-9 shrink-0 items-center justify-center rounded-full font-display font-semibold uppercase",
-        accent ? "bg-primary text-primary-foreground" : "bg-[var(--c-pill)] text-foreground",
-      )}
-    >
-      {name.slice(0, 1)}
-    </span>
-  );
+/** A student's picture (animated, photo or initial); loads it if needed. */
+function Avatar({ userId, name, avatar }: { userId?: string; name: string; avatar?: string | null }) {
+  const people = usePeople([userId]);
+  const pic = avatar !== undefined ? avatar : userId ? (people.get(userId)?.avatar ?? null) : null;
+  return <UserAvatar userId={userId} avatar={pic} name={name} className="size-9" still />;
 }
 
 function PersonLink({ f }: { f: { user_id: string; nickname: string } }) {
   return (
     <Link href={`/profile?id=${f.user_id}`} className="flex min-w-0 flex-1 items-center gap-3 font-medium hover:underline underline-offset-4">
-      <Avatar name={f.nickname} />
-      <bdi className="truncate">{f.nickname}</bdi>
+      <Avatar userId={f.user_id} name={f.nickname} />
+      <NameTag userId={f.user_id} name={f.nickname} className="truncate" />
     </Link>
   );
 }

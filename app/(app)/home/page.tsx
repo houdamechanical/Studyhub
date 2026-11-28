@@ -1,80 +1,58 @@
 "use client";
 
-import { ArrowRight, ChevronRight, Clock, Users } from "lucide-react";
+import { ArrowUpRight, CalendarDays, ChevronRight, Users } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
-import { CommunityAvatar } from "@/components/communities/avatar";
-import { CalendarDialog, MiniCalendar } from "@/components/exams/exam-calendar";
+import { BookRow } from "@/components/auth/book-row";
+import { CalendarDialog } from "@/components/exams/exam-calendar";
+import { NewsArt } from "@/components/news";
+import { usePortalArrival } from "@/components/portal";
 import { SubjectIcon } from "@/components/subject-icon";
-import { loadMyCommunities, type Community } from "@/lib/communities";
+import { UserAvatar } from "@/components/user-avatar";
 import { useLoad } from "@/lib/data";
-import { formatPeriods, type SchoolExam } from "@/lib/exams";
+import type { SchoolExam } from "@/lib/exams";
 import { formatDate, intlLocale, todayISO } from "@/lib/format";
-import { formatPoints, loadGradeBook, ncFromResults, subjectResults } from "@/lib/gradebook";
+import { loadFriendRows, type FriendRow } from "@/lib/friends";
+import { loadGradeBook, ncFromResults, subjectResults } from "@/lib/gradebook";
 import { CURRENT_SEMESTER, formatNC } from "@/lib/grades";
 import { useI18n, useTitle } from "@/lib/i18n/client";
-import { fill, formatSemester, type Dictionary } from "@/lib/i18n/dictionaries";
+import { fill, type Dictionary } from "@/lib/i18n/dictionaries";
 import { daysUntil } from "@/lib/loaders";
+import { NEWS } from "@/lib/news";
+import { usePeople } from "@/lib/people";
+import { semesterHref } from "@/lib/school";
 import { SUBJECTS, type SubjectId } from "@/lib/subjects";
 import { cn } from "@/lib/utils";
 
 async function loadHome(subjects: SubjectId[]) {
-  const [book, communities] = await Promise.all([
+  const [book, friends] = await Promise.all([
     loadGradeBook(subjects, CURRENT_SEMESTER),
-    loadMyCommunities().then((r) => r.list),
+    loadFriendRows(CURRENT_SEMESTER).then((r) => r.list, () => [] as FriendRow[]),
   ]);
   const exams = book.exams;
   const nc = ncFromResults(subjectResults(subjects, exams, book.examGrades, book.oral));
   const today = todayISO();
-  return { exams, next: exams.find((e) => e.exam_date >= today) ?? null, nc, communities };
+  return { exams, next: exams.find((e) => e.exam_date >= today) ?? null, nc, friends };
 }
 
-/** Home: what's next. The next exam first, then your NC, a small exam calendar and your communities. */
+/** Home: one dark scene – news, friends, the next exam (→ calendar) and your NC (→ grades). Everything else is in the bar above. */
 export default function HomePage() {
   const { subjects } = useAuth();
   const { dict } = useI18n();
   useTitle(dict.nav.home);
   const { data } = useLoad(() => loadHome(subjects), `home:${subjects.join(",")}`);
   const [calendar, setCalendar] = useState(false);
+  const card = useRef<HTMLDivElement>(null);
+  usePortalArrival(card);
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 pb-12 pt-6 sm:pt-10">
-      {!data ? (
-        <HomeSkeleton />
-      ) : (
-        <div className="flex flex-col gap-4">
-          <NextExam exam={data.next} />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <NcCard nc={data.nc} />
-            <MiniCalendar exams={data.exams} onOpen={() => setCalendar(true)} />
-          </div>
-          <CommunitiesCard list={data.communities} />
-        </div>
-      )}
+    <div className="mx-auto w-full max-w-6xl px-4 pb-12 pt-4 sm:pt-6 lg:px-6">
+      <div ref={card}>
+        {!data ? <HomeSkeleton /> : <Hero friends={data.friends} next={data.next} nc={data.nc} onCalendar={() => setCalendar(true)} />}
+      </div>
       {calendar && data && <CalendarDialog exams={data.exams} onClose={() => setCalendar(false)} />}
     </div>
-  );
-}
-
-function Panel({ title, action, children, className }: { title: string; action?: React.ReactNode; children: React.ReactNode; className?: string }) {
-  return (
-    <section className={cn("enter rounded-xl border bg-card", className)}>
-      <header className="flex items-center justify-between gap-2 border-b px-4 py-2.5">
-        <h2 className="text-sm font-medium text-muted-foreground">{title}</h2>
-        {action}
-      </header>
-      {children}
-    </section>
-  );
-}
-
-function PanelLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link href={href} className="hit flex items-center gap-0.5 text-sm text-muted-foreground hover:text-foreground">
-      {children}
-      <ChevronRight size={14} className="rtl:rotate-180" />
-    </Link>
   );
 }
 
@@ -83,118 +61,208 @@ function when(date: string, dict: Dictionary) {
   return days <= 0 ? dict.exams.today : days === 1 ? dict.exams.tomorrow : fill(dict.exams.inDays, { n: days });
 }
 
-function NextExam({ exam }: { exam: SchoolExam | null }) {
-  const { locale, dict } = useI18n();
-  if (!exam) {
-    return (
-      <Panel title={dict.home.nextExam}>
-        <p className="px-4 py-8 text-center text-sm text-muted-foreground">{dict.home.noExamsLeft}</p>
-      </Panel>
-    );
-  }
-  const days = daysUntil(exam.exam_date);
+/**
+ * The scene: a dark card with the 3D book row as its "photo". Text is always
+ * light here (in both themes), the accent is a lighter royal blue at day and
+ * orange at night.
+ */
+function Hero({
+  friends,
+  next,
+  nc,
+  onCalendar,
+}: {
+  friends: FriendRow[];
+  next: SchoolExam | null;
+  nc: ReturnType<typeof ncFromResults>;
+  onCalendar: () => void;
+}) {
+  const { dict } = useI18n();
+  const { nickname } = useAuth();
+  const t = dict.home2;
   return (
-    <Link
-      href="/grades?tab=exams"
-      className="enter group relative block overflow-hidden rounded-xl border bg-card shadow-card p-5 transition-colors hover:border-[var(--c-border-strong)] sm:p-6"
+    <section
+      className="hero-scene enter relative isolate overflow-hidden rounded-[28px] text-white shadow-[0_30px_60px_-30px_rgb(0_0_0/0.55)]"
+      style={{
+        background:
+          "radial-gradient(120% 90% at 88% 0%, #3d2b1b 0%, transparent 55%), radial-gradient(90% 80% at 0% 100%, #18263b 0%, transparent 60%), #0e0c0a",
+      }}
     >
-      {/* A whisper of the accent, top right */}
-      <div aria-hidden className="pointer-events-none absolute -end-24 -top-28 size-72 rounded-full bg-[radial-gradient(closest-side,color-mix(in_srgb,var(--c-amber)_14%,transparent),transparent)]" />
-      <p className="relative flex items-center gap-2 text-sm font-medium text-muted-foreground">
-        <span className="size-1.5 rounded-full bg-[var(--c-gold)]" aria-hidden />
-        {dict.home.nextExam}
-      </p>
-      <div className="relative mt-3 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-        <div className="min-w-0">
-          <h1 className="flex items-center gap-2.5 font-display text-3xl font-semibold sm:text-4xl">
-            <SubjectIcon subject={exam.subject} className="size-7 shrink-0 text-[var(--c-amber)]" strokeWidth={2} />
-            <span className="truncate">{SUBJECTS[exam.subject].label[locale]}</span>
-            {exam.title && <span className="truncate text-xl font-normal text-muted-foreground">· {exam.title}</span>}
+      {/* The "photo": warm-lit books that rise near the pointer */}
+      <BookRow still className="absolute inset-x-0 bottom-0 top-[55%] -z-10 opacity-80 md:inset-y-0 md:start-[40%] md:top-[38%] lg:start-[30%] lg:top-[10%]" />
+      {/* Darken behind the text, and fade the floor */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(14_12_10/0.92)_0%,rgb(14_12_10/0.55)_45%,transparent_75%)] max-md:bg-[linear-gradient(180deg,rgb(14_12_10/0.9)_0%,rgb(14_12_10/0.55)_60%,rgb(14_12_10/0.9)_100%)]" />
+
+      <div className="relative grid gap-7 p-5 sm:p-8 md:min-h-[max(560px,calc(100dvh-8.5rem))] md:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] md:p-10">
+        <div className="flex flex-col">
+          <p className="hero-in label-mono !text-white/60 [--d:0ms]">{fill(t.hello, { name: nickname })}</p>
+          <h1 className="hero-in mt-4 max-w-[12ch] font-display font-semibold leading-[1.02] tracking-tight [--d:80ms]" style={{ fontSize: "clamp(2.1rem, 5.2vw, 3.6rem)" }}>
+            {t.heroTitle}
           </h1>
-          <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-            <span>{formatDate(exam.exam_date, locale, { weekday: "long", day: "numeric", month: "long" })}</span>
-            {exam.periods && (
-              <span className="flex items-center gap-1">
-                <Clock size={14} aria-hidden />
-                {fill(dict.exams.lessons, { p: formatPeriods(exam.periods) })}
+          <p className="hero-in mt-3 max-w-[34ch] text-white/70 [--d:140ms]">{t.heroText}</p>
+          <div className="hero-in mt-6 flex flex-wrap items-center gap-3 [--d:200ms]">
+            <Link
+              href={semesterHref()}
+              className="press group flex h-12 items-center gap-3 rounded-2xl bg-[var(--hero-acc)] pe-2 ps-5 font-bold text-[#0e0c0a]"
+            >
+              {t.study}
+              <span className="flex size-8 items-center justify-center rounded-xl bg-black/10 transition-transform group-hover:rotate-45">
+                <ArrowUpRight size={17} />
               </span>
-            )}
-            {exam.classes && <span>{fill(dict.exams.onlyClasses, { c: formatPeriods(exam.classes) })}</span>}
-          </p>
+            </Link>
+          </div>
         </div>
-        <p className={cn("font-display text-4xl font-semibold tabular-nums tracking-tight sm:text-5xl", days <= 2 ? "text-[var(--c-gold)]" : "text-[var(--c-amber)]")}>
-          {when(exam.exam_date, dict)}
-        </p>
+
+        {/* Right: what's new */}
+        <NewsCarousel />
+
+        {/* Bottom row: next exam · NC on the left (over the dark side), friends on the right */}
+        <div className="flex flex-col gap-5 md:col-span-2 md:flex-row md:items-end md:justify-between md:self-end">
+          <div className="hero-in grid grid-cols-2 gap-2.5 [--d:420ms] max-[379px]:grid-cols-1 md:w-[27rem]">
+            <ExamTile next={next} onOpen={onCalendar} />
+            <NcTile nc={nc} />
+          </div>
+          <FriendsStack friends={friends} />
+        </div>
       </div>
-      <span className="relative mt-4 flex items-center gap-1 text-sm text-muted-foreground group-hover:text-foreground">
-        {dict.home.allExams}
-        <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5 rtl:rotate-180" />
+    </section>
+  );
+}
+
+/** Small box: the next exam. Opens the whole calendar. */
+function ExamTile({ next, onOpen }: { next: SchoolExam | null; onOpen: () => void }) {
+  const { locale, dict } = useI18n();
+  return (
+    <button type="button" onClick={onOpen} className="press group flex min-h-[7.5rem] flex-col rounded-2xl border border-white/15 bg-[#1b1814]/85 p-4 text-start text-white backdrop-blur-xl transition-colors hover:bg-[#26221c]/90">
+      <span className="flex w-full items-start justify-between gap-2">
+        <span className="label-mono !text-white/60">{dict.home2.examTile}</span>
+        <CalendarDays size={17} className="shrink-0 text-white/60 transition-colors group-hover:text-white" aria-label={dict.home2.calendar} />
+      </span>
+      {next ? (
+        <>
+          <span className="mt-auto flex items-center gap-2 pt-3 font-display text-xl font-semibold leading-tight">
+            <SubjectIcon subject={next.subject} className="size-5 shrink-0 text-[var(--hero-acc)]" strokeWidth={2} />
+            <span className="truncate">{SUBJECTS[next.subject].label[locale]}</span>
+          </span>
+          <span className="mt-1 truncate text-sm">
+            <span className="font-semibold text-[var(--hero-acc)]">{when(next.exam_date, dict)}</span>
+            <span className="text-white/60 max-[380px]:hidden"> · </span>
+            <span className="text-white/60 max-[380px]:hidden">{formatDate(next.exam_date, locale, { day: "numeric", month: "short" })}</span>
+          </span>
+        </>
+      ) : (
+        <span className="mt-auto pt-3 text-sm font-medium text-white/70">{dict.home2.noExam}</span>
+      )}
+    </button>
+  );
+}
+
+/** Small box: your NC. Leads to the grades. */
+function NcTile({ nc }: { nc: ReturnType<typeof ncFromResults> }) {
+  const { locale, dict } = useI18n();
+  const t = dict.home2;
+  return (
+    <Link href="/grades" className="press group flex min-h-[7.5rem] flex-col rounded-2xl border border-white/15 bg-[#1b1814]/85 p-4 text-start text-white backdrop-blur-xl transition-colors hover:bg-[#26221c]/90">
+      <span className="flex items-start justify-between gap-2">
+        <span className="label-mono !text-white/60">{t.ncTile}</span>
+        <ArrowUpRight size={17} className="shrink-0 text-white/60 transition-transform group-hover:rotate-45 group-hover:text-white" />
+      </span>
+      <span className="mt-auto pt-3 font-display text-4xl font-semibold leading-none tabular-nums tracking-tight">
+        {nc ? formatNC(nc.nc, intlLocale(locale)) : "–"}
+      </span>
+      <span className="mt-1.5 truncate text-sm text-white/60">{nc ? fill(t.ncOf, { n: nc.subjects }) : t.ncEmpty}</span>
+    </Link>
+  );
+}
+
+/** Cycles through "What's new" like the photo card in a travel site. */
+function NewsCarousel() {
+  const { locale, dict } = useI18n();
+  const items = NEWS.slice(0, 7);
+  const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => setI((n) => (n + 1) % items.length), 5500);
+    return () => clearInterval(id);
+  }, [paused, items.length]);
+  const n = items[i];
+  const pad = (x: number) => String(x).padStart(2, "0");
+  return (
+    <div className="hero-in flex flex-col gap-3 [--d:320ms] md:self-start" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
+      <Link href={n.href ?? "/neu"} className="group overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-1.5 backdrop-blur-md transition-colors hover:bg-white/15" aria-label={n.title[locale]}>
+        <div key={n.id} className="fade-swap relative">
+          <NewsArt item={n} className="h-24 rounded-xl sm:h-36" />
+          <span className="absolute end-2 top-2 rounded-full bg-black/35 px-2 py-0.5 text-xs font-semibold backdrop-blur-sm">{dict.news.newBadge}</span>
+        </div>
+        <div className="flex items-center gap-3 px-2 pb-1.5 pt-2.5">
+          <span className="text-xs font-semibold tabular-nums text-white/80">
+            {pad(i + 1)}/{pad(items.length)}
+          </span>
+          <span className="flex flex-1 gap-1" aria-hidden>
+            {items.map((x, k) => (
+              <span key={x.id} className={cn("h-1 flex-1 rounded-full transition-colors", k === i ? "bg-white" : "bg-white/25")} />
+            ))}
+          </span>
+        </div>
+      </Link>
+      <div key={n.id + "-t"} className="fade-swap flex flex-col gap-1 px-1 xl:flex-row xl:gap-4">
+        <p className="font-display text-xl font-semibold leading-tight xl:max-w-[9rem]">{n.title[locale]}</p>
+        <p className="line-clamp-2 text-sm text-white/70 max-md:hidden xl:flex-1">{n.text[locale]}</p>
+      </div>
+      <div className="flex items-center justify-between gap-3 px-1">
+        <div className="flex gap-1" role="tablist" aria-label={dict.news.title}>
+          {items.map((x, k) => (
+            <button
+              key={x.id}
+              type="button"
+              role="tab"
+              aria-selected={k === i}
+              aria-label={x.title[locale]}
+              onClick={() => setI(k)}
+              className={cn("size-2.5 rounded-full transition-colors", k === i ? "bg-white" : "bg-white/30 hover:bg-white/60")}
+            />
+          ))}
+        </div>
+        <Link href="/neu" className="flex shrink-0 items-center gap-0.5 whitespace-nowrap text-sm font-semibold text-white/80 hover:text-white">
+          {dict.news.all}
+          <ChevronRight size={15} className="rtl:rotate-180" />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function FriendsStack({ friends }: { friends: FriendRow[] }) {
+  const { dict } = useI18n();
+  const t = dict.home2;
+  const shown = friends.slice(0, 4);
+  const people = usePeople(shown.map((f) => f.user_id));
+  return (
+    <Link href="/friends" className="hero-in group flex w-fit items-center gap-3 rounded-full bg-black/45 py-1.5 pe-4 ps-1.5 backdrop-blur-md [--d:380ms]">
+      {shown.length ? (
+        <span className="flex -space-x-3 rtl:space-x-reverse">
+          {shown.map((f) => (
+            <UserAvatar key={f.user_id} userId={f.user_id} avatar={people.get(f.user_id)?.avatar} name={f.nickname} className="size-10 text-base ring-2 ring-[#0e0c0a]" still />
+          ))}
+        </span>
+      ) : (
+        <span className="flex size-10 items-center justify-center rounded-full border border-dashed border-white/40">
+          <Users size={18} />
+        </span>
+      )}
+      <span className="whitespace-nowrap text-sm font-medium text-white/80 group-hover:text-white">
+        {friends.length === 0 ? t.noFriends : friends.length === 1 ? t.oneFriend : fill(t.friends, { n: friends.length })}
       </span>
     </Link>
   );
 }
 
-function NcCard({ nc }: { nc: ReturnType<typeof ncFromResults> }) {
-  const { locale, dict } = useI18n();
-  const nf = intlLocale(locale);
-  const t = dict.home;
-  return (
-    <Panel title={`${t.ncTitle} · ${formatSemester(CURRENT_SEMESTER, dict)}`} action={<PanelLink href="/grades">{t.allGrades}</PanelLink>}>
-      <div className="px-4 py-5">
-        {nc ? (
-          <>
-            <p className="font-display text-5xl font-semibold tabular-nums tracking-tight">{formatNC(nc.nc, nf)}</p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {fill(t.ncHint, { p: formatPoints(nc.points, nf), n: nc.subjects })}
-            </p>
-            <p className="mt-3 text-xs text-muted-foreground/80">{t.ncFormula}</p>
-          </>
-        ) : (
-          <p className="py-4 text-sm text-muted-foreground">{t.ncEmpty}</p>
-        )}
-      </div>
-    </Panel>
-  );
-}
-
-function CommunitiesCard({ list }: { list: Community[] }) {
-  const { dict } = useI18n();
-  const t = dict.communities;
-  return (
-    <Panel title={t.title} action={<PanelLink href="/communities">{list.length ? t.title : t.create}</PanelLink>}>
-      {list.length === 0 ? (
-        <Link href="/communities" className="flex items-center gap-3 px-4 py-4 text-sm text-muted-foreground hover:text-foreground">
-          <Users size={16} aria-hidden />
-          {t.empty}
-        </Link>
-      ) : (
-        <ul className="grid sm:grid-cols-2">
-          {list.slice(0, 6).map((c) => (
-            <li key={c.id} className="border-b sm:odd:border-e [&:nth-last-child(-n+2)]:sm:border-b-0 last:border-b-0">
-              <Link href={`/communities/view?id=${c.id}`} className="flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-secondary/60">
-                <CommunityAvatar name={c.name} className="size-7 text-xs" />
-                <span className="min-w-0 flex-1 truncate text-sm font-medium" dir="auto">
-                  {c.name}
-                </span>
-                <span className="text-xs text-muted-foreground">{c.members === 1 ? t.oneMember : fill(t.members, { n: c.members })}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </Panel>
-  );
-}
 
 function HomeSkeleton() {
   return (
     <div className="flex flex-col gap-4" aria-busy>
-      <div className="h-44 animate-pulse rounded-xl border bg-card shadow-card" />
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="h-48 animate-pulse rounded-xl border bg-card shadow-card" />
-        <div className="h-48 animate-pulse rounded-xl border bg-card shadow-card" />
-      </div>
-      <div className="h-24 animate-pulse rounded-xl border bg-card shadow-card" />
+      <div className="h-[560px] animate-pulse rounded-[28px] bg-[#1a1714] md:h-[max(560px,calc(100dvh-8.5rem))]" />
     </div>
   );
 }

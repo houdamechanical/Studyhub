@@ -1,11 +1,16 @@
+"use client";
+
 import { Crown, Flag } from "lucide-react";
 import Link from "next/link";
+import { NameTag } from "@/components/name-tag";
+import { UserAvatar } from "@/components/user-avatar";
+import { usePeople } from "@/lib/people";
 import type { Board, BoardRow } from "@/lib/compare";
 import { cn } from "@/lib/utils";
 
 type Labels = { you: string; average: string; people: string; empty: string };
 
-/** Ranked list (works in server and client components). Values are pre-formatted by the caller. */
+/** Ranked list with pictures. Values are pre-formatted by the caller. */
 export function Leaderboard({
   board,
   format,
@@ -17,6 +22,8 @@ export function Leaderboard({
   extra?: (n: number) => string;
   labels: Labels;
 }) {
+  const people = usePeople(board.rows.map((r) => r.user_id));
+  const pic = (r: BoardRow) => (r.user_id ? (people.get(r.user_id)?.avatar ?? null) : null);
   return (
     <div className="flex flex-col gap-3">
       {/* One quiet summary line instead of three stat boxes */}
@@ -43,6 +50,7 @@ export function Leaderboard({
             rows={board.rows.filter((r) => r.rank <= 3).slice(0, 3)}
             format={format}
             you={labels.you}
+            pic={pic}
           />
           {board.rows.some((r) => r.rank > 3) && (
             <ol className="divide-y rounded-xl border bg-card shadow-card">
@@ -69,6 +77,7 @@ export function Leaderboard({
                         ? ["🥇", "🥈", "🥉"][row.rank - 1]
                         : row.rank}
                     </span>
+                    <UserAvatar userId={row.user_id} avatar={pic(row)} name={row.nickname} className="size-7 text-xs" still />
                     <span className="min-w-0 flex-1 truncate">
                       <Name row={row} />
                       {row.is_me && (
@@ -108,10 +117,12 @@ function Podium({
   rows,
   format,
   you,
+  pic,
 }: {
   rows: Board["rows"];
   format: (v: number) => string;
   you: string;
+  pic: (r: BoardRow) => string | null;
 }) {
   if (rows.length === 0) return null;
   const order = [rows[1], rows[0], rows[2]];
@@ -133,7 +144,11 @@ function Podium({
                   : "size-12 text-lg sm:size-14 sm:text-xl",
               )}
             >
-              {row.nickname.slice(0, 1)}
+              {pic(row) ? (
+                <UserAvatar userId={row.rank === 1 ? null : row.user_id} avatar={pic(row)} name={row.nickname} className="size-full" />
+              ) : (
+                row.nickname.slice(0, 1)
+              )}
               {row.rank === 1 && (
                 <Crown
                   className="absolute -top-5 size-5 text-[var(--c-amber)] sm:-top-6 sm:size-6"
@@ -181,7 +196,7 @@ function Name({ row }: { row: BoardRow }) {
   if (!row.user_id) return <bdi>{row.nickname}</bdi>;
   return (
     <Link href={`/profile?id=${row.user_id}`} className="underline-offset-4 hover:underline">
-      <bdi>{row.nickname}</bdi>
+      <NameTag userId={row.user_id} name={row.nickname} />
     </Link>
   );
 }

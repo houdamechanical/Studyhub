@@ -9,7 +9,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { QuizBoardDialog } from "@/components/practice/quiz-board-dialog";
 import { Loaded, NotFoundMessage } from "@/components/page-shell";
-import { Button } from "@/components/ui/button";
 import { isUuid } from "@/lib/actions";
 import { must, useLoad } from "@/lib/data";
 import { useI18n, useTitle } from "@/lib/i18n/client";
@@ -88,43 +87,55 @@ function AttemptView({ attempt, dict, justFinished }: { attempt: AttemptRow; dic
   const [boardOpen, setBoardOpen] = useState(justFinished && quiz?.kind === "mini");
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-6">
-      <Link href={quiz ? subjectHref(quiz.subject) + (quiz.kind === "mock" ? "#mock" : "#mini") : "/home"} className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-6 px-4 py-6">
+      <Link href={quiz ? subjectHref(quiz.subject) + (quiz.kind === "mock" ? "#mock" : "#mini") : "/home"} className="press inline-flex w-fit items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground">
         <ArrowLeft size={16} className="rtl:rotate-180" />
         {t.backToPractice}
       </Link>
 
-      <section className="rounded-xl border bg-card shadow-card p-5">
-        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+      <section className="dark-card enter rounded-[28px] p-6 text-white sm:p-8">
+        <p className="label-mono !text-white/55">
           {t.result} · {quiz?.kind === "mock" ? t.mock : t.mini}
         </p>
-        <h1 className="mt-1 text-xl font-semibold" dir="auto">{quiz?.title}</h1>
-        <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-2">
-          <p className="text-5xl font-semibold tabular-nums tracking-tight">{percent} %</p>
-          <p className="pb-1 text-sm text-muted-foreground">
-            {fill(t.correctCount, { c: correctCount, n: review.length })} · <bdi>{fmt(score)}/{fmt(max)} P</bdi>
-          </p>
-        </div>
-        <div className="mt-3 h-2 overflow-hidden rounded-full bg-muted" aria-hidden>
-          <div className="h-full rounded-full bg-[var(--chart-accent)]" style={{ width: `${percent}%` }} />
+        <h1 className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight [overflow-wrap:anywhere] sm:text-3xl" dir="auto" lang="de">
+          {quiz?.title}
+        </h1>
+        <div className="mt-6 flex items-center gap-6">
+          <ScoreRing percent={percent} />
+          <dl className="grid flex-1 gap-3">
+            <div>
+              <dt className="label-mono !text-[0.62rem] !text-white/45">{t.statCorrect}</dt>
+              <dd className="font-display text-xl font-semibold tabular-nums">
+                <bdi>
+                  {correctCount} / {review.length}
+                </bdi>
+              </dd>
+            </div>
+            <div>
+              <dt className="label-mono !text-[0.62rem] !text-white/45">{t.statPoints}</dt>
+              <dd className="font-display text-xl font-semibold tabular-nums">
+                <bdi>
+                  {fmt(score)} / {fmt(max)}
+                </bdi>
+              </dd>
+            </div>
+          </dl>
         </div>
         {attempt.over_time && (
-          <p className="mt-3 flex items-center gap-2 text-sm text-amber-700 dark:text-amber-400">
+          <p className="mt-4 flex items-center gap-2 text-sm text-amber-300">
             <TriangleAlert size={16} />
             {t.overTime}
           </p>
         )}
-        <div className="mt-4 flex flex-wrap gap-2">
-          <Button asChild variant="outline">
-            <Link href={`/practice/quiz?id=${attempt.quiz_id}`}>
-              <RotateCcw size={16} />
-              {t.tryAgain}
-            </Link>
-          </Button>
-          <Button variant="outline" onClick={() => setBoardOpen(true)}>
+        <div className="mt-6 grid grid-cols-2 gap-2.5">
+          <Link href={`/practice/quiz?id=${attempt.quiz_id}`} className="press flex h-12 items-center justify-center gap-2 rounded-2xl bg-[var(--hero-acc)] text-sm font-bold text-[#0e0c0a]">
+            <RotateCcw size={16} />
+            {t.tryAgain}
+          </Link>
+          <button type="button" onClick={() => setBoardOpen(true)} className="press flex h-12 items-center justify-center gap-2 rounded-2xl border border-white/15 text-sm font-semibold hover:bg-white/10">
             <Trophy size={16} />
             {dict.compare.leaderboard}
-          </Button>
+          </button>
         </div>
       </section>
 
@@ -141,24 +152,39 @@ function AttemptView({ attempt, dict, justFinished }: { attempt: AttemptRow; dic
   );
 }
 
+/** A thin ring that fills to the score. */
+function ScoreRing({ percent }: { percent: number }) {
+  const r = 44;
+  const c = 2 * Math.PI * r;
+  return (
+    <div className="relative size-28 shrink-0 sm:size-32">
+      <svg viewBox="0 0 100 100" className="size-full -rotate-90" aria-hidden>
+        <circle cx="50" cy="50" r={r} fill="none" stroke="rgb(255 255 255 / 0.12)" strokeWidth="5" />
+        <circle cx="50" cy="50" r={r} fill="none" stroke="var(--hero-acc)" strokeWidth="5" strokeLinecap="round" strokeDasharray={`${(percent / 100) * c} ${c}`} className="transition-[stroke-dasharray] duration-700" />
+      </svg>
+      <span className="absolute inset-0 flex items-center justify-center font-display text-3xl font-semibold tabular-nums sm:text-4xl">{percent}%</span>
+    </div>
+  );
+}
+
 const fmt = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
 
 function ReviewCard({ item, index, dict }: { item: ReviewItem; index: number; dict: Dictionary }) {
   const t = dict.quiz;
   const Icon = item.correct ? CircleCheck : CircleX;
   return (
-    <li className="rounded-xl border bg-card shadow-card p-4">
+    <li className="tile rounded-2xl p-4 sm:p-5">
       <div className="flex items-start gap-3">
         <Icon
           size={20}
-          className={cn("mt-0.5 shrink-0", item.correct ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400")}
+          className={cn("mt-0.5 shrink-0", item.correct ? "text-[var(--c-sage)]" : "text-destructive")}
           aria-label={item.correct ? "✓" : "✗"}
         />
         <div className="min-w-0 flex-1">
-          <p className="text-xs text-muted-foreground">
-            {fill(t.question, { n: index + 1 })} · {fill(t.pointsShort, { n: item.correct ? item.points : 0 })} / {item.points}
+          <p className="label-mono">
+            {String(index + 1).padStart(2, "0")} · {fill(t.pointsShort, { n: item.correct ? item.points : 0 })} / {item.points}
           </p>
-          <p className="mt-1 whitespace-pre-line font-medium" dir="auto">{item.prompt}</p>
+          <p className="mt-2 whitespace-pre-line font-display text-lg font-medium leading-snug" dir="auto">{item.prompt}</p>
 
           {item.type === "single" || item.type === "multi" ? (
             <ChoiceReview item={item} dict={dict} />
@@ -181,7 +207,7 @@ function ReviewCard({ item, index, dict }: { item: ReviewItem; index: number; di
 
           {item.explanation.length > 0 && (
             <div className="mt-4 border-t pt-3">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.explanation}</p>
+              <p className="label-mono mb-2">{t.explanation}</p>
               <ol className="flex flex-col gap-2 text-sm">
                 {item.explanation.map((step, i) => (
                   <li key={i} className="flex gap-3">
@@ -214,9 +240,9 @@ function ChoiceReview({ item, dict }: { item: ReviewItem; dict: Dictionary }) {
           <li
             key={i}
             className={cn(
-              "flex items-start gap-2 rounded-lg border px-3 py-2",
-              isCorrect && "border-green-600/50 bg-green-500/10",
-              picked && !isCorrect && "border-red-600/50 bg-red-500/10",
+              "flex items-start gap-2 rounded-xl border bg-background px-3 py-2.5",
+              isCorrect && "border-[var(--c-sage)] bg-[color-mix(in_srgb,var(--c-sage)_10%,var(--c-bg))]",
+              picked && !isCorrect && "border-destructive/60 bg-destructive/10",
             )}
           >
             <span className="w-4 shrink-0 font-semibold" aria-hidden>

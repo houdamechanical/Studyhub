@@ -1,7 +1,14 @@
 // Study Hub – theme bridge for study pages that bring their own layout.
 // Light/dark comes from the app: ?theme=light|dark, live updates via postMessage,
 // otherwise the system setting. Sets data-theme on <html>.
+// Also loads kompakt.js: sections fold to their key points.
 (function () {
+  if (document.currentScript) {
+    var k = document.createElement("script");
+    k.src = document.currentScript.src.replace(/theme\.js(\?.*)?$/, "kompakt.js");
+    k.defer = true;
+    document.head.appendChild(k);
+  }
   var root = document.documentElement;
   function setTheme(t) {
     if (t === "dark" || t === "light") root.setAttribute("data-theme", t);
