@@ -20,11 +20,14 @@ type Auth = {
   electives: SubjectId[] | null;
   /** Kangas (kng) or McCombie (mcm) for Art students; null otherwise. */
   artTeacher: ArtTeacher | null;
+  /** Profile picture: 'a:<preset>' | 'u:<url>' | null (see lib/people). */
+  avatar: string | null;
+  setAvatar: (value: string | null) => void;
   setElectives: (list: SubjectId[], artTeacher: ArtTeacher | null) => void;
   /** The subjects this student takes (all of them until they choose). */
   subjects: SubjectId[];
 };
-type AuthState = Omit<Auth, "setNickname" | "setElectives" | "subjects"> & {
+type AuthState = Omit<Auth, "setNickname" | "setElectives" | "subjects" | "setAvatar"> & {
   /** The profiles table has the electives column (migration applied). */
   canChoose: boolean;
   /** The profiles table has the art_teacher column (migration applied). */
@@ -38,6 +41,8 @@ const AuthContext = createContext<Auth>({
   setNickname: noop,
   electives: null,
   artTeacher: null,
+  avatar: null,
+  setAvatar: noop,
   setElectives: noop,
   subjects: [],
 });
@@ -53,7 +58,7 @@ export const useAuth = () => useContext(AuthContext);
 export function AuthGate({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [auth, setAuth] = useState<AuthState | null>(
-    hasEnvVars ? null : { userId: "", isAdmin: false, nickname: "", electives: null, artTeacher: null, canChoose: false, canPickTeacher: false },
+    hasEnvVars ? null : { userId: "", isAdmin: false, nickname: "", electives: null, artTeacher: null, avatar: null, canChoose: false, canPickTeacher: false },
   );
 
   useEffect(() => {
@@ -74,6 +79,9 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
         supabase.from("profiles").select("nickname, electives").eq("user_id", userId).maybeSingle(),
         supabase.from("profiles").select("art_teacher").eq("user_id", userId).maybeSingle(),
       ]);
+      // Profile picture (fails harmlessly before the avatars migration).
+      const avatarRow = await supabase.from("profiles").select("avatar").eq("user_id", userId).maybeSingle();
+      const avatar = avatarRow.error ? null : ((avatarRow.data as { avatar: string | null } | null)?.avatar ?? null);
       // Before the art teacher migration this select fails: no teacher question then.
       const canPickTeacher = !teacherRow.error;
       const rawTeacher = (teacherRow.data as { art_teacher: string | null } | null)?.art_teacher;
@@ -95,6 +103,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
           nickname,
           electives,
           artTeacher,
+          avatar,
           canChoose: canChoose && Boolean(row),
           canPickTeacher,
         });
@@ -131,11 +140,12 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   if (hasEnvVars && auth.canChoose && (!auth.electives || needsTeacher)) {
     return <ElectivesOnboarding initial={auth.electives} initialTeacher={auth.artTeacher} onDone={setElectives} />;
   }
-  const { userId, isAdmin, nickname, electives, artTeacher } = auth;
+  const { userId, isAdmin, nickname, electives, artTeacher, avatar } = auth;
+  const setAvatar = (value: string | null) => setAuth((a) => (a ? { ...a, avatar: value } : a));
   setMyArtTeacher(artTeacher);
   return (
     <AuthContext.Provider
-      value={{ userId, isAdmin, nickname, electives, artTeacher, setNickname, setElectives, subjects: mySubjects(electives) }}
+      value={{ userId, isAdmin, nickname, electives, artTeacher, avatar, setAvatar, setNickname, setElectives, subjects: mySubjects(electives) }}
     >
       {children}
     </AuthContext.Provider>

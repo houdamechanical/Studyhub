@@ -2,7 +2,15 @@
 // 1) Theme: ?theme=light|dark from the app (live updates via postMessage), else the system setting.
 // 2) Formulas: KaTeX auto-render for \( … \) and \[ … \].
 // 3) Solutions: "show all / hide all" buttons, quick checks.
+// 4) Loads pad.js: "Antwort selbst schreiben" under every exercise.
 (function () {
+  // Handwriting answer pad for pages with exercises (.aufgabe).
+  if (document.currentScript) {
+    var pad = document.createElement("script");
+    pad.src = document.currentScript.src.replace(/math\.js(\?.*)?$/, "pad.js");
+    pad.defer = true;
+    document.head.appendChild(pad);
+  }
   var root = document.documentElement;
   function setTheme(t) {
     if (t === "dark" || t === "light") root.setAttribute("data-theme", t);

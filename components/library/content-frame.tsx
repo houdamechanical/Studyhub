@@ -21,9 +21,9 @@ type WebkitDocument = Document & { webkitFullscreenEnabled?: boolean };
  *
  * `sandbox` deliberately omits `allow-same-origin`: the page's own CSS and JS run
  * normally, but it gets an opaque origin, so it cannot touch the app's cookies or
- * Supabase session. (Side effect: localStorage is unavailable inside the page, so
- * things like a quiz's high score are not remembered. The current pages handle
- * that gracefully.) There is deliberately no "open in new tab": opened directly,
+ * Supabase session. (Side effect: localStorage is unavailable inside the page; pages
+ * that need to remember something, like handwritten answers, ask the app through the
+ * storage bridge below.) There is deliberately no "open in new tab": opened directly,
  * the page would not be sandboxed.
  */
 export function ContentFrame({
@@ -57,6 +57,38 @@ export function ContentFrame({
     );
   }, [resolvedTheme]);
   const src = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/content/${file}?theme=${initialTheme ?? "light"}`;
+
+  // Storage bridge: the sandboxed page has no localStorage of its own, so it asks
+  // the app to keep small things for it (e.g. handwritten answer drafts). Only
+  // messages from this frame are answered, and keys are kept per page.
+  useEffect(() => {
+    const prefix = `studyhub:page:${file}:`;
+    const onMessage = (e: MessageEvent) => {
+      const win = frameRef.current?.contentWindow;
+      if (!win || e.source !== win) return;
+      const d = e.data as { type?: string; key?: unknown; value?: unknown; reqId?: unknown } | null;
+      if (!d || typeof d.key !== "string" || d.key.length > 120) return;
+      if (d.type === "studyhub-store-get") {
+        let value: string | null = null;
+        try {
+          value = localStorage.getItem(prefix + d.key);
+        } catch {}
+        win.postMessage({ type: "studyhub-store-value", reqId: d.reqId, key: d.key, value }, "*");
+      } else if (d.type === "studyhub-store-set") {
+        let ok = true;
+        try {
+          if (d.value === null) localStorage.removeItem(prefix + d.key);
+          else if (typeof d.value === "string" && d.value.length < 2_000_000) localStorage.setItem(prefix + d.key, d.value);
+          else ok = false;
+        } catch {
+          ok = false; // storage full
+        }
+        win.postMessage({ type: "studyhub-store-saved", reqId: d.reqId, key: d.key, ok }, "*");
+      }
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [file]);
 
   useEffect(() => {
     if (!expanded) return;

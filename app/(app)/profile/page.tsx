@@ -2,6 +2,7 @@
 
 import {
   Award,
+  Camera,
   CalendarCheck,
   Check,
   Clock,
@@ -23,6 +24,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
+import { AvatarPicker } from "@/components/avatar-picker";
+import { UserAvatar } from "@/components/user-avatar";
 import { Loaded } from "@/components/page-shell";
 import { PageHero } from "@/components/page-hero";
 import { SetupNotice } from "@/components/setup-notice";
@@ -44,6 +47,7 @@ import {
   type PlayerStats,
 } from "@/lib/friends";
 import { useI18n } from "@/lib/i18n/client";
+import { useAdmins, usePeople } from "@/lib/people";
 import { fill } from "@/lib/i18n/dictionaries";
 import { cn } from "@/lib/utils";
 
@@ -99,6 +103,11 @@ function ProfileView({ stats }: { stats: PlayerStats }) {
   const nf = new Intl.NumberFormat(intlLocale(locale));
   const since = new Intl.DateTimeFormat(intlLocale(locale), { month: "long", year: "numeric" }).format(new Date(stats.joined));
   const earned = ACHIEVEMENTS.filter((a) => a.value(stats) >= a.goal).length;
+  const self = stats.relation === "self";
+  const { avatar: myAvatar } = useAuth();
+  const people = usePeople([self ? undefined : stats.user_id]);
+  const admins = useAdmins();
+  const [picking, setPicking] = useState(false);
 
   const figures = [
     { label: t.xp, value: nf.format(stats.xp) },
@@ -109,21 +118,31 @@ function ProfileView({ stats }: { stats: PlayerStats }) {
 
   return (
     <div className="flex flex-col gap-8">
-      <PageHero back={{ href: "/friends", label: dict.friends.title }} title={stats.nickname} />
+      <PageHero back={{ href: "/friends", label: dict.friends.title }} title={stats.nickname + (admins.has(stats.user_id) ? " (Admin)" : "")} />
 
       <section className="enter -mt-4 flex flex-wrap items-center gap-x-5 gap-y-4">
-        <span
-          aria-hidden
-          className="flex size-16 shrink-0 sm:size-20 items-center justify-center rounded-full bg-primary font-display text-3xl font-semibold uppercase text-primary-foreground shadow-card sm:text-4xl"
-        >
-          {stats.nickname.slice(0, 1)}
-        </span>
+        {self ? (
+          <button type="button" onClick={() => setPicking(true)} className="press group relative shrink-0 rounded-full" aria-label={t.changePicture}>
+            <UserAvatar avatar={myAvatar} name={stats.nickname} className="size-20 text-3xl shadow-card sm:size-24 sm:text-4xl" />
+            <span className="absolute -bottom-1 -end-1 flex size-8 items-center justify-center rounded-full border-2 border-background bg-primary text-primary-foreground shadow-card">
+              <Camera size={15} />
+            </span>
+          </button>
+        ) : (
+          <UserAvatar avatar={people.get(stats.user_id)?.avatar ?? null} name={stats.nickname} className="size-20 text-3xl shadow-card sm:size-24 sm:text-4xl" />
+        )}
         <div className="min-w-0 flex-1 basis-40">
           <p className="text-muted-foreground">{fill(t.joined, { date: since })}</p>
-          {stats.relation === "self" && <p className="mt-1 text-sm font-medium text-[var(--c-amber)]">{t.you}</p>}
+          {self && <p className="mt-1 text-sm font-medium text-[var(--c-amber)]">{t.you}</p>}
+          {self && (
+            <button type="button" onClick={() => setPicking(true)} className="mt-1 text-sm font-medium text-muted-foreground underline underline-offset-4 hover:text-foreground">
+              {t.changePicture}
+            </button>
+          )}
         </div>
         <FriendActions stats={stats} />
       </section>
+      {picking && <AvatarPicker onClose={() => setPicking(false)} />}
 
       <dl className="enter grid grid-cols-2 divide-x divide-y rounded-xl border bg-card shadow-card sm:grid-cols-4 sm:divide-y-0 rtl:divide-x-reverse">
         {figures.map((f) => (

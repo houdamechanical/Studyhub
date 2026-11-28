@@ -618,3 +618,24 @@ a:hover > .book3d .book3d-shadow {
     animation: none;
   }
 }
+
+/* Animated avatars: a slow bob, a blink every few seconds, blinking antenna lights */
+.av-anim .av-bob { animation: av-bob 3.2s ease-in-out infinite; transform-box: view-box; }
+.av-anim .av-blink { animation: av-blink 4.6s ease-in-out infinite; transform-box: view-box; }
+.av-anim .av-pulse { animation: av-pulse 1.6s ease-in-out infinite; }
+@keyframes av-bob { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-1.6px) } }
+@keyframes av-blink { 0%, 92%, 100% { transform: scaleY(1) } 95% { transform: scaleY(0.12) } }
+@keyframes av-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.35 } }
+@media (prefers-reduced-motion: reduce) { .av-anim .av-bob, .av-anim .av-blink, .av-anim .av-pulse { animation: none; } }
+
+/* Home hero: rotating text ring */
+.spin-slow { animation: spin-slow 22s linear infinite; }
+@keyframes spin-slow { to { transform: rotate(360deg) } }
+@media (prefers-reduced-motion: reduce) { .spin-slow { animation: none; } }
+
+/* Home hero accent: light royal blue by day, orange at night (text sits on a dark scene in both) */
+:root { --hero-acc: #9db6ff; }
+.dark { --hero-acc: #ff8a3d; }
+.fade-swap { animation: fade-swap 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes fade-swap { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+@media (prefers-reduced-motion: reduce) { .fade-swap { animation: none; } }
