@@ -51,6 +51,7 @@ const en = {
     half2: "2nd",
   },
   kind: {
+    exam: "Mock exam",
     exercises: "Exercises with solutions",
     notes: "Notes",
     quiz: "Quiz",
@@ -676,6 +677,7 @@ const de: Dictionary = {
     half2: "2.",
   },
   kind: {
+    exam: "Probeklausur",
     exercises: "Übungen mit Lösungen",
     notes: "Lernseite",
     quiz: "Quiz",
@@ -1299,6 +1301,7 @@ const ar: Dictionary = {
     half2: "الثاني",
   },
   kind: {
+    exam: "امتحان تجريبي",
     exercises: "تمارين مع الحلول",
     notes: "ملخص",
     quiz: "اختبار",

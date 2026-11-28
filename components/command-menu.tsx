@@ -53,7 +53,7 @@ type Item = {
 type Practice = { id: string; title: string; subject: string; kind?: "mini" | "mock" };
 
 const norm = (s: string) => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
-const KIND_ICON: Record<ContentKind, LucideIcon> = { notes: FileText, quiz: Gamepad2, interactive: MousePointerClick, exercises: PencilLine };
+const KIND_ICON: Record<ContentKind, LucideIcon> = { notes: FileText, quiz: Gamepad2, interactive: MousePointerClick, exercises: PencilLine, exam: Timer };
 
 /** ⌘K / Ctrl+K or the search button: full-screen search over pages, subjects, topics, study pages, tests and communities. */
 export function CommandMenu() {
