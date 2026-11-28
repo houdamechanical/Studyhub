@@ -302,5 +302,79 @@
       "Musterlösung"
     ],
     "file": "deutsch/11.1/lyrik-beispiel-klassik-das-goettliche.html"
+  },
+  {
+    "id": "physik-ladung-coulomb",
+    "title": "Elektrische Ladung und Coulomb-Gesetz – Erklärung",
+    "subject": "physik",
+    "semester": "11.1",
+    "topic": "Elektrische Ladung und Coulomb-Gesetz",
+    "kind": "interactive",
+    "tags": [
+      "Ladung",
+      "Coulomb",
+      "Elementarladung",
+      "Elektronen",
+      "Influenz",
+      "Leiter",
+      "Isolator",
+      "Coulomb-Gesetz",
+      "Epsilon",
+      "Kraft"
+    ],
+    "file": "physik/11.1/ladung-coulomb.html"
+  },
+  {
+    "id": "physik-aufgaben-ladung-coulomb",
+    "title": "Aufgaben: Ladung und Coulomb-Gesetz",
+    "subject": "physik",
+    "semester": "11.1",
+    "topic": "Elektrische Ladung und Coulomb-Gesetz",
+    "kind": "exercises",
+    "tags": [
+      "Aufgaben",
+      "Coulomb-Gesetz",
+      "Elementarladung",
+      "Kraft",
+      "Wasserstoffatom"
+    ],
+    "file": "physik/11.1/aufgaben-ladung-coulomb.html"
+  },
+  {
+    "id": "physik-elektrisches-feld",
+    "title": "Das elektrische Feld – Erklärung",
+    "subject": "physik",
+    "semester": "11.1",
+    "topic": "Das elektrische Feld",
+    "kind": "interactive",
+    "tags": [
+      "Feld",
+      "Feldlinien",
+      "Feldstärke",
+      "Faraday",
+      "Probeladung",
+      "homogenes Feld",
+      "Plattenkondensator",
+      "Dipol",
+      "Radialfeld"
+    ],
+    "file": "physik/11.1/elektrisches-feld.html"
+  },
+  {
+    "id": "physik-aufgaben-elektrisches-feld",
+    "title": "Aufgaben: Das elektrische Feld",
+    "subject": "physik",
+    "semester": "11.1",
+    "topic": "Das elektrische Feld",
+    "kind": "exercises",
+    "tags": [
+      "Aufgaben",
+      "Feldstärke",
+      "Feldlinien",
+      "Plattenkondensator",
+      "Millikan",
+      "Öltröpfchen"
+    ],
+    "file": "physik/11.1/aufgaben-elektrisches-feld.html"
   }
 ]

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Das elektrische Feld – Erklärung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+<style>
+  .seg { display: inline-flex; gap: 4px; background: var(--raised); border-radius: 12px; padding: 4px; flex-wrap: wrap; }
+  .seg button { font: inherit; font-size: .85rem; font-weight: 600; border: 0; background: none; color: var(--text2); padding: 7px 12px; border-radius: 9px; cursor: pointer; }
+  .seg button.on { background: var(--card); color: var(--text); box-shadow: var(--shadow); }
+  #fCanvas { width: 100%; aspect-ratio: 16 / 10; display: block; border-radius: 12px; background: var(--bg); touch-action: none; cursor: grab; }
+  .ctl { display: grid; grid-template-columns: 7.5em 1fr 6.5em; gap: 6px 12px; align-items: center; margin: 10px 0; }
+  .ctl label { font-weight: 600; font-size: .9rem; }
+  .ctl output { text-align: end; font-variant-numeric: tabular-nums; font-weight: 600; }
+  input[type=range] { width: 100%; accent-color: var(--math); }
+  .tf { display: grid; gap: 8px; margin: 12px 0; }
+  .tf .row { display: flex; gap: 10px; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+  .tf .row p { margin: 0; flex: 1; }
+  .tf .row button { font: inherit; font-weight: 600; font-size: .85rem; padding: 7px 12px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; }
+  .tf .row.ok { border-color: var(--green); background: var(--okbg); }
+  .tf .row.no { border-color: var(--accent); background: var(--warnbg); }
+  .tf .row .why { display: none; flex-basis: 100%; color: var(--text2); font-size: .9rem; }
+  .tf .row.ok .why, .tf .row.no .why { display: block; }
+  .tf .row { flex-wrap: wrap; }
+  .lab .plate { fill: var(--text2); }
+  .lab .fl { stroke: var(--math); stroke-width: 2; }
+  @media (max-width: 560px) { .ctl { grid-template-columns: 1fr 5.5em; } .ctl input { grid-column: 1 / -1; grid-row: 2; } }
+</style>
+</head>
+<body class="physik">
+<div class="wrap">
+
+<header class="hero">
+  <h1>Das elektrische <em>Feld</em></h1>
+  <p class="lead">Ladungen wirken aufeinander, ohne sich zu berühren – über ihr <b>elektrisches Feld</b>. Hier lernst du die Regeln für Feldlinienbilder, die elektrische Feldstärke \(E = \frac{F}{q}\) und das homogene Feld im Plattenkondensator. Mit Feldlinien-Simulator zum Selbst-Ausprobieren.</p>
+  <nav class="toc" aria-label="Inhalt">
+    <a href="#feld"><b>1</b> Was ist ein Feld?</a>
+    <a href="#regeln"><b>2</b> Feldlinien-Regeln</a>
+    <a href="#sim"><b>3</b> Feldlinien-Simulator</a>
+    <a href="#bilder"><b>4</b> Wichtige Feldbilder</a>
+    <a href="#staerke"><b>5</b> Feldstärke E</a>
+    <a href="#homogen"><b>6</b> Plattenkondensator</a>
+    <a href="#beispiele"><b>7</b> Beispiele</a>
+    <a href="#fehler"><b>8</b> Typische Fehler</a>
+    <a href="#check"><b>9</b> Richtig oder falsch?</a>
+  </nav>
+</header>
+
+<section class="block" id="feld">
+  <h2><span class="num">1</span>Was ist ein elektrisches Feld?</h2>
+  <p>Jede Ladung verändert den Raum um sich herum: In diesem Raum erfährt jede andere Ladung eine Kraft. Diesen „Zustand des Raumes“ nennt man <b>elektrisches Feld</b>. Man kann das Feld nicht sehen – man erkennt es nur an seiner Wirkung, der <b>Kraft auf eine Ladung</b>.</p>
+  <div class="rule"><b>Merke</b>Ein elektrisches Feld ist ein Raum, in dem auf elektrische Ladungen eine Kraft wirkt. Um das Feld zu untersuchen, benutzt man eine kleine, <b>positive Probeladung</b> \(q\), die das Feld selbst kaum verändert.</div>
+</section>
+
+<section class="block" id="regeln">
+  <h2><span class="num">2</span>Regeln für Feldlinienbilder</h2>
+  <ol class="steps">
+    <li><b>Modell</b>Das Feldlinienbild ist ein <b>Modell</b> des Feldes (eingeführt von <b>Michael Faraday</b>). Sichtbar machen kann man die Struktur mit <b>Grießkörnern</b> in Öl: Sie richten sich entlang der Feldlinien aus.</li>
+    <li><b>Anfang und Ende</b>Feldlinien <b>beginnen an positiven</b> und <b>enden an negativen</b> Ladungen. Ihre Richtung ist von <b>+ nach −</b> festgelegt.</li>
+    <li><b>Kraftrichtung</b>Die Feldlinie (genauer: ihre Tangente) gibt die Richtung der Kraft auf eine <b>positive</b> Probeladung an. Auf <b>negative</b> Ladungen wirkt die Kraft <b>entgegengesetzt</b>.</li>
+    <li><b>Dichte</b>Je <b>dichter</b> die Feldlinien, desto <b>stärker</b> das Feld. Feldlinien <b>schneiden sich nie</b> und stehen <b>senkrecht auf Leiteroberflächen</b>.</li>
+    <li><b>Homogen und inhomogen</b>Im <b>homogenen</b> Feld (Plattenkondensator) verlaufen die Feldlinien <b>parallel</b> und <b>gleich dicht</b>: Die Kraft ist überall gleich. Sonst ist das Feld <b>inhomogen</b>, z.&nbsp;B. das <b>Radialfeld</b> einer Punktladung.</li>
+  </ol>
+  <div class="tip"><b>Warum schneiden sich Feldlinien nie?</b>An jedem Punkt hat die Kraft auf die Probeladung genau <b>eine</b> Richtung. Würden sich zwei Feldlinien schneiden, gäbe es dort zwei Richtungen – das ist unmöglich.</div>
+</section>
+
+<section class="block" id="sim">
+  <h2><span class="num">3</span>Feldlinien-Simulator</h2>
+  <p>Wähle eine Anordnung. <b>Ziehe</b> die Ladungen mit dem Finger oder der Maus, <b>tippe</b> auf eine Ladung, um ihr Vorzeichen zu wechseln. Der orange Punkt ist die <b>Probeladung</b>: Ihr Pfeil zeigt die Kraft auf sie.</p>
+  <div class="lab">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+      <div class="seg" id="fPreset">
+        <button data-p="single" class="on">Einzelladung</button>
+        <button data-p="dipol">Dipol (+ −)</button>
+        <button data-p="gleich">Zwei gleiche (+ +)</button>
+        <button data-p="platte">Plattenkondensator</button>
+      </div>
+      <div class="seg" id="fProbe">
+        <button data-s="1" class="on">Probeladung +</button>
+        <button data-s="-1">Probeladung −</button>
+      </div>
+    </div>
+    <canvas id="fCanvas" aria-label="Feldlinienbild mit verschiebbaren Ladungen"></canvas>
+    <div class="readout">
+      <div><small>Feldstärke am Punkt</small><b id="fE">–</b></div>
+      <div><small>Kraft auf Probeladung</small><b id="fF" style="font-size:1rem">–</b></div>
+      <div><small>Tipp</small><b id="fT" style="font-size:.92rem;font-weight:600">Ziehe den orangen Punkt</b></div>
+    </div>
+    <p class="small muted" style="margin-bottom:0">Modell: jede Ladung 2&nbsp;nC, Bildmaßstab 1&nbsp;Pixel ≈ 1&nbsp;mm, Probeladung 1&nbsp;nC.</p>
+  </div>
+</section>
+
+<section class="block" id="bilder">
+  <h2><span class="num">4</span>Wichtige Feldlinienbilder</h2>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th>Anordnung</th><th>So sieht das Feld aus</th></tr>
+    <tr><td><b>Einzelne Punktladung</b></td><td>Radial (sternförmig): bei + nach außen, bei − nach innen. Nach außen wird das Feld schwächer, weil die Linien auseinanderlaufen. <b>Radialfeld</b> – ein <b>inhomogenes</b> Feld.</td></tr>
+    <tr><td><b>Dipol</b> (+ und −)</td><td>Bögen von + nach −. Zwischen den Ladungen ist das Feld am dichtesten.</td></tr>
+    <tr><td><b>Zwei gleichnamige Ladungen</b></td><td>Die Linien weichen sich aus. In der Mitte gibt es einen feldfreien Punkt (\(E = 0\)).</td></tr>
+    <tr><td><b>Plattenkondensator</b></td><td>Zwischen den Platten parallel und gleich dicht: <b>homogenes Feld</b>. Am Rand wölben sich die Linien (Randfeld).</td></tr>
+  </table>
+  </div>
+  <p>Probiere alle vier im Simulator aus und vergleiche mit den Regeln aus Abschnitt 2.</p>
+</section>
+
+<section class="block" id="staerke">
+  <h2><span class="num">5</span>Die elektrische Feldstärke</h2>
+  <p>Die Feldlinien zeigen die <b>Richtung</b>, aber wie <b>stark</b> ist das Feld? Dafür misst man die Kraft auf die Probeladung – und teilt durch die Probeladung, damit das Ergebnis nur vom Feld abhängt:</p>
+  <div class="rule"><b>Elektrische Feldstärke</b>Die elektrische Feldstärke in einem Punkt gibt an, wie groß die Kraft auf eine Probeladung in diesem Punkt ist (pro Coulomb):
+    \[\vec E = \frac{\vec F}{q} \qquad [E] = 1\ \frac{\text{N}}{\text{C}} = 1\ \frac{\text{V}}{\text{m}}\]
+    Die Feldstärke ist ein <b>Vektor</b>. Sie zeigt in Richtung der Kraft auf eine <b>positive</b> Probeladung, also tangential zur Feldlinie.
+  </div>
+  <p>Umgekehrt: Kennt man das Feld, bekommt man die Kraft auf jede Ladung: \(F = q\cdot E\).</p>
+  <h3>Feldstärke einer Punktladung</h3>
+  <p>Setzt man das Coulomb-Gesetz in \(E = \frac{F}{q}\) ein, kürzt sich die Probeladung heraus:</p>
+  <div class="gbox"><p>\(E = \dfrac{F}{q} = \dfrac{1}{4\pi\varepsilon_0\varepsilon_r}\cdot\dfrac{Q\cdot q}{r^2}\cdot\dfrac{1}{q} = \dfrac{1}{4\pi\varepsilon_0\varepsilon_r}\cdot\dfrac{Q}{r^2}\)</p></div>
+  <p>Doppelter Abstand → nur noch ¼ der Feldstärke. Genau das zeigen die auseinanderlaufenden Feldlinien.</p>
+  <div class="tip"><b>Warum N/C = V/m?</b>\(1\ \frac{\text{V}}{\text{m}} = 1\ \frac{\text{J}}{\text{C}\cdot\text{m}} = 1\ \frac{\text{N}\cdot\text{m}}{\text{C}\cdot\text{m}} = 1\ \frac{\text{N}}{\text{C}}\), weil \(1\ \text{V} = 1\ \frac{\text{J}}{\text{C}}\) und \(1\ \text{J} = 1\ \text{N}\cdot\text{m}\).</div>
+</section>
+
+<section class="block" id="homogen">
+  <h2><span class="num">6</span>Das homogene Feld im Plattenkondensator</h2>
+  <p>Zwei parallele Metallplatten mit Abstand \(d\) werden an eine Spannung \(U\) angeschlossen. Dazwischen entsteht ein <b>homogenes Feld</b> mit überall gleicher Feldstärke:</p>
+  <div class="rule"><b>Plattenkondensator</b>\[E = \frac{U}{d}\] Größere Spannung → stärkeres Feld · größerer Plattenabstand → schwächeres Feld.</div>
+  <div class="lab">
+    <svg viewBox="0 0 640 170" role="img" aria-label="Plattenkondensator mit Feldlinien">
+      <rect id="kP1" class="plate" x="100" y="20" width="12" height="130" rx="3"/>
+      <rect id="kP2" class="plate" x="520" y="20" width="12" height="130" rx="3"/>
+      <text id="kL1" x="106" y="14" text-anchor="middle" style="fill:#e03131;font:800 16px Inter">+</text>
+      <text id="kL2" x="526" y="14" text-anchor="middle" style="fill:#1971c2;font:800 16px Inter">−</text>
+      <g id="kLines"></g>
+    </svg>
+    <div class="ctl"><label for="kU">Spannung U</label><input id="kU" type="range" min="10" max="500" step="10" value="230"><output id="kUo"></output></div>
+    <div class="ctl"><label for="kD">Abstand d</label><input id="kD" type="range" min="0.5" max="10" step="0.5" value="2"><output id="kDo"></output></div>
+    <div class="ctl"><label for="kQ">Ladung q</label><input id="kQ" type="range" min="-10" max="10" step="1" value="1"><output id="kQo"></output></div>
+    <div class="readout">
+      <div><small>Feldstärke E</small><b id="kE">–</b></div>
+      <div><small>Kraft auf q</small><b id="kF">–</b></div>
+      <div><small>Richtung</small><b id="kR" style="font-size:1rem">–</b></div>
+    </div>
+  </div>
+  <p class="small muted">Startwerte: U = 230&nbsp;V, d = 2&nbsp;cm → \(E = \frac{230\ \text{V}}{0{,}02\ \text{m}} = 1{,}15\cdot10^4\ \frac{\text{V}}{\text{m}}\). Die Dichte der gezeichneten Linien wächst mit E.</p>
+</section>
+
+<section class="block" id="beispiele">
+  <h2><span class="num">7</span>Beispiele</h2>
+  <div class="beispiel"><span class="tag">Beispiel 1:</span>Eine Probeladung \(q = 2\ \text{nC}\) erfährt an einem Punkt die Kraft \(F = 6\cdot10^{-5}\ \text{N}\). Wie groß ist die Feldstärke dort?</div>
+  <div class="gbox">
+    <p>geg.: \(q = 2\ \text{nC} = 2\cdot10^{-9}\ \text{C}\) · \(F = 6\cdot10^{-5}\ \text{N}\)</p>
+    <p>ges.: \(E\)</p>
+    <p>\(E = \dfrac{F}{q} = \dfrac{6\cdot10^{-5}\ \text{N}}{2\cdot10^{-9}\ \text{C}} = 3\cdot10^{4}\ \dfrac{\text{N}}{\text{C}}\)</p>
+  </div>
+  <p class="answer">Die Feldstärke beträgt \(3\cdot10^4\ \frac{\text{N}}{\text{C}}\) (= \(3\cdot10^4\ \frac{\text{V}}{\text{m}}\)).</p>
+
+  <div class="beispiel"><span class="tag">Beispiel 2:</span>Wie groß ist die Feldstärke im Abstand \(10\ \text{cm}\) von einer Punktladung \(Q = 5\ \text{nC}\) (in Luft)?</div>
+  <div class="gbox">
+    <p>geg.: \(Q = 5\cdot10^{-9}\ \text{C}\) · \(r = 0{,}1\ \text{m}\) · \(\varepsilon_r = 1\)</p>
+    <p>ges.: \(E\)</p>
+    <p>\(E = \dfrac{1}{4\pi\varepsilon_0}\cdot\dfrac{Q}{r^2} = 8{,}99\cdot10^{9}\ \tfrac{\text{Nm}^2}{\text{C}^2}\cdot\dfrac{5\cdot10^{-9}\ \text{C}}{(0{,}1\ \text{m})^2} \approx 4{,}5\cdot10^{3}\ \dfrac{\text{N}}{\text{C}}\)</p>
+  </div>
+  <p class="answer">Im Abstand 10&nbsp;cm ist die Feldstärke etwa \(4{,}5\cdot10^3\ \frac{\text{N}}{\text{C}}\), in 20&nbsp;cm nur noch ein Viertel davon.</p>
+</section>
+
+<section class="block" id="fehler">
+  <h2><span class="num">8</span>Typische Fehler</h2>
+  <div class="warn"><b>1. Feldlinien von − nach +</b>Die Richtung ist festgelegt: von <b>+ nach −</b>. Das ist auch die Kraftrichtung auf eine positive Probeladung.</div>
+  <div class="warn"><b>2. Kraft auf Elektronen in Feldrichtung</b>Elektronen sind negativ: Die Kraft zeigt <b>gegen</b> die Feldlinien.</div>
+  <div class="warn"><b>3. E hängt von q ab</b>Nein! \(E\) beschreibt das Feld selbst. Verdoppelt man \(q\), verdoppelt sich \(F\) – \(E = F/q\) bleibt gleich.</div>
+  <div class="warn"><b>4. Sich schneidende oder schräg endende Linien gezeichnet</b>Feldlinien schneiden sich nie und treffen <b>senkrecht</b> auf Leiteroberflächen.</div>
+  <div class="warn"><b>5. d in cm eingesetzt</b>Bei \(E = U/d\) immer \(d\) in Metern einsetzen: 2&nbsp;cm = 0,02&nbsp;m.</div>
+</section>
+
+<section class="block" id="check">
+  <h2><span class="num">9</span>Richtig oder falsch?</h2>
+  <p>Tippe auf deine Antwort – die Begründung erscheint sofort.</p>
+  <div class="tf" id="tf">
+    <div class="row" data-a="f"><p>Feldlinien beginnen an negativen Ladungen.</p><button data-v="r">richtig</button><button data-v="f">falsch</button><span class="why">Falsch: Sie beginnen an <b>positiven</b> und enden an negativen Ladungen.</span></div>
+    <div class="row" data-a="r"><p>Feldlinien schneiden sich nie.</p><button data-v="r">richtig</button><button data-v="f">falsch</button><span class="why">Richtig: An jedem Punkt gibt es nur eine Kraftrichtung.</span></div>
+    <div class="row" data-a="r"><p>Je dichter die Feldlinien, desto stärker das Feld.</p><button data-v="r">richtig</button><button data-v="f">falsch</button><span class="why">Richtig: Die Liniendichte ist ein Maß für die Feldstärke.</span></div>
+    <div class="row" data-a="f"><p>Feldlinien treffen schräg auf Metalloberflächen.</p><button data-v="r">richtig</button><button data-v="f">falsch</button><span class="why">Falsch: Sie stehen immer <b>senkrecht</b> auf Leiteroberflächen.</span></div>
+    <div class="row" data-a="r"><p>Auf ein Elektron wirkt die Kraft entgegen der Feldlinienrichtung.</p><button data-v="r">richtig</button><button data-v="f">falsch</button><span class="why">Richtig: Das Elektron ist negativ geladen.</span></div>
+    <div class="row" data-a="f"><p>Verdoppelt man die Probeladung, verdoppelt sich die Feldstärke.</p><button data-v="r">richtig</button><button data-v="f">falsch</button><span class="why">Falsch: Die Kraft verdoppelt sich, aber \(E = F/q\) bleibt gleich.</span></div>
+    <div class="row" data-a="r"><p>Im Plattenkondensator ist das Feld zwischen den Platten homogen.</p><button data-v="r">richtig</button><button data-v="f">falsch</button><span class="why">Richtig: Parallele, gleich dichte Feldlinien (nur am Rand nicht).</span></div>
+    <div class="row" data-a="r"><p>1 N/C ist dasselbe wie 1 V/m.</p><button data-v="r">richtig</button><button data-v="f">falsch</button><span class="why">Richtig: \(1\ \frac{\text{V}}{\text{m}} = 1\ \frac{\text{J}}{\text{C}\cdot\text{m}} = 1\ \frac{\text{N}}{\text{C}}\).</span></div>
+  </div>
+  <p id="tfScore" class="small muted">0 von 8 beantwortet</p>
+  <p class="small muted">Mehr Übung: <b>Aufgaben</b> zu diesem Thema und der <b>Mini-Test</b> mit Multiple-Choice-Fragen.</p>
+</section>
+
+<p class="foot">Study Hub · Physik 11.1 · Das elektrische Feld</p>
+</div>
+
+<script>
+(function () {
+  function css(v) { return getComputedStyle(document.body).getPropertyValue(v).trim(); }
+  function sci(x) {
+    if (x === 0) return "0";
+    var ex = Math.floor(Math.log10(Math.abs(x))), m = x / Math.pow(10, ex);
+    if (Math.abs(m) >= 9.995) { m /= 10; ex++; }
+    var s = m.toFixed(2).replace(".", ",");
+    return ex === 0 ? s : s + " · 10" + String(ex).split("").map(function (c) { return c === "-" ? "⁻" : "⁰¹²³⁴⁵⁶⁷⁸⁹"[+c]; }).join("");
+  }
+  var K = 8.99e9, QU = 2e-9, QP = 1e-9;
+
+  // ---------------- Feldlinien-Simulator ----------------
+  var cv = document.getElementById("fCanvas"), ctx = cv.getContext("2d");
+  var W = 800, H = 500, charges = [], probe = { x: 560, y: 150 }, probeSign = 1, plates = false;
+  function preset(p) {
+    plates = p === "platte";
+    if (p === "single") charges = [{ x: 400, y: 250, q: 1 }];
+    if (p === "dipol") charges = [{ x: 280, y: 250, q: 1 }, { x: 520, y: 250, q: -1 }];
+    if (p === "gleich") charges = [{ x: 280, y: 250, q: 1 }, { x: 520, y: 250, q: 1 }];
+    if (p === "platte") {
+      charges = [];
+      for (var i = 0; i < 21; i++) {
+        var y = 90 + i * 16;
+        charges.push({ x: 250, y: y, q: 0.35, fixed: true });
+        charges.push({ x: 550, y: y, q: -0.35, fixed: true });
+      }
+    }
+    probe = plates ? { x: 400, y: 200 } : { x: 560, y: 150 };
+    draw();
+  }
+  function field(x, y) {
+    var ex = 0, ey = 0;
+    for (var i = 0; i < charges.length; i++) {
+      var c = charges[i], dx = x - c.x, dy = y - c.y, r2 = dx * dx + dy * dy, r = Math.sqrt(r2);
+      if (r < 1) continue;
+      var f = c.q / (r2 * r);
+      ex += f * dx; ey += f * dy;
+    }
+    return [ex, ey];
+  }
+  function trace(x, y, dir) {
+    var pts = [[x, y]];
+    for (var s = 0; s < 1400; s++) {
+      var e1 = field(x, y), n1 = Math.hypot(e1[0], e1[1]);
+      if (!n1) break;
+      var mx = x + dir * 1.5 * e1[0] / n1, my = y + dir * 1.5 * e1[1] / n1;
+      var e2 = field(mx, my), n2 = Math.hypot(e2[0], e2[1]);
+      if (!n2) break;
+      x += dir * 3 * e2[0] / n2; y += dir * 3 * e2[1] / n2;
+      pts.push([x, y]);
+      if (x < -60 || y < -60 || x > W + 60 || y > H + 60) break;
+      var hit = false;
+      for (var i = 0; i < charges.length; i++) {
+        var c = charges[i];
+        if (c.q * dir < 0 && Math.hypot(x - c.x, y - c.y) < (plates ? 6 : 12)) { hit = true; break; }
+      }
+      if (hit) break;
+    }
+    return pts;
+  }
+  function arrowAt(pts, color) {
+    if (pts.length < 20) return;
+    var i = Math.floor(pts.length * 0.45), a = pts[i], b = pts[i + 2] || pts[i + 1];
+    var ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
+    ctx.save(); ctx.translate(a[0], a[1]); ctx.rotate(ang);
+    ctx.beginPath(); ctx.moveTo(7, 0); ctx.lineTo(-5, -5); ctx.lineTo(-5, 5); ctx.closePath();
+    ctx.fillStyle = color; ctx.fill(); ctx.restore();
+  }
+  function draw() {
+    var dpr = window.devicePixelRatio || 1, cw = cv.clientWidth;
+    cv.width = cw * dpr; cv.height = cw * 10 / 16 * dpr;
+    ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    var lineC = css("--math"), pos = "#e03131", neg = "#1971c2", acc = css("--accent");
+    ctx.lineWidth = 1.6; ctx.strokeStyle = lineC; ctx.globalAlpha = 0.85;
+    var sources = charges.filter(function (c) { return c.q > 0; }), dir = 1;
+    if (!sources.length) { sources = charges.filter(function (c) { return c.q < 0; }); dir = -1; }
+    sources.forEach(function (c, idx) {
+      if (plates) {
+        if (idx % 2) return;
+        var pts = trace(c.x + 7, c.y, 1);
+        ctx.beginPath(); pts.forEach(function (p, i) { i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }); ctx.stroke();
+        arrowAt(pts, lineC);
+        return;
+      }
+      var n = 16;
+      for (var k = 0; k < n; k++) {
+        var a = (k + 0.5) / n * Math.PI * 2;
+        var pts = trace(c.x + 13 * Math.cos(a), c.y + 13 * Math.sin(a), dir);
+        if (dir < 0) pts.reverse();
+        ctx.beginPath(); pts.forEach(function (p, i) { i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }); ctx.stroke();
+        arrowAt(pts, lineC);
+      }
+    });
+    ctx.globalAlpha = 1;
+    if (plates) {
+      ctx.fillStyle = pos; ctx.fillRect(242, 80, 10, 340);
+      ctx.fillStyle = neg; ctx.fillRect(548, 80, 10, 340);
+      ctx.font = "800 22px Inter, sans-serif"; ctx.textAlign = "center";
+      ctx.fillStyle = pos; ctx.fillText("+", 247, 70); ctx.fillStyle = neg; ctx.fillText("−", 553, 70);
+    } else {
+      charges.forEach(function (c) {
+        ctx.beginPath(); ctx.arc(c.x, c.y, 15, 0, Math.PI * 2); ctx.fillStyle = c.q > 0 ? pos : neg; ctx.fill();
+        ctx.fillStyle = "#fff"; ctx.font = "800 20px Inter, sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillText(c.q > 0 ? "+" : "−", c.x, c.y + 1);
+      });
+    }
+    // Probeladung + Kraftpfeil
+    var e = field(probe.x, probe.y), en = Math.hypot(e[0], e[1]);
+    var E = en * K * QU / 1e-6; // px → mm: r in m = px/1000 → 1/r² = 1e6/px²
+    if (en) {
+      var len = Math.max(16, Math.min(90, (Math.log10(E) - 2) / 4 * 74 + 16));
+      var ux = probeSign * e[0] / en, uy = probeSign * e[1] / en;
+      ctx.strokeStyle = acc; ctx.lineWidth = 4; ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(probe.x, probe.y); ctx.lineTo(probe.x + ux * len, probe.y + uy * len); ctx.stroke();
+      ctx.save(); ctx.translate(probe.x + ux * len, probe.y + uy * len); ctx.rotate(Math.atan2(uy, ux));
+      ctx.beginPath(); ctx.moveTo(9, 0); ctx.lineTo(-4, -7); ctx.lineTo(-4, 7); ctx.closePath(); ctx.fillStyle = acc; ctx.fill(); ctx.restore();
+    }
+    ctx.beginPath(); ctx.arc(probe.x, probe.y, 9, 0, Math.PI * 2); ctx.fillStyle = acc; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = css("--card"); ctx.stroke();
+    ctx.fillStyle = css("--card"); ctx.font = "800 13px Inter"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(probeSign > 0 ? "+" : "−", probe.x, probe.y + 1);
+    document.getElementById("fE").textContent = en ? sci(E) + " N/C" : "0 (feldfrei)";
+    document.getElementById("fF").textContent = en ? sci(E * QP) + " N · " + (probeSign > 0 ? "in Feldrichtung" : "gegen die Feldrichtung") : "keine Kraft";
+  }
+  // Ziehen und Tippen
+  var drag = null, moved = false;
+  function pt(ev) { var r = cv.getBoundingClientRect(); return { x: (ev.clientX - r.left) / r.width * W, y: (ev.clientY - r.top) / r.height * H }; }
+  cv.addEventListener("pointerdown", function (ev) {
+    var p = pt(ev); moved = false;
+    if (Math.hypot(p.x - probe.x, p.y - probe.y) < 26) drag = probe;
+    else drag = charges.find(function (c) { return !c.fixed && Math.hypot(p.x - c.x, p.y - c.y) < 26; }) || null;
+    if (drag) { cv.setPointerCapture(ev.pointerId); cv.style.cursor = "grabbing"; }
+  });
+  cv.addEventListener("pointermove", function (ev) {
+    if (!drag) return;
+    var p = pt(ev); moved = true;
+    drag.x = Math.max(12, Math.min(W - 12, p.x)); drag.y = Math.max(12, Math.min(H - 12, p.y));
+    draw();
+  });
+  cv.addEventListener("pointerup", function () {
+    if (drag && !moved && drag !== probe) { drag.q = -drag.q; draw(); }
+    drag = null; cv.style.cursor = "grab";
+  });
+  document.querySelectorAll("#fPreset button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("#fPreset button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      preset(b.dataset.p);
+    });
+  });
+  document.querySelectorAll("#fProbe button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("#fProbe button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      probeSign = +b.dataset.s; draw();
+    });
+  });
+  window.addEventListener("resize", draw);
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  preset("single");
+
+  // ---------------- Plattenkondensator ----------------
+  var kU = document.getElementById("kU"), kD = document.getElementById("kD"), kQ = document.getElementById("kQ");
+  function kUpd() {
+    var U = +kU.value, d = +kD.value, q = +kQ.value, E = U / (d / 100), F = Math.abs(q) * 1e-9 * E;
+    document.getElementById("kUo").textContent = U + " V";
+    document.getElementById("kDo").textContent = String(d).replace(".", ",") + " cm";
+    document.getElementById("kQo").textContent = (q > 0 ? "+" : q < 0 ? "−" : "") + Math.abs(q) + " nC";
+    document.getElementById("kE").textContent = sci(E) + " V/m";
+    document.getElementById("kF").textContent = q === 0 ? "0 N" : sci(F) + " N";
+    document.getElementById("kR").textContent = q > 0 ? "zur −-Platte" : q < 0 ? "zur +-Platte" : "–";
+    // plates move with d (0,5–10 cm → 60–420 px apart), line count grows with E
+    var gap = 60 + (d - 0.5) / 9.5 * 360, x1 = 320 - gap / 2, x2 = 320 + gap / 2;
+    document.getElementById("kP1").setAttribute("x", x1 - 12); document.getElementById("kP2").setAttribute("x", x2);
+    document.getElementById("kL1").setAttribute("x", x1 - 6); document.getElementById("kL2").setAttribute("x", x2 + 6);
+    var n = Math.max(2, Math.min(16, Math.round(Math.log10(E) * 4 - 6))), g = document.getElementById("kLines"), s = "";
+    for (var i = 0; i < n; i++) {
+      var y = 28 + (i + 0.5) * (114 / n);
+      s += '<line class="fl" x1="' + (x1 + 2) + '" y1="' + y + '" x2="' + (x2 - 2) + '" y2="' + y + '"/>';
+      s += '<path d="M' + (320 + 5) + ' ' + y + ' l-9 -5 v10 z" style="fill:var(--math)"/>';
+    }
+    g.innerHTML = s;
+  }
+  [kU, kD, kQ].forEach(function (i) { i.addEventListener("input", kUpd); });
+  kUpd();
+
+  // ---------------- Richtig oder falsch ----------------
+  var done = 0, right = 0;
+  document.querySelectorAll("#tf .row").forEach(function (row) {
+    row.querySelectorAll("button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (row.dataset.done) return;
+        row.dataset.done = 1; done++;
+        var ok = b.dataset.v === row.dataset.a; if (ok) right++;
+        row.classList.add(ok ? "ok" : "no");
+        document.getElementById("tfScore").textContent = done + " von 8 beantwortet · " + right + " richtig";
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -72,7 +72,7 @@ section.block { margin-top: 44px; scroll-margin-top: 16px; }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow); margin: 14px 0; }
 .muted { color: var(--text2); }
 /* Comfortable reading measure for running text. */
-.block > p, .card p, details.sol .inner > p, .note p { max-width: 72ch; }
+.block > p, .card p, details.sol .inner > p, .note p, .aufgabe > p { max-width: 72ch; }
 .small { font-size: 0.88rem; }
 
 /* Merke / Achtung / Tipp */
@@ -103,8 +103,8 @@ section.block { margin-top: 44px; scroll-margin-top: 16px; }
 .beispiel::before { content: "▶"; position: absolute; left: -22px; top: 15px; font-size: 0.75rem; color: var(--blue); }
 .beispiel .tag { color: var(--blue); font-weight: 700; font-family: "Bricolage Grotesque", Inter, sans-serif; margin-inline-end: 6px; }
 .aufgabe { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px 6px; margin: 18px 0; box-shadow: var(--shadow); }
-.aufgabe > h3 { margin: 0 0 8px; font-size: 1.25rem; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.aufgabe > h3 .pts { font-family: Inter, sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--text2); background: var(--raised); padding: 2px 8px; border-radius: 999px; }
+.aufgabe > h2, .aufgabe > h3 { margin: 0 0 8px; font-size: 1.25rem; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.aufgabe > h2 .pts, .aufgabe > h3 .pts { font-family: Inter, sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--text2); background: var(--raised); padding: 2px 8px; border-radius: 999px; }
 .aufgabe ol.sub { margin: 8px 0 12px; padding-inline-start: 1.4em; }
 .aufgabe ol.sub > li { margin: 4px 0; }
 .aufgabe ol.sub { list-style: lower-alpha; }
@@ -142,7 +142,7 @@ details.sol[open] > summary::before { content: "–"; }
 details.sol[open] > summary { background: var(--mathbg); color: var(--math); }
 details.sol > .inner { padding-top: 10px; animation: open 0.25s ease-out both; }
 @keyframes open { from { opacity: 0; transform: translateY(-4px); } }
-.toolbar { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.toolbar { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; margin: 0 -12px; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .btn { font: inherit; font-weight: 600; font-size: 0.92rem; padding: 9px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; }
 .btn:hover { border-color: var(--math); color: var(--math); }
 .btn.primary { background: var(--accent); border-color: transparent; color: #fff; }
@@ -184,6 +184,9 @@ details.sol > .inner { padding-top: 10px; animation: open 0.25s ease-out both; }
 /* ===================== Deutsch (red accent) + Lyrik building blocks ===================== */
 body.deutsch { --math: #b8360f; --math2: #e0573f; --mathbg: #fbe9e3; --g1: #d0342c; --g2: #a51111; }
 :root[data-theme="dark"] body.deutsch { --math: #ff8a72; --math2: #ffb3a3; --mathbg: #3a221c; }
+/* Physics pages: the physics book blue */
+body.physik { --math: #1864ab; --math2: #4c8fd1; --mathbg: #e3eef9; --g1: #1c68b8; --g2: #0f4c8a; }
+:root[data-theme="dark"] body.physik { --math: #74b0ff; --math2: #a9cdff; --mathbg: #16263a; }
 mark { background: #ffe58f; color: #1f1b16; padding: 0 2px; border-radius: 3px; }
 :root[data-theme="dark"] mark { background: #6b5a14; color: #fff7d6; }
 

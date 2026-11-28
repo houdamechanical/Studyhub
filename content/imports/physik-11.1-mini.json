@@ -1,0 +1,557 @@
+{
+  "questions": [
+    {
+      "key": "phys111-lc-q01",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "In welcher Einheit misst man die elektrische Ladung?",
+      "options": [
+        "Volt (V)",
+        "Newton (N)",
+        "Coulomb (1 C = 1 A·s)",
+        "Ampere (A)"
+      ],
+      "answer": 2,
+      "explanation": [
+        "Die Ladung Q hat die Einheit Coulomb: 1 C = 1 A·s (Strom mal Zeit)."
+      ]
+    },
+    {
+      "key": "phys111-lc-q02",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Wie groß ist die Elementarladung e?",
+      "options": [
+        "1,602 · 10¹⁹ C",
+        "1,602 · 10⁻¹⁹ C",
+        "9,11 · 10⁻³¹ C",
+        "8,854 · 10⁻¹² C"
+      ],
+      "answer": 1,
+      "explanation": [
+        "e = 1,602 · 10⁻¹⁹ C ist die Ladung eines Protons (bzw. minus die eines Elektrons).",
+        "9,11 · 10⁻³¹ kg ist die Elektronenmasse, 8,854 · 10⁻¹² As/(Vm) ist ε₀."
+      ]
+    },
+    {
+      "key": "phys111-lc-q03",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Was passiert mit zwei gleichnamigen Ladungen?",
+      "options": [
+        "Sie stoßen sich ab.",
+        "Sie ziehen sich an.",
+        "Es wirkt keine Kraft.",
+        "Sie neutralisieren sich sofort."
+      ],
+      "answer": 0,
+      "explanation": [
+        "Gleichnamige Ladungen (+/+ oder −/−) stoßen sich ab, ungleichnamige ziehen sich an."
+      ]
+    },
+    {
+      "key": "phys111-lc-q04",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Ein Körper ist positiv geladen. Was bedeutet das?",
+      "options": [
+        "Er hat zusätzliche Protonen bekommen.",
+        "Er hat Elektronen zu viel.",
+        "Er enthält keine Elektronen mehr.",
+        "Ihm fehlen Elektronen."
+      ],
+      "answer": 3,
+      "explanation": [
+        "Nur Elektronen können wandern. Positiv geladen heißt: Es fehlen Elektronen; die Protonen bleiben im Kern."
+      ]
+    },
+    {
+      "key": "phys111-lc-q05",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Wie lautet das Coulomb-Gesetz?",
+      "options": [
+        "F = 1/(4π·ε₀·εᵣ) · Q₁·Q₂ / r",
+        "F = 4π·ε₀ · Q₁·Q₂ · r²",
+        "F = 1/(4π·ε₀·εᵣ) · Q₁·Q₂ / r²",
+        "F = Q₁·Q₂ / (4π·ε₀)"
+      ],
+      "answer": 2,
+      "explanation": [
+        "Die Kraft ist proportional zum Produkt der Ladungen und umgekehrt proportional zum Quadrat des Abstands."
+      ]
+    },
+    {
+      "key": "phys111-lc-q06",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Der Abstand zweier Ladungen wird verdoppelt. Wie ändert sich die Kraft?",
+      "options": [
+        "Sie halbiert sich.",
+        "Sie wird ein Viertel so groß.",
+        "Sie verdoppelt sich.",
+        "Sie bleibt gleich."
+      ],
+      "answer": 1,
+      "explanation": [
+        "F ~ 1/r²: doppelter Abstand → (1/2)² = 1/4 der Kraft."
+      ]
+    },
+    {
+      "key": "phys111-lc-q07",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Beide Ladungen werden verdoppelt, der Abstand bleibt gleich. Die Kraft wird …",
+      "options": [
+        "4-mal so groß",
+        "2-mal so groß",
+        "gleich groß",
+        "halb so groß"
+      ],
+      "answer": 0,
+      "explanation": [
+        "F ~ Q₁·Q₂: 2 · 2 = 4."
+      ]
+    },
+    {
+      "key": "phys111-lc-q08",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Zwei Ladungen liegen in Wasser (εᵣ = 81) statt in Luft. Die Kraft ist dann …",
+      "options": [
+        "81-mal größer",
+        "9-mal kleiner",
+        "gleich groß",
+        "81-mal kleiner"
+      ],
+      "answer": 3,
+      "explanation": [
+        "F ~ 1/εᵣ: In Wasser wird die Kraft durch 81 geteilt."
+      ]
+    },
+    {
+      "key": "phys111-lc-q09",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Wie viel sind 10 nC in Coulomb?",
+      "options": [
+        "1 · 10⁻⁹ C",
+        "1 · 10⁻⁷ C",
+        "1 · 10⁻⁸ C",
+        "10 · 10⁻⁶ C"
+      ],
+      "answer": 2,
+      "explanation": [
+        "n (nano) = 10⁻⁹: 10 · 10⁻⁹ C = 1 · 10⁻⁸ C."
+      ]
+    },
+    {
+      "key": "phys111-lc-q10",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Ein Körper trägt Q = −1,602 · 10⁻¹⁸ C. Wie viele Elektronen hat er zu viel?",
+      "options": [
+        "1",
+        "10",
+        "100",
+        "10¹⁸"
+      ],
+      "answer": 1,
+      "explanation": [
+        "N = |Q| / e = 1,602 · 10⁻¹⁸ C / 1,602 · 10⁻¹⁹ C = 10."
+      ]
+    },
+    {
+      "key": "phys111-lc-q11",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Welchen Wert hat die elektrische Feldkonstante ε₀?",
+      "options": [
+        "8,854 · 10⁻¹² As/(Vm)",
+        "8,99 · 10⁹ As/(Vm)",
+        "1,602 · 10⁻¹⁹ As/(Vm)",
+        "6,674 · 10⁻¹¹ As/(Vm)"
+      ],
+      "answer": 0,
+      "explanation": [
+        "ε₀ = 8,854 · 10⁻¹² As/(Vm). 1/(4πε₀) ≈ 8,99 · 10⁹ Nm²/C² ist der Vorfaktor im Coulomb-Gesetz."
+      ]
+    },
+    {
+      "key": "phys111-lc-q12",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Was besagt die Ladungserhaltung?",
+      "options": [
+        "Ein Körper behält seine Ladung für immer.",
+        "Positive Ladung wandelt sich in negative um.",
+        "Beim Reiben entsteht neue Ladung.",
+        "Ladung kann nicht erzeugt oder vernichtet, nur getrennt werden."
+      ],
+      "answer": 3,
+      "explanation": [
+        "Beim Reiben wandern Elektronen von einem Körper zum anderen. Die Gesamtladung bleibt gleich."
+      ]
+    },
+    {
+      "key": "phys111-lc-q13",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Was versteht man unter Influenz?",
+      "options": [
+        "Aufladen durch Reiben",
+        "Entladen über die Erde",
+        "Ladungstrennung in einem Leiter durch Annäherung eines geladenen Körpers",
+        "Die Kraft zwischen zwei Massen"
+      ],
+      "answer": 2,
+      "explanation": [
+        "Ohne Berührung verschieben sich die freien Elektronen im Leiter: zugewandte Seite ungleichnamig, abgewandte Seite gleichnamig geladen."
+      ]
+    },
+    {
+      "key": "phys111-lc-q14",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "type": "single",
+      "prompt": "Zwei Kugeln mit je 10 nC sind 5 cm voneinander entfernt (Luft). Wie groß ist die Kraft ungefähr?",
+      "options": [
+        "3,6 · 10⁻⁶ N",
+        "3,6 · 10⁻⁴ N",
+        "1,8 · 10⁻³ N",
+        "7,2 · 10⁻⁴ N"
+      ],
+      "answer": 1,
+      "explanation": [
+        "F = 8,99 · 10⁹ Nm²/C² · (1 · 10⁻⁸ C)² / (0,05 m)² ≈ 3,6 · 10⁻⁴ N.",
+        "3,6 · 10⁻⁶ N erhält man, wenn man 10 nC fälschlich als 10⁻⁹ C einsetzt."
+      ]
+    },
+    {
+      "key": "phys111-ef-q01",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Wo beginnen und enden elektrische Feldlinien?",
+      "options": [
+        "Sie beginnen an negativen und enden an positiven Ladungen.",
+        "Sie bilden immer geschlossene Kreise.",
+        "Sie beginnen an positiven und enden an negativen Ladungen.",
+        "Sie beginnen und enden an derselben Ladung."
+      ],
+      "answer": 2,
+      "explanation": [
+        "Feldlinien laufen von + nach −. Diese Richtung ist so festgelegt."
+      ]
+    },
+    {
+      "key": "phys111-ef-q02",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Können sich zwei Feldlinien schneiden?",
+      "options": [
+        "Ja, an jeder Ladung.",
+        "Nein, niemals.",
+        "Ja, im homogenen Feld.",
+        "Nur zwischen zwei negativen Ladungen."
+      ],
+      "answer": 1,
+      "explanation": [
+        "An jedem Punkt hat die Kraft auf die Probeladung nur eine Richtung, deshalb können sich Feldlinien nicht schneiden."
+      ]
+    },
+    {
+      "key": "phys111-ef-q03",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Was gibt die Dichte der Feldlinien an?",
+      "options": [
+        "Die Stärke des Feldes",
+        "Die Richtung des Feldes",
+        "Die Größe der Probeladung",
+        "Die Spannung der Quelle"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Je dichter die Feldlinien, desto stärker ist das Feld an dieser Stelle."
+      ]
+    },
+    {
+      "key": "phys111-ef-q04",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Wie treffen Feldlinien auf eine Leiteroberfläche?",
+      "options": [
+        "Parallel zur Oberfläche",
+        "Unter 45°",
+        "Gar nicht, sie enden vorher",
+        "Senkrecht"
+      ],
+      "answer": 3,
+      "explanation": [
+        "Feldlinien stehen immer senkrecht auf Leiteroberflächen."
+      ]
+    },
+    {
+      "key": "phys111-ef-q05",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Woran erkennt man ein homogenes Feld?",
+      "options": [
+        "Die Feldlinien laufen sternförmig auseinander.",
+        "Die Feldlinien sind kreisförmig.",
+        "Die Feldlinien sind parallel und gleich dicht.",
+        "Es gibt keine Feldlinien."
+      ],
+      "answer": 2,
+      "explanation": [
+        "Im homogenen Feld (z. B. Plattenkondensator) ist die Feldstärke überall gleich groß und gleich gerichtet.",
+        "Sternförmig auseinanderlaufende Linien gehören zum Radialfeld einer Punktladung – einem inhomogenen Feld."
+      ]
+    },
+    {
+      "key": "phys111-ef-q06",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Welches dieser Felder ist inhomogen?",
+      "options": [
+        "Das Feld in der Mitte eines Plattenkondensators",
+        "Das Radialfeld einer Punktladung",
+        "Ein Feld mit parallelen, gleich dichten Feldlinien",
+        "Ein Feld, in dem die Kraft überall gleich ist"
+      ],
+      "answer": 1,
+      "explanation": [
+        "Im Radialfeld laufen die Feldlinien auseinander: Nach außen wird das Feld schwächer, die Kraft ist also nicht überall gleich – das Feld ist inhomogen.",
+        "Im Plattenkondensator ist das Feld homogen: parallele, gleich dichte Linien, überall dieselbe Kraft."
+      ]
+    },
+    {
+      "key": "phys111-ef-q07",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "In welche Richtung wirkt die Kraft auf ein Elektron im elektrischen Feld?",
+      "options": [
+        "Entgegen der Feldlinienrichtung",
+        "In Feldlinienrichtung",
+        "Senkrecht zu den Feldlinien",
+        "Es wirkt keine Kraft"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Feldlinien zeigen die Kraftrichtung auf positive Ladungen. Das Elektron ist negativ, also wirkt die Kraft entgegengesetzt."
+      ]
+    },
+    {
+      "key": "phys111-ef-q08",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Wie ist die elektrische Feldstärke definiert?",
+      "options": [
+        "E = F · q",
+        "E = q / F",
+        "E = U · d",
+        "E = F / q"
+      ],
+      "answer": 3,
+      "explanation": [
+        "Die Feldstärke ist die Kraft pro Probeladung: E = F/q."
+      ]
+    },
+    {
+      "key": "phys111-ef-q09",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Welche Einheit hat die elektrische Feldstärke?",
+      "options": [
+        "N·C",
+        "V·m",
+        "N/C (= V/m)",
+        "C/N"
+      ],
+      "answer": 2,
+      "explanation": [
+        "[E] = 1 N/C = 1 V/m."
+      ]
+    },
+    {
+      "key": "phys111-ef-q10",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Eine Probeladung q = 2 nC erfährt die Kraft F = 6 · 10⁻⁵ N. Wie groß ist E?",
+      "options": [
+        "1,2 · 10⁻¹³ N/C",
+        "3 · 10⁴ N/C",
+        "3 · 10⁻⁴ N/C",
+        "1,2 · 10⁴ N/C"
+      ],
+      "answer": 1,
+      "explanation": [
+        "E = F/q = 6 · 10⁻⁵ N / 2 · 10⁻⁹ C = 3 · 10⁴ N/C."
+      ]
+    },
+    {
+      "key": "phys111-ef-q11",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Ein Plattenkondensator hat U = 100 V und d = 0,5 cm. Wie groß ist die Feldstärke?",
+      "options": [
+        "2 · 10⁴ V/m",
+        "200 V/m",
+        "50 V/m",
+        "2 · 10² V/m"
+      ],
+      "answer": 0,
+      "explanation": [
+        "E = U/d = 100 V / 0,005 m = 2 · 10⁴ V/m. d muss in Metern eingesetzt werden."
+      ]
+    },
+    {
+      "key": "phys111-ef-q12",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Der Abstand zu einer Punktladung wird verdreifacht. Die Feldstärke wird …",
+      "options": [
+        "ein Drittel so groß",
+        "dreimal so groß",
+        "gleich groß",
+        "ein Neuntel so groß"
+      ],
+      "answer": 3,
+      "explanation": [
+        "E ~ 1/r²: (1/3)² = 1/9."
+      ]
+    },
+    {
+      "key": "phys111-ef-q13",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Wer hat das Modell der Feldlinien eingeführt?",
+      "options": [
+        "Charles Augustin de Coulomb",
+        "Isaac Newton",
+        "Michael Faraday",
+        "Robert Millikan"
+      ],
+      "answer": 2,
+      "explanation": [
+        "Faraday führte die Feldlinien als Modell ein. Coulomb maß die Kraft zwischen Ladungen, Millikan die Elementarladung."
+      ]
+    },
+    {
+      "key": "phys111-ef-q14",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Man verdoppelt die Probeladung an einem Punkt im Feld. Was passiert mit E?",
+      "options": [
+        "E verdoppelt sich.",
+        "E bleibt gleich, nur F verdoppelt sich.",
+        "E halbiert sich.",
+        "E wird vierfach so groß."
+      ],
+      "answer": 1,
+      "explanation": [
+        "E = F/q beschreibt das Feld selbst. Doppelte Ladung → doppelte Kraft → gleicher Quotient."
+      ]
+    },
+    {
+      "key": "phys111-ef-q15",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "type": "single",
+      "prompt": "Womit kann man die Struktur eines elektrischen Feldes sichtbar machen?",
+      "options": [
+        "Mit Grießkörnern in Öl",
+        "Mit Eisenfeilspänen auf Papier",
+        "Mit einem Amperemeter",
+        "Mit einem Thermometer"
+      ],
+      "answer": 0,
+      "explanation": [
+        "Grießkörner richten sich im elektrischen Feld entlang der Feldlinien aus. Eisenfeilspäne zeigen Magnetfelder."
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "key": "phys111-mini-coulomb",
+      "kind": "mini",
+      "subject": "physik",
+      "topic": "Elektrische Ladung und Coulomb-Gesetz",
+      "title": "Mini-Test: Ladung und Coulomb-Gesetz",
+      "description": "8 zufällige Multiple-Choice-Fragen – bei jedem Versuch neu gemischt.",
+      "duration_minutes": 10,
+      "draw_count": 8,
+      "questions": [
+        "phys111-lc-q01",
+        "phys111-lc-q02",
+        "phys111-lc-q03",
+        "phys111-lc-q04",
+        "phys111-lc-q05",
+        "phys111-lc-q06",
+        "phys111-lc-q07",
+        "phys111-lc-q08",
+        "phys111-lc-q09",
+        "phys111-lc-q10",
+        "phys111-lc-q11",
+        "phys111-lc-q12",
+        "phys111-lc-q13",
+        "phys111-lc-q14"
+      ]
+    },
+    {
+      "key": "phys111-mini-feld",
+      "kind": "mini",
+      "subject": "physik",
+      "topic": "Das elektrische Feld",
+      "title": "Mini-Test: Das elektrische Feld",
+      "description": "8 zufällige Multiple-Choice-Fragen – bei jedem Versuch neu gemischt.",
+      "duration_minutes": 10,
+      "draw_count": 8,
+      "questions": [
+        "phys111-ef-q01",
+        "phys111-ef-q02",
+        "phys111-ef-q03",
+        "phys111-ef-q04",
+        "phys111-ef-q05",
+        "phys111-ef-q06",
+        "phys111-ef-q07",
+        "phys111-ef-q08",
+        "phys111-ef-q09",
+        "phys111-ef-q10",
+        "phys111-ef-q11",
+        "phys111-ef-q12",
+        "phys111-ef-q13",
+        "phys111-ef-q14",
+        "phys111-ef-q15"
+      ]
+    }
+  ],
+  "decks": []
+}

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aufgaben: Ladung und Coulomb-Gesetz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+</head>
+<body class="physik">
+<div class="wrap">
+
+<header class="hero">
+  <h1>Aufgaben <em>Ladung und Coulomb-Gesetz</em></h1>
+  <p class="lead">Acht Aufgaben von leicht bis Klausur-Niveau, die ersten beiden direkt aus dem Heft. Erst selbst rechnen, dann die Lösung aufklappen. Jede Lösung ist so aufgeschrieben wie im Unterricht: <b>geg.</b> · <b>ges.</b> · <b>Formel</b> · <b>Einsetzen mit Einheiten</b> · <b>Antwortsatz</b>.</p>
+  <div class="card small" style="margin-top:18px">
+    <b>Konstanten:</b> \(e = 1{,}602\cdot10^{-19}\ \text{C}\) · \(\varepsilon_0 = 8{,}854\cdot10^{-12}\ \frac{\text{As}}{\text{Vm}}\) · \(\frac{1}{4\pi\varepsilon_0} \approx 8{,}99\cdot10^9\ \frac{\text{Nm}^2}{\text{C}^2}\) · \(G = 6{,}674\cdot10^{-11}\ \frac{\text{Nm}^2}{\text{kg}^2}\)
+  </div>
+</header>
+
+<div class="toolbar">
+  <span class="small muted">8 Aufgaben</span>
+  <span style="display:flex;gap:8px">
+    <button class="btn" data-all="close">Lösungen ausblenden</button>
+    <button class="btn" data-all="open">Alle Lösungen zeigen</button>
+  </span>
+</div>
+
+<article class="aufgabe" id="a1">
+  <h2>Aufgabe 1 · Fehlende Elektronen <span class="pts">leicht</span></h2>
+  <p>Ein Körper trägt die Ladung \(Q = +1\ \text{nC}\). Wie viele Elektronen fehlen ihm?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(Q = +1\ \text{nC} = 1\cdot10^{-9}\ \text{C}\)</p>
+      <p>ges.: \(N\)</p>
+      <p>\(N = \dfrac{Q}{e} = \dfrac{1\cdot10^{-9}\ \text{C}}{1{,}602\cdot10^{-19}\ \text{C}} = 6{,}24\cdot10^{9}\)</p>
+    </div>
+    <p class="answer">Dem Körper fehlen etwa \(6{,}24\cdot10^9\) Elektronen.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="a2">
+  <h2>Aufgabe 2 · Zwei geladene Kugeln <span class="pts">leicht</span></h2>
+  <p>Zwei Kugeln mit je \(10\ \text{nC}\) befinden sich in Luft im Abstand \(5\ \text{cm}\). Berechne die Kraft zwischen ihnen. Ziehen sie sich an oder stoßen sie sich ab?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(r = 5\ \text{cm} = 0{,}05\ \text{m}\) · \(Q_1 = Q_2 = 10\ \text{nC} = 1\cdot10^{-8}\ \text{C}\) · \(\varepsilon_r = 1\)</p>
+      <p>ges.: \(F\)</p>
+      <p>\(F = \dfrac{1}{4\pi\varepsilon_0\varepsilon_r}\cdot\dfrac{Q_1\cdot Q_2}{r^2} = \dfrac{1}{4\pi\cdot 8{,}854\cdot10^{-12}\,\frac{\text{As}}{\text{Vm}}\cdot 1}\cdot\dfrac{(1\cdot10^{-8}\ \text{C})^2}{(0{,}05\ \text{m})^2}\)</p>
+      <p>\(F \approx 3{,}6\cdot10^{-4}\ \text{N}\)</p>
+    </div>
+    <p class="answer">Die Kugeln stoßen sich (gleichnamig geladen) mit etwa \(3{,}6\cdot10^{-4}\ \text{N}\) ab.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="a3">
+  <h2>Aufgabe 3 · Der geriebene Luftballon <span class="pts">leicht</span></h2>
+  <p>Ein Luftballon wird am Pullover gerieben und nimmt dabei \(5\cdot10^{12}\) Elektronen auf.</p>
+  <ol class="sub">
+    <li>Welche Ladung trägt der Ballon?</li>
+    <li>Welche Ladung trägt danach der Pullover? Begründe.</li>
+  </ol>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(N = 5\cdot10^{12}\) · ges.: \(Q\)</p>
+      <p>\(Q = -N\cdot e = -5\cdot10^{12}\cdot1{,}602\cdot10^{-19}\ \text{C} = -8{,}0\cdot10^{-7}\ \text{C} = -0{,}80\ \mu\text{C}\)</p>
+    </div>
+    <p class="answer">a) Der Ballon ist mit \(-0{,}80\ \mu\text{C}\) negativ geladen (Elektronenüberschuss).<br>b) Der Pullover trägt \(+0{,}80\ \mu\text{C}\): Ladung wird nicht erzeugt, nur getrennt (Ladungserhaltung). Ihm fehlen genau die Elektronen, die der Ballon bekommen hat.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="a4">
+  <h2>Aufgabe 4 · Was passiert mit der Kraft? <span class="pts">mittel</span></h2>
+  <p>Zwei Ladungen üben die Kraft \(F\) aufeinander aus. Wie groß ist die neue Kraft, wenn</p>
+  <ol class="sub">
+    <li>der Abstand verdoppelt wird,</li>
+    <li>beide Ladungen verdreifacht werden,</li>
+    <li>eine Ladung verdreifacht und der Abstand verdoppelt wird,</li>
+    <li>die Anordnung in Wasser (\(\varepsilon_r = 81\)) gebracht wird?</li>
+  </ol>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <p>Aus \(F \sim \dfrac{Q_1\cdot Q_2}{\varepsilon_r\cdot r^2}\) folgt:</p>
+    <div class="gbox">
+      <p>a) \(F' = \dfrac{1}{2^2}\,F = \tfrac14\,F\)</p>
+      <p>b) \(F' = 3\cdot3\cdot F = 9\,F\)</p>
+      <p>c) \(F' = \dfrac{3}{2^2}\,F = \tfrac34\,F\)</p>
+      <p>d) \(F' = \dfrac{F}{81}\)</p>
+    </div>
+    <p class="answer">a) ein Viertel · b) neunmal so groß · c) drei Viertel · d) nur noch ein 81stel.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="a5">
+  <h2>Aufgabe 5 · Ladung aus der Kraft <span class="pts">mittel</span></h2>
+  <p>Zwei gleich große Ladungen stoßen sich in Luft im Abstand \(10\ \text{cm}\) mit der Kraft \(0{,}9\ \text{N}\) ab. Wie groß ist jede Ladung?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(F = 0{,}9\ \text{N}\) · \(r = 0{,}1\ \text{m}\) · \(Q_1 = Q_2 = Q\) · ges.: \(Q\)</p>
+      <p>\(F = \dfrac{1}{4\pi\varepsilon_0}\cdot\dfrac{Q^2}{r^2} \;\Rightarrow\; Q = r\cdot\sqrt{4\pi\varepsilon_0\cdot F}\)</p>
+      <p>\(Q = 0{,}1\ \text{m}\cdot\sqrt{\dfrac{0{,}9\ \text{N}}{8{,}99\cdot10^{9}\ \frac{\text{Nm}^2}{\text{C}^2}}} \approx 1{,}0\cdot10^{-6}\ \text{C}\)</p>
+    </div>
+    <p class="answer">Jede Ladung beträgt etwa \(1\ \mu\text{C}\) (beide positiv oder beide negativ).</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="a6">
+  <h2>Aufgabe 6 · Gesuchter Abstand <span class="pts">mittel</span></h2>
+  <p>Eine Ladung \(Q_1 = 2\ \text{nC}\) und eine Ladung \(Q_2 = -3\ \text{nC}\) ziehen sich in Luft mit \(F = 1\ \text{mN}\) an. Wie weit sind sie voneinander entfernt?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(|Q_1| = 2\cdot10^{-9}\ \text{C}\) · \(|Q_2| = 3\cdot10^{-9}\ \text{C}\) · \(F = 1\cdot10^{-3}\ \text{N}\) · ges.: \(r\)</p>
+      <p>\(r = \sqrt{\dfrac{1}{4\pi\varepsilon_0}\cdot\dfrac{|Q_1|\cdot|Q_2|}{F}} = \sqrt{8{,}99\cdot10^{9}\ \tfrac{\text{Nm}^2}{\text{C}^2}\cdot\dfrac{6\cdot10^{-18}\ \text{C}^2}{1\cdot10^{-3}\ \text{N}}}\)</p>
+      <p>\(r \approx 7{,}3\cdot10^{-3}\ \text{m}\)</p>
+    </div>
+    <p class="answer">Die Ladungen sind etwa 7,3&nbsp;mm voneinander entfernt.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="a7">
+  <h2>Aufgabe 7 · Kugeln im Wasser <span class="pts">mittel</span></h2>
+  <p>Die beiden Kugeln aus Aufgabe 2 werden in Wasser (\(\varepsilon_r = 81\)) gebracht. Der Abstand bleibt 5&nbsp;cm. Wie groß ist die Kraft jetzt?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: wie Aufgabe 2, aber \(\varepsilon_r = 81\) · ges.: \(F_W\)</p>
+      <p>\(F_W = \dfrac{F_{\text{Luft}}}{\varepsilon_r} = \dfrac{3{,}6\cdot10^{-4}\ \text{N}}{81} \approx 4{,}4\cdot10^{-6}\ \text{N}\)</p>
+    </div>
+    <p class="answer">Im Wasser beträgt die Kraft nur noch etwa \(4{,}4\cdot10^{-6}\ \text{N}\) – 81-mal weniger als in Luft.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="a8">
+  <h2>Aufgabe 8 · Wasserstoffatom <span class="pts">Klausur-Niveau</span></h2>
+  <p>Im Wasserstoffatom ist das Elektron im Mittel \(r = 5{,}29\cdot10^{-11}\ \text{m}\) vom Proton entfernt.</p>
+  <ol class="sub">
+    <li>Berechne die elektrische Kraft zwischen Proton und Elektron.</li>
+    <li>Berechne die Gravitationskraft zwischen beiden (\(m_p = 1{,}673\cdot10^{-27}\ \text{kg}\), \(m_e = 9{,}109\cdot10^{-31}\ \text{kg}\)).</li>
+    <li>Wievielmal stärker ist die elektrische Kraft? Was folgt daraus?</li>
+  </ol>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>a) \(F_{el} = \dfrac{1}{4\pi\varepsilon_0}\cdot\dfrac{e^2}{r^2} = 8{,}99\cdot10^{9}\ \tfrac{\text{Nm}^2}{\text{C}^2}\cdot\dfrac{(1{,}602\cdot10^{-19}\ \text{C})^2}{(5{,}29\cdot10^{-11}\ \text{m})^2} \approx 8{,}2\cdot10^{-8}\ \text{N}\)</p>
+      <p>b) \(F_G = G\cdot\dfrac{m_p\cdot m_e}{r^2} = 6{,}674\cdot10^{-11}\ \tfrac{\text{Nm}^2}{\text{kg}^2}\cdot\dfrac{1{,}673\cdot10^{-27}\ \text{kg}\cdot9{,}109\cdot10^{-31}\ \text{kg}}{(5{,}29\cdot10^{-11}\ \text{m})^2} \approx 3{,}6\cdot10^{-47}\ \text{N}\)</p>
+      <p>c) \(\dfrac{F_{el}}{F_G} = \dfrac{8{,}2\cdot10^{-8}\ \text{N}}{3{,}6\cdot10^{-47}\ \text{N}} \approx 2{,}3\cdot10^{39}\)</p>
+    </div>
+    <p class="answer">Die elektrische Anziehung ist rund \(2\cdot10^{39}\)-mal stärker als die Gravitation. Im Atom spielt die Gravitation also keine Rolle – das Atom wird durch die elektrische Kraft zusammengehalten.</p>
+  </div></details>
+</article>
+
+<p class="foot">Study Hub · Physik 11.1 · Aufgaben Ladung und Coulomb-Gesetz</p>
+</div>
+</body>
+</html>

@@ -8,13 +8,14 @@ import { cn } from "@/lib/utils";
 
 /**
  * Slim icon rail from the lg breakpoint up (computers, iPad in landscape):
- * the app mark, then the five sections. Labels show as tooltips.
+ * the app mark, the sections, and settings at the bottom. Labels show as tooltips.
  */
 export function Sidebar() {
   const { dict } = useI18n();
   const isActive = useActiveNav();
-  const main = NAV_ITEMS.slice(0, 4);
-  const settings = NAV_ITEMS[4];
+  // Settings sits at the bottom of the rail; everything else in the main list.
+  const main = NAV_ITEMS.filter((item) => item.label !== "settings");
+  const settings = NAV_ITEMS.find((item) => item.label === "settings")!;
 
   return (
     <aside className="no-print sticky top-0 hidden h-dvh w-16 shrink-0 flex-col items-center border-e bg-[var(--c-side)] py-4 lg:flex">

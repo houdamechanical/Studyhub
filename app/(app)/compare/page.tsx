@@ -224,6 +224,27 @@ function CompareView({ subject, missing, nickname, shared, board, myScore }: Awa
                 {t.myScore}: <span className="font-semibold tabular-nums text-foreground">{gradeFmt(myScore)}</span>
               </p>
             )}
+            {/* On the NC board only shared subjects count: say so when that makes your number differ. */}
+            {!subject && myScore !== null && board.mine !== null && gradeFmt(board.mine) !== gradeFmt(myScore) && (
+              <div className="mt-3 flex flex-col gap-3 rounded-xl border bg-card p-4 shadow-card sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm text-muted-foreground">
+                  {fill(t.partialShare, { board: gradeFmt(board.mine), all: gradeFmt(myScore) })}
+                </p>
+                <Button
+                  onClick={() =>
+                    startTransition(async () => {
+                      const r = await setAllGradeShares(true);
+                      toast(r.ok ? t.shared : dict.common.error[r.error], r.ok ? "success" : "error");
+                    })
+                  }
+                  disabled={pending}
+                  className="shrink-0"
+                >
+                  <Check size={16} />
+                  {t.shareAll}
+                </Button>
+              </div>
+            )}
             <p className="mt-3 text-xs text-muted-foreground">{subject ? t.subjectHint : t.overallHint}</p>
           </>
         )}

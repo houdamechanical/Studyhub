@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aufgaben: Das elektrische Feld</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+</head>
+<body class="physik">
+<div class="wrap">
+
+<header class="hero">
+  <h1>Aufgaben <em>Das elektrische Feld</em></h1>
+  <p class="lead">Acht Aufgaben zu Feldlinien, Feldstärke und Plattenkondensator. Erst selbst lösen, dann aufklappen. Rechenaufgaben stehen wie im Unterricht da: <b>geg.</b> · <b>ges.</b> · <b>Formel</b> · <b>Einsetzen mit Einheiten</b> · <b>Antwortsatz</b>.</p>
+  <div class="card small" style="margin-top:18px">
+    <b>Formeln:</b> \(E = \frac{F}{q}\) · \(E = \frac{1}{4\pi\varepsilon_0\varepsilon_r}\cdot\frac{Q}{r^2}\) · \(E = \frac{U}{d}\) · \(F = q\cdot E\) · \(1\ \frac{\text{N}}{\text{C}} = 1\ \frac{\text{V}}{\text{m}}\) · \(e = 1{,}602\cdot10^{-19}\ \text{C}\) · \(g = 9{,}81\ \frac{\text{m}}{\text{s}^2}\)
+  </div>
+</header>
+
+<div class="toolbar">
+  <span class="small muted">8 Aufgaben</span>
+  <span style="display:flex;gap:8px">
+    <button class="btn" data-all="close">Lösungen ausblenden</button>
+    <button class="btn" data-all="open">Alle Lösungen zeigen</button>
+  </span>
+</div>
+
+<article class="aufgabe" id="b1">
+  <h2>Aufgabe 1 · Die fünf Regeln <span class="pts">leicht</span></h2>
+  <p>Nenne die fünf Regeln für Feldlinienbilder (Modell, Anfang und Ende, Kraftrichtung, Dichte, homogen und inhomogen).</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <ol>
+      <li><b>Modell:</b> Das Feldlinienbild ist ein Modell des Feldes (eingeführt von Faraday). Sichtbar machen kann man die Struktur mit Grießkörnern.</li>
+      <li><b>Anfang und Ende:</b> Feldlinien beginnen an positiven und enden an negativen Ladungen. Ihre Richtung ist von + nach − festgelegt.</li>
+      <li><b>Kraftrichtung:</b> Die Feldlinie gibt die Richtung der Kraft auf eine positive Probeladung an. Auf negative Ladungen wirkt die Kraft entgegengesetzt.</li>
+      <li><b>Dichte:</b> Je dichter die Feldlinien, desto stärker das Feld. Feldlinien schneiden sich nie und stehen senkrecht auf Leiteroberflächen.</li>
+      <li><b>Homogen und inhomogen:</b> Im homogenen Feld (Plattenkondensator) verlaufen die Feldlinien parallel und gleich dicht: Die Kraft ist überall gleich. Sonst ist das Feld inhomogen, z.&nbsp;B. das Radialfeld einer Punktladung.</li>
+    </ol>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="b2">
+  <h2>Aufgabe 2 · Feldlinienbilder skizzieren <span class="pts">leicht</span></h2>
+  <p>Skizziere das Feldlinienbild (a) einer positiven Punktladung, (b) eines Dipols, (c) zweier gleich großer positiver Ladungen, (d) eines Plattenkondensators. Prüfe deine Skizzen danach im <b>Feldlinien-Simulator</b> auf der Erklärungsseite.</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <ul>
+      <li><b>a)</b> Radial nach außen, wie Sonnenstrahlen; nach außen hin weiter auseinander (schwächeres Feld).</li>
+      <li><b>b)</b> Bögen von + nach −; zwischen den Ladungen am dichtesten; jede Linie startet an + und endet an −.</li>
+      <li><b>c)</b> Linien laufen von beiden Ladungen weg und weichen sich aus; in der Mitte zwischen den Ladungen ein feldfreier Punkt.</li>
+      <li><b>d)</b> Zwischen den Platten parallele, gleich weit entfernte Linien von + nach −, senkrecht auf den Platten; am Rand gewölbt.</li>
+    </ul>
+    <p class="answer">Achte überall auf Pfeile von + nach −, senkrechtes Auftreffen auf Ladungen/Platten und darauf, dass sich keine Linien schneiden.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="b3">
+  <h2>Aufgabe 3 · Feldstärke aus der Kraft <span class="pts">leicht</span></h2>
+  <p>Eine Probeladung \(q = 2\ \text{nC}\) erfährt an einem Punkt die Kraft \(F = 6\cdot10^{-5}\ \text{N}\). Berechne die Feldstärke. Wie groß wäre die Kraft auf eine Ladung von \(4\ \text{nC}\) am selben Punkt?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(q = 2\cdot10^{-9}\ \text{C}\) · \(F = 6\cdot10^{-5}\ \text{N}\) · ges.: \(E\), \(F'\)</p>
+      <p>\(E = \dfrac{F}{q} = \dfrac{6\cdot10^{-5}\ \text{N}}{2\cdot10^{-9}\ \text{C}} = 3\cdot10^{4}\ \dfrac{\text{N}}{\text{C}}\)</p>
+      <p>\(F' = q'\cdot E = 4\cdot10^{-9}\ \text{C}\cdot3\cdot10^{4}\ \tfrac{\text{N}}{\text{C}} = 1{,}2\cdot10^{-4}\ \text{N}\)</p>
+    </div>
+    <p class="answer">Die Feldstärke beträgt \(3\cdot10^4\ \frac{\text{N}}{\text{C}}\). Auf die doppelte Ladung wirkt die doppelte Kraft \(1{,}2\cdot10^{-4}\ \text{N}\) – die Feldstärke bleibt gleich.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="b4">
+  <h2>Aufgabe 4 · Welche Ladung? <span class="pts">leicht</span></h2>
+  <p>In einem Feld der Stärke \(E = 5\cdot10^{3}\ \frac{\text{N}}{\text{C}}\) wirkt auf eine Ladung die Kraft \(2\cdot10^{-4}\ \text{N}\). Wie groß ist die Ladung?</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(E = 5\cdot10^3\ \frac{\text{N}}{\text{C}}\) · \(F = 2\cdot10^{-4}\ \text{N}\) · ges.: \(q\)</p>
+      <p>\(q = \dfrac{F}{E} = \dfrac{2\cdot10^{-4}\ \text{N}}{5\cdot10^{3}\ \frac{\text{N}}{\text{C}}} = 4\cdot10^{-8}\ \text{C}\)</p>
+    </div>
+    <p class="answer">Die Ladung beträgt \(4\cdot10^{-8}\ \text{C} = 40\ \text{nC}\).</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="b5">
+  <h2>Aufgabe 5 · Feld einer Punktladung <span class="pts">mittel</span></h2>
+  <p>Berechne die Feldstärke einer Punktladung \(Q = 5\ \text{nC}\) in Luft im Abstand (a) \(10\ \text{cm}\) und (b) \(20\ \text{cm}\). Vergleiche.</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(Q = 5\cdot10^{-9}\ \text{C}\) · \(r_a = 0{,}1\ \text{m}\) · \(r_b = 0{,}2\ \text{m}\) · ges.: \(E_a\), \(E_b\)</p>
+      <p>a) \(E_a = \dfrac{1}{4\pi\varepsilon_0}\cdot\dfrac{Q}{r_a^2} = 8{,}99\cdot10^9\ \tfrac{\text{Nm}^2}{\text{C}^2}\cdot\dfrac{5\cdot10^{-9}\ \text{C}}{(0{,}1\ \text{m})^2} \approx 4{,}5\cdot10^{3}\ \tfrac{\text{N}}{\text{C}}\)</p>
+      <p>b) \(E_b = 8{,}99\cdot10^9\ \tfrac{\text{Nm}^2}{\text{C}^2}\cdot\dfrac{5\cdot10^{-9}\ \text{C}}{(0{,}2\ \text{m})^2} \approx 1{,}1\cdot10^{3}\ \tfrac{\text{N}}{\text{C}}\)</p>
+    </div>
+    <p class="answer">Beim doppelten Abstand ist die Feldstärke nur noch ein Viertel so groß (\(E \sim \frac{1}{r^2}\)).</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="b6">
+  <h2>Aufgabe 6 · Elektron im Plattenkondensator <span class="pts">mittel</span></h2>
+  <p>An einem Plattenkondensator mit Plattenabstand \(d = 2\ \text{cm}\) liegt die Spannung \(U = 230\ \text{V}\).</p>
+  <ol class="sub">
+    <li>Berechne die Feldstärke zwischen den Platten.</li>
+    <li>Welche Kraft wirkt auf ein Elektron zwischen den Platten? In welche Richtung?</li>
+  </ol>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <div class="gbox">
+      <p>geg.: \(U = 230\ \text{V}\) · \(d = 0{,}02\ \text{m}\) · \(q = e = 1{,}602\cdot10^{-19}\ \text{C}\) · ges.: \(E\), \(F\)</p>
+      <p>a) \(E = \dfrac{U}{d} = \dfrac{230\ \text{V}}{0{,}02\ \text{m}} = 1{,}15\cdot10^{4}\ \tfrac{\text{V}}{\text{m}}\)</p>
+      <p>b) \(F = e\cdot E = 1{,}602\cdot10^{-19}\ \text{C}\cdot1{,}15\cdot10^{4}\ \tfrac{\text{V}}{\text{m}} \approx 1{,}8\cdot10^{-15}\ \text{N}\)</p>
+    </div>
+    <p class="answer">Die Feldstärke beträgt \(1{,}15\cdot10^4\ \frac{\text{V}}{\text{m}}\). Auf das Elektron wirkt \(1{,}8\cdot10^{-15}\ \text{N}\), und zwar <b>zur positiven Platte</b> – entgegen der Feldrichtung, weil das Elektron negativ ist.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="b7">
+  <h2>Aufgabe 7 · Das schwebende Öltröpfchen <span class="pts">Klausur-Niveau</span></h2>
+  <p>Zwischen zwei waagerechten Kondensatorplatten (\(d = 1\ \text{cm}\), \(U = 200\ \text{V}\), oben die positive Platte) schwebt ein Öltröpfchen der Masse \(m = 3{,}27\cdot10^{-15}\ \text{kg}\) (Idee des Millikan-Versuchs).</p>
+  <ol class="sub">
+    <li>Begründe, warum das Tröpfchen schweben kann, und gib das Vorzeichen seiner Ladung an.</li>
+    <li>Berechne die Ladung des Tröpfchens.</li>
+    <li>Wie viele Elementarladungen sind das?</li>
+  </ol>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <p>a) Das Tröpfchen schwebt, wenn die elektrische Kraft nach oben genau so groß ist wie die Gewichtskraft nach unten: \(F_{el} = F_G\). Das Feld zeigt von oben (+) nach unten (−). Damit die Kraft nach <b>oben</b> zeigt (gegen das Feld), muss das Tröpfchen <b>negativ</b> geladen sein.</p>
+    <div class="gbox">
+      <p>geg.: \(U = 200\ \text{V}\) · \(d = 0{,}01\ \text{m}\) · \(m = 3{,}27\cdot10^{-15}\ \text{kg}\) · ges.: \(q\), \(N\)</p>
+      <p>\(E = \dfrac{U}{d} = \dfrac{200\ \text{V}}{0{,}01\ \text{m}} = 2\cdot10^{4}\ \tfrac{\text{V}}{\text{m}}\)</p>
+      <p>b) \(q\cdot E = m\cdot g \;\Rightarrow\; q = \dfrac{m\cdot g}{E} = \dfrac{3{,}27\cdot10^{-15}\ \text{kg}\cdot9{,}81\ \frac{\text{m}}{\text{s}^2}}{2\cdot10^{4}\ \frac{\text{V}}{\text{m}}} \approx 1{,}6\cdot10^{-18}\ \text{C}\)</p>
+      <p>c) \(N = \dfrac{q}{e} = \dfrac{1{,}6\cdot10^{-18}\ \text{C}}{1{,}602\cdot10^{-19}\ \text{C}} \approx 10\)</p>
+    </div>
+    <p class="answer">Das Tröpfchen trägt die Ladung \(-1{,}6\cdot10^{-18}\ \text{C}\), also 10 überschüssige Elektronen. Millikan fand so heraus, dass jede Ladung ein Vielfaches von \(e\) ist.</p>
+  </div></details>
+</article>
+
+<article class="aufgabe" id="b8">
+  <h2>Aufgabe 8 · Feld zwischen zwei Ladungen <span class="pts">Klausur-Niveau</span></h2>
+  <p>Eine Ladung \(+4\ \text{nC}\) und eine Ladung \(-4\ \text{nC}\) sind in Luft \(10\ \text{cm}\) voneinander entfernt. Berechne Betrag und Richtung der Feldstärke genau in der Mitte zwischen ihnen.</p>
+  <details class="sol"><summary>Lösung anzeigen</summary><div class="inner">
+    <p>In der Mitte ist jede Ladung \(r = 5\ \text{cm}\) entfernt. Das Feld der positiven Ladung zeigt von ihr <b>weg</b> (Richtung − Ladung), das Feld der negativen Ladung zeigt zu ihr <b>hin</b> (ebenfalls Richtung − Ladung). Beide Feldstärken zeigen also in dieselbe Richtung und addieren sich.</p>
+    <div class="gbox">
+      <p>geg.: \(|Q| = 4\cdot10^{-9}\ \text{C}\) · \(r = 0{,}05\ \text{m}\) · ges.: \(E_{\text{ges}}\)</p>
+      <p>\(E_1 = E_2 = \dfrac{1}{4\pi\varepsilon_0}\cdot\dfrac{|Q|}{r^2} = 8{,}99\cdot10^9\ \tfrac{\text{Nm}^2}{\text{C}^2}\cdot\dfrac{4\cdot10^{-9}\ \text{C}}{(0{,}05\ \text{m})^2} \approx 1{,}44\cdot10^{4}\ \tfrac{\text{N}}{\text{C}}\)</p>
+      <p>\(E_{\text{ges}} = E_1 + E_2 \approx 2{,}9\cdot10^{4}\ \tfrac{\text{N}}{\text{C}}\)</p>
+    </div>
+    <p class="answer">In der Mitte beträgt die Feldstärke etwa \(2{,}9\cdot10^4\ \frac{\text{N}}{\text{C}}\) und zeigt von der positiven zur negativen Ladung.</p>
+  </div></details>
+</article>
+
+<p class="foot">Study Hub · Physik 11.1 · Aufgaben Das elektrische Feld</p>
+</div>
+</body>
+</html>
