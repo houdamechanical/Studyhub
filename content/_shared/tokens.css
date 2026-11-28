@@ -1,0 +1,60 @@
+/* Study Hub – palette, fonts and base for study pages with their own layout
+   (Bio, Religion). Same values as math.css. Light/dark via data-theme (theme.js). */
+:root {
+  --bg: #faf6ee;
+  --card: #fffdf8;
+  --raised: #f1eadc;
+  --border: #e6ddcc;
+  --border2: #cfc3ab;
+  --text: #1a1a2e;
+  --text2: #5a5a66;
+  --accent: #2350d8;
+  --on-accent: #ffffff;
+  /* Signal colours for callouts (text-safe on their own tints) */
+  --yellow: #8a5a00;
+  --red: #b42318;
+  --blue: #2350d8;
+  --purple: #6741d9;
+  --orange: #c2410c;
+  --pink: #a61e4d;
+  --green: #276b3c;
+  --grey: #5a5a66;
+  --shadow: 0 1px 2px rgb(40 30 10 / 0.05), 0 8px 24px -16px rgb(60 45 20 / 0.28);
+  --figure: #ffffff;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --card: #141414;
+  --raised: #1c1c1c;
+  --border: #2a2a2a;
+  --border2: #3d3d3d;
+  --text: #f5f5f5;
+  --text2: #a3a3a3;
+  --accent: #ff7a1a;
+  --on-accent: #170800;
+  --yellow: #f5c451;
+  --red: #ff8a80;
+  --blue: #7c9cff;
+  --purple: #b9a3ff;
+  --orange: #ffa45c;
+  --pink: #ff8fb8;
+  --green: #6fcf8f;
+  --grey: #a3a3a3;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 10px 26px -14px rgb(0 0 0 / 0.8);
+  /* Diagrams are drawn for paper: keep them on a light sheet at night. */
+  --figure: #f4f1ea;
+  color-scheme: dark;
+}
+html { font-size: 18px; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1rem/1.65 Inter, -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: "Bricolage Grotesque", Inter, system-ui, sans-serif; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance; }
+p, li { text-wrap: pretty; }
+::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tint { --c: var(--accent); background: color-mix(in srgb, var(--c) 9%, var(--card)); border: 1px solid color-mix(in srgb, var(--c) 35%, var(--border)); border-radius: 12px; }
