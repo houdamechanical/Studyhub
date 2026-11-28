@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Inter, Noto_Sans_Arabic } from "next/font/google";
+import { Bricolage_Grotesque, Inter, JetBrains_Mono, Noto_Sans_Arabic } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/toast";
 import { I18nProvider, LOCALE_BOOT_SCRIPT } from "@/lib/i18n/client";
@@ -47,6 +47,14 @@ const display = Bricolage_Grotesque({
   axes: ["opsz", "wdth"],
 });
 
+// Small spaced-out labels ("GEHE ZU"), like a ledger.
+const mono = JetBrains_Mono({
+  variable: "--font-label",
+  display: "swap",
+  subsets: ["latin"],
+  weight: ["500"],
+});
+
 const notoArabic = Noto_Sans_Arabic({
   variable: "--font-arabic",
   display: "swap",
@@ -65,7 +73,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOCALE_BOOT_SCRIPT }} />
       </head>
-      <body className={`${inter.variable} ${display.variable} ${notoArabic.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${display.variable} ${mono.variable} ${notoArabic.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <I18nProvider>
             {children}

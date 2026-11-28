@@ -2,11 +2,9 @@
 
 import {
   ArrowLeft,
-  CalendarClock,
   Check,
   ChevronRight,
   FileText,
-  FolderOpen,
   Gamepad2,
   Layers,
   ListChecks,
@@ -120,100 +118,55 @@ export function SubjectPage({
   };
   const p = dict.practice;
 
+  const topics = [...new Set(pages.map((p) => p.topic))];
+
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-6 sm:pt-8">
-      {/* Big, obvious way back to all subjects */}
-      <Link
-        href={semesterHref(semester)}
-        className="press inline-flex h-11 items-center gap-2 rounded-xl border bg-card shadow-card pe-4 ps-3 font-semibold hover:bg-secondary"
-      >
-        <ArrowLeft size={20} className="rtl:rotate-180" />
-        {dict.school.subjects}
+    <div className="mx-auto w-full max-w-3xl px-4 pb-16 pt-5 sm:pt-8">
+      <Link href={semesterHref(semester)} className="press inline-flex items-center gap-2.5 text-muted-foreground hover:text-foreground">
+        <span className="tile flex size-10 items-center justify-center rounded-xl">
+          <ArrowLeft size={18} className="rtl:rotate-180" />
+        </span>
+        <span className="label-mono !text-current">{dict.school.subjects}</span>
       </Link>
 
-      <header className="enter mt-6 flex items-center gap-5 sm:gap-7">
-        <SubjectBook
-          subject={subject}
-          label={info.label[locale]}
-          size="sm"
-          className="w-20 shrink-0 sm:w-28"
-        />
+      <header className="enter mt-6 flex items-center gap-5">
+        <SubjectBook subject={subject} label={info.label[locale]} size="sm" className="w-20 shrink-0 sm:w-24" />
         <div className="min-w-0 flex-1">
-          <h1 className="truncate text-4xl font-extrabold tracking-tight sm:text-5xl">
-            {info.label[locale]}
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="label-mono">
             {fill(dict.school.grade, { grade })} · {halfLabel}
           </p>
-          {nextExam && (
-            <Link
-              href="/grades?tab=exams"
-              className="group mt-2 inline-flex items-center gap-1.5 text-sm"
-            >
-              <CalendarClock
-                size={15}
-                className="text-muted-foreground"
-                aria-hidden
-              />
-              <span className="text-muted-foreground">
-                {dict.home.nextExam}
-              </span>
-              <span className="font-medium">
-                {formatDate(nextExam.exam_date, locale, {
-                  weekday: "short",
-                  day: "numeric",
-                  month: "short",
-                })}
-              </span>
-              <span className="font-semibold text-[var(--c-amber)]">
-                · {whenLabel(nextExam.exam_date, dict)}
-              </span>
-            </Link>
-          )}
+          <h1 className="mt-1 truncate font-display text-4xl font-semibold tracking-tight sm:text-5xl">{info.label[locale]}</h1>
         </div>
       </header>
 
-      {withPractice && progress && (
-        <div className="enter mt-6">
-          <div className="flex items-baseline justify-between gap-3 text-sm">
-            <span className="font-medium">{dict.subject.progress}</span>
-            <span className="truncate text-xs text-muted-foreground">
-              {[
-                progress.tests
-                  ? fill(dict.subject.testsTaken, {
-                      a: progress.testsTaken,
-                      n: progress.tests,
-                    })
-                  : "",
-                progress.avgBest !== null
-                  ? fill(dict.subject.avg, {
-                      p: `${Math.round(progress.avgBest * 100)} %`,
-                    })
-                  : "",
-                progress.cards
-                  ? fill(dict.subject.cardsLearned, {
-                      a: progress.cardsLearned,
-                      n: progress.cards,
-                    })
-                  : "",
-              ]
-                .filter(Boolean)
-                .join(" · ")}
-            </span>
-            <span className="tabular-nums text-muted-foreground">
-              {Math.round(progress.progress * 100)} %
-            </span>
-          </div>
-          <ProgressBar value={progress.progress} className="mt-2" />
+      {(nextExam || (withPractice && progress)) && (
+        <div className="enter mt-6 grid grid-cols-2 gap-2.5">
+          {nextExam ? (
+            <Link href="/grades?tab=exams" className="tile press flex flex-col rounded-2xl p-4">
+              <span className="label-mono">{dict.home2.examTile}</span>
+              <span className="mt-3 font-display text-lg font-semibold leading-tight text-[var(--c-amber)]">{whenLabel(nextExam.exam_date, dict)}</span>
+              <span className="truncate text-sm text-muted-foreground">
+                {formatDate(nextExam.exam_date, locale, { weekday: "short", day: "numeric", month: "short" })}
+              </span>
+            </Link>
+          ) : (
+            <div />
+          )}
+          {withPractice && progress ? (
+            <div className="tile flex flex-col rounded-2xl p-4">
+              <span className="label-mono">{dict.subject.progress}</span>
+              <span className="mt-3 font-display text-lg font-semibold tabular-nums leading-tight">{Math.round(progress.progress * 100)} %</span>
+              <ProgressBar value={progress.progress} className="mt-2" />
+            </div>
+          ) : (
+            <div />
+          )}
         </div>
       )}
 
-      {/* Tabs: one quiet underline row, sticky while scrolling */}
-      <div className="sticky top-14 z-30 -mx-4 mt-8 bg-background/90 px-4 backdrop-blur-xl lg:top-0">
-        <div
-          role="tablist"
-          className="flex gap-1 overflow-x-auto border-b [scrollbar-width:none]"
-        >
+      {/* Segmented tabs, sticky while scrolling */}
+      <div className="sticky top-14 z-30 -mx-4 mt-7 bg-background/90 px-4 py-2.5 backdrop-blur-xl md:top-[5.5rem]">
+        <div role="tablist" className="tile grid grid-cols-2 gap-1 rounded-2xl p-1 sm:flex">
           {TABS.map((id) => (
             <button
               key={id}
@@ -222,125 +175,95 @@ export function SubjectPage({
               aria-selected={tab === id}
               onClick={() => choose(id)}
               className={cn(
-                "relative -mb-px flex items-center gap-2 whitespace-nowrap border-b-[3px] px-4 py-3.5 text-base font-semibold transition-colors",
-                tab === id
-                  ? "border-[var(--c-amber)] text-foreground"
-                  : "border-transparent text-muted-foreground hover:text-foreground",
+                "press flex min-w-0 flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors",
+                tab === id ? "bg-foreground text-background shadow-card" : "text-muted-foreground hover:text-foreground",
               )}
             >
               {labels[id]}
-              <span className="rounded-md bg-secondary px-1.5 text-xs tabular-nums text-muted-foreground">
-                {id !== "pages" && state.loading ? "·" : counts[id]}
-              </span>
+              <span className={cn("text-xs tabular-nums", tab === id ? "opacity-60" : "opacity-70")}>{id !== "pages" && state.loading ? "·" : counts[id]}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <div key={tab} className="enter mt-5" role="tabpanel">
+      <div key={tab} className="enter mt-4" role="tabpanel">
         {tab !== "pages" && state.loading ? (
-          <div className="h-48 animate-pulse rounded-xl border bg-card shadow-card" />
+          <div className="tile h-40 animate-pulse rounded-2xl" />
         ) : tab === "pages" ? (
           pages.length === 0 ? (
-            <List empty={t.emptyPages}>{[]}</List>
+            <Empty text={t.emptyPages} />
           ) : (
-            // One folder per topic, in the order the topics first appear.
-            <div className="flex flex-col gap-6">
-              {[...new Set(pages.map((p) => p.topic))].map((topic) => {
+            // One group per topic, in the order the topics first appear.
+            <div className="flex flex-col gap-7">
+              {topics.map((topic) => {
                 const inFolder = pages.filter((p) => p.topic === topic);
                 return (
                   <section key={topic}>
-                    <h3
-                      className="mb-2.5 flex items-center gap-2.5 text-lg font-bold"
-                      lang="de"
-                    >
-                      <span className="flex size-9 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--c-amber)_14%,transparent)] text-[var(--c-amber)]">
-                        <FolderOpen size={19} strokeWidth={2} />
-                      </span>
-                      <span className="min-w-0 flex-1 truncate">{topic}</span>
-                      <span className="rounded-md bg-secondary px-2 text-sm font-semibold tabular-nums text-muted-foreground">
-                        {inFolder.length}
-                      </span>
-                    </h3>
-                    <List empty="">
+                    <h2 className="label-mono mb-3 flex items-center justify-between gap-3" lang="de">
+                      <span className="truncate">{topic}</span>
+                      <span className="tabular-nums">{String(inFolder.length).padStart(2, "0")}</span>
+                    </h2>
+                    <ul className="grid gap-2.5 sm:grid-cols-2">
                       {inFolder.map((item) => (
-                        <Row
-                          key={item.id}
-                          href={`/library/${item.subject}/${item.id}`}
-                          icon={KIND_ICON[item.kind]}
-                          title={item.title}
-                          meta={dict.kind[item.kind]}
-                          lang="de"
-                        />
+                        <Tile key={item.id} href={`/library/${item.subject}/${item.id}`} icon={KIND_ICON[item.kind]} eyebrow={dict.kind[item.kind]} title={item.title} lang="de" />
                       ))}
-                    </List>
+                    </ul>
                   </section>
                 );
               })}
             </div>
           )
         ) : tab === "mini" || tab === "mock" ? (
-          <List empty={tab === "mini" ? t.emptyTests : t.emptyMocks}>
-            {(tab === "mini" ? minis : mocks).map((q) => (
-              <Row
-                key={q.id}
-                href={`/practice/quiz?id=${q.id}`}
-                icon={tab === "mini" ? ListChecks : Timer}
-                title={q.title}
-                meta={[
-                  q.questionCount === 1
-                    ? p.oneQuestion
-                    : fill(p.questions, { n: q.questionCount }),
-                  q.durationMinutes
-                    ? fill(p.minutes, { n: q.durationMinutes })
-                    : "",
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
-                aside={
-                  q.best === null ? (
-                    <span className="text-sm text-muted-foreground">–</span>
-                  ) : (
-                    <span className="text-sm font-semibold tabular-nums">
-                      {Math.round(q.best * 100)} %
+          (tab === "mini" ? minis : mocks).length === 0 ? (
+            <Empty text={tab === "mini" ? t.emptyTests : t.emptyMocks} />
+          ) : (
+            <ul className="grid gap-2.5 sm:grid-cols-2">
+              {(tab === "mini" ? minis : mocks).map((q) => (
+                <li key={q.id}>
+                  <Link href={`/practice/quiz?id=${q.id}`} className="tile press group flex h-full flex-col rounded-2xl p-4 sm:p-5">
+                    <span className="label-mono flex items-center gap-2">
+                      {tab === "mini" ? <ListChecks size={14} aria-hidden /> : <Timer size={14} aria-hidden />}
+                      {[q.questionCount === 1 ? p.oneQuestion : fill(p.questions, { n: q.questionCount }), q.durationMinutes ? `${q.durationMinutes}′` : ""].filter(Boolean).join(" · ")}
                     </span>
-                  )
-                }
-              />
-            ))}
-          </List>
+                    <span className="mt-3 font-display text-xl font-semibold leading-tight [overflow-wrap:anywhere]" lang="de" dir="auto">
+                      {q.title}
+                    </span>
+                    <span className="mt-auto flex items-center gap-3 pt-5">
+                      <span className="h-1 flex-1 overflow-hidden rounded-full bg-[var(--c-border)]">
+                        <span className="block h-full rounded-full bg-[var(--c-amber)]" style={{ width: `${Math.round((q.best ?? 0) * 100)}%` }} />
+                      </span>
+                      <span className="w-11 text-end text-sm font-semibold tabular-nums">{q.best === null ? "–" : `${Math.round(q.best * 100)}%`}</span>
+                      <ChevronRight size={16} className="shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 rtl:rotate-180" />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )
+        ) : decks.length === 0 ? (
+          <Empty text={t.emptyDecks} />
         ) : (
-          <List empty={t.emptyDecks}>
+          <ul className="grid gap-2.5 sm:grid-cols-2">
             {decks.map((d) => {
               const due = today === null ? null : dueCount(d, today);
               return (
-                <Row
+                <Tile
                   key={d.id}
                   href={`/practice/deck?id=${d.id}`}
                   icon={Layers}
+                  eyebrow={d.cardCount === 1 ? p.oneCard : fill(p.cards, { n: d.cardCount })}
                   title={d.title}
-                  meta={
-                    d.cardCount === 1
-                      ? p.oneCard
-                      : fill(p.cards, { n: d.cardCount })
-                  }
                   aside={
                     due === null ? null : due > 0 ? (
-                      <span className="text-sm font-semibold tabular-nums text-[var(--c-amber)]">
-                        {fill(p.due, { n: due })}
-                      </span>
+                      <span className="text-sm font-semibold tabular-nums text-[var(--c-amber)]">{fill(p.due, { n: due })}</span>
                     ) : (
-                      <Check
-                        size={16}
-                        className="text-muted-foreground"
-                        aria-label={t.allDone}
-                      />
+                      <Check size={16} className="text-[var(--c-sage)]" aria-label={t.allDone} />
                     )
                   }
                 />
               );
             })}
-          </List>
+          </ul>
         )}
       </div>
     </div>
@@ -349,75 +272,42 @@ export function SubjectPage({
 
 function whenLabel(date: string, dict: ReturnType<typeof useI18n>["dict"]) {
   const days = daysUntil(date);
-  return days <= 0
-    ? dict.home.today
-    : days === 1
-      ? dict.home.tomorrow
-      : fill(dict.home.inDays, { n: days });
+  return days <= 0 ? dict.home.today : days === 1 ? dict.home.tomorrow : fill(dict.home.inDays, { n: days });
 }
 
-function List({
-  empty,
-  children,
-}: {
-  empty: string;
-  children: React.ReactNode[];
-}) {
-  if (children.length === 0) {
-    return (
-      <p className="rounded-xl border border-dashed px-4 py-10 text-center text-sm text-muted-foreground">
-        {empty}
-      </p>
-    );
-  }
-  return (
-    <ul className="divide-y overflow-hidden rounded-xl border bg-card shadow-card">
-      {children}
-    </ul>
-  );
+function Empty({ text }: { text: string }) {
+  return <p className="rounded-2xl border border-dashed px-4 py-10 text-center text-sm text-muted-foreground">{text}</p>;
 }
 
-function Row({
+function Tile({
   href,
   icon: Icon,
+  eyebrow,
   title,
-  meta,
   aside,
   lang,
 }: {
   href: string;
   icon: LucideIcon;
+  eyebrow: string;
   title: string;
-  meta: string;
   aside?: React.ReactNode;
   lang?: string;
 }) {
   return (
     <li>
-      <Link
-        href={href}
-        className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-secondary/60"
-      >
-        <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground">
-          <Icon size={20} strokeWidth={2} />
+      <Link href={href} className="tile press group flex h-full items-center gap-3.5 rounded-2xl p-3.5 pe-4">
+        <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-background text-foreground">
+          <Icon size={19} strokeWidth={1.9} />
         </span>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-lg font-semibold" lang={lang} dir="auto">
+        <span className="min-w-0 flex-1">
+          <span className="label-mono block truncate !text-[0.62rem]">{eyebrow}</span>
+          <span className="mt-0.5 line-clamp-2 font-semibold leading-snug" lang={lang} dir="auto">
             {title}
-          </p>
-          <p
-            className="truncate text-sm text-muted-foreground"
-            lang={lang}
-            dir="auto"
-          >
-            {meta}
-          </p>
-        </div>
+          </span>
+        </span>
         {aside}
-        <ChevronRight
-          size={16}
-          className="shrink-0 text-muted-foreground transition-transform duration-200 ease-out group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
-        />
+        <ChevronRight size={16} className="shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" />
       </Link>
     </li>
   );

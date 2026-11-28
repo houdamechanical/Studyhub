@@ -20,6 +20,17 @@ export type NewsItem = {
 
 export const NEWS: NewsItem[] = [
   {
+    id: "2026-12-kompakt",
+    date: "2026-12-02",
+    art: "home",
+    title: { de: "Kürzer, klarer, Year League", en: "Shorter, clearer, Year League", ar: "أقصر وأوضح، و Year League" },
+    text: {
+      de: "Lernseiten zeigen erst das Wichtigste – „Ausführlich lesen“ klappt den Rest auf. Neue Quizze, neue Fachseiten und die Rangliste heißt jetzt Year League.",
+      en: "Study pages show the key points first – “Ausführlich lesen” opens the rest. New quizzes, new subject pages, and the leaderboard is now the Year League.",
+      ar: "صفحات الدراسة تعرض الأهم أولاً – «Ausführlich lesen» يفتح الباقي. كويزات وصفحات مواد جديدة، ولوحة الترتيب اسمها الآن Year League.",
+    },
+  },
+  {
     id: "2026-12-start",
     date: "2026-12-01",
     art: "home",
@@ -61,8 +72,8 @@ export const NEWS: NewsItem[] = [
     href: "/grade/11/1/physik",
     title: { de: "Physik: Ladung und Feld", en: "Physics: charge and field", ar: "الفيزياء: الشحنة والمجال" },
     text: {
-      de: "Coulomb-Gesetz und elektrisches Feld mit Feldlinien-Simulator, 16 Aufgaben und zwei Mini-Tests.",
-      en: "Coulomb's law and the electric field with a field-line simulator, 16 exercises and two mini tests.",
+      de: "Coulomb-Gesetz und elektrisches Feld mit Feldlinien-Simulator, 16 Aufgaben und zwei Quizze.",
+      en: "Coulomb's law and the electric field with a field-line simulator, 16 exercises and two quizzes.",
       ar: "قانون كولوم والمجال الكهربائي مع محاكي خطوط المجال و16 تمرينًا واختبارين قصيرين.",
     },
   },
@@ -73,8 +84,8 @@ export const NEWS: NewsItem[] = [
     href: "/friends",
     title: { de: "Freunde und XP", en: "Friends and XP", ar: "الأصدقاء والنقاط" },
     text: {
-      de: "Füge Mitschüler hinzu, teile deine Noten nur mit Freunden und sammle XP mit Mini-Tests.",
-      en: "Add classmates, share your grades only with friends, and collect XP with mini tests.",
+      de: "Füge Mitschüler hinzu, teile deine Noten nur mit Freunden und sammle XP mit Quizzen.",
+      en: "Add classmates, share your grades only with friends, and collect XP with quizzes.",
       ar: "أضف زملاءك وشارك درجاتك مع الأصدقاء فقط واجمع النقاط بالاختبارات القصيرة.",
     },
   },
@@ -83,9 +94,9 @@ export const NEWS: NewsItem[] = [
     date: "2026-11-27",
     art: "math",
     href: "/grade/11/1/math",
-    title: { de: "Mathe: Mini-Tests", en: "Maths: mini tests", ar: "الرياضيات: اختبارات قصيرة" },
+    title: { de: "Mathe: Quizze", en: "Maths: quizzes", ar: "الرياضيات: اختبارات قصيرة" },
     text: {
-      de: "Multiple-Choice-Tests zu Extremalproblemen und Funktionsgleichungen – bei jedem Versuch neu gemischt.",
+      de: "Multiple-Choice-Quizze zu Extremalproblemen und Funktionsgleichungen – bei jedem Versuch neu gemischt.",
       en: "Multiple-choice tests on optimisation and finding function equations – reshuffled every time.",
       ar: "اختبارات اختيار من متعدد في مسائل القيم القصوى وإيجاد معادلات الدوال.",
     },
