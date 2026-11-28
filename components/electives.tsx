@@ -7,6 +7,7 @@ import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/ui/field";
 import { useI18n } from "@/lib/i18n/client";
+import { fill } from "@/lib/i18n/dictionaries";
 import { saveElectives } from "@/lib/mutations/compare";
 import { ART_TEACHER_NAMES, ART_TEACHERS, type ArtTeacher } from "@/lib/exams";
 import { ARTS, isValidElectives, SCIENCES, SUBJECTS, type SubjectId } from "@/lib/subjects";
@@ -141,10 +142,13 @@ export function ElectivesOnboarding({
   initial,
   initialTeacher,
   onDone,
+  step,
 }: {
   initial?: SubjectId[] | null;
   initialTeacher?: ArtTeacher | null;
   onDone: (list: SubjectId[], teacher: ArtTeacher | null) => void;
+  /** First run: "Schritt 4 von 4". */
+  step?: number;
 }) {
   const { dict } = useI18n();
   const t = dict.electives;
@@ -162,6 +166,7 @@ export function ElectivesOnboarding({
         }}
         className="enter w-full max-w-md rounded-xl border bg-card shadow-card p-7 sm:p-9"
       >
+        {step && <p className="label-mono mb-4">{fill(dict.onboarding.stepOf, { n: step, total: 4 })}</p>}
         <h1 className="font-display text-3xl font-semibold leading-tight sm:text-4xl">{t.title}</h1>
         <p className="mt-2 text-muted-foreground">{t.subtitle}</p>
         <div className="mt-6">

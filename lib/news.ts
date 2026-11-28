@@ -20,6 +20,18 @@ export type NewsItem = {
 
 export const NEWS: NewsItem[] = [
   {
+    id: "2026-12-welcome",
+    date: "2026-12-03",
+    art: "friends",
+    href: "/friends",
+    title: { de: "Neuer Start für neue Leute", en: "A better start for new people", ar: "بداية أفضل للقادمين الجدد" },
+    text: {
+      de: "Wer sich neu anmeldet, wählt jetzt erst ein Profilbild, bekommt Freunde vorgeschlagen und wählt dann seine Fächer.",
+      en: "New sign-ups now pick a picture, get friend suggestions and then choose their subjects.",
+      ar: "من يسجّل جديداً يختار الآن صورة، ثم يرى اقتراحات أصدقاء، ثم يختار مواده.",
+    },
+  },
+  {
     id: "2026-12-kompakt",
     date: "2026-12-02",
     art: "home",

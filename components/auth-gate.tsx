@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 import { ElectivesOnboarding } from "@/components/electives";
 import { AUTO_NICKNAME, NameOnboarding } from "@/components/name-onboarding";
+import { FriendsStep, PictureStep } from "@/components/onboarding-steps";
 import { isArtTeacher, setMyArtTeacher, type ArtTeacher } from "@/lib/exams";
 import { isValidElectives, mySubjects, type SubjectId } from "@/lib/subjects";
 import { createClient } from "@/lib/supabase/client";
@@ -60,6 +61,9 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   const [auth, setAuth] = useState<AuthState | null>(
     hasEnvVars ? null : { userId: "", isAdmin: false, nickname: "", electives: null, artTeacher: null, avatar: null, canChoose: false, canPickTeacher: false },
   );
+
+  // First run (no subjects chosen yet): picture → friends → subjects.
+  const [firstRun, setFirstRun] = useState<"picture" | "friends" | "subjects">("picture");
 
   useEffect(() => {
     if (!hasEnvVars) return;
@@ -137,11 +141,18 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   // Then, once: which subjects do you take?
   // Art students also say who their teacher is (only that teacher's Art exams count).
   const needsTeacher = auth.canPickTeacher && auth.electives?.includes("kunst") && !auth.artTeacher;
+  const setAvatar = (value: string | null) => setAuth((a) => (a ? { ...a, avatar: value } : a));
+  // A brand-new account (no subjects yet) first picks a picture and finds friends.
+  if (hasEnvVars && auth.canChoose && !auth.electives && firstRun === "picture") {
+    return <PictureStep userId={auth.userId} nickname={auth.nickname} avatar={auth.avatar} onAvatar={setAvatar} onDone={() => setFirstRun("friends")} />;
+  }
+  if (hasEnvVars && auth.canChoose && !auth.electives && firstRun === "friends") {
+    return <FriendsStep userId={auth.userId} onDone={() => setFirstRun("subjects")} />;
+  }
   if (hasEnvVars && auth.canChoose && (!auth.electives || needsTeacher)) {
-    return <ElectivesOnboarding initial={auth.electives} initialTeacher={auth.artTeacher} onDone={setElectives} />;
+    return <ElectivesOnboarding initial={auth.electives} initialTeacher={auth.artTeacher} onDone={setElectives} step={!auth.electives ? 4 : undefined} />;
   }
   const { userId, isAdmin, nickname, electives, artTeacher, avatar } = auth;
-  const setAvatar = (value: string | null) => setAuth((a) => (a ? { ...a, avatar: value } : a));
   setMyArtTeacher(artTeacher);
   return (
     <AuthContext.Provider
