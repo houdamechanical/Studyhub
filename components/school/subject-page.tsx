@@ -225,7 +225,7 @@ export function SubjectPage({
                       {tab === "mini" ? <ListChecks size={14} aria-hidden /> : <Timer size={14} aria-hidden />}
                       {[q.questionCount === 1 ? p.oneQuestion : fill(p.questions, { n: q.questionCount }), q.durationMinutes ? `${q.durationMinutes}′` : ""].filter(Boolean).join(" · ")}
                     </span>
-                    <span className="mt-3 font-display text-xl font-semibold leading-tight [overflow-wrap:anywhere]" lang="de" dir="auto">
+                    <span className="mt-3 font-display text-xl font-semibold leading-tight break-words" lang="de" dir="auto">
                       {q.title}
                     </span>
                     <span className="mt-auto flex items-center gap-3 pt-5">

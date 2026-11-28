@@ -82,16 +82,12 @@ function Hero({
   const t = dict.home2;
   return (
     <section
-      className="hero-scene enter relative isolate overflow-hidden rounded-[28px] text-white shadow-[0_30px_60px_-30px_rgb(0_0_0/0.55)]"
-      style={{
-        background:
-          "radial-gradient(120% 90% at 88% 0%, #3d2b1b 0%, transparent 55%), radial-gradient(90% 80% at 0% 100%, #18263b 0%, transparent 60%), #0e0c0a",
-      }}
+      className="hero-scene ink ink-bg enter relative isolate overflow-hidden rounded-[28px] text-white shadow-[0_30px_60px_-30px_rgb(0_0_0/0.55)]"
     >
       {/* The "photo": warm-lit books that rise near the pointer */}
       <BookRow still className="absolute inset-x-0 bottom-0 top-[55%] -z-10 opacity-80 md:inset-y-0 md:start-[40%] md:top-[38%] lg:start-[30%] lg:top-[10%]" />
       {/* Darken behind the text, and fade the floor */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(14_12_10/0.92)_0%,rgb(14_12_10/0.55)_45%,transparent_75%)] max-md:bg-[linear-gradient(180deg,rgb(14_12_10/0.9)_0%,rgb(14_12_10/0.55)_60%,rgb(14_12_10/0.9)_100%)]" />
+      <div aria-hidden className="hero-fade pointer-events-none absolute inset-0 -z-10" />
 
       <div className="relative grid gap-7 p-5 sm:p-8 md:min-h-[max(560px,calc(100dvh-8.5rem))] md:grid-cols-[minmax(0,1fr)_minmax(0,18rem)] md:p-10">
         <div className="flex flex-col">
@@ -242,11 +238,11 @@ function NewsCarousel() {
       >
         <div
           key={n.id}
-          className={cn("fade-swap relative", dx === 0 && "transition-transform duration-300")}
+          className={cn("keep-white fade-swap relative", dx === 0 && "transition-transform duration-300")}
           style={dx ? { transform: `translateX(${dx * 0.6}px) rotate(${dx * 0.02}deg)` } : undefined}
         >
           <NewsArt item={n} className="h-24 rounded-xl sm:h-36" />
-          <span className="absolute end-2 top-2 rounded-full bg-black/35 px-2 py-0.5 text-xs font-semibold backdrop-blur-sm">{dict.news.newBadge}</span>
+          <span className="absolute end-2 top-2 rounded-full bg-black/35 px-2 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">{dict.news.newBadge}</span>
         </div>
         <div className="flex items-center gap-3 px-2 pb-1.5 pt-2.5">
           <span className="text-xs font-semibold tabular-nums text-white/80">
@@ -315,7 +311,7 @@ function FriendsStack({ friends }: { friends: FriendRow[] }) {
 function HomeSkeleton() {
   return (
     <div className="flex flex-col gap-4" aria-busy>
-      <div className="h-[560px] animate-pulse rounded-[28px] bg-[#1a1714] md:h-[max(560px,calc(100dvh-8.5rem))]" />
+      <div className="ink-bg h-[560px] animate-pulse rounded-[28px] md:h-[max(560px,calc(100dvh-8.5rem))]" />
     </div>
   );
 }

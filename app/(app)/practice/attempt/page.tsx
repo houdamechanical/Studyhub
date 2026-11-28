@@ -97,7 +97,7 @@ function AttemptView({ attempt, dict, justFinished }: { attempt: AttemptRow; dic
         <p className="label-mono !text-white/55">
           {t.result} · {quiz?.kind === "mock" ? t.mock : t.mini}
         </p>
-        <h1 className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight [overflow-wrap:anywhere] sm:text-3xl" dir="auto" lang="de">
+        <h1 className="mt-3 font-display text-2xl font-semibold leading-tight tracking-tight break-words sm:text-3xl" dir="auto" lang="de">
           {quiz?.title}
         </h1>
         <div className="mt-6 flex items-center gap-6">

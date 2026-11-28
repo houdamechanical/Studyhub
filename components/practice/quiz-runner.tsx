@@ -110,7 +110,7 @@ export function QuizRunner({
             <SubjectIcon subject={quiz.subject} className="size-3.5" strokeWidth={2.2} />
             {quiz.kind === "mock" ? t.mock : t.mini} · {subject.label[locale]}
           </p>
-          <h1 className="mt-5 font-display text-[2rem] font-semibold leading-[1.05] tracking-tight [overflow-wrap:anywhere] sm:text-[2.6rem]" dir="auto" lang="de">
+          <h1 className="mt-5 font-display text-[2rem] font-semibold leading-[1.05] tracking-tight break-words sm:text-[2.6rem]" dir="auto" lang="de">
             {quiz.title}
           </h1>
           {quiz.description && (
