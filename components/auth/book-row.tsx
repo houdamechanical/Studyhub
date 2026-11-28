@@ -18,7 +18,7 @@ const TONES = ["#5b2b27", "#2e3d2e", "#25324a", "#7a5a2e", "#40283a", "#3a4652",
 // Wide screens get a shorter row, so it ends before the login card on the left.
 const booksFor = (w: number, h: number) => (w > h * 1.2 ? 10 : 22);
 
-export function BookRow({ className }: { className?: string }) {
+export function BookRow({ className, still = false }: { className?: string; /** Rise once, then stand still (no wave, no hover). */ still?: boolean }) {
   const host = useRef<HTMLDivElement>(null);
   const { locale } = useI18n();
 
@@ -182,6 +182,7 @@ export function BookRow({ className }: { className?: string }) {
       }
 
       // --- sizing --------------------------------------------------------------------
+      let stopped = false;
       function resize() {
         const w = el!.clientWidth;
         const h = el!.clientHeight;
@@ -191,6 +192,7 @@ export function BookRow({ className }: { className?: string }) {
         camera.fov = w < h ? 40 : 19.5;
         camera.updateProjectionMatrix();
         camera.lookAt(lookAt);
+        if (stopped) renderer.render(scene, camera);
       }
       resize();
       const ro = new ResizeObserver(resize);
@@ -230,8 +232,8 @@ export function BookRow({ className }: { className?: string }) {
         // Where is the "pointer"? Real mouse, or a slow sweep along the row when idle / on touch.
         let px = pointer.x;
         let py = pointer.y;
-        let live = pointer.active && now - pointer.last < 4000;
-        if (!reduced && (coarse || !live)) {
+        let live = !still && pointer.active && now - pointer.last < 4000;
+        if (!still && !reduced && (coarse || !live)) {
           const a = projected(books[BOOKS - 3].mesh, w, h);
           const b = projected(books[1].mesh, w, h);
           const u = (Math.sin(t * 0.45) + 1) / 2;
@@ -266,6 +268,11 @@ export function BookRow({ className }: { className?: string }) {
           book.mesh.rotation.x = -book.vy * 0.012;
         });
         renderer.render(scene, camera);
+        // Still mode: once every book has landed, stop drawing (frees the page).
+        if (still && t > 1.5 && books.every((b) => Math.abs(b.y) < 0.002 && Math.abs(b.vy) < 0.01)) {
+          cancelAnimationFrame(raf);
+          stopped = true;
+        }
       }
 
       function projected(mesh: InstanceType<typeof THREE.Mesh>, w: number, h: number) {
@@ -293,7 +300,7 @@ export function BookRow({ className }: { className?: string }) {
       disposed = true;
       cleanup();
     };
-  }, [locale]);
+  }, [locale, still]);
 
   return <div ref={host} aria-hidden className={className} />;
 }

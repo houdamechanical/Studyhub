@@ -2,11 +2,12 @@
 
 import { ArrowUpRight, CalendarDays, ChevronRight, Users } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/components/auth-gate";
 import { BookRow } from "@/components/auth/book-row";
 import { CalendarDialog } from "@/components/exams/exam-calendar";
 import { NewsArt } from "@/components/news";
+import { usePortalArrival } from "@/components/portal";
 import { SubjectIcon } from "@/components/subject-icon";
 import { UserAvatar } from "@/components/user-avatar";
 import { useLoad } from "@/lib/data";
@@ -42,14 +43,14 @@ export default function HomePage() {
   useTitle(dict.nav.home);
   const { data } = useLoad(() => loadHome(subjects), `home:${subjects.join(",")}`);
   const [calendar, setCalendar] = useState(false);
+  const card = useRef<HTMLDivElement>(null);
+  usePortalArrival(card);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 pb-12 pt-4 sm:pt-6 lg:px-6">
-      {!data ? (
-        <HomeSkeleton />
-      ) : (
-        <Hero friends={data.friends} next={data.next} nc={data.nc} onCalendar={() => setCalendar(true)} />
-      )}
+      <div ref={card}>
+        {!data ? <HomeSkeleton /> : <Hero friends={data.friends} next={data.next} nc={data.nc} onCalendar={() => setCalendar(true)} />}
+      </div>
       {calendar && data && <CalendarDialog exams={data.exams} onClose={() => setCalendar(false)} />}
     </div>
   );
@@ -88,7 +89,7 @@ function Hero({
       }}
     >
       {/* The "photo": warm-lit books that rise near the pointer */}
-      <BookRow className="absolute inset-x-0 bottom-0 top-[55%] -z-10 opacity-80 md:inset-y-0 md:start-[40%] md:top-[38%] lg:start-[30%] lg:top-[10%]" />
+      <BookRow still className="absolute inset-x-0 bottom-0 top-[55%] -z-10 opacity-80 md:inset-y-0 md:start-[40%] md:top-[38%] lg:start-[30%] lg:top-[10%]" />
       {/* Darken behind the text, and fade the floor */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(14_12_10/0.92)_0%,rgb(14_12_10/0.55)_45%,transparent_75%)] max-md:bg-[linear-gradient(180deg,rgb(14_12_10/0.9)_0%,rgb(14_12_10/0.55)_60%,rgb(14_12_10/0.9)_100%)]" />
 
@@ -115,13 +116,13 @@ function Hero({
         {/* Right: what's new */}
         <NewsCarousel />
 
-        {/* Bottom row: friends · next exam · NC */}
+        {/* Bottom row: next exam · NC on the left (over the dark side), friends on the right */}
         <div className="flex flex-col gap-5 md:col-span-2 md:flex-row md:items-end md:justify-between md:self-end">
-          <FriendsStack friends={friends} />
           <div className="hero-in grid grid-cols-2 gap-2.5 [--d:420ms] max-[379px]:grid-cols-1 md:w-[27rem]">
             <ExamTile next={next} onOpen={onCalendar} />
             <NcTile nc={nc} />
           </div>
+          <FriendsStack friends={friends} />
         </div>
       </div>
     </section>
@@ -238,15 +239,15 @@ function FriendsStack({ friends }: { friends: FriendRow[] }) {
   const shown = friends.slice(0, 4);
   const people = usePeople(shown.map((f) => f.user_id));
   return (
-    <Link href="/friends" className="hero-in group flex items-center gap-3 [--d:380ms]">
+    <Link href="/friends" className="hero-in group flex w-fit items-center gap-3 rounded-full bg-black/45 py-1.5 pe-4 ps-1.5 backdrop-blur-md [--d:380ms]">
       {shown.length ? (
         <span className="flex -space-x-3 rtl:space-x-reverse">
           {shown.map((f) => (
-            <UserAvatar key={f.user_id} userId={f.user_id} avatar={people.get(f.user_id)?.avatar} name={f.nickname} className="size-11 text-base ring-2 ring-[#0e0c0a]" still />
+            <UserAvatar key={f.user_id} userId={f.user_id} avatar={people.get(f.user_id)?.avatar} name={f.nickname} className="size-10 text-base ring-2 ring-[#0e0c0a]" still />
           ))}
         </span>
       ) : (
-        <span className="flex size-11 items-center justify-center rounded-full border border-dashed border-white/40">
+        <span className="flex size-10 items-center justify-center rounded-full border border-dashed border-white/40">
           <Users size={18} />
         </span>
       )}
@@ -261,7 +262,7 @@ function FriendsStack({ friends }: { friends: FriendRow[] }) {
 function HomeSkeleton() {
   return (
     <div className="flex flex-col gap-4" aria-busy>
-      <div className="h-[560px] animate-pulse rounded-[28px] bg-[#1a1714]" />
+      <div className="h-[560px] animate-pulse rounded-[28px] bg-[#1a1714] md:h-[max(560px,calc(100dvh-8.5rem))]" />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AuthHero } from "@/components/auth/auth-hero";
+import { usePortalLink } from "@/components/portal";
 import { LoginForm } from "@/components/login-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -59,6 +60,7 @@ export default function StartPage() {
 function HopIn({ nickname }: { nickname: string }) {
   const { dict } = useI18n();
   const t = dict.home;
+  const portal = usePortalLink("/home");
 
   async function signOut() {
     await createClient().auth.signOut();
@@ -74,7 +76,7 @@ function HopIn({ nickname }: { nickname: string }) {
           </p>
         </div>
         <Button asChild size="lg" className="h-12 w-full rounded-xl text-base">
-          <Link href="/home">
+          <Link href="/home" onClick={portal}>
             {t.hopIn}
             <ArrowRight className="rtl:rotate-180" />
           </Link>
