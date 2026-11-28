@@ -1,4 +1,4 @@
-// Study Hub – "Kompakt": study pages read short by default.
+// Study Hub – "Kompakt": study pages can be read short (the full text is the default).
 // Every section shows its heading, its summary (.kurz, or the first paragraph,
 // cut to three lines) and its key boxes (.rule / .merke). Everything else folds
 // away behind "Ausführlich lesen"; a switch at the top opens all of it.
@@ -68,7 +68,7 @@
       f.set(!f.open);
       if (!f.open) sec.scrollIntoView({ block: "nearest" });
     });
-    f.set(false);
+    f.set(true); // "Ausführlich" is the normal view; "Kompakt" is the option
     folds.push(f);
   }
 
@@ -79,20 +79,19 @@
     var b = document.createElement("div");
     b.className = "kz-bar";
     b.innerHTML =
-      '<div class="kz-switch" role="group" aria-label="Länge"><button type="button" data-v="0" aria-pressed="true">Kompakt</button><button type="button" data-v="1" aria-pressed="false">Ausführlich</button></div>';
+      '<div class="kz-switch" role="group" aria-label="Länge"><button type="button" data-v="1" aria-pressed="true">Ausführlich</button><button type="button" data-v="0" aria-pressed="false">Kompakt</button></div>';
     host.appendChild(b);
+    var lead = host.querySelector(".lead");
     b.addEventListener("click", function (e) {
       var t = e.target.closest("button");
       if (!t) return;
       var open = t.getAttribute("data-v") === "1";
       folds.forEach(function (f) { f.set(open); });
+      if (lead) lead.classList.toggle("kz-clamp", !open);
       b.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === t)); });
     });
-    var lead = host.querySelector(".lead");
     if (lead) {
-      lead.classList.add("kz-clamp");
-      lead.style.cursor = "pointer";
-      lead.addEventListener("click", function () { lead.classList.toggle("kz-clamp"); });
+      lead.addEventListener("click", function () { if (lead.classList.contains("kz-clamp")) lead.classList.remove("kz-clamp"); });
     }
   }
 

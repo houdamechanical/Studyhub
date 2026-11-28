@@ -29,6 +29,7 @@ const en = {
     account: "Account",
   },
   library: {
+    toTop: "Back to top",
     title: "Library",
     subtitle: "All your study pages by subject and half-year.",
     searchPlaceholder: "Search titles, topics, tags…",
@@ -643,6 +644,7 @@ const de: Dictionary = {
     account: "Konto",
   },
   library: {
+    toTop: "Nach oben",
     title: "Bibliothek",
     subtitle: "Alle Lernseiten nach Fach und Halbjahr.",
     searchPlaceholder: "Titel, Themen, Tags durchsuchen…",
@@ -1255,6 +1257,7 @@ const ar: Dictionary = {
     account: "الحساب",
   },
   library: {
+    toTop: "إلى الأعلى",
     title: "المكتبة",
     subtitle: "جميع صفحات الدراسة حسب المادة ونصف السنة.",
     searchPlaceholder: "ابحث في العناوين والمواضيع والوسوم…",
