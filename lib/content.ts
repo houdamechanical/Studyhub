@@ -1,7 +1,8 @@
 import rawIndex from "@/content/index.json";
 import { isSubjectId, type SubjectId } from "@/lib/subjects";
 
-export type ContentKind = "notes" | "quiz" | "interactive" | "exercises";
+/** "exam" = a practice exam page: listed under Probeklausuren, not Lernseiten. */
+export type ContentKind = "notes" | "quiz" | "interactive" | "exercises" | "exam";
 
 export type ContentItem = {
   id: string;

@@ -38,6 +38,7 @@ const KIND_ICON: Record<ContentKind, LucideIcon> = {
   quiz: Gamepad2,
   interactive: MousePointerClick,
   exercises: PencilLine,
+  exam: Timer,
 };
 
 const TABS = ["pages", "mini", "mock", "cards"] as const;
@@ -73,9 +74,10 @@ export function SubjectPage({
   const { grade, half } = splitSemester(semester);
   const halfLabel = half === "1" ? dict.school.half1 : dict.school.half2;
 
-  const pages = getContentForSubject(subject).filter(
-    (c) => c.semester === semester,
-  );
+  const all = getContentForSubject(subject).filter((c) => c.semester === semester);
+  // Practice exam pages go under "Probeklausuren", everything else under "Lernseiten".
+  const pages = all.filter((c) => c.kind !== "exam");
+  const examPages = all.filter((c) => c.kind === "exam");
   // Tests and decks have no half-year in the database yet: they belong to the current one.
   const withPractice = semester === PRACTICE_SEMESTER;
   const state = useLoad(
@@ -107,7 +109,7 @@ export function SubjectPage({
   const counts: Record<Tab, number> = {
     pages: pages.length,
     mini: minis.length,
-    mock: mocks.length,
+    mock: mocks.length + examPages.length,
     cards: decks.length,
   };
   const labels: Record<Tab, string> = {
@@ -143,7 +145,7 @@ export function SubjectPage({
         <div className="enter mt-6 grid grid-cols-2 gap-2.5">
           {nextExam ? (
             <Link href="/grades?tab=exams" className="tile press flex flex-col rounded-2xl p-4">
-              <span className="label-mono">{dict.home2.examTile}</span>
+              <span className="label-mono max-md:!tracking-[0.08em]">{dict.home2.examTile}</span>
               <span className="mt-3 font-display text-lg font-semibold leading-tight text-[var(--c-amber)]">{whenLabel(nextExam.exam_date, dict)}</span>
               <span className="truncate text-sm text-muted-foreground">
                 {formatDate(nextExam.exam_date, locale, { weekday: "short", day: "numeric", month: "short" })}
@@ -214,10 +216,14 @@ export function SubjectPage({
             </div>
           )
         ) : tab === "mini" || tab === "mock" ? (
-          (tab === "mini" ? minis : mocks).length === 0 ? (
+          (tab === "mini" ? minis.length : mocks.length + examPages.length) === 0 ? (
             <Empty text={tab === "mini" ? t.emptyTests : t.emptyMocks} />
           ) : (
             <ul className="grid gap-2.5 sm:grid-cols-2">
+              {tab === "mock" &&
+                examPages.map((item) => (
+                  <Tile key={item.id} href={`/library/${item.subject}/${item.id}`} icon={KIND_ICON[item.kind]} eyebrow={dict.kind[item.kind]} title={item.title} lang="de" />
+                ))}
               {(tab === "mini" ? minis : mocks).map((q) => (
                 <li key={q.id}>
                   <Link href={`/practice/quiz?id=${q.id}`} className="tile press group flex h-full flex-col rounded-2xl p-4 sm:p-5">
