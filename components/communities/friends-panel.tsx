@@ -61,7 +61,7 @@ export function FriendsView() {
         href="/profile"
         className="flex items-center gap-3 rounded-xl border bg-card px-4 py-3 shadow-card transition-colors hover:bg-secondary/60"
       >
-        <UserAvatar avatar={avatar} name={nickname} className="size-10" />
+        <UserAvatar userId={userId} avatar={avatar} name={nickname} className="size-10" />
         <span className="min-w-0 flex-1">
           <span className="block font-medium">{t.myProfile}</span>
           <span className="block text-sm text-muted-foreground">{t.myProfileHint}</span>
@@ -161,7 +161,7 @@ export function FriendsView() {
 function Avatar({ userId, name, avatar }: { userId?: string; name: string; avatar?: string | null }) {
   const people = usePeople([userId]);
   const pic = avatar !== undefined ? avatar : userId ? (people.get(userId)?.avatar ?? null) : null;
-  return <UserAvatar avatar={pic} name={name} className="size-9" still />;
+  return <UserAvatar userId={userId} avatar={pic} name={name} className="size-9" still />;
 }
 
 function PersonLink({ f }: { f: { user_id: string; nickname: string } }) {

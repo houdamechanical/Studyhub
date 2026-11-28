@@ -45,7 +45,7 @@ export function AvatarPicker({ onClose }: { onClose: () => void }) {
       <button type="button" aria-hidden tabIndex={-1} onClick={onClose} className="dialog-backdrop absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <div className="dialog-panel relative w-full max-w-lg overflow-hidden rounded-t-2xl border bg-popover shadow-2xl sm:rounded-2xl">
         <header className="flex items-center gap-3 border-b px-5 py-4">
-          <UserAvatar avatar={avatar} name={nickname} className="size-10" />
+          <UserAvatar userId={userId} avatar={avatar} name={nickname} className="size-10" />
           <h2 id="pic-title" className="flex-1 font-display text-lg font-semibold">
             {t.pickTitle}
           </h2>

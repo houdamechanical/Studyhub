@@ -105,7 +105,7 @@ export function BottomNav() {
 export function TopNav() {
   const { dict } = useI18n();
   const isActive = useActiveNav();
-  const { nickname, avatar } = useAuth();
+  const { userId, nickname, avatar } = useAuth();
   const unseen = useNewsUnseen();
   const settings = NAV_ITEMS.find((i) => i.label === "settings")!;
   const links = NAV_ITEMS.filter((i) => i.label !== "settings");
@@ -164,7 +164,7 @@ export function TopNav() {
           <Settings size={18} strokeWidth={1.9} />
         </Link>
         <Link href="/profile" aria-label={dict.friends.myProfile} title={dict.friends.myProfile} className="press ms-1 rounded-full ring-2 ring-transparent transition-shadow hover:ring-[var(--c-border-strong)]">
-          <UserAvatar avatar={avatar} name={nickname} className="size-10 text-base" />
+          <UserAvatar userId={userId} avatar={avatar} name={nickname} className="size-10 text-base" />
         </Link>
       </nav>
     </div>

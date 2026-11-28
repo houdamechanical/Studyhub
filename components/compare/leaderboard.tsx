@@ -77,7 +77,7 @@ export function Leaderboard({
                         ? ["🥇", "🥈", "🥉"][row.rank - 1]
                         : row.rank}
                     </span>
-                    <UserAvatar avatar={pic(row)} name={row.nickname} className="size-7 text-xs" still />
+                    <UserAvatar userId={row.user_id} avatar={pic(row)} name={row.nickname} className="size-7 text-xs" still />
                     <span className="min-w-0 flex-1 truncate">
                       <Name row={row} />
                       {row.is_me && (
@@ -145,7 +145,7 @@ function Podium({
               )}
             >
               {pic(row) ? (
-                <UserAvatar avatar={pic(row)} name={row.nickname} className="size-full" />
+                <UserAvatar userId={row.rank === 1 ? null : row.user_id} avatar={pic(row)} name={row.nickname} className="size-full" />
               ) : (
                 row.nickname.slice(0, 1)
               )}

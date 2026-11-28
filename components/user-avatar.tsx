@@ -1,7 +1,7 @@
 "use client";
 
 import { useId } from "react";
-import { parseAvatar, type AvatarPreset } from "@/lib/people";
+import { parseAvatar, useAdmins, type AvatarPreset } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
 /**
@@ -13,13 +13,52 @@ export function UserAvatar({
   name,
   className,
   still = false,
+  userId,
 }: {
   avatar: string | null | undefined;
   name: string;
   className?: string;
   /** No animation (small lists). */
   still?: boolean;
+  /** Whose picture this is – admins get a crown on top. */
+  userId?: string | null;
 }) {
+  const admins = useAdmins();
+  const pic = <Picture avatar={avatar} name={name} className={className} still={still} />;
+  if (!userId || !admins.has(userId)) return pic;
+  return (
+    <span className={cn("relative inline-flex shrink-0", className?.includes("size-full") && "size-full")}>
+      {pic}
+      <AdminCrown />
+    </span>
+  );
+}
+
+/** A gold crown sitting tilted on the top edge of the picture; scales with it. */
+function AdminCrown() {
+  return (
+    <svg
+      viewBox="0 0 32 22"
+      aria-hidden
+      className="pointer-events-none absolute start-1/2 top-0 w-[58%] -translate-x-1/2 -translate-y-[62%] -rotate-12 drop-shadow-[0_1px_1.5px_rgba(0,0,0,.35)] rtl:translate-x-1/2"
+    >
+      <defs>
+        <linearGradient id="admin-crown-gold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#ffe27a" />
+          <stop offset="1" stopColor="#f0a020" />
+        </linearGradient>
+      </defs>
+      <path d="M3 8 L9.5 13 L16 3 L22.5 13 L29 8 L27 19 H5 Z" fill="url(#admin-crown-gold)" stroke="#a8620a" strokeWidth="1.3" strokeLinejoin="round" />
+      <rect x="5" y="16.5" width="22" height="3" rx="1" fill="#e08a12" />
+      <circle cx="16" cy="3" r="2" fill="#ffe27a" stroke="#a8620a" strokeWidth="1" />
+      <circle cx="3" cy="8" r="1.7" fill="#ffe27a" stroke="#a8620a" strokeWidth="1" />
+      <circle cx="29" cy="8" r="1.7" fill="#ffe27a" stroke="#a8620a" strokeWidth="1" />
+      <circle cx="16" cy="13" r="1.6" fill="#e11d48" />
+    </svg>
+  );
+}
+
+function Picture({ avatar, name, className, still }: { avatar: string | null | undefined; name: string; className?: string; still: boolean }) {
   const a = parseAvatar(avatar);
   if (a?.kind === "photo") {
     // eslint-disable-next-line @next/next/no-img-element

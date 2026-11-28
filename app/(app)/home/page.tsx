@@ -217,7 +217,7 @@ function FriendsStack({ friends }: { friends: FriendRow[] }) {
       {shown.length ? (
         <span className="flex -space-x-3 rtl:space-x-reverse">
           {shown.map((f) => (
-            <UserAvatar key={f.user_id} avatar={people.get(f.user_id)?.avatar} name={f.nickname} className="size-11 text-base ring-2 ring-[#0e0c0a]" still />
+            <UserAvatar key={f.user_id} userId={f.user_id} avatar={people.get(f.user_id)?.avatar} name={f.nickname} className="size-11 text-base ring-2 ring-[#0e0c0a]" still />
           ))}
         </span>
       ) : (

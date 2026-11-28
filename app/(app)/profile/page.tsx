@@ -123,13 +123,13 @@ function ProfileView({ stats }: { stats: PlayerStats }) {
       <section className="enter -mt-4 flex flex-wrap items-center gap-x-5 gap-y-4">
         {self ? (
           <button type="button" onClick={() => setPicking(true)} className="press group relative shrink-0 rounded-full" aria-label={t.changePicture}>
-            <UserAvatar avatar={myAvatar} name={stats.nickname} className="size-20 text-3xl shadow-card sm:size-24 sm:text-4xl" />
+            <UserAvatar userId={stats.user_id} avatar={myAvatar} name={stats.nickname} className="size-20 text-3xl shadow-card sm:size-24 sm:text-4xl" />
             <span className="absolute -bottom-1 -end-1 flex size-8 items-center justify-center rounded-full border-2 border-background bg-primary text-primary-foreground shadow-card">
               <Camera size={15} />
             </span>
           </button>
         ) : (
-          <UserAvatar avatar={people.get(stats.user_id)?.avatar ?? null} name={stats.nickname} className="size-20 text-3xl shadow-card sm:size-24 sm:text-4xl" />
+          <UserAvatar userId={stats.user_id} avatar={people.get(stats.user_id)?.avatar ?? null} name={stats.nickname} className="size-20 text-3xl shadow-card sm:size-24 sm:text-4xl" />
         )}
         <div className="min-w-0 flex-1 basis-40">
           <p className="text-muted-foreground">{fill(t.joined, { date: since })}</p>
