@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!doctype html>
 <html lang="de">
 <head>
@@ -7,52 +7,32 @@
 <title>Elektrische Stromstärke</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/tokens.css">
+<script src="../../_shared/theme.js"></script>
 <style>
+  /* Study Hub theme: page colours come from tokens.css (cream + royal blue / black + orange).
+     Physics colours keep their meaning: volt = voltage/light, electron = electrons, current = technical current direction. */
   :root {
-    --bg: #f5f3ec;
-    --surface: #ffffff;
-    --surface-2: #ece9df;
-    --ink: #1c1b17;
-    --muted: #5d5a50;
-    --line: #d6d2c4;
-    --volt: #e8a300;       /* Spannung / Licht */
-    --electron: #2563eb;   /* Elektronen */
-    --current: #d9480f;    /* technische Stromrichtung */
-    --good: #2f9e44;
-    --bad: #c92a2a;
+    --surface: var(--card);
+    --surface-2: var(--raised);
+    --ink: var(--text);
+    --muted: var(--text2);
+    --line: var(--border);
+    --volt: #b7791f;
+    --electron: #2350d8;
+    --current: #c2410c;
+    --good: #276b3c;
+    --bad: #b42318;
     --wire: #3b3a35;
     --glow: rgba(255, 196, 0, .55);
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0e1018;
-      --surface: #171a26;
-      --surface-2: #20243399;
-      --ink: #eceef5;
-      --muted: #a1a6b8;
-      --line: #2c3142;
-      --volt: #ffc53d;
-      --electron: #6ea8ff;
-      --current: #ff8a4c;
-      --good: #51cf66;
-      --bad: #ff6b6b;
-      --wire: #c9ccd8;
-      --glow: rgba(255, 210, 60, .6);
-    }
-  }
   :root[data-theme="dark"] {
-    --bg: #0e1018;
-    --surface: #171a26;
-    --surface-2: #20243399;
-    --ink: #eceef5;
-    --muted: #a1a6b8;
-    --line: #2c3142;
     --volt: #ffc53d;
-    --electron: #6ea8ff;
+    --electron: #7c9cff;
     --current: #ff8a4c;
-    --good: #51cf66;
-    --bad: #ff6b6b;
+    --good: #6fcf8f;
+    --bad: #ff8a80;
     --wire: #c9ccd8;
     --glow: rgba(255, 210, 60, .6);
   }
@@ -63,9 +43,8 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-    line-height: 1.55;
-    font-size: 17px;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
   }
   .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
   section { padding: 56px 0; border-top: 1px solid var(--line); }
@@ -99,9 +78,7 @@
     background: var(--electron); animation: run 6s linear infinite;
   }
   @keyframes run { from { left: -14px; } to { left: 100%; } }
-  .theme-btn {
-    position: absolute; top: 16px; right: 16px;
-  }
+  .theme-btn { display: none; }
 
   /* ---------- Buttons & controls ---------- */
   button {
@@ -422,7 +399,7 @@
 
   /* ---------- Theme ---------- */
   const root = document.documentElement;
-  try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch (e) {}
+  /* light/dark comes from the app (theme.js) */
   $("#themeBtn").addEventListener("click", () => {
     const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
     root.dataset.theme = dark ? "light" : "dark";
