@@ -184,6 +184,9 @@ details.sol > .inner { padding-top: 10px; animation: open 0.25s ease-out both; }
 /* ===================== Deutsch (red accent) + Lyrik building blocks ===================== */
 body.deutsch { --math: #b8360f; --math2: #e0573f; --mathbg: #fbe9e3; --g1: #d0342c; --g2: #a51111; }
 :root[data-theme="dark"] body.deutsch { --math: #ff8a72; --math2: #ffb3a3; --mathbg: #3a221c; }
+/* Physics pages: the physics book blue */
+body.physik { --math: #1864ab; --math2: #4c8fd1; --mathbg: #e3eef9; --g1: #1c68b8; --g2: #0f4c8a; }
+:root[data-theme="dark"] body.physik { --math: #74b0ff; --math2: #a9cdff; --mathbg: #16263a; }
 mark { background: #ffe58f; color: #1f1b16; padding: 0 2px; border-radius: 3px; }
 :root[data-theme="dark"] mark { background: #6b5a14; color: #fff7d6; }
 

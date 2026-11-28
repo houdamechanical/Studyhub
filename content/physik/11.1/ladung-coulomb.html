@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elektrische Ladung und Coulomb-Gesetz – Erklärung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_shared/katex/katex.min.css">
+<link rel="stylesheet" href="../../_shared/math.css">
+<script defer src="../../_shared/katex/katex.min.js"></script>
+<script defer src="../../_shared/katex/contrib/auto-render.min.js"></script>
+<script defer src="../../_shared/math.js"></script>
+<style>
+  .seg { display: inline-flex; gap: 4px; background: var(--raised); border-radius: 12px; padding: 4px; flex-wrap: wrap; }
+  .seg button { font: inherit; font-size: .85rem; font-weight: 600; border: 0; background: none; color: var(--text2); padding: 7px 12px; border-radius: 9px; cursor: pointer; }
+  .seg button.on { background: var(--card); color: var(--text); box-shadow: var(--shadow); }
+  .ctl { display: grid; grid-template-columns: 7.5em 1fr 6.5em; gap: 6px 12px; align-items: center; margin: 10px 0; }
+  .ctl label { font-weight: 600; font-size: .9rem; }
+  .ctl output { text-align: end; font-variant-numeric: tabular-nums; font-weight: 600; }
+  input[type=range] { width: 100%; accent-color: var(--math); }
+  .verdict { font-weight: 700; }
+  .lab .pos { fill: #e03131; } .lab .neg { fill: #1971c2; }
+  .lab .chg { fill: #fff; font: 800 22px Inter, sans-serif; text-anchor: middle; dominant-baseline: central; }
+  .lab .arrow { stroke: var(--accent); stroke-width: 4; fill: none; stroke-linecap: round; }
+  .lab .dist { stroke: var(--text2); stroke-width: 1.2; stroke-dasharray: 4 4; }
+  @media (max-width: 560px) { .ctl { grid-template-columns: 1fr 5.5em; } .ctl input { grid-column: 1 / -1; grid-row: 2; } }
+</style>
+</head>
+<body class="physik">
+<div class="wrap">
+
+<header class="hero">
+  <h1>Elektrische Ladung <em>und das Coulomb-Gesetz</em></h1>
+  <p class="lead">Warum zieht ein geriebener Luftballon Haare an? Was bedeutet „ein Körper trägt +1&nbsp;nC“? Und wie groß ist die Kraft zwischen zwei Ladungen? Hier lernst du alles zu Ladung, Elementarladung und Coulomb-Kraft – mit Rechnungen genau im Stil des Unterrichts (geg. · ges. · Lösung).</p>
+  <nav class="toc" aria-label="Inhalt">
+    <a href="#ladung"><b>1</b> Ladung</a>
+    <a href="#elementar"><b>2</b> Elementarladung</a>
+    <a href="#trennung"><b>3</b> Leiter · Influenz</a>
+    <a href="#coulomb"><b>4</b> Coulomb-Gesetz</a>
+    <a href="#labor"><b>5</b> Coulomb-Labor</a>
+    <a href="#beispiele"><b>6</b> Beispiele</a>
+    <a href="#gravitation"><b>7</b> Vergleich Gravitation</a>
+    <a href="#fehler"><b>8</b> Typische Fehler</a>
+    <a href="#check"><b>9</b> Kurz-Check</a>
+  </nav>
+</header>
+
+<section class="block" id="ladung">
+  <h2><span class="num">1</span>Was ist elektrische Ladung?</h2>
+  <p>Alle Stoffe bestehen aus Atomen. Im Kern sitzen die <b>Protonen</b> (positiv geladen), in der Hülle die <b>Elektronen</b> (negativ geladen). Normalerweise gibt es gleich viele von beiden – der Körper ist <b>elektrisch neutral</b>.</p>
+  <div class="two">
+    <div class="card" style="margin:0">
+      <p><b>Positiv geladen</b> heißt: Dem Körper <b>fehlen</b> Elektronen.</p>
+      <p style="margin:0"><b>Negativ geladen</b> heißt: Der Körper hat Elektronen <b>zu viel</b>.</p>
+    </div>
+    <div class="card" style="margin:0">
+      <p><b>Gleichnamige</b> Ladungen (+ und +, − und −) <b>stoßen sich ab</b>.</p>
+      <p style="margin:0"><b>Ungleichnamige</b> Ladungen (+ und −) <b>ziehen sich an</b>.</p>
+    </div>
+  </div>
+  <div class="rule"><b>Merke</b>Die Ladung hat das Formelzeichen \(Q\) (bei einer kleinen Probeladung oft \(q\)) und die Einheit <b>Coulomb</b>: \([Q] = 1\ \text{C} = 1\ \text{A}\cdot\text{s}\). Ein Coulomb ist die Ladung, die bei einem Strom von 1&nbsp;A in 1&nbsp;s durch den Leiter fließt: \(Q = I\cdot t\).</div>
+  <div class="tip"><b>Ladungserhaltung</b>Ladung kann man nicht erzeugen oder vernichten, nur <b>trennen</b>. Reibst du einen Ballon am Pullover, wandern Elektronen vom Pullover auf den Ballon: Der Ballon wird negativ, der Pullover genauso stark positiv.</div>
+  <p class="small muted">Typische Größenordnungen: 1&nbsp;nC (Nanocoulomb) = \(10^{-9}\)&nbsp;C · 1&nbsp;µC (Mikrocoulomb) = \(10^{-6}\)&nbsp;C. Ein geriebener Ballon trägt etwa 0,1 bis 1&nbsp;µC.</p>
+</section>
+
+<section class="block" id="elementar">
+  <h2><span class="num">2</span>Die Elementarladung</h2>
+  <p>Ladung gibt es nur in „Portionen“: Jede Ladung ist ein ganzzahliges Vielfaches der <b>Elementarladung</b> \(e\) – der Ladung eines Protons (bzw. minus die Ladung eines Elektrons).</p>
+  <div class="rule"><b>Elementarladung</b>\(e = 1{,}602\cdot 10^{-19}\ \text{C}\) · Ein Körper mit \(N\) fehlenden oder überschüssigen Elektronen trägt die Ladung \(Q = N\cdot e\), also \(N = \dfrac{Q}{e}\).</div>
+
+  <div class="lab">
+    <p style="margin-top:0"><b>Rechner: Wie viele Elektronen sind das?</b></p>
+    <div class="ctl">
+      <label for="nQ">Ladung Q</label>
+      <input id="nQ" type="range" min="-30" max="30" step="0.5" value="1">
+      <output id="nQo">+1 nC</output>
+    </div>
+    <div class="readout">
+      <div><small>Ladung in C</small><b id="nC">–</b></div>
+      <div><small>Anzahl N</small><b id="nN">–</b></div>
+      <div><small>Bedeutung</small><b id="nW" style="font-size:1rem">–</b></div>
+    </div>
+  </div>
+
+  <div class="beispiel"><span class="tag">Beispiel a):</span>Ein Körper trägt \(Q = +1\ \text{nC}\). Wie viele Elektronen <u>fehlen</u> ihm?</div>
+  <div class="gbox">
+    <p>geg.: \(Q = +1\ \text{nC} = 1\cdot 10^{-9}\ \text{C}\) · \(e = 1{,}602\cdot10^{-19}\ \text{C}\)</p>
+    <p>ges.: \(N\)</p>
+    <p>\(N = \dfrac{Q}{e} = \dfrac{1\cdot 10^{-9}\ \text{C}}{1{,}6\cdot 10^{-19}\ \text{C}} = 6{,}24\cdot 10^{9}\)</p>
+  </div>
+  <p class="answer">Dem Körper fehlen etwa 6,24 Milliarden Elektronen. (Das klingt viel – ist aber winzig im Vergleich zu den rund \(10^{23}\) Elektronen in einem Gramm Materie.)</p>
+</section>
+
+<section class="block" id="trennung">
+  <h2><span class="num">3</span>Leiter, Isolatoren und Influenz</h2>
+  <div class="two">
+    <div>
+      <h3>Leiter</h3>
+      <p>In Metallen können sich Elektronen frei bewegen. Ladung verteilt sich sofort auf der <b>Oberfläche</b>. Beispiele: Kupfer, Aluminium, Graphit, Salzwasser.</p>
+    </div>
+    <div>
+      <h3>Isolatoren (Nichtleiter)</h3>
+      <p>Die Elektronen sind fest an die Atome gebunden. Ladung bleibt dort, wo sie hingebracht wurde. Beispiele: Kunststoff, Glas, Gummi, trockene Luft.</p>
+    </div>
+  </div>
+  <h3>Influenz</h3>
+  <p>Hält man einen geladenen Körper in die Nähe eines <b>ungeladenen Leiters</b> (ohne ihn zu berühren), werden dessen freie Elektronen verschoben: Auf der zugewandten Seite sammelt sich die ungleichnamige Ladung, auf der abgewandten Seite die gleichnamige. Diese <b>Ladungstrennung durch Annäherung</b> heißt <b>Influenz</b>. Insgesamt bleibt der Leiter neutral.</p>
+  <div class="tip"><b>Deshalb zieht der Ballon Papierschnipsel an</b>Durch Influenz (bzw. bei Isolatoren durch Verschiebung in den Atomen, „Polarisation“) liegt die ungleichnamige Ladung näher am Ballon. Die Anziehung ist dadurch stärker als die Abstoßung – das Papier springt hoch.</div>
+  <p><b>Nachweis:</b> Mit einem <b>Elektroskop</b> zeigt man Ladung an: Gleichnamig geladene Zeiger stoßen sich ab, der Ausschlag ist umso größer, je mehr Ladung auf dem Gerät ist.</p>
+</section>
+
+<section class="block" id="coulomb">
+  <h2><span class="num">4</span>Das Coulomb-Gesetz</h2>
+  <p>Der französische Physiker <b>Charles Augustin de Coulomb</b> hat 1785 mit einer Drehwaage gemessen, wie groß die Kraft zwischen zwei (punktförmigen) Ladungen ist:</p>
+  <div class="rule"><b>Coulomb-Gesetz</b>
+    \[F = \frac{1}{4\pi\,\varepsilon_0\,\varepsilon_r}\cdot\frac{Q_1\cdot Q_2}{r^2}\]
+    \(Q_1, Q_2\): Ladungen in C · \(r\): Abstand der Mittelpunkte in m · \(\varepsilon_0 = 8{,}854\cdot10^{-12}\ \frac{\text{As}}{\text{Vm}}\) (elektrische Feldkonstante) · \(\varepsilon_r\): Permittivitätszahl des Stoffes zwischen den Ladungen (Vakuum/Luft: \(\varepsilon_r \approx 1\))
+  </div>
+  <p>Der Vorfaktor ist eine feste Zahl: \(\frac{1}{4\pi\varepsilon_0} \approx 8{,}99\cdot10^{9}\ \frac{\text{N}\,\text{m}^2}{\text{C}^2}\). So rechnest du im Vakuum schneller: \(F = 8{,}99\cdot10^9\ \frac{\text{Nm}^2}{\text{C}^2}\cdot\frac{Q_1 Q_2}{r^2}\).</p>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th>Wenn …</th><th>… dann wird die Kraft</th><th>weil</th></tr>
+    <tr><td>eine Ladung verdoppelt wird</td><td><b>doppelt</b> so groß</td><td>\(F \sim Q_1\)</td></tr>
+    <tr><td>beide Ladungen verdoppelt werden</td><td><b>4-mal</b> so groß</td><td>\(F \sim Q_1\cdot Q_2\)</td></tr>
+    <tr><td>der Abstand verdoppelt wird</td><td>nur noch <b>¼</b></td><td>\(F \sim \frac{1}{r^2}\)</td></tr>
+    <tr><td>der Abstand verdreifacht wird</td><td>nur noch <b>\(\frac19\)</b></td><td>\(F \sim \frac{1}{r^2}\)</td></tr>
+    <tr><td>die Ladungen in Wasser liegen (\(\varepsilon_r = 81\))</td><td><b>81-mal kleiner</b></td><td>\(F \sim \frac{1}{\varepsilon_r}\)</td></tr>
+  </table>
+  </div>
+  <div class="tip"><b>Richtung der Kraft</b>Die Kraft wirkt immer entlang der Verbindungslinie. Ist \(Q_1\cdot Q_2 &gt; 0\) (gleichnamig) → <b>Abstoßung</b>; ist \(Q_1\cdot Q_2 &lt; 0\) (ungleichnamig) → <b>Anziehung</b>. Für den <b>Betrag</b> der Kraft rechnest du mit den Beträgen der Ladungen.</div>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th>Stoff</th><th>Vakuum</th><th>Luft</th><th>Öl</th><th>Glas</th><th>Wasser</th></tr>
+    <tr><td>\(\varepsilon_r\)</td><td>1</td><td>1,0006 ≈ 1</td><td>≈ 2,2</td><td>≈ 6</td><td>81</td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="block" id="labor">
+  <h2><span class="num">5</span>Coulomb-Labor zum Ausprobieren</h2>
+  <p>Verschiebe Ladungen und Abstand. Die Pfeile zeigen die Kräfte auf beide Kugeln – sie sind immer <b>gleich groß und entgegengesetzt</b> (actio = reactio).</p>
+  <div class="lab" id="cLab">
+    <svg viewBox="0 0 640 220" role="img" aria-label="Zwei geladene Kugeln mit Kraftpfeilen">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
+      </defs>
+      <line id="cDist" class="dist" x1="0" y1="170" x2="0" y2="170"/>
+      <text id="cDistT" class="lbl" x="320" y="196" text-anchor="middle">r</text>
+      <path id="cA1" class="arrow" marker-end="url(#ah)"/>
+      <path id="cA2" class="arrow" marker-end="url(#ah)"/>
+      <g id="cK1"><circle r="30" class="pos"/><text class="chg">+</text></g>
+      <g id="cK2"><circle r="30" class="pos"/><text class="chg">+</text></g>
+    </svg>
+    <div class="ctl"><label for="cQ1">Ladung Q₁</label><input id="cQ1" type="range" min="-50" max="50" step="1" value="10"><output id="cQ1o"></output></div>
+    <div class="ctl"><label for="cQ2">Ladung Q₂</label><input id="cQ2" type="range" min="-50" max="50" step="1" value="10"><output id="cQ2o"></output></div>
+    <div class="ctl"><label for="cR">Abstand r</label><input id="cR" type="range" min="1" max="30" step="0.5" value="5"><output id="cRo"></output></div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:6px 0 4px">
+      <span class="small muted">Stoff:</span>
+      <div class="seg" id="cEps">
+        <button data-e="1" class="on">Luft (1)</button><button data-e="2.2">Öl (2,2)</button><button data-e="6">Glas (6)</button><button data-e="81">Wasser (81)</button>
+      </div>
+      <button class="btn" id="cDouble">Abstand verdoppeln</button>
+    </div>
+    <div class="readout">
+      <div><small>Kraft F</small><b id="cF">–</b></div>
+      <div><small>Wirkung</small><b id="cW" class="verdict">–</b></div>
+      <div><small>Vergleich</small><b id="cG" style="font-size:1rem">–</b></div>
+    </div>
+  </div>
+  <p class="small muted">Startwerte = Beispiel b) aus dem Unterricht: zwei Kugeln mit je 10&nbsp;nC im Abstand 5&nbsp;cm.</p>
+</section>
+
+<section class="block" id="beispiele">
+  <h2><span class="num">6</span>Beispiele (wie im Heft)</h2>
+  <div class="beispiel"><span class="tag">Beispiel b):</span>Zwei Kugeln mit je \(10\ \text{nC}\) haben einen Abstand von \(5\ \text{cm}\). Berechne die Kraft.</div>
+  <div class="gbox">
+    <p>geg.: \(r = 5\ \text{cm} = 0{,}05\ \text{m}\) · \(Q_1 = Q_2 = 10\ \text{nC} = 10\cdot10^{-9}\ \text{C} = 1\cdot10^{-8}\ \text{C}\) · \(\varepsilon_r = 1\)</p>
+    <p>ges.: \(F\)</p>
+    <p>\(F = \dfrac{1}{4\pi\,\varepsilon_0\,\varepsilon_r}\cdot\dfrac{Q_1\cdot Q_2}{r^2}\)</p>
+    <p>\(F = \dfrac{1}{4\pi\cdot 8{,}854\cdot10^{-12}\,\frac{\text{As}}{\text{Vm}}\cdot 1}\cdot\dfrac{(1\cdot10^{-8}\ \text{C})^2}{(0{,}05\ \text{m})^2}\)</p>
+    <p>\(F = 8{,}99\cdot10^{9}\ \tfrac{\text{Nm}^2}{\text{C}^2}\cdot\dfrac{1\cdot10^{-16}\ \text{C}^2}{2{,}5\cdot10^{-3}\ \text{m}^2} \approx 3{,}6\cdot10^{-4}\ \text{N}\)</p>
+  </div>
+  <p class="answer">Die Kugeln stoßen sich mit einer Kraft von etwa 0,36&nbsp;mN ab (gleichnamige Ladungen).</p>
+  <div class="warn"><b>Achtung beim Umrechnen</b>\(10\ \text{nC} = 10\cdot10^{-9}\ \text{C} = 1\cdot10^{-8}\ \text{C}\) – nicht \(1\cdot10^{-9}\ \text{C}\)! Mit dem falschen Wert käme die Kraft 100-mal zu klein heraus (\(3{,}6\cdot10^{-6}\ \text{N}\)), weil die Ladung im Quadrat eingeht.</div>
+  <div class="tip"><b>Einheiten prüfen</b>\(\dfrac{\text{C}^2}{\frac{\text{As}}{\text{Vm}}\cdot\text{m}^2} = \dfrac{\text{A}^2\text{s}^2\cdot\text{Vm}}{\text{As}\cdot\text{m}^2} = \dfrac{\text{V}\cdot\text{A}\cdot\text{s}}{\text{m}} = \dfrac{\text{J}}{\text{m}} = \text{N}\) ✓</div>
+</section>
+
+<section class="block" id="gravitation">
+  <h2><span class="num">7</span>Vergleich mit der Gravitation</h2>
+  <p>Das Coulomb-Gesetz sieht aus wie Newtons Gravitationsgesetz – nur mit Ladungen statt Massen:</p>
+  <div class="scroll-x">
+  <table class="table">
+    <tr><th></th><th>Coulomb-Kraft</th><th>Gewichtskraft (Gravitation)</th></tr>
+    <tr><td>Formel</td><td>\(F = \frac{1}{4\pi\varepsilon_0}\cdot\frac{Q_1 Q_2}{r^2}\)</td><td>\(F = G\cdot\frac{m_1 m_2}{r^2}\)</td></tr>
+    <tr><td>Abhängigkeit vom Abstand</td><td>\(\sim \frac{1}{r^2}\)</td><td>\(\sim \frac{1}{r^2}\)</td></tr>
+    <tr><td>Richtung</td><td>Anziehung <b>oder</b> Abstoßung</td><td>immer Anziehung</td></tr>
+    <tr><td>Stärke im Wasserstoffatom</td><td>\(8{,}2\cdot10^{-8}\ \text{N}\)</td><td>\(3{,}6\cdot10^{-47}\ \text{N}\)</td></tr>
+  </table>
+  </div>
+  <p>Zwischen Proton und Elektron ist die elektrische Kraft also rund \(2\cdot10^{39}\)-mal stärker als die Gravitation. Dass wir im Alltag kaum elektrische Kräfte spüren, liegt nur daran, dass fast alles neutral ist.</p>
+</section>
+
+<section class="block" id="fehler">
+  <h2><span class="num">8</span>Typische Fehler</h2>
+  <div class="warn"><b>1. Einheiten nicht umgerechnet</b>Immer zuerst in C und m umrechnen: nC → \(10^{-9}\) C, µC → \(10^{-6}\) C, cm → \(10^{-2}\) m, mm → \(10^{-3}\) m.</div>
+  <div class="warn"><b>2. \(r^2\) vergessen</b>Der Abstand steht im Quadrat im Nenner – auch beim Kopfrechnen: halber Abstand → vierfache Kraft.</div>
+  <div class="warn"><b>3. Vorzeichen und Betrag vermischt</b>Für den Betrag mit positiven Werten rechnen, die Richtung (Anziehung/Abstoßung) dazuschreiben.</div>
+  <div class="warn"><b>4. „Positiv = Protonen kommen dazu“</b>Bewegen können sich nur Elektronen. Positiv geladen bedeutet: Elektronen <b>fehlen</b>.</div>
+  <div class="warn"><b>5. Antwortsatz fehlt</b>Wie im Heft: geg. · ges. · Formel · Einsetzen mit Einheiten · Ergebnis · Antwortsatz.</div>
+</section>
+
+<section class="block" id="check">
+  <h2><span class="num">9</span>Kurz-Check</h2>
+  <div class="card">
+    <p><b>1.</b> Ein Körper ist negativ geladen. Was bedeutet das?</p>
+    <div class="check">
+      <button>Er hat zu viele Protonen.</button>
+      <button data-ok="1">Er hat Elektronen zu viel.</button>
+      <button>Ihm fehlen Elektronen.</button>
+      <p class="why">Negativ = Überschuss an Elektronen. Protonen sitzen fest im Kern und wandern nicht.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p><b>2.</b> Der Abstand zweier Ladungen wird halbiert. Wie ändert sich die Kraft?</p>
+    <div class="check">
+      <button>Sie halbiert sich.</button>
+      <button>Sie verdoppelt sich.</button>
+      <button data-ok="1">Sie wird 4-mal so groß.</button>
+      <p class="why">\(F \sim \frac{1}{r^2}\): \(\left(\frac{1}{1/2}\right)^2 = 4\).</p>
+    </div>
+  </div>
+  <div class="card">
+    <p><b>3.</b> Wie viel sind \(25\ \text{nC}\) in Coulomb?</p>
+    <div class="check">
+      <button>\(25\cdot10^{-6}\ \text{C}\)</button>
+      <button data-ok="1">\(2{,}5\cdot10^{-8}\ \text{C}\)</button>
+      <button>\(2{,}5\cdot10^{-9}\ \text{C}\)</button>
+      <p class="why">n = \(10^{-9}\): \(25\cdot10^{-9} = 2{,}5\cdot10^{-8}\).</p>
+    </div>
+  </div>
+  <div class="card">
+    <p><b>4.</b> Was zeigt das Elektroskop an?</p>
+    <div class="check">
+      <button data-ok="1">Ob und wie stark ein Körper geladen ist</button>
+      <button>Die Stromstärke in einem Kabel</button>
+      <button>Die Richtung der Feldlinien</button>
+      <p class="why">Gleichnamig geladene Zeiger stoßen sich ab – je mehr Ladung, desto größer der Ausschlag. Das Vorzeichen zeigt es nicht an.</p>
+    </div>
+  </div>
+  <p class="small muted">Mehr Übung: <b>Aufgaben</b> zu diesem Thema und der <b>Mini-Test</b> mit Multiple-Choice-Fragen.</p>
+</section>
+
+<p class="foot">Study Hub · Physik 11.1 · Elektrische Ladung und Coulomb-Gesetz</p>
+</div>
+
+<script>
+(function () {
+  var e = 1.602e-19, k = 8.99e9;
+  function sci(x, d) {
+    if (x === 0) return "0";
+    var ex = Math.floor(Math.log10(Math.abs(x))), m = x / Math.pow(10, ex);
+    if (Math.abs(m) >= 9.995) { m /= 10; ex++; }
+    var s = m.toFixed(d === undefined ? 2 : d).replace(".", ",");
+    return ex === 0 ? s : s + " · 10" + sup(ex);
+  }
+  function sup(n) { return String(n).split("").map(function (c) { return "⁰¹²³⁴⁵⁶⁷⁸⁹"["0123456789".indexOf(c)] || (c === "-" ? "⁻" : c); }).join(""); }
+  function nc(v) { return (v > 0 ? "+" : v < 0 ? "−" : "") + String(Math.abs(v)).replace(".", ",") + " nC"; }
+
+  // Elektronen-Rechner
+  var nQ = document.getElementById("nQ");
+  function nUpd() {
+    var v = +nQ.value, Q = v * 1e-9, N = Math.abs(Q) / e;
+    document.getElementById("nQo").textContent = nc(v);
+    document.getElementById("nC").textContent = (v < 0 ? "−" : "") + sci(Math.abs(Q)) + " C";
+    document.getElementById("nN").textContent = v === 0 ? "0" : sci(N);
+    document.getElementById("nW").textContent = v > 0 ? "Elektronen fehlen" : v < 0 ? "Elektronen zu viel" : "neutral";
+  }
+  nQ.addEventListener("input", nUpd); nUpd();
+
+  // Coulomb-Labor
+  var q1 = document.getElementById("cQ1"), q2 = document.getElementById("cQ2"), rr = document.getElementById("cR");
+  var eps = 1;
+  function setBall(g, x, q) {
+    g.setAttribute("transform", "translate(" + x + " 100)");
+    var c = g.querySelector("circle"), t = g.querySelector("text");
+    var rad = 14 + Math.sqrt(Math.abs(q)) * 3.2;
+    c.setAttribute("r", rad);
+    c.setAttribute("class", q >= 0 ? "pos" : "neg");
+    c.style.opacity = q === 0 ? 0.35 : 1;
+    t.textContent = q > 0 ? "+" : q < 0 ? "−" : "0";
+  }
+  function upd() {
+    var Q1 = +q1.value, Q2 = +q2.value, r = +rr.value;
+    document.getElementById("cQ1o").textContent = nc(Q1);
+    document.getElementById("cQ2o").textContent = nc(Q2);
+    document.getElementById("cRo").textContent = String(r).replace(".", ",") + " cm";
+    var F = k * Math.abs(Q1 * 1e-9 * Q2 * 1e-9) / Math.pow(r / 100, 2) / eps;
+    // positions: distance on screen grows with r (1–30 cm → 90–470 px)
+    var half = (90 + (r - 1) / 29 * 380) / 2, x1 = 320 - half, x2 = 320 + half;
+    setBall(document.getElementById("cK1"), x1, Q1);
+    setBall(document.getElementById("cK2"), x2, Q2);
+    var d = document.getElementById("cDist");
+    d.setAttribute("x1", x1); d.setAttribute("x2", x2);
+    document.getElementById("cDistT").textContent = "r = " + String(r).replace(".", ",") + " cm";
+    // arrow length on a log scale (1e-9 N … 1 N → 12 … 120 px)
+    var len = F > 0 ? Math.max(12, Math.min(120, (Math.log10(F) + 9) / 9 * 108 + 12)) : 0;
+    var rep = Q1 * Q2 > 0, r1 = 14 + Math.sqrt(Math.abs(Q1)) * 3.2, r2 = 14 + Math.sqrt(Math.abs(Q2)) * 3.2;
+    var a1 = document.getElementById("cA1"), a2 = document.getElementById("cA2");
+    if (F === 0) { a1.setAttribute("d", ""); a2.setAttribute("d", ""); }
+    else if (rep) {
+      a1.setAttribute("d", "M" + (x1 - r1 - 4) + " 100 h" + (-len));
+      a2.setAttribute("d", "M" + (x2 + r2 + 4) + " 100 h" + len);
+    } else {
+      var room = Math.max(8, (x2 - x1 - r1 - r2) / 2 - 8), l = Math.min(len, room);
+      a1.setAttribute("d", "M" + (x1 + r1 + 4) + " 100 h" + l);
+      a2.setAttribute("d", "M" + (x2 - r2 - 4) + " 100 h" + (-l));
+    }
+    document.getElementById("cF").textContent = F === 0 ? "0 N" : sci(F) + " N";
+    document.getElementById("cW").textContent = F === 0 ? "keine Kraft" : rep ? "Abstoßung" : "Anziehung";
+    var g = F / (0.001 * 9.81);
+    document.getElementById("cG").textContent = F === 0 ? "–" : "≈ Gewicht von " + (g >= 1 ? g.toFixed(g >= 10 ? 0 : 1).replace(".", ",") + " g" : (g * 1000).toFixed(g * 1000 >= 10 ? 0 : 1).replace(".", ",") + " mg");
+  }
+  [q1, q2, rr].forEach(function (i) { i.addEventListener("input", upd); });
+  document.querySelectorAll("#cEps button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("#cEps button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      eps = +b.dataset.e; upd();
+    });
+  });
+  document.getElementById("cDouble").addEventListener("click", function () {
+    rr.value = Math.min(30, +rr.value * 2); upd();
+  });
+  upd();
+})();
+</script>
+</body>
+</html>
